@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quarks - ciência por diversão</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="image/QUARKS.logotipofun.png" />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <header>
+        <img id="logoEstatica" src="image/QUARKS.logotipofun_dark.png" alt="Logo Quarks" />
+
+        <video id="logoAnimated" autoplay muted disablePictureInPicture>
+            <source src="image/logoAnimada1.webm" type="video/webm">
+            <source src="image/logoAnimada2.mp4" type="video/mp4">
+            Seu navegador não suporta os formatos de vídeo WebM ou MP4.
+        </video>
+
+        <div id="allLetras">
+            <div id="letrasContainer">
+                <span class="letra" id="letraC">C</span>
+                <span class="letra" id="letraP">P</span>
+                <span class="letra" id="letraD">D</span>
+            </div>
+            <div id="letrasContainer2">
+                <span class="letra2" id="letraI">i</span>
+                <span class="letra2" id="letraE">ê</span>
+                <span class="letra2" id="letraN">n</span>
+                <span class="letra2" id="letraC2">c</span>
+                <span class="letra2" id="letraI2">i</span>
+                <span class="letra2" id="letraA">a</span>
+            </div>
+            <div id="letrasContainer3">
+                <span class="letra3" id="letraO">o</span>
+                <span class="letra3" id="letraR">r</span>
+            </div>
+            <div id="letrasContainer4">
+                <span class="letra4" id="letraI3">i</span>
+                <span class="letra4" id="letraV">v</span>
+                <span class="letra4" id="letraE2">e</span>
+                <span class="letra4" id="letraR2">r</span>
+                <span class="letra4" id="letraS">s</span>
+                <span class="letra4" id="letraA2">ã</span>
+                <span class="letra4" id="letraO2">o</span>
+            </div>
+        </div>
+
+        <nav class="desktop-nav">
+            <a href="#begin"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-earth"><path d="M21.54 15H17a2 2 0 0 0-2 2v4.54"/><path d="M7 3.34V5a3 3 0 0 0 3 3a2 2 0 0 1 2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2c0-1.1.9-2 2-2h3.17"/><path d="M11 21.95V18a2 2 0 0 0-2-2a2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05"/><circle cx="12" cy="12" r="10"/></svg></svg>Home<span></span></a>
+            <a href="#portfolio"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-stack"><path d="M21 7h-3a2 2 0 0 1-2-2V2"/><path d="M21 6v6.5c0 .8-.7 1.5-1.5 1.5h-7c-.8 0-1.5-.7-1.5-1.5v-9c0-.8.7-1.5 1.5-1.5H17Z"/><path d="M7 8v8.8c0 .3.2.6.4.8.2.2.5.4.8.4H15"/><path d="M3 12v8.8c0 .3.2.6.4.8.2.2.5.4.8.4H11"/></svg>Portfólio<span></span></a>
+            <a href="#partner"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bolt"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><circle cx="12" cy="12" r="4"/></svg>Parceiros<span></span></a>
+            <a href="#transparence"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-blend"><circle cx="9" cy="9" r="7"/><circle cx="15" cy="15" r="7"/></svg>Transparência<span></span></a>
+            <a href="#participe"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-atom"><circle cx="12" cy="12" r="1"/><path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z"/><path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z"/></svg>Participe<span></span></a>
+            <a href="#about"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-orbit"><circle cx="12" cy="12" r="3"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><path d="M10.4 21.9a10 10 0 0 0 9.941-15.416"/><path d="M13.5 2.1a10 10 0 0 0-9.841 15.416"/></svg>Sobre<span></span></a>
+            <a href="#contact-form"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-satellite"><path d="M13 7 9 3 5 7l4 4"/><path d="m17 11 4 4-4 4-4-4"/><path d="m8 12 4 4 6-6-4-4Z"/><path d="m16 8 3-3"/><path d="M9 21a6 6 0 0 0-6-6"/></svg>Contato<span></span></a>
+        </nav>
+    </header>
+
+    <div id="menu-icon" class="menu-icon" onclick="toggleMenu()">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+     </div>
+
+    <div id="sidenav" class="sidenav">
+            <a href="#begin"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-earth"><path d="M21.54 15H17a2 2 0 0 0-2 2v4.54"/><path d="M7 3.34V5a3 3 0 0 0 3 3a2 2 0 0 1 2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2c0-1.1.9-2 2-2h3.17"/><path d="M11 21.95V18a2 2 0 0 0-2-2a2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05"/><circle cx="12" cy="12" r="10"/></svg></svg>Home</a>
+            <a href="#portfolio"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-stack"><path d="M21 7h-3a2 2 0 0 1-2-2V2"/><path d="M21 6v6.5c0 .8-.7 1.5-1.5 1.5h-7c-.8 0-1.5-.7-1.5-1.5v-9c0-.8.7-1.5 1.5-1.5H17Z"/><path d="M7 8v8.8c0 .3.2.6.4.8.2.2.5.4.8.4H15"/><path d="M3 12v8.8c0 .3.2.6.4.8.2.2.5.4.8.4H11"/></svg>Portfólio</a>
+            <a href="#partner"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bolt"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><circle cx="12" cy="12" r="4"/></svg>Parceiros</a>
+            <a href="#transparence"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-blend"><circle cx="9" cy="9" r="7"/><circle cx="15" cy="15" r="7"/></svg>Transparência</a>
+            <a href="#participe"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-atom"><circle cx="12" cy="12" r="1"/><path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z"/><path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z"/></svg>Participe</a>
+            <a href="#about"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-orbit"><circle cx="12" cy="12" r="3"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><path d="M10.4 21.9a10 10 0 0 0 9.941-15.416"/><path d="M13.5 2.1a10 10 0 0 0-9.841 15.416"/></svg>Sobre</a>
+            <a href="#contact-form"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-satellite"><path d="M13 7 9 3 5 7l4 4"/><path d="m17 11 4 4-4 4-4-4"/><path d="m8 12 4 4 6-6-4-4Z"/><path d="m16 8 3-3"/><path d="M9 21a6 6 0 0 0-6-6"/></svg>Contato</a>
+    </div>
+
+    <!-- carousel -->
+    <section id="begin" class="carousel">
+        <!-- list item -->
+        <div class="list">
+
+            <div class="item">
+                <img src="image/img1.jpg">
+                <div class="content">
+                    <div class="author">LUNDEV</div>
+                    <div class="title">DESIGN SLIDER</div>
+                    <div class="topic">ANIMAL</div>
+                    <div class="des">
+                        <!-- lorem 50 -->
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo, laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="image/img2.jpg">
+                <div class="content">
+                    <div class="author">LUNDEV</div>
+                    <div class="title">DESIGN SLIDER</div>
+                    <div class="topic">ANIMAL</div>
+                    <div class="des">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo, laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="image/img3.jpg">
+                <div class="content">
+                    <div class="author">LUNDEV</div>
+                    <div class="title">DESIGN SLIDER</div>
+                    <div class="topic">ANIMAL</div>
+                    <div class="des">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo, laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="image/img4.jpg">
+                <div class="content">
+                    <div class="author">LUNDEV</div>
+                    <div class="title">DESIGN SLIDER</div>
+                    <div class="topic">ANIMAL</div>
+                    <div class="des">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo, laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <!-- list thumnail -->
+        <div class="thumbnail">
+            <div class="item">
+                <img src="image/img1.jpg">
+            </div>
+            <div class="item">
+                <img src="image/img2.jpg">  
+            </div>
+            <div class="item">
+                <img src="image/img3.jpg">
+            </div>
+            <div class="item">
+                <img src="image/img4.jpg">
+            </div>
+        </div>
+        <!-- next prev -->
+
+        <!-- Botões com ícones SVG -->
+        <div class="arrows">
+            <button id="prev">
+                <svg width="24" height="24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <button id="next">
+                <svg width="24" height="24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 5l7 7-7 7"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- time running -->
+        <div class="time"></div>
+        <div class="time-reverse"></div> <!-- Nova barra de progresso -->
+    </section>
+
+<!-- Map Brazil-Sergipe -->
+    <section class="mapBS">
+        <div class="fText">
+            <h1>A educação básica de <span style="color: #00FFFF">Sergipe</span> está crescente!</h1>
+            <p>O Índice de Desenvolvimento da Educação Básica (IDEB), pontuado de zero a dez, mede a qualidade do ensino fundamental e médio nos estados do Brasil baseado em dois principais fatores: <span style="color: #f1683a">Desempenho</span> dos alunos em avaliações nacionais & Taxa de <span style="color: #f1683a">aprovação</span> escolar.</p>
+        </div>
+
+        <img src="image/MBS.svg">
+
+        <h3>Os dados mais recentes (2023) revelam que <span style="color: #00FFFF">Sergipe</span> ainda está com a nota um pouco abaixo da média nacional nas três categorias!</h3>
+
+        <div class="chart-container">
+            <div class="bar-group">
+                <div class="category-label">Fundamental I</div>
+                <div class="bars">
+                    <div class="Sbar">
+                        <h4>Sergipe</h4>
+                        <div id="EF1S" class="bar sergipe"></div>
+                        <h5 id="EF1NS">5.6</h5>
+                    </div>
+                    <div class="Bbar">
+                        <h4>Brasil</h4>
+                        <div id="EF1B" class="bar brasil"></div>
+                        <h5 id="EF1NB">6.0</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="bar-group">
+                <div class="category-label">Fundamental II</div>
+                <div class="bars">
+                    <div class="Sbar">
+                        <h4>Sergipe</h4>
+                        <div id="EF2S" class="bar sergipe"></div>
+                        <h5 id="EF2NS">4.4</h5>
+                    </div>
+                    <div class="Bbar">
+                        <h4>Brasil</h4>
+                        <div id="EF2B" class="bar brasil"></div>
+                        <h5 id="EF2NB">5.0</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="bar-group">
+                <div class="category-label">Médio</div>
+                <div class="bars">
+                    <div class="Sbar">
+                        <h4>Sergipe</h4>
+                        <div id="EMS" class="bar sergipe"></div>
+                        <h5 id="EMNS">4.0</h5>
+                    </div>
+                    <div class="Bbar">
+                        <h4>Brasil</h4>
+                        <div id="EMB" class="bar brasil"></div>
+                        <h5 id="EMNB">4.3</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="solutions">
+        <h1 class="tFS">Essa realidade pode ser transformada com o ensino experimental – o método <span style="color: #c13838;">'mão na massa'</span></h1>
+
+        <div class="descripSol">
+            <img class="descripSI" src="image/EE.png">
+            <p class="sTS">Embora o método <span style="color: #c13838;">'Mão na Massa'</span> seja amplamente reconhecido, sua implementação enfrenta barreiras. Mesmo em escolas que  possuem recursos para <span style="color: #c13838;">aulas experimentais de qualidade</span>, os equipamentos correm o risco de estarem inativos devido a falta de <span style="color: #c13838;">Atividades Experimentais</span> que atendam a <span style="color: #c13838;">real demanda dos educadores</span>. Esta condição compromete a aplicação da experimentação como <span style="color: #c13838;">recurso pedagógico</span></p>
+        </div>
+
+        <h3 style="text-align: center;color: #c13838;">Os benefícios da aprendizagem experimental são <span style="color: #FFFFEE;">consolidados</span> através de diveros estudos científicos, que validam:</h3>
+
+        <div class="explainST">
+            <h3 class="explainSt">Desempenho geral</h3>
+            <h3 class="explainSt">Desempenho de Alunos com Baixo Rendimento</h3>
+            <h3 class="explainSt">Engajamento</h3>
+            <h3 class="explainSt">Habilidade Sociais e Colaborativas</h3>
+            <h3 class="explainSt">Motivação</h3>
+            <h3 class="explainSt">Resolução de Problemas Reais</h3>
+            <h3 class="explainSt">Retenção de Informação</h3>            
+            
+        </div>
+
+        <h4 style="text-align: center; margin-top: 15px; color: #C13838;">Alguns estudos científicos nacionais</h4>
+        <div class="SciDocMax0">
+            <div class="SciDoc-container0">
+                <div class="SciDoc0" id="SciDoc0"></div>
+            </div>
+        </div>
+
+        <h4 style="text-align: center; margin-top: 15px; color: #C13838;">Alguns estudos científicos internacionais</h4>
+        <div class="SciDocMax">
+            <div class="SciDoc-container">
+                <div class="SciDoc" id="SciDoc"></div>
+            </div>
+        </div>
+
+        <h2 class="tFS" style="margin-top: 50px;">Por comparação, o ensino tradicional se torna <span style="color: #FFFFEE;">obsoleto</span></h2>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th><img src="image/ET.png" alt="Ensino Tradicional" class="header-image"></th>
+                        <th><span>vs</span></th>
+                        <th><img src="image/EMNM.png" alt="Ensino Experimental" style="transform: translateY(10px);" class="header-image"></th>
+                    </tr>
+                    <tr>
+                        <th style="background-color: #41687e;">Aprendizagem Tradicional</th>
+                        <th style="background-color: transparent;">Aspecto</th>
+                        <th style="background-color: #1753db;">Aprendizagem Experimental</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Aulas expositivas e exercícios repetitivos</td>
+                        <td class="empty-header-central">Metodologia</td>
+                        <td>Atividades práticas, experimentação e resolução de problemas reais</td>
+                    </tr>
+                    <tr>
+                        <td>Participação passiva: o aluno é receptor de informações</td>
+                        <td class="empty-header-central">Engajamento do Aluno</td>
+                        <td>Participação ativa: o aluno é protagonista do processo de aprendizagem</td>
+                    </tr>
+                    <tr>
+                        <td>Ênfase em habilidades cognitivas básicas, como memorização</td>
+                        <td class="empty-header-central">Desenvolvimento de Habilidades</td>
+                        <td>Desenvolvimento de habilidades científicas, como investigação e pensamento crítico</td>
+                    </tr>
+                    <tr>
+                        <td>Pode ser desmotivador devido à falta de conexão com a realidade do aluno</td>
+                        <td class="empty-header-central">Motivação</td>
+                        <td>Aumenta a motivação ao relacionar o aprendizado com situações do cotidiano</td>
+                    </tr>
+                    <tr>
+                        <td>Pouca ênfase no desenvolvimento do pensamento crítico e analítico</td>
+                        <td class="empty-header-central">Pensamento Crítico</td>
+                        <td>Estimula o pensamento crítico e a capacidade de análise através da investigação</td>
+                    </tr>
+                    <tr>
+                        <td>Conhecimento teórico que pode ser desconectado da prática</td>
+                        <td class="empty-header-central">Aplicabilidade</td>
+                        <td>Conhecimento aplicado, facilitando a compreensão e a retenção de informações</td>
+                    </tr>
+                    <tr>
+                        <td>Foco em provas e testes tradicionais</td>
+                        <td class="empty-header-central">Avaliação</td>
+                        <td>Avaliação contínua baseada em projetos, apresentações e relatórios de pesquisa</td>
+                    </tr>
+                    <tr>
+                        <td>Pouca ênfase no desenvolvimento de competências transversais</td>
+                        <td class="empty-header-central">Desenvolvimento de Competências</td>
+                        <td>Desenvolvimento de competências como trabalho em equipe, comunicação e resolução de problemas</td>
+                    </tr>
+                    <tr>
+                        <td>Abordagem uniforme que pode não atender às necessidades individuais</td>
+                        <td class="empty-header-central">Adaptação às Necessidades do Aluno</td>
+                        <td>Flexibilidade para atender às diferentes necessidades e estilos de aprendizagem</td>
+                    </tr>
+                    <tr>
+                        <td>Ensino segmentado, com pouca integração entre disciplinas</td>
+                        <td class="empty-header-central">Integração de Conteúdos</td>
+                        <td>Integração interdisciplinar, promovendo uma visão holística do conhecimento</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="implementation">
+        <h1>O <span style="color: #c13838;">Quarks</span> está empenhado em <span style="color: #1C73A9;">transformar</span> a educação em <span style="color: #00FFFF;">Sergipe</span>, criando <span style="color: #c13838;">oportunidades reais de mudança</span>!</h1>
+
+        <div class="stepImplement">
+            <p class="StepP">
+                Sabemos que a limitação de recursos tem sido um grande obstáculo para a educação, e, infelizmente, não há uma perspectiva de mudanças significativas no curto prazo. Por isso, propomos uma solução acessível e eficaz: a implementação de oficinas experimentais de baixo custo, totalmente alinhadas às exigências da BNCC.
+            </p>
+
+            <p class="StepP">
+                Educação de qualidade não precisa ser cara. Acreditamos que é possível oferecer ensino de excelência sem sobrecarregar o orçamento. Chega de investir em equipamentos caros que são usados uma única vez! Queremos mudar isso com soluções práticas e sustentáveis.
+            </p>
+
+            <p class="StepP">
+                Nosso objetivo é fornecer ferramentas experimentais simples e acessíveis, acompanhadas de materiais instrucionais completos, com oficinas e atividades práticas que atendam aos requisitos da BNCC, capacitando educadores do Ensino Fundamental e Médio. Abraçando as ferramentas acessíveis e reutilizáveis, que permitem a realização de diversas atividades ao longo do ano e ajudam a desenvolver as habilidades dos estudantes Sergipanos de maneira constante e eficaz.
+            </p>
+        </div>
+    </div>
+
+    <!-- Seção Portfólio -->
+    <section id="portfolio">
+        <h1 class="titlePort svM"><svg xmlns="http://www.w3.org/2000/svg" transform="scale(1.5)" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-stack"><path d="M21 7h-3a2 2 0 0 1-2-2V2"/><path d="M21 6v6.5c0 .8-.7 1.5-1.5 1.5h-7c-.8 0-1.5-.7-1.5-1.5v-9c0-.8.7-1.5 1.5-1.5H17Z"/><path d="M7 8v8.8c0 .3.2.6.4.8.2.2.5.4.8.4H15"/><path d="M3 12v8.8c0 .3.2.6.4.8.2.2.5.4.8.4H11"/></svg>Portfólio</h1>
+
+        <div class="portTimeline">
+            <div class="timelineP">
+                <div class="checkpointP" id="introP" data-title="Descubra sobre nossos projetos implementados até o momento" data-subtitle="Siga a trilha cronológica e clique no logo do projeto a seguir">
+                    <span class="dotP"><img src="image/QUARKS.logotipofun.png "></span>
+                </div>
+                <div class="checkpointP" data-box="image/ESEF.png" data-title="Energia Sustentável é Fundamental - Edição 2024" data-part="image/cceInfo.png" data-products='["CAPA_ELETROSTATICA.pdf", "CAPA_MAGNETISMO.pdf", "CAPA_ELETROMAGNETISMO.pdf", "CAPA_GERACAO_DE_ENERGIA.pdf"]' data-partner="image/cceInfo.png" data-desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac erat vel nibh volutpat finibus et quis justo. Curabitur viverra velit diam, placerat facilisis urna vestibulum a. Nunc auctor metus ac lectus aliquet, id pulvinar augue efficitur. Proin dignissim mi sit amet nisl maximus, ac volutpat neque euismod. Nunc pellentesque ipsum ut ligula malesuada, a bibendum tortor elementum. Proin non orci magna. Donec commodo cursus odio ut condimentum. Pellentesque porta sem et sem iaculis ornare. Vivamus vel malesuada justo, sed mattis tellus. Morbi ac sollicitudin nisl, sit amet finibus dui. Nam eu maximus erat. In cursus convallis turpis, nec euismod justo congue sit amet. Nullam varius elit sed imperdiet malesuada.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac erat vel nibh volutpat finibus et quis justo. Curabitur viverra velit diam, placerat facilisis urna vestibulum a. Nunc auctor metus ac lectus aliquet, id pulvinar augue efficitur. Proin dignissim mi sit amet nisl maximus, ac volutpat neque euismod. Nunc pellentesque ipsum ut ligula malesuada, a bibendum tortor elementum. Proin non orci magna. Donec commodo cursus odio ut condimentum. Pellentesque porta sem et sem iaculis ornare. Vivamus vel malesuada justo, sed mattis tellus. Morbi ac sollicitudin nisl, sit amet finibus dui. Nam eu maximus erat. In cursus convallis turpis, nec euismod justo congue sit amet. Nullam varius elit sed imperdiet malesuada." data-rel="" deta-bal="">
+                    <span class="dotP"><img src="image/ESEF.png"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-boxPort">
+            <img id="project-imgPort" src="" style="display: none; opacity: 0; width: 50px; margin: 15px 0 10px 0;">
+            <h2 id="project-titlePort" style="margin: 10px 0; text-align: center;">Descubra sobre nossos projetos implementados até o momento</h2>
+            <h4 id="project-subTitlePort" style="font-weight: normal; text-align: center;">Siga a trilha cronológica e clique no logo do projeto a seguir</h4>
+
+            <div class="projectPartner">
+                <h4>Em parceria com</h4>
+                <img id="project-port" src="" style="width: 250px;">
+            </div>
+
+            <div class="products">
+                <h3>Materiais Didáticos Personalizados</h3>
+                <div class="product_images">
+                    <div class="documents-inner1"></div>
+                </div>
+            </div>
+
+            <div class="descriptPjt">
+                <h3>Jornada do Projeto</h3>
+                <p id="project-descPort" style="text-align: justify;"></p>
+            </div>
+
+            <div class="demoTransp">
+                <h3>Demonstrativos Finais</h3>
+                <div class="deReBa">
+                    <div class="documents-inner2">
+                        <div class="document">
+                            <a id="transpRel" href="">Relatório do Projeto</a>
+                        </div>
+                        
+                        <div class="document">
+                            <a id="transpBal" href="">Balanço financeiro do Projeto</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="registerProject">
+                <h3>Registros do Projeto</h3>
+                <div class="galleryMax">
+                    <div class="gallery-container">
+                        <div class="gallery" id="gallery"></div>
+                    </div>
+                </div>
+                
+                <div class="popupGallery" id="popupGallery">
+                    <span class="closeGallery" id="closeGallery">&times;</span>
+                    <span class="arrowGallery left-arrowGallery" id="prevGallery">&#10094;</span>
+                    <img id="popupGallery-img">
+                    <span class="arrowGallery right-arrowGallery" id="nextGallery">&#10095;</span>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Seção Parceiros -->
+    <section id="partner">
+        <h1 class="titlePartner svM"><svg xmlns="http://www.w3.org/2000/svg" transform="scale(1.5)" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bolt"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><circle cx="12" cy="12" r="4"/></svg>Parceiros</h1>
+
+        <div class="textPartMobile">
+                <h1 class="textPartH1Mobile">Alianças que Fazem a Diferença</h1>
+                <h3 class="textPartH3Mobile">Clique na logo no favo para explorar mais detalhes!</h3>
+        </div>
+
+        <div class="agents">
+            <div class="textPart">
+                <h1 class="textPartH1">Alianças que Fazem a Diferença</h1>
+                <h3 class="textPartH3">Clique na logo no favo para explorar mais detalhes!</h3>
+            </div>
+
+            <!-- Janela de Background Color -->
+            <div class="popupPartner">
+                <span class="close-btnPartner">&times;</span>
+                <div class="popupPartner-content">
+                    
+                    <div class="partnership">
+
+                        <div class="infC">
+                            <img src="image/cceInfo.png" alt="Logo Concese">
+                        </div>
+
+                        <div class="who">
+                            <h3 style="text-align: end; transform: translateY(-15px);">Parceiro desde maio de 2024</h3>
+                            <div>
+                                <h4>Site:</h4><a target="_blank" href="https://www.concese.com.br/">www.concese.com.br</a>
+                            </div>
+                            <div>
+                                <h4>Sobre:</h4><p>É um órgão sem personalidade jurídica, de caráter consultivo, formado por representantes das principais classes de consumo, com a incumbência de contribuir para o aprimoramento dos assuntos relacionados à prestação do serviço público de energia elétrica. Detalhadamente, o CONCESE foca nas questões ligadas ao fornecimento de energia elétrica, tarifas e adequados serviços prestados ao consumidor final.</p>
+                            </div>
+                        </div>
+
+                        <div class="firstP">
+                            <h3 style="text-align: center;">Projeto Energia Sustentável é Fundamental</h3>
+                            <div class="firstE">
+                                <h4>Edição 2024</h4>
+                                <h4 style="padding-left: 40px;">Breve descrição: </h4>
+                                <div style="padding-left: 40px; color: #001b1e;">Demonstrativos</div>
+                                <div style="padding-left: 40px; color: #001b1e;">Imagens</div>
+                            </div>
+
+                            <div class="secondE">
+                                <h4>Edição 2025</h4>
+                                <h4 style="padding-left: 40px;">Breve descrição: </h4>
+                                <div style="padding-left: 40px; color: #001b1e;">Demonstrativos</div>
+                                <div style="padding-left: 40px; color: #001b1e;">Imagens</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <svg class="favo" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" 
+                 viewBox="0 0 1263.37 1180.24">
+                <defs>
+                    <style type="text/css">
+                        .str0 {stroke:#FFA500;stroke-width:11.27;stroke-miterlimit:22.9256}
+                    </style>
+                    <!-- Conselho de Consumidores da Energisa -->
+                    <pattern id="imgPatternCCE" patternUnits="objectBoundingBox" width="1" height="1">
+                        <image href="image/cce.png" x="50" y="37" width="190" height="190" preserveAspectRatio="xMidYMid slice" />
+                    </pattern>
+                </defs>
+                <g id="Camada_x0020_1">
+                    <metadata id="CorelCorpID_0Corel-Layer"/>
+                    <g id="_2355922034832">
+                        <polygon class="fil0 str0" points="101.42,512.11 139.54,446.09 177.66,380.06 253.9,380.06 330.15,380.06 368.27,446.09 406.39,512.11 368.27,578.14 330.15,644.17 253.9,644.17 177.66,644.17 139.54,578.14 "/>
+                        <polygon class="fil0 str0" points="351.7,369.36 389.82,303.33 427.94,237.3 504.19,237.3 580.43,237.3 618.55,303.33 656.67,369.36 618.55,435.39 580.43,501.42 504.19,501.42 427.94,501.42 389.82,435.39 "/>
+                        <polygon class="fil0 str0" points="598.28,230.32 636.4,164.29 674.52,98.26 750.76,98.26 827.01,98.26 865.13,164.29 903.25,230.32 865.13,296.34 827.01,362.37 750.76,362.37 674.52,362.37 636.4,296.34 "/>
+                        <polygon class="fil0 str0 maskConcese" style="fill: #ffff72;" points="351.7,654.87 389.82,588.84 427.94,522.81 504.19,522.81 580.43,522.81 618.55,588.84 656.67,654.87 618.55,720.9 580.43,786.93 504.19,786.93 427.94,786.93 389.82,720.9 "/>
+                        <polygon class="fil0 str0 noMaskConcese" style="fill: url(#imgPatternCCE);" points="351.7,654.87 389.82,588.84 427.94,522.81 504.19,522.81 580.43,522.81 618.55,588.84 656.67,654.87 618.55,720.9 580.43,786.93 504.19,786.93 427.94,786.93 389.82,720.9 "/>
+                        <polygon class="fil0 str0" points="598.28,513.97 636.4,447.94 674.52,381.91 750.76,381.91 827.01,381.91 865.13,447.94 903.25,513.97 865.13,580 827.01,646.03 750.76,646.03 674.52,646.03 636.4,580 "/>
+                        <polygon class="fil0 str0" points="844.85,656.72 882.97,590.69 921.09,524.66 997.34,524.66 1073.58,524.66 1111.7,590.69 1149.82,656.72 1111.7,722.75 1073.58,788.78 997.34,788.78 921.09,788.78 882.97,722.75 "/>
+                        <polygon class="fil0 str0" points="598.28,795.77 636.4,729.74 674.52,663.71 750.76,663.71 827.01,663.71 865.13,729.74 903.25,795.77 865.13,861.8 827.01,927.83 750.76,927.83 674.52,927.83 636.4,861.8 "/>
+                        <polygon class="fil0 str0" points="351.7,936.67 389.82,870.64 427.94,804.61 504.19,804.61 580.43,804.61 618.55,870.64 656.67,936.67 618.55,1002.7 580.43,1068.73 504.19,1068.73 427.94,1068.73 389.82,1002.7 "/>
+                        <polygon class="fil0 str0" points="844.85,938.52 882.97,872.49 921.09,806.46 997.34,806.46 1073.58,806.46 1111.7,872.49 1149.82,938.52 1111.7,1004.55 1073.58,1070.58 997.34,1070.58 921.09,1070.58 882.97,1004.55 "/>
+                        <polyline class="fil0 str0" points="92.9,252.1 161.67,371.21 85.43,503.27 0,503.27 "/>
+                        <polyline class="fil0 str0" points="427.8,1089.16 579.33,1089.16 620.29,1177.42 "/>
+                        <polyline class="fil0 str0" points="1165.21,637.61 1096.45,518.5 1158.6,410.84 "/>
+                        <line class="fil0 str0" x1="1162.93" y1="939.58" x2="1263.37" y2= "939.58" />
+                        <polyline class="fil0 str0" points="914.77,210.18 846,91.07 896.96,2.82 "/>
+                        <line class="fil0 str0" x1="372.34" y1="138.14" x2="420.06" y2= "225.79" />
+                    </g>
+                </g>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Seção Transparência -->
+    <section id="transparence">
+        <h1 class="svM"><svg xmlns="http://www.w3.org/2000/svg" transform="scale(1.5)" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-blend"><circle cx="9" cy="9" r="7"/><circle cx="15" cy="15" r="7"/></svg>Transparência</h1>
+        <div class="category">
+            <h2>Institucional</h2>
+            <div class="documents">
+                <div class="documents-inner">
+                    <div class="document" data-pdf="documents/institucional/EDITAL%20DE%20CONVOCAÇÃO%20PARA%20ASSEMBLEIA%20-%20QUARKS%20-%20fundação.pdf">
+                        <canvas></canvas>
+                        <a href="documents/institucional/EDITAL%20DE%20CONVOCAÇÃO%20PARA%20ASSEMBLEIA%20-%20QUARKS%20-%20fundação.pdf" target="_blank">Convocação de Fundação</a>
+                    </div>
+                    <div class="document" data-pdf="documents/institucional/ESTATUTO%20DO%20CLUBE%20-%20QUARKS%20-%20fundação.pdf">
+                        <canvas></canvas>
+                        <a href="documents/institucional/ESTATUTO%20DO%20CLUBE%20-%20QUARKS%20-%20fundação.pdf" target="_blank">Estatuto Social</a>
+                    </div>
+                    <div class="document" data-pdf="documents/institucional/ATA%20DA%20ASSEMBLEIA%20-%20QUARKS%20-%20fundação.pdf">
+                        <canvas></canvas>
+                        <a href="documents/institucional/ATA%20DA%20ASSEMBLEIA%20-%20QUARKS%20-%20fundação.pdf" target="_blank">Ata da Fundação</a>
+                    </div>
+                </div>
+            </div>
+         </div>
+
+        <div class="category">
+            <h2>Finanças</h2>
+            <div class="documents" data-max-visible="3">
+                <div class="documents-inner">
+                    <div class="document" data-info='{"Balanço Anual": "balanco_2024.pdf", "Demonstrativo de Resultado do Exercício": "dre_2024.pdf", "Demonstrativo de Fluxo de Caixa": "dfc_2024.pdf"}'>
+                        <canvas></canvas>
+                        <a class="fPU" href="#">2024</a>
+                    </div>
+                    <div class="document" data-info='{"Balanço Anual": "balanco_2025.pdf", "Demonstrativo de Resultado do Exercício": "dre_2025.pdf", "Demonstrativo de Fluxo de Caixa": "dfc_2025.pdf"}'>
+                        <canvas></canvas>
+                        <a class="fPU" href="#">2025</a>
+                    </div>
+                    <div class="document" data-info='{"Balanço Anual": "balanco_2026.pdf", "Demonstrativo de Resultado do Exercício": "dre_2026.pdf", "Demonstrativo de Fluxo de Caixa": "dfc_2026.pdf"}'>
+                        <canvas></canvas>
+                        <a class="fPU" href="#">2026</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="category">
+            <h2>Projetos</h2>
+            <div class="documents" data-max-visible="3">
+                <div class="documents-inner">
+                    <div class="document" data-info='{"Relatótio de Prestação de Contas": "RPC_P1.pdf", "Balanço de Projeto": "BP1.pdf"}'>
+                        <canvas></canvas>
+                        <a class="pPU" href="#">Energia Sustentável é Fundamental</a>
+                    </div>
+                    <div class="document" data-info='{"Relatótio de Prestação de Contas": "RPC_P2.pdf", "Balanço de Projeto": "BP2.pdf"}'>
+                        <canvas></canvas>
+                        <a class="pPU" href="#">Projeto 01</a>
+                    </div>
+                    <div class="document" data-info='{"Relatótio de Prestação de Contas": "RPC_P3.pdf", "Balanço de Projeto": "BP3.pdf"}'>
+                        <canvas></canvas>
+                        <a class="pPU" href="#">Projeto 02</a>
+                    </div>
+                    <div class="document" data-info='{"Relatótio de Prestação de Contas": "RPC_P4.pdf", "Balanço de Projeto": "BP4.pdf"}'>
+                        <canvas></canvas>
+                        <a class="pPU" href="#">Projeto 03</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category">
+            <h2>Assembleias</h2>
+            <div class="documents" data-max-visible="3">
+                <div class="documents-inner">
+                    <div class="document" data-info='{"Convocação": "conv_1.pdf", "Ata": "ATA_1.pdf"}'>
+                        <canvas></canvas>
+                        <a class="aPU" href="#">Ordinária 2025</a>
+                    </div>
+                    <div class="document" data-info='{"Convocação": "conv_2.pdf", "Ata": "ATA_2.pdf"}'>
+                        <canvas></canvas>
+                        <a class="aPU" href="#">Ordinária 2026</a>
+                    </div>
+                    <div class="document" data-info='{"Convocação": "conv_3.pdf", "Ata": "ATA_3.pdf"}'>
+                        <canvas></canvas>
+                        <a class="aPU" href="#">Ordinária 2027</a>
+                    </div>
+                    <div class="document" data-info='{"Convocação": "conv_3.pdf", "Ata": "ATA_3.pdf"}'>
+                        <canvas></canvas>
+                        <a class="pPU" href="#">Ordinária 2028</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Caixa de mensagem (inicialmente oculta) -->
+        <div id="popup" class="popup hidden">
+            <div class="popup-content">
+                <span id="close-popup">&times;</span>
+                <div id="popup-info"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Participe -->
+     <section id="participe" class="participacao">
+         <h1 class="svM"><svg xmlns="http://www.w3.org/2000/svg" transform="scale(1.5)" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-atom"><circle cx="12" cy="12" r="1"/><path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z"/><path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z"/></svg>Participe</h1>
+
+        <div class="participation">
+
+            <div class="insideParticipation">
+                <h2>Gostaria de Fazer Parte do Quarks?</h2>
+                <h3>Preencha o formulário abaixo para que nossa equipe analise uma oportunidade</h3>
+
+                <form id="formParticipation" action="#" method="POST" enctype="multipart/form-data">
+                    <div class="formPart-group">
+                        <label for="namePart" required>Nome <i>(Obrigatório)</i>:</label>
+                        <input type="text" id="namePart" name="namePart" placeholder="Seu Nome Completo" required>
+                    </div>
+
+                    <div class="formPart-group">
+                        <label for="emailPart" required>E-mail <i>(Obrigatório)</i>:</label>
+                        <input type="email" id="emailPart" name="emailPart" placeholder="seuemail@email.com" required>
+                    </div>
+
+                    <div class="formPart-group">
+                        <label for="phonePart">Número de Telefone <i>(Opcional)</i>:</label>
+                        <input type="tel" id="phonePart" name="phonePart" pattern="\([0-9]{2}\) [0-9]{1} [0-9]{4}-[0-9]{4}" placeholder="Seu número de telefone">
+                    </div>
+
+                    <div class="formPart-group">
+                        <label for="lattes">Currículo Lattes <i>(Obrigatório)</i>:</label>
+                        <input type="text" id="lattes" name="lattes" placeholder="Link do seu currículo Lattes" required>
+                    </div>
+
+                    <div class="formPart-group">
+                        <label for="messagePart" required>Descreva suas motivações e objetivos para atuação no Quarks <i>(Obrigatório)</i>:</label>
+                        <textarea id="messagePart" name="messagePart" rows="5" placeholder="Descreva um pouco de sua atuação profissional, como surgiu o interesse pelo Quarks, suas motivações e quais objetivos gostaria de alcançar conosco." maxlength="10000" required></textarea>
+                        <small id="charPart-count">0/10000 caracteres</small>
+                    </div>
+
+                    <button type="submit">Enviar</button>
+                </form>
+            </div>
+
+            <div class="donateParticipation">
+                <h2>Deseja contribuir com o desenvolvimento e implementação de nossos projetos sociais?</h2>
+
+                <p class="pDonate">
+                    <i>
+                        Sua doação ajuda a transformar vidas por meio de educação, ciência, tecnologia e cidadania.
+                        Somos uma Organização Social registrada, e sua contribuição pode ser deduzida do Imposto de Renda
+                        conforme a legislação vigente (Lei nº 9.250/1995, artigo 12 e Lei nº 9.532/1997, artigo 22, para deduções de doações incentivadas).
+                    </i>
+                </p>
+
+                <div class="donatePix" style="margin: 20px 0 20px 0;">
+                    <h3 class="donateTitles">🔑 Doação via Pix</h3>
+
+                    <p>Escaneie ou copie o QR Code abaixo:</p>
+                    <img src="image/pixXP.png" alt="QR Code para doação via Pix" style="max-width: 150px;">
+                    <button id="copyPixBtn" style="margin: 0 auto; display: block; max-width: 250px;">📋 Copiar Pix Copia e Cola</button>
+                </div>
+
+                <div class="donateTransfer">
+                    <h3 class="donateTitles">🏦 Transferência Bancária</h3>
+
+                    <div class="countsDonate">
+                        <p><strong>XP Investimentos</strong><br>
+                            Banco: 348 - XP Investimentos<br>
+                            Agência: 0001<br>
+                            Conta Corrente: 1729820-9<br>
+                            CNPJ: 57.914.912/0001-96
+                        </p>
+
+                        <p><strong>Cora SCFI</strong><br>
+                            Banco: 403 - Cora SCFI<br>
+                            Agência: 0001<br>
+                            Conta Corrente: 5693327-0<br>
+                            CNPJ: 57.914.912/0001-96
+                        </p>
+                    </div>
+                </div>
+
+                <h3 class="donateTitles">📩 Informações de Registro para Recibo / IR</h3>
+                <!-- Botão que abre o pop-up -->
+                <button onclick="abrirModal()" style="max-width: 450px;">Preencher informações para obter Recibo de Doação</button>
+
+                <!-- Pop-up com o formulário -->
+                <div id="modalRecibo" class="popup">
+                    <div style="padding-top: 0;" class="popup-content">
+                        <span onclick="fecharModal()" id="closeRecibo">&times;</span>                    
+                        <div>
+                            <p class="reciboTitle">Preencha os dados abaixo para receber seu comprovante oficial de doação</p>
+                            <form id="reciboForm" style="padding: 0 20px;" action="#" method="POST" enctype="multipart/form-data">
+                                
+                                <div class="formPart-group" id="nomeGroupTP">
+                                    <label for="tipoPessoa" style="color: #84eaf5;">Tipo de doador:</label>
+                                    <select id="tipoPessoa" name="tipoPessoa" required>
+                                        <option value="" disabled selected hidden>Selecione</option>
+                                        <option value="pf">Pessoa Física</option>
+                                        <option value="pj">Pessoa Jurídica</option>
+                                    </select>
+                                </div>
+
+                                <div class="formPart-group" id="nomeGroupPF">
+                                    <label for="nomePF" style="color: #84eaf5;" >Nome completo:</label>
+                                    <input type="text" id="nomePF" name="nomePF" placeholder="Nome Completo">
+                                </div>
+
+                                <div class="formPart-group" id="nomeGroupPJ" style="display: none;">
+                                    <label for="nomePJ" style="color: #84eaf5;" >Razão Social:</label>
+                                    <input type="text" id="nomePJ" placeholder="Razão Social da Empresa" name="nomePJ">
+                                </div>
+
+                                <div class="formPart-group" id="cpfGroup">
+                                    <label for="cpf" style="color: #84eaf5;">CPF:</label>
+                                    <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" maxlength="14">
+                                </div>
+
+                                <div class="formPart-group" id="cnpjGroup" style="display: none;">
+                                    <label for="cnpj" style="color: #84eaf5;">CNPJ:</label>
+                                    <input type="text" id="cnpj" name="cnpj" placeholder="00.000.000/0000-00" maxlength="18">
+                                </div>
+
+                                <div class="formPart-group">
+                                    <label for="email" style="color: #84eaf5;">E-mail:</label>
+                                    <input type="email" id="email" name="email" placeholder="seuemail@email.com"required>
+                                </div>
+
+                                <div class="formPart-group">
+                                    <label for="valor" style="color: #84eaf5;">Valor doado:</label>
+                                    <input type="text" id="valor" name="valor" placeholder="R$ 0.000.000,00" required>
+                                </div>
+
+                                <button type="submit">📨 Solicitar recibo de doação</button>
+                            </form>
+
+                            <p style="margin-top: 10px; font-size: 0.9rem;">
+                                ✅ Os dados serão usados exclusivamente para a emissão do recibo oficial de doação.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+     </section>
+
+    <!-- Seção Sobre o Quarks -->
+    <section id="about" class="sobre-quarks">
+        <h1 class="svM"><svg xmlns="http://www.w3.org/2000/svg" transform="scale(1.5)" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-orbit"><circle cx="12" cy="12" r="3"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><path d="M10.4 21.9a10 10 0 0 0 9.941-15.416"/><path d="M13.5 2.1a10 10 0 0 0-9.841 15.416"/></svg>Sobre o Quarks</h1>
+        <div class="conteudo">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac erat vel nibh volutpat finibus et quis justo. Curabitur viverra velit diam, placerat facilisis urna vestibulum a. Nunc auctor metus ac lectus aliquet, id pulvinar augue efficitur. Proin dignissim mi sit amet nisl maximus, ac volutpat neque euismod. Nunc pellentesque ipsum ut ligula malesuada, a bibendum tortor elementum. Proin non orci magna. Donec commodo cursus odio ut condimentum. <img src="image/time_quarks.jpeg" title="Todos os integrantes do Quarks" alt="Time Quarks completo" class="imagem-esquerda">Pellentesque porta sem et sem iaculis ornare. Vivamus vel malesuada justo, sed mattis tellus. Morbi ac sollicitudin nisl, sit amet finibus dui. Nam eu maximus erat. In cursus convallis turpis, nec euismod justo congue sit amet. Nullam varius elit sed imperdiet malesuada.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac erat vel nibh volutpat finibus et quis justo. Curabitur viverra velit diam, placerat facilisis urna vestibulum a. Nunc auctor metus ac lectus aliquet, id pulvinar augue efficitur. Proin dignissim mi sit amet nisl maximus, ac volutpat neque euismod. Nunc pellentesque ipsum ut ligula malesuada, a bibendum tortor elementum. Proin non orci magna. Donec commodo cursus odio ut condimentum. Pellentesque porta sem et sem iaculis ornare. Vivamus vel malesuada justo, sed mattis tellus. Morbi ac sollicitudin nisl, sit amet finibus dui. Nam eu maximus erat. In cursus convallis turpis, nec euismod justo congue sit amet. Nullam varius elit sed imperdiet malesuada.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac erat vel nibh volutpat finibus et quis justo. Curabitur viverra velit diam, placerat facilisis urna vestibulum a. Nunc auctor metus ac lectus aliquet, id pulvinar augue efficitur. <img src="image/logo_minimalista.png" title="Logo minimalista do Quarks" alt="Logo minimalista do Quarks" class="imagem-direita">Proin dignissim mi sit amet nisl maximus, ac volutpat neque euismod. Nunc pellentesque ipsum ut ligula malesuada, a bibendum tortor elementum. Proin non orci magna. Donec commodo cursus odio ut condimentum. Pellentesque porta sem et sem iaculis ornare. Vivamus vel malesuada justo, sed mattis tellus. Morbi ac sollicitudin nisl, sit amet finibus dui. Nam eu maximus erat. In cursus convallis turpis, nec euismod justo congue sit amet. Nullam varius elit sed imperdiet malesuada.</p>
+        </div>
+    </section>
+
+    <!-- Seção Nosso Time -->
+    <section class="nosso-time">
+        <h2>Nosso Time</h2>
+        <div class="carrossel">
+            <button class="seta seta-esquerda">
+                <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" transform="rotate(180)" width="2480px" height="3508px" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+                    viewBox="0 0 2350 2900"
+                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+                     <defs>
+                     </defs>
+                     <g id="Camada_x0020_1">
+                      <metadata id="CorelCorpID_0Corel-Layer"/>
+                      <polygon class="fil0" points="985.62,1912.3 991.26,1912.3 991.26,1910.42 995.02,1910.42 995.02,1908.54 996.9,1908.54 996.9,1906.66 1000.66,1906.66 1000.66,1904.78 1002.54,1904.78 1002.54,1902.9 1004.42,1902.9 1004.42,1901.02 1006.3,1901.02 1006.3,1899.14 1008.18,1899.14 1008.18,1897.26 1010.06,1897.26 1010.06,1895.38 1011.94,1895.38 1011.94,1893.5 1013.82,1893.5 1013.82,1891.62 1015.7,1891.62 1015.7,1889.74 1017.58,1889.74 1017.58,1887.86 1019.46,1887.86 1019.46,1885.98 1021.34,1885.98 1021.34,1884.1 1023.22,1884.1 1023.22,1882.22 1025.1,1882.22 1025.1,1880.34 1026.98,1880.34 1026.98,1878.46 1028.86,1878.46 1028.86,1876.58 1030.74,1876.58 1030.74,1874.7 1032.62,1874.7 1032.62,1872.82 1034.5,1872.82 1034.5,1870.94 1036.38,1870.94 1036.38,1869.06 1038.25,1869.06 1038.25,1867.18 1040.13,1867.18 1040.13,1865.3 1042.01,1865.3 1042.01,1863.42 1043.89,1863.42 1043.89,1861.55 1045.77,1861.55 1045.77,1859.67 1047.65,1859.67 1047.65,1857.79 1049.53,1857.79 1049.53,1855.91 1051.41,1855.91 1051.41,1854.03 1053.29,1854.03 1053.29,1852.15 1055.17,1852.15 1055.17,1850.27 1057.05,1850.27 1057.05,1848.39 1058.93,1848.39 1058.93,1846.51 1060.81,1846.51 1060.81,1844.63 1062.69,1844.63 1062.69,1842.75 1064.57,1842.75 1064.57,1840.87 1066.45,1840.87 1066.45,1838.99 1068.33,1838.99 1068.33,1837.11 1070.21,1837.11 1070.21,1835.23 1072.09,1835.23 1072.09,1833.35 1073.97,1833.35 1073.97,1831.47 1075.85,1831.47 1075.85,1829.59 1077.73,1829.59 1077.73,1827.71 1079.61,1827.71 1079.61,1825.83 1081.49,1825.83 1081.49,1823.95 1083.37,1823.95 1083.37,1822.07 1085.25,1822.07 1085.25,1820.19 1087.13,1820.19 1087.13,1818.31 1089.01,1818.31 1089.01,1816.43 1090.89,1816.43 1090.89,1814.55 1092.77,1814.55 1092.77,1812.67 1094.65,1812.67 1094.65,1810.79 1096.53,1810.79 1096.53,1808.91 1098.4,1808.91 1098.4,1807.04 1100.29,1807.04 1100.29,1805.16 1102.17,1805.16 1102.17,1803.28 1104.04,1803.28 1104.04,1801.4 1105.92,1801.4 1105.92,1799.52 1107.8,1799.52 1107.8,1797.64 1109.68,1797.64 1109.68,1795.76 1111.56,1795.76 1111.56,1793.88 1113.44,1793.88 1113.44,1792 1115.32,1792 1115.32,1790.12 1117.2,1790.12 1117.2,1788.24 1119.08,1788.24 1119.08,1786.36 1120.96,1786.36 1120.96,1784.48 1122.84,1784.48 1122.84,1782.6 1124.72,1782.6 1124.72,1780.72 1126.6,1780.72 1126.6,1778.84 1128.48,1778.84 1128.48,1776.96 1130.36,1776.96 1130.36,1775.08 1132.24,1775.08 1132.24,1773.2 1134.12,1773.2 1134.12,1771.32 1136,1771.32 1136,1769.44 1137.88,1769.44 1137.88,1767.56 1139.76,1767.56 1139.76,1765.68 1141.64,1765.68 1141.64,1763.8 1143.52,1763.8 1143.52,1761.92 1145.4,1761.92 1145.4,1760.04 1147.28,1760.04 1147.28,1758.16 1149.16,1758.16 1149.16,1756.28 1151.04,1756.28 1151.04,1754.4 1152.92,1754.4 1152.92,1752.52 1154.8,1752.52 1154.8,1750.64 1156.68,1750.64 1156.68,1748.76 1158.56,1748.76 1158.56,1746.88 1160.43,1746.88 1160.43,1745 1162.31,1745 1162.31,1743.12 1164.19,1743.12 1164.19,1741.25 1166.07,1741.25 1166.07,1739.37 1167.95,1739.37 1167.95,1737.49 1169.83,1737.49 1169.83,1735.61 1171.71,1735.61 1171.71,1733.73 1173.59,1733.73 1173.59,1731.85 1175.47,1731.85 1175.47,1729.97 1177.35,1729.97 1177.35,1728.09 1179.23,1728.09 1179.23,1726.21 1181.11,1726.21 1181.11,1724.33 1182.99,1724.33 1182.99,1722.45 1184.87,1722.45 1184.87,1720.57 1186.75,1720.57 1186.75,1718.69 1188.63,1718.69 1188.63,1716.81 1190.51,1716.81 1190.51,1714.93 1192.39,1714.93 1192.39,1713.05 1194.27,1713.05 1194.27,1711.17 1196.15,1711.17 1196.15,1709.29 1198.03,1709.29 1198.03,1707.41 1199.91,1707.41 1199.91,1705.53 1201.79,1705.53 1201.79,1703.65 1203.67,1703.65 1203.67,1701.77 1205.55,1701.77 1205.55,1699.89 1207.43,1699.89 1207.43,1698.01 1209.31,1698.01 1209.31,1696.13 1211.19,1696.13 1211.19,1694.25 1213.07,1694.25 1213.07,1692.37 1214.95,1692.37 1214.95,1690.49 1216.83,1690.49 1216.83,1688.61 1218.71,1688.61 1218.71,1686.73 1220.59,1686.73 1220.59,1684.86 1222.47,1684.86 1222.47,1682.98 1224.35,1682.98 1224.35,1681.1 1226.22,1681.1 1226.22,1679.22 1228.1,1679.22 1228.1,1677.34 1229.98,1677.34 1229.98,1675.46 1231.86,1675.46 1231.86,1673.58 1233.74,1673.58 1233.74,1671.7 1235.62,1671.7 1235.62,1669.82 1237.5,1669.82 1237.5,1667.94 1239.38,1667.94 1239.38,1666.06 1241.26,1666.06 1241.26,1664.18 1243.14,1664.18 1243.14,1662.3 1245.02,1662.3 1245.02,1660.42 1246.9,1660.42 1246.9,1658.54 1248.78,1658.54 1248.78,1656.66 1250.66,1656.66 1250.66,1654.78 1252.54,1654.78 1252.54,1652.9 1254.42,1652.9 1254.42,1651.02 1256.3,1651.02 1256.3,1649.14 1258.18,1649.14 1258.18,1647.26 1260.06,1647.26 1260.06,1645.38 1261.94,1645.38 1261.94,1643.5 1263.82,1643.5 1263.82,1641.62 1265.7,1641.62 1265.7,1639.74 1267.58,1639.74 1267.58,1637.86 1269.46,1637.86 1269.46,1635.98 1271.34,1635.98 1271.34,1634.1 1273.22,1634.1 1273.22,1632.22 1275.1,1632.22 1275.1,1630.34 1276.98,1630.34 1276.98,1628.46 1278.86,1628.46 1278.86,1626.58 1280.74,1626.58 1280.74,1624.7 1282.61,1624.7 1282.61,1622.82 1284.49,1622.82 1284.49,1620.94 1286.37,1620.94 1286.37,1619.07 1288.25,1619.07 1288.25,1617.19 1290.13,1617.19 1290.13,1615.31 1292.01,1615.31 1292.01,1613.43 1293.89,1613.43 1293.89,1611.55 1295.77,1611.55 1295.77,1609.67 1297.65,1609.67 1297.65,1607.79 1299.53,1607.79 1299.53,1605.91 1301.41,1605.91 1301.41,1604.03 1303.29,1604.03 1303.29,1602.15 1305.17,1602.15 1305.17,1600.27 1307.05,1600.27 1307.05,1598.39 1308.93,1598.39 1308.93,1596.51 1310.81,1596.51 1310.81,1594.63 1312.69,1594.63 1312.69,1592.75 1314.57,1592.75 1314.57,1590.87 1316.45,1590.87 1316.45,1588.99 1318.33,1588.99 1318.33,1587.11 1320.21,1587.11 1320.21,1585.23 1322.09,1585.23 1322.09,1583.35 1323.97,1583.35 1323.97,1581.47 1325.85,1581.47 1325.85,1579.59 1327.73,1579.59 1327.73,1577.71 1329.61,1577.71 1329.61,1575.83 1331.49,1575.83 1331.49,1573.95 1333.37,1573.95 1333.37,1572.07 1335.25,1572.07 1335.25,1570.19 1337.13,1570.19 1337.13,1568.31 1339.01,1568.31 1339.01,1566.43 1340.89,1566.43 1340.89,1564.55 1342.77,1564.55 1342.77,1562.68 1344.65,1562.68 1344.65,1560.8 1346.53,1560.8 1346.53,1558.92 1348.4,1558.92 1348.4,1557.04 1350.28,1557.04 1350.28,1555.16 1352.16,1555.16 1352.16,1553.28 1354.04,1553.28 1354.04,1551.4 1355.92,1551.4 1355.92,1549.52 1357.8,1549.52 1357.8,1547.64 1359.68,1547.64 1359.68,1545.76 1361.56,1545.76 1361.56,1543.88 1363.44,1543.88 1363.44,1542 1365.32,1542 1365.32,1540.12 1367.2,1540.12 1367.2,1538.24 1369.08,1538.24 1369.08,1536.36 1370.96,1536.36 1370.96,1534.48 1372.84,1534.48 1372.84,1532.6 1374.72,1532.6 1374.72,1530.72 1376.6,1530.72 1376.6,1528.84 1378.48,1528.84 1378.48,1526.96 1380.36,1526.96 1380.36,1525.08 1382.24,1525.08 1382.24,1523.2 1384.12,1523.2 1384.12,1521.32 1386,1521.32 1386,1519.44 1387.88,1519.44 1387.88,1517.56 1389.76,1517.56 1389.76,1515.68 1391.64,1515.68 1391.64,1513.8 1393.52,1513.8 1393.52,1511.92 1395.4,1511.92 1395.4,1510.04 1397.28,1510.04 1397.28,1508.16 1399.16,1508.16 1399.16,1506.28 1401.04,1506.28 1401.04,1504.4 1402.91,1504.4 1402.91,1502.52 1404.79,1502.52 1404.79,1500.64 1406.67,1500.64 1406.67,1498.76 1408.55,1498.76 1408.55,1496.89 1410.43,1496.89 1410.43,1495.01 1412.31,1495.01 1412.31,1493.13 1414.19,1493.13 1414.19,1491.25 1416.07,1491.25 1416.07,1489.37 1417.95,1489.37 1417.95,1487.49 1419.83,1487.49 1419.83,1485.61 1421.71,1485.61 1421.71,1483.73 1423.59,1483.73 1423.59,1481.85 1425.47,1481.85 1425.47,1479.97 1427.35,1479.97 1427.35,1478.09 1429.23,1478.09 1429.23,1476.21 1431.11,1476.21 1431.11,1474.33 1432.99,1474.33 1432.99,1472.45 1434.87,1472.45 1434.87,1470.57 1436.75,1470.57 1436.75,1468.69 1438.63,1468.69 1438.63,1466.81 1440.51,1466.81 1440.51,1464.93 1442.39,1464.93 1442.39,1463.05 1444.27,1463.05 1444.27,1461.17 1446.15,1461.17 1446.15,1459.29 1448.03,1459.29 1448.03,1457.41 1449.91,1457.41 1449.91,1453.65 1451.79,1453.65 1451.79,1451.77 1453.67,1451.77 1453.67,1448.01 1455.55,1448.01 1455.55,1442.37 1457.43,1442.37 1457.43,1423.58 1455.55,1423.58 1455.55,1417.94 1453.67,1417.94 1453.67,1414.18 1451.79,1414.18 1451.79,1410.42 1449.91,1410.42 1449.91,1408.54 1448.03,1408.54 1448.03,1406.66 1446.15,1406.66 1446.15,1404.78 1444.27,1404.78 1444.27,1402.9 1442.39,1402.9 1442.39,1401.02 1440.51,1401.02 1440.51,1399.14 1438.63,1399.14 1438.63,1397.26 1436.75,1397.26 1436.75,1395.38 1434.87,1395.38 1434.87,1393.5 1432.99,1393.5 1432.99,1391.62 1431.11,1391.62 1431.11,1389.74 1429.23,1389.74 1429.23,1387.86 1427.35,1387.86 1427.35,1385.98 1425.47,1385.98 1425.47,1384.1 1423.59,1384.1 1423.59,1382.22 1421.71,1382.22 1421.71,1380.34 1419.83,1380.34 1419.83,1378.46 1417.95,1378.46 1417.95,1376.58 1416.07,1376.58 1416.07,1374.71 1414.19,1374.71 1414.19,1372.83 1412.31,1372.83 1412.31,1370.95 1410.43,1370.95 1410.43,1369.07 1408.55,1369.07 1408.55,1367.19 1406.67,1367.19 1406.67,1365.31 1404.79,1365.31 1404.79,1363.43 1402.91,1363.43 1402.91,1361.55 1401.04,1361.55 1401.04,1359.67 1399.16,1359.67 1399.16,1357.79 1397.28,1357.79 1397.28,1355.91 1395.4,1355.91 1395.4,1354.03 1393.52,1354.03 1393.52,1352.15 1391.64,1352.15 1391.64,1350.27 1389.76,1350.27 1389.76,1348.39 1387.88,1348.39 1387.88,1346.51 1386,1346.51 1386,1344.63 1384.12,1344.63 1384.12,1342.75 1382.24,1342.75 1382.24,1340.87 1380.36,1340.87 1380.36,1338.99 1378.48,1338.99 1378.48,1337.11 1376.6,1337.11 1376.6,1335.23 1374.72,1335.23 1374.72,1333.35 1372.84,1333.35 1372.84,1331.47 1370.96,1331.47 1370.96,1329.59 1369.08,1329.59 1369.08,1327.71 1367.2,1327.71 1367.2,1325.83 1365.32,1325.83 1365.32,1323.95 1363.44,1323.95 1363.44,1322.07 1361.56,1322.07 1361.56,1320.19 1359.68,1320.19 1359.68,1318.31 1357.8,1318.31 1357.8,1316.43 1355.92,1316.43 1355.92,1314.55 1354.04,1314.55 1354.04,1312.68 1352.16,1312.68 1352.16,1310.8 1350.28,1310.8 1350.28,1308.92 1348.4,1308.92 1348.4,1307.04 1346.53,1307.04 1346.53,1305.16 1344.65,1305.16 1344.65,1303.28 1342.77,1303.28 1342.77,1301.4 1340.89,1301.4 1340.89,1299.52 1339.01,1299.52 1339.01,1297.64 1337.13,1297.64 1337.13,1295.76 1335.25,1295.76 1335.25,1293.88 1333.37,1293.88 1333.37,1292 1331.49,1292 1331.49,1290.12 1329.61,1290.12 1329.61,1288.24 1327.73,1288.24 1327.73,1286.36 1325.85,1286.36 1325.85,1284.48 1323.97,1284.48 1323.97,1282.6 1322.09,1282.6 1322.09,1280.72 1320.21,1280.72 1320.21,1278.84 1318.33,1278.84 1318.33,1276.96 1316.45,1276.96 1316.45,1275.08 1314.57,1275.08 1314.57,1273.2 1312.69,1273.2 1312.69,1271.32 1310.81,1271.32 1310.81,1269.44 1308.93,1269.44 1308.93,1267.56 1307.05,1267.56 1307.05,1265.68 1305.17,1265.68 1305.17,1263.8 1303.29,1263.8 1303.29,1261.92 1301.41,1261.92 1301.41,1260.04 1299.53,1260.04 1299.53,1258.16 1297.65,1258.16 1297.65,1256.28 1295.77,1256.28 1295.77,1254.4 1293.89,1254.4 1293.89,1252.53 1292.01,1252.53 1292.01,1250.65 1290.13,1250.65 1290.13,1248.77 1288.25,1248.77 1288.25,1246.89 1286.37,1246.89 1286.37,1245.01 1284.49,1245.01 1284.49,1243.13 1282.61,1243.13 1282.61,1241.25 1280.74,1241.25 1280.74,1239.37 1278.86,1239.37 1278.86,1237.49 1276.98,1237.49 1276.98,1235.61 1275.1,1235.61 1275.1,1233.73 1273.22,1233.73 1273.22,1231.85 1271.34,1231.85 1271.34,1229.97 1269.46,1229.97 1269.46,1228.09 1267.58,1228.09 1267.58,1226.21 1265.7,1226.21 1265.7,1224.33 1263.82,1224.33 1263.82,1222.45 1261.94,1222.45 1261.94,1220.57 1260.06,1220.57 1260.06,1218.69 1258.18,1218.69 1258.18,1216.81 1256.3,1216.81 1256.3,1214.93 1254.42,1214.93 1254.42,1213.05 1252.54,1213.05 1252.54,1211.17 1250.66,1211.17 1250.66,1209.29 1248.78,1209.29 1248.78,1207.41 1246.9,1207.41 1246.9,1205.53 1245.02,1205.53 1245.02,1203.65 1243.14,1203.65 1243.14,1201.77 1241.26,1201.77 1241.26,1199.89 1239.38,1199.89 1239.38,1198.01 1237.5,1198.01 1237.5,1196.13 1235.62,1196.13 1235.62,1194.25 1233.74,1194.25 1233.74,1192.37 1231.86,1192.37 1231.86,1190.5 1229.98,1190.5 1229.98,1188.62 1228.1,1188.62 1228.1,1186.74 1226.22,1186.74 1226.22,1184.86 1224.35,1184.86 1224.35,1182.98 1222.47,1182.98 1222.47,1181.1 1220.59,1181.1 1220.59,1179.22 1218.71,1179.22 1218.71,1177.34 1216.83,1177.34 1216.83,1175.46 1214.95,1175.46 1214.95,1173.58 1213.07,1173.58 1213.07,1171.7 1211.19,1171.7 1211.19,1169.82 1209.31,1169.82 1209.31,1167.94 1207.43,1167.94 1207.43,1166.06 1205.55,1166.06 1205.55,1164.18 1203.67,1164.18 1203.67,1162.3 1201.79,1162.3 1201.79,1160.42 1199.91,1160.42 1199.91,1158.54 1198.03,1158.54 1198.03,1156.66 1196.15,1156.66 1196.15,1154.78 1194.27,1154.78 1194.27,1152.9 1192.39,1152.9 1192.39,1151.02 1190.51,1151.02 1190.51,1149.14 1188.63,1149.14 1188.63,1147.26 1186.75,1147.26 1186.75,1145.38 1184.87,1145.38 1184.87,1143.5 1182.99,1143.5 1182.99,1141.62 1181.11,1141.62 1181.11,1139.74 1179.23,1139.74 1179.23,1137.86 1177.35,1137.86 1177.35,1135.98 1175.47,1135.98 1175.47,1134.1 1173.59,1134.1 1173.59,1132.23 1171.71,1132.23 1171.71,1130.35 1169.83,1130.35 1169.83,1128.47 1167.95,1128.47 1167.95,1126.59 1166.07,1126.59 1166.07,1124.71 1164.19,1124.71 1164.19,1122.83 1162.31,1122.83 1162.31,1120.95 1160.43,1120.95 1160.43,1119.07 1158.56,1119.07 1158.56,1117.19 1156.68,1117.19 1156.68,1115.31 1154.8,1115.31 1154.8,1113.43 1152.92,1113.43 1152.92,1111.55 1151.04,1111.55 1151.04,1109.67 1149.16,1109.67 1149.16,1107.79 1147.28,1107.79 1147.28,1105.91 1145.4,1105.91 1145.4,1104.03 1143.52,1104.03 1143.52,1102.15 1141.64,1102.15 1141.64,1100.27 1139.76,1100.27 1139.76,1098.39 1137.88,1098.39 1137.88,1096.51 1136,1096.51 1136,1094.63 1134.12,1094.63 1134.12,1092.75 1132.24,1092.75 1132.24,1090.87 1130.36,1090.87 1130.36,1088.99 1128.48,1088.99 1128.48,1087.11 1126.6,1087.11 1126.6,1085.23 1124.72,1085.23 1124.72,1083.35 1122.84,1083.35 1122.84,1081.47 1120.96,1081.47 1120.96,1079.59 1119.08,1079.59 1119.08,1077.71 1117.2,1077.71 1117.2,1075.83 1115.32,1075.83 1115.32,1073.95 1113.44,1073.95 1113.44,1072.07 1111.56,1072.07 1111.56,1070.2 1109.68,1070.2 1109.68,1068.32 1107.8,1068.32 1107.8,1066.44 1105.92,1066.44 1105.92,1064.56 1104.04,1064.56 1104.04,1062.68 1102.17,1062.68 1102.17,1060.8 1100.29,1060.8 1100.29,1058.92 1098.4,1058.92 1098.4,1057.04 1096.53,1057.04 1096.53,1055.16 1094.65,1055.16 1094.65,1053.28 1092.77,1053.28 1092.77,1051.4 1090.89,1051.4 1090.89,1049.52 1089.01,1049.52 1089.01,1047.64 1087.13,1047.64 1087.13,1045.76 1085.25,1045.76 1085.25,1043.88 1083.37,1043.88 1083.37,1042 1081.49,1042 1081.49,1040.12 1079.61,1040.12 1079.61,1038.24 1077.73,1038.24 1077.73,1036.36 1075.85,1036.36 1075.85,1034.48 1073.97,1034.48 1073.97,1032.6 1072.09,1032.6 1072.09,1030.72 1070.21,1030.72 1070.21,1028.84 1068.33,1028.84 1068.33,1026.96 1066.45,1026.96 1066.45,1025.08 1064.57,1025.08 1064.57,1023.2 1062.69,1023.2 1062.69,1021.32 1060.81,1021.32 1060.81,1019.44 1058.93,1019.44 1058.93,1017.56 1057.05,1017.56 1057.05,1015.68 1055.17,1015.68 1055.17,1013.8 1053.29,1013.8 1053.29,1011.92 1051.41,1011.92 1051.41,1010.04 1049.53,1010.04 1049.53,1008.17 1047.65,1008.17 1047.65,1006.29 1045.77,1006.29 1045.77,1004.41 1043.89,1004.41 1043.89,1002.53 1042.01,1002.53 1042.01,1000.65 1040.13,1000.65 1040.13,998.77 1038.25,998.77 1038.25,996.89 1036.38,996.89 1036.38,995.01 1034.5,995.01 1034.5,993.13 1032.62,993.13 1032.62,991.25 1030.74,991.25 1030.74,989.37 1028.86,989.37 1028.86,987.49 1026.98,987.49 1026.98,985.61 1025.1,985.61 1025.1,983.73 1023.22,983.73 1023.22,981.85 1021.34,981.85 1021.34,979.97 1019.46,979.97 1019.46,978.09 1017.58,978.09 1017.58,976.21 1015.7,976.21 1015.7,974.33 1013.82,974.33 1013.82,972.45 1011.94,972.45 1011.94,970.57 1010.06,970.57 1010.06,968.69 1008.18,968.69 1008.18,966.81 1006.3,966.81 1006.3,964.93 1004.42,964.93 1004.42,963.05 1002.54,963.05 1002.54,961.17 1000.66,961.17 1000.66,959.29 998.78,959.29 998.78,957.41 995.02,957.41 995.02,955.53 991.26,955.53 991.26,953.65 985.62,953.65 985.62,951.77 966.83,951.77 966.83,953.65 961.19,953.65 961.19,955.53 957.43,955.53 957.43,957.41 953.67,957.41 953.67,959.29 951.79,959.29 951.79,961.17 949.91,961.17 949.91,963.05 948.03,963.05 948.03,964.93 946.15,964.93 946.15,968.69 944.27,968.69 944.27,970.57 942.39,970.57 942.39,974.33 940.51,974.33 940.51,981.85 938.63,981.85 938.63,996.89 940.51,996.89 940.51,1002.53 942.39,1002.53 942.39,1006.29 944.27,1006.29 944.27,1010.04 946.15,1010.04 946.15,1011.92 948.03,1011.92 948.03,1013.8 949.91,1013.8 949.91,1015.68 951.79,1015.68 951.79,1017.56 953.67,1017.56 953.67,1019.44 955.55,1019.44 955.55,1021.32 957.43,1021.32 957.43,1023.2 959.31,1023.2 959.31,1025.08 961.19,1025.08 961.19,1026.96 963.07,1026.96 963.07,1028.84 964.95,1028.84 964.95,1030.72 966.83,1030.72 966.83,1032.6 968.71,1032.6 968.71,1034.48 970.59,1034.48 970.59,1036.36 972.47,1036.36 972.47,1038.24 974.35,1038.24 974.35,1040.12 976.22,1040.12 976.22,1042 978.1,1042 978.1,1043.88 979.98,1043.88 979.98,1045.76 981.86,1045.76 981.86,1047.64 983.74,1047.64 983.74,1049.52 985.62,1049.52 985.62,1051.4 987.5,1051.4 987.5,1053.28 989.38,1053.28 989.38,1055.16 991.26,1055.16 991.26,1057.04 993.14,1057.04 993.14,1058.92 995.02,1058.92 995.02,1060.8 996.9,1060.8 996.9,1062.68 998.78,1062.68 998.78,1064.56 1000.66,1064.56 1000.66,1066.44 1002.54,1066.44 1002.54,1068.32 1004.42,1068.32 1004.42,1070.2 1006.3,1070.2 1006.3,1072.07 1008.18,1072.07 1008.18,1073.95 1010.06,1073.95 1010.06,1075.83 1011.94,1075.83 1011.94,1077.71 1013.82,1077.71 1013.82,1079.59 1015.7,1079.59 1015.7,1081.47 1017.58,1081.47 1017.58,1083.35 1019.46,1083.35 1019.46,1085.23 1021.34,1085.23 1021.34,1087.11 1023.22,1087.11 1023.22,1088.99 1025.1,1088.99 1025.1,1090.87 1026.98,1090.87 1026.98,1092.75 1028.86,1092.75 1028.86,1094.63 1030.74,1094.63 1030.74,1096.51 1032.62,1096.51 1032.62,1098.39 1034.5,1098.39 1034.5,1100.27 1036.38,1100.27 1036.38,1102.15 1038.25,1102.15 1038.25,1104.03 1040.13,1104.03 1040.13,1105.91 1042.01,1105.91 1042.01,1107.79 1043.89,1107.79 1043.89,1109.67 1045.77,1109.67 1045.77,1111.55 1047.65,1111.55 1047.65,1113.43 1049.53,1113.43 1049.53,1115.31 1051.41,1115.31 1051.41,1117.19 1053.29,1117.19 1053.29,1119.07 1055.17,1119.07 1055.17,1120.95 1057.05,1120.95 1057.05,1122.83 1058.93,1122.83 1058.93,1124.71 1060.81,1124.71 1060.81,1126.59 1062.69,1126.59 1062.69,1128.47 1064.57,1128.47 1064.57,1130.35 1066.45,1130.35 1066.45,1132.23 1068.33,1132.23 1068.33,1134.1 1070.21,1134.1 1070.21,1135.98 1072.09,1135.98 1072.09,1137.86 1073.97,1137.86 1073.97,1139.74 1075.85,1139.74 1075.85,1141.62 1077.73,1141.62 1077.73,1143.5 1079.61,1143.5 1079.61,1145.38 1081.49,1145.38 1081.49,1147.26 1083.37,1147.26 1083.37,1149.14 1085.25,1149.14 1085.25,1151.02 1087.13,1151.02 1087.13,1152.9 1089.01,1152.9 1089.01,1154.78 1090.89,1154.78 1090.89,1156.66 1092.77,1156.66 1092.77,1158.54 1094.65,1158.54 1094.65,1160.42 1096.53,1160.42 1096.53,1162.3 1098.4,1162.3 1098.4,1164.18 1100.29,1164.18 1100.29,1166.06 1102.17,1166.06 1102.17,1167.94 1104.04,1167.94 1104.04,1169.82 1105.92,1169.82 1105.92,1171.7 1107.8,1171.7 1107.8,1173.58 1109.68,1173.58 1109.68,1175.46 1111.56,1175.46 1111.56,1177.34 1113.44,1177.34 1113.44,1179.22 1115.32,1179.22 1115.32,1181.1 1117.2,1181.1 1117.2,1182.98 1119.08,1182.98 1119.08,1184.86 1120.96,1184.86 1120.96,1186.74 1122.84,1186.74 1122.84,1188.62 1124.72,1188.62 1124.72,1190.5 1126.6,1190.5 1126.6,1192.37 1128.48,1192.37 1128.48,1194.25 1130.36,1194.25 1130.36,1196.13 1132.24,1196.13 1132.24,1198.01 1134.12,1198.01 1134.12,1199.89 1136,1199.89 1136,1201.77 1137.88,1201.77 1137.88,1203.65 1139.76,1203.65 1139.76,1205.53 1141.64,1205.53 1141.64,1207.41 1143.52,1207.41 1143.52,1209.29 1145.4,1209.29 1145.4,1211.17 1147.28,1211.17 1147.28,1213.05 1149.16,1213.05 1149.16,1214.93 1151.04,1214.93 1151.04,1216.81 1152.92,1216.81 1152.92,1218.69 1154.8,1218.69 1154.8,1220.57 1156.68,1220.57 1156.68,1222.45 1158.56,1222.45 1158.56,1224.33 1160.43,1224.33 1160.43,1226.21 1162.31,1226.21 1162.31,1228.09 1164.19,1228.09 1164.19,1229.97 1166.07,1229.97 1166.07,1231.85 1167.95,1231.85 1167.95,1233.73 1169.83,1233.73 1169.83,1235.61 1171.71,1235.61 1171.71,1237.49 1173.59,1237.49 1173.59,1239.37 1175.47,1239.37 1175.47,1241.25 1177.35,1241.25 1177.35,1243.13 1179.23,1243.13 1179.23,1245.01 1181.11,1245.01 1181.11,1246.89 1182.99,1246.89 1182.99,1248.77 1184.87,1248.77 1184.87,1250.65 1186.75,1250.65 1186.75,1252.53 1188.63,1252.53 1188.63,1254.4 1190.51,1254.4 1190.51,1256.28 1192.39,1256.28 1192.39,1258.16 1194.27,1258.16 1194.27,1260.04 1196.15,1260.04 1196.15,1261.92 1198.03,1261.92 1198.03,1263.8 1199.91,1263.8 1199.91,1265.68 1201.79,1265.68 1201.79,1267.56 1203.67,1267.56 1203.67,1269.44 1205.55,1269.44 1205.55,1271.32 1207.43,1271.32 1207.43,1273.2 1209.31,1273.2 1209.31,1275.08 1211.19,1275.08 1211.19,1276.96 1213.07,1276.96 1213.07,1278.84 1214.95,1278.84 1214.95,1280.72 1216.83,1280.72 1216.83,1282.6 1218.71,1282.6 1218.71,1284.48 1220.59,1284.48 1220.59,1286.36 1222.47,1286.36 1222.47,1288.24 1224.35,1288.24 1224.35,1290.12 1226.22,1290.12 1226.22,1292 1228.1,1292 1228.1,1293.88 1229.98,1293.88 1229.98,1295.76 1231.86,1295.76 1231.86,1297.64 1233.74,1297.64 1233.74,1299.52 1235.62,1299.52 1235.62,1301.4 1237.5,1301.4 1237.5,1303.28 1239.38,1303.28 1239.38,1305.16 1241.26,1305.16 1241.26,1307.04 1243.14,1307.04 1243.14,1308.92 1245.02,1308.92 1245.02,1310.8 1246.9,1310.8 1246.9,1312.68 1248.78,1312.68 1248.78,1314.55 1250.66,1314.55 1250.66,1316.43 1252.54,1316.43 1252.54,1318.31 1254.42,1318.31 1254.42,1320.19 1256.3,1320.19 1256.3,1322.07 1258.18,1322.07 1258.18,1323.95 1260.06,1323.95 1260.06,1325.83 1261.94,1325.83 1261.94,1327.71 1263.82,1327.71 1263.82,1329.59 1265.7,1329.59 1265.7,1331.47 1267.58,1331.47 1267.58,1333.35 1269.46,1333.35 1269.46,1335.23 1271.34,1335.23 1271.34,1337.11 1273.22,1337.11 1273.22,1338.99 1275.1,1338.99 1275.1,1340.87 1276.98,1340.87 1276.98,1342.75 1278.86,1342.75 1278.86,1344.63 1280.74,1344.63 1280.74,1346.51 1282.61,1346.51 1282.61,1348.39 1284.49,1348.39 1284.49,1350.27 1286.37,1350.27 1286.37,1352.15 1288.25,1352.15 1288.25,1354.03 1290.13,1354.03 1290.13,1355.91 1292.01,1355.91 1292.01,1357.79 1293.89,1357.79 1293.89,1359.67 1295.77,1359.67 1295.77,1361.55 1297.65,1361.55 1297.65,1363.43 1299.53,1363.43 1299.53,1365.31 1301.41,1365.31 1301.41,1367.19 1303.29,1367.19 1303.29,1369.07 1305.17,1369.07 1305.17,1370.95 1307.05,1370.95 1307.05,1372.83 1308.93,1372.83 1308.93,1374.71 1310.81,1374.71 1310.81,1376.58 1312.69,1376.58 1312.69,1378.46 1314.57,1378.46 1314.57,1380.34 1316.45,1380.34 1316.45,1382.22 1318.33,1382.22 1318.33,1384.1 1320.21,1384.1 1320.21,1385.98 1322.09,1385.98 1322.09,1387.86 1323.97,1387.86 1323.97,1389.74 1325.85,1389.74 1325.85,1391.62 1327.73,1391.62 1327.73,1393.5 1329.61,1393.5 1329.61,1395.38 1331.49,1395.38 1331.49,1397.26 1333.37,1397.26 1333.37,1399.14 1335.25,1399.14 1335.25,1401.02 1337.13,1401.02 1337.13,1402.9 1339.01,1402.9 1339.01,1404.78 1340.89,1404.78 1340.89,1406.66 1342.77,1406.66 1342.77,1408.54 1344.65,1408.54 1344.65,1410.42 1346.53,1410.42 1346.53,1412.3 1348.4,1412.3 1348.4,1414.18 1350.28,1414.18 1350.28,1416.06 1352.16,1416.06 1352.16,1417.94 1354.04,1417.94 1354.04,1419.82 1355.92,1419.82 1355.92,1421.7 1357.8,1421.7 1357.8,1423.58 1359.68,1423.58 1359.68,1425.46 1361.56,1425.46 1361.56,1427.34 1363.44,1427.34 1363.44,1429.22 1365.32,1429.22 1365.32,1431.1 1367.2,1431.1 1367.2,1432.98 1365.32,1432.98 1365.32,1434.86 1363.44,1434.86 1363.44,1436.73 1361.56,1436.73 1361.56,1438.61 1359.68,1438.61 1359.68,1440.5 1357.8,1440.5 1357.8,1442.37 1355.92,1442.37 1355.92,1444.25 1354.04,1444.25 1354.04,1446.13 1352.16,1446.13 1352.16,1448.01 1350.28,1448.01 1350.28,1449.89 1348.4,1449.89 1348.4,1451.77 1346.53,1451.77 1346.53,1453.65 1344.65,1453.65 1344.65,1455.53 1342.77,1455.53 1342.77,1457.41 1340.89,1457.41 1340.89,1459.29 1339.01,1459.29 1339.01,1461.17 1337.13,1461.17 1337.13,1463.05 1335.25,1463.05 1335.25,1464.93 1333.37,1464.93 1333.37,1466.81 1331.49,1466.81 1331.49,1468.69 1329.61,1468.69 1329.61,1470.57 1327.73,1470.57 1327.73,1472.45 1325.85,1472.45 1325.85,1474.33 1323.97,1474.33 1323.97,1476.21 1322.09,1476.21 1322.09,1478.09 1320.21,1478.09 1320.21,1479.97 1318.33,1479.97 1318.33,1481.85 1316.45,1481.85 1316.45,1483.73 1314.57,1483.73 1314.57,1485.61 1312.69,1485.61 1312.69,1487.49 1310.81,1487.49 1310.81,1489.37 1308.93,1489.37 1308.93,1491.25 1307.05,1491.25 1307.05,1493.13 1305.17,1493.13 1305.17,1495.01 1303.29,1495.01 1303.29,1496.89 1301.41,1496.89 1301.41,1498.76 1299.53,1498.76 1299.53,1500.64 1297.65,1500.64 1297.65,1502.52 1295.77,1502.52 1295.77,1504.4 1293.89,1504.4 1293.89,1506.28 1292.01,1506.28 1292.01,1508.16 1290.13,1508.16 1290.13,1510.04 1288.25,1510.04 1288.25,1511.92 1286.37,1511.92 1286.37,1513.8 1284.49,1513.8 1284.49,1515.68 1282.61,1515.68 1282.61,1517.56 1280.74,1517.56 1280.74,1519.44 1278.86,1519.44 1278.86,1521.32 1276.98,1521.32 1276.98,1523.2 1275.1,1523.2 1275.1,1525.08 1273.22,1525.08 1273.22,1526.96 1271.34,1526.96 1271.34,1528.84 1269.46,1528.84 1269.46,1530.72 1267.58,1530.72 1267.58,1532.6 1265.7,1532.6 1265.7,1534.48 1263.82,1534.48 1263.82,1536.36 1261.94,1536.36 1261.94,1538.24 1260.06,1538.24 1260.06,1540.12 1258.18,1540.12 1258.18,1542 1256.3,1542 1256.3,1543.88 1254.42,1543.88 1254.42,1545.76 1252.54,1545.76 1252.54,1547.64 1250.66,1547.64 1250.66,1549.52 1248.78,1549.52 1248.78,1551.4 1246.9,1551.4 1246.9,1553.28 1245.02,1553.28 1245.02,1555.16 1243.14,1555.16 1243.14,1557.04 1241.26,1557.04 1241.26,1558.92 1239.38,1558.92 1239.38,1560.8 1237.5,1560.8 1237.5,1562.68 1235.62,1562.68 1235.62,1564.55 1233.74,1564.55 1233.74,1566.43 1231.86,1566.43 1231.86,1568.31 1229.98,1568.31 1229.98,1570.19 1228.1,1570.19 1228.1,1572.07 1226.22,1572.07 1226.22,1573.95 1224.35,1573.95 1224.35,1575.83 1222.47,1575.83 1222.47,1577.71 1220.59,1577.71 1220.59,1579.59 1218.71,1579.59 1218.71,1581.47 1216.83,1581.47 1216.83,1583.35 1214.95,1583.35 1214.95,1585.23 1213.07,1585.23 1213.07,1587.11 1211.19,1587.11 1211.19,1588.99 1209.31,1588.99 1209.31,1590.87 1207.43,1590.87 1207.43,1592.75 1205.55,1592.75 1205.55,1594.63 1203.67,1594.63 1203.67,1596.51 1201.79,1596.51 1201.79,1598.39 1199.91,1598.39 1199.91,1600.27 1198.03,1600.27 1198.03,1602.15 1196.15,1602.15 1196.15,1604.03 1194.27,1604.03 1194.27,1605.91 1192.39,1605.91 1192.39,1607.79 1190.51,1607.79 1190.51,1609.67 1188.63,1609.67 1188.63,1611.55 1186.75,1611.55 1186.75,1613.43 1184.87,1613.43 1184.87,1615.31 1182.99,1615.31 1182.99,1617.19 1181.11,1617.19 1181.11,1619.07 1179.23,1619.07 1179.23,1620.94 1177.35,1620.94 1177.35,1622.82 1175.47,1622.82 1175.47,1624.7 1173.59,1624.7 1173.59,1626.58 1171.71,1626.58 1171.71,1628.46 1169.83,1628.46 1169.83,1630.34 1167.95,1630.34 1167.95,1632.22 1166.07,1632.22 1166.07,1634.1 1164.19,1634.1 1164.19,1635.98 1162.31,1635.98 1162.31,1637.86 1160.43,1637.86 1160.43,1639.74 1158.56,1639.74 1158.56,1641.62 1156.68,1641.62 1156.68,1643.5 1154.8,1643.5 1154.8,1645.38 1152.92,1645.38 1152.92,1647.26 1151.04,1647.26 1151.04,1649.14 1149.16,1649.14 1149.16,1651.02 1147.28,1651.02 1147.28,1652.9 1145.4,1652.9 1145.4,1654.78 1143.52,1654.78 1143.52,1656.66 1141.64,1656.66 1141.64,1658.54 1139.76,1658.54 1139.76,1660.42 1137.88,1660.42 1137.88,1662.3 1136,1662.3 1136,1664.18 1134.12,1664.18 1134.12,1666.06 1132.24,1666.06 1132.24,1667.94 1130.36,1667.94 1130.36,1669.82 1128.48,1669.82 1128.48,1671.7 1126.6,1671.7 1126.6,1673.58 1124.72,1673.58 1124.72,1675.46 1122.84,1675.46 1122.84,1677.34 1120.96,1677.34 1120.96,1679.22 1119.08,1679.22 1119.08,1681.1 1117.2,1681.1 1117.2,1682.98 1115.32,1682.98 1115.32,1684.86 1113.44,1684.86 1113.44,1686.73 1111.56,1686.73 1111.56,1688.61 1109.68,1688.61 1109.68,1690.49 1107.8,1690.49 1107.8,1692.37 1105.92,1692.37 1105.92,1694.25 1104.04,1694.25 1104.04,1696.13 1102.17,1696.13 1102.17,1698.01 1100.29,1698.01 1100.29,1699.89 1098.4,1699.89 1098.4,1701.77 1096.53,1701.77 1096.53,1703.65 1094.65,1703.65 1094.65,1705.53 1092.77,1705.53 1092.77,1707.41 1090.89,1707.41 1090.89,1709.29 1089.01,1709.29 1089.01,1711.17 1087.13,1711.17 1087.13,1713.05 1085.25,1713.05 1085.25,1714.93 1083.37,1714.93 1083.37,1716.81 1081.49,1716.81 1081.49,1718.69 1079.61,1718.69 1079.61,1720.57 1077.73,1720.57 1077.73,1722.45 1075.85,1722.45 1075.85,1724.33 1073.97,1724.33 1073.97,1726.21 1072.09,1726.21 1072.09,1728.09 1070.21,1728.09 1070.21,1729.97 1068.33,1729.97 1068.33,1731.85 1066.45,1731.85 1066.45,1733.73 1064.57,1733.73 1064.57,1735.61 1062.69,1735.61 1062.69,1737.49 1060.81,1737.49 1060.81,1739.37 1058.93,1739.37 1058.93,1741.25 1057.05,1741.25 1057.05,1743.12 1055.17,1743.12 1055.17,1745 1053.29,1745 1053.29,1746.88 1051.41,1746.88 1051.41,1748.76 1049.53,1748.76 1049.53,1750.64 1047.65,1750.64 1047.65,1752.52 1045.77,1752.52 1045.77,1754.4 1043.89,1754.4 1043.89,1756.28 1042.01,1756.28 1042.01,1758.16 1040.13,1758.16 1040.13,1760.04 1038.25,1760.04 1038.25,1761.92 1036.38,1761.92 1036.38,1763.8 1034.5,1763.8 1034.5,1765.68 1032.62,1765.68 1032.62,1767.56 1030.74,1767.56 1030.74,1769.44 1028.86,1769.44 1028.86,1771.32 1026.98,1771.32 1026.98,1773.2 1025.1,1773.2 1025.1,1775.08 1023.22,1775.08 1023.22,1776.96 1021.34,1776.96 1021.34,1778.84 1019.46,1778.84 1019.46,1780.72 1017.58,1780.72 1017.58,1782.6 1015.7,1782.6 1015.7,1784.48 1013.82,1784.48 1013.82,1786.36 1011.94,1786.36 1011.94,1788.24 1010.06,1788.24 1010.06,1790.12 1008.18,1790.12 1008.18,1792 1006.3,1792 1006.3,1793.88 1004.42,1793.88 1004.42,1795.76 1002.54,1795.76 1002.54,1797.64 1000.66,1797.64 1000.66,1799.52 998.78,1799.52 998.78,1801.4 996.9,1801.4 996.9,1803.28 995.02,1803.28 995.02,1805.16 993.14,1805.16 993.14,1807.04 991.26,1807.04 991.26,1808.91 989.38,1808.91 989.38,1810.79 987.5,1810.79 987.5,1812.67 985.62,1812.67 985.62,1814.55 983.74,1814.55 983.74,1816.43 981.86,1816.43 981.86,1818.31 979.98,1818.31 979.98,1820.19 978.1,1820.19 978.1,1822.07 976.22,1822.07 976.22,1823.95 974.35,1823.95 974.35,1825.83 972.47,1825.83 972.47,1827.71 970.59,1827.71 970.59,1829.59 968.71,1829.59 968.71,1831.47 966.83,1831.47 966.83,1833.35 964.95,1833.35 964.95,1835.23 963.07,1835.23 963.07,1837.11 961.19,1837.11 961.19,1838.99 959.31,1838.99 959.31,1840.87 957.43,1840.87 957.43,1842.75 955.55,1842.75 955.55,1844.63 953.67,1844.63 953.67,1846.51 951.79,1846.51 951.79,1848.39 949.91,1848.39 949.91,1850.27 948.03,1850.27 948.03,1854.03 946.15,1854.03 946.15,1855.91 944.27,1855.91 944.27,1857.79 942.39,1857.79 942.39,1861.55 940.51,1861.55 940.51,1867.18 938.63,1867.18 938.63,1885.98 940.51,1885.98 940.51,1891.62 942.39,1891.62 942.39,1895.38 944.27,1895.38 944.27,1899.14 946.15,1899.14 946.15,1901.02 948.03,1901.02 948.03,1902.9 949.91,1902.9 949.91,1904.78 951.79,1904.78 951.79,1906.66 953.67,1906.66 953.67,1908.54 957.43,1908.54 957.43,1910.42 961.19,1910.42 961.19,1912.3 966.83,1912.3 966.83,1914.18 985.62,1914.18 "/>
+                     </g>
+                </svg>     
+            </button>
+            <div class="carrossel-janela">
+                <div class="carrossel-conteudo">
+                    <!-- item do carrossel -->
+                    <div class="team">
+                        <img src="image/members/Adriana.png" style="transform-origin: center bottom; object-position: 7px 20px;" alt="Imagem de Adriana">
+                        <h3>Adriana de Jesus Santos</h3>
+                        <span>Coordenadora de Educação & Inovadora</span>
+                        <p>Breve descrição sobre o membro.</p>
+                    </div>
+                    <div class="team">
+                        <img src="image/members/Hiro.png" style="transform-origin: center bottom; transform: scale(0.9); object-position: 3px 20px;" alt="Imagem de Hiroshi">
+                        <h3>Celso Hiroshi Hayasi</h3>
+                        <span>Coordenador de Gestão Estratégica</span>
+                        <p>Breve descrição sobre o membro.</p>
+                    </div>
+                     <div class="team">
+                        <img src="image/members/Cochiran.png" style="transform-origin: center bottom; transform: scale(1.2); object-position: 10px 40px;" alt="Imagem de Cochiran">
+                        <h3>Cochiran Pereira dos Santos</h3>
+                        <span>Coordenador de Educação Científica</span>
+                        <p>Breve descrição sobre o membro.</p>
+                    </div>
+                    <div class="team">
+                        <img src="image/members/Fábio.png" style="transform-origin: center bottom; transform: scale(1.7); object-position: -25px 60px;" alt="Imagem de Fábio">
+                        <h3>Fábio Cleisto Alda Dossi</h3>
+                        <span>Conselheiro Fiscal</span>
+                        <p>Breve descrição sobre o membro.</p>
+                    </div>
+                    <div class="team">
+                        <img src="image/members/João.png" style="transform-origin: center bottom;transform: scale(1.4); object-position: 10px 40px;" alt="Imagem de João">
+                        <h3>João Pedro Iung Perin</h3>
+                        <span>Vice-presidente</span>
+                        <p>Breve descrição sobre o membro.</p>
+                    </div>
+                    <div class="team">
+                        <img src="image/members/Lara.png" style="transform-origin: center bottom; transform: scale(1.3); object-position: -5px 15px;" alt="Imagem de Lara">
+                        <h3>Lara da Costa Nunes Barbosa</h3>
+                        <span>Diretora e Analista de Marketing</span>
+                        <p>Breve descrição sobre o membro.</p>
+                    </div>
+                    <div class="team">
+                        <img src="image/members/Lígia.png" style="transform-origin: center bottom; transform: scale(1.1); object-position: 0px 40px;" alt="Imagem de Lígia">
+                        <h3>Lígia Mara de Oliveira Lima</h3>
+                        <span>Tesoureira</span>
+                        <p>Breve descrição sobre o membro.</p>
+                    </div>
+                    <div class="team">
+                        <img src="image/members/Lucas.png" alt="Imagem de Lucas">
+                        <h3>Lucas Francisco de Jesus Santos</h3>
+                        <span>Presidente</span>
+                        <p>Breve descrição sobre o membro.</p>
+                    </div>
+                    <div class="team">
+                        <img src="image/members/Riane.png" style="transform-origin: center bottom; transform: scale(2); object-position: -5px 40px;" alt="Imagem de Riane">
+                        <h3>Riane da Silveira Storgatto</h3>
+                        <span>Secretária Geral</span>
+                        <p>Breve descrição sobre o membro.</p>
+                    </div>
+                </div>
+            </div>
+            <button class="seta seta-direita">
+                <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="2480px" height="3508px" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+                    viewBox="0 0 2350 2900"
+                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+                     <defs>
+                     </defs>
+                     <g id="Camada_x0020_1">
+                      <metadata id="CorelCorpID_0Corel-Layer"/>
+                      <polygon class="fil0" points="985.62,1912.3 991.26,1912.3 991.26,1910.42 995.02,1910.42 995.02,1908.54 996.9,1908.54 996.9,1906.66 1000.66,1906.66 1000.66,1904.78 1002.54,1904.78 1002.54,1902.9 1004.42,1902.9 1004.42,1901.02 1006.3,1901.02 1006.3,1899.14 1008.18,1899.14 1008.18,1897.26 1010.06,1897.26 1010.06,1895.38 1011.94,1895.38 1011.94,1893.5 1013.82,1893.5 1013.82,1891.62 1015.7,1891.62 1015.7,1889.74 1017.58,1889.74 1017.58,1887.86 1019.46,1887.86 1019.46,1885.98 1021.34,1885.98 1021.34,1884.1 1023.22,1884.1 1023.22,1882.22 1025.1,1882.22 1025.1,1880.34 1026.98,1880.34 1026.98,1878.46 1028.86,1878.46 1028.86,1876.58 1030.74,1876.58 1030.74,1874.7 1032.62,1874.7 1032.62,1872.82 1034.5,1872.82 1034.5,1870.94 1036.38,1870.94 1036.38,1869.06 1038.25,1869.06 1038.25,1867.18 1040.13,1867.18 1040.13,1865.3 1042.01,1865.3 1042.01,1863.42 1043.89,1863.42 1043.89,1861.55 1045.77,1861.55 1045.77,1859.67 1047.65,1859.67 1047.65,1857.79 1049.53,1857.79 1049.53,1855.91 1051.41,1855.91 1051.41,1854.03 1053.29,1854.03 1053.29,1852.15 1055.17,1852.15 1055.17,1850.27 1057.05,1850.27 1057.05,1848.39 1058.93,1848.39 1058.93,1846.51 1060.81,1846.51 1060.81,1844.63 1062.69,1844.63 1062.69,1842.75 1064.57,1842.75 1064.57,1840.87 1066.45,1840.87 1066.45,1838.99 1068.33,1838.99 1068.33,1837.11 1070.21,1837.11 1070.21,1835.23 1072.09,1835.23 1072.09,1833.35 1073.97,1833.35 1073.97,1831.47 1075.85,1831.47 1075.85,1829.59 1077.73,1829.59 1077.73,1827.71 1079.61,1827.71 1079.61,1825.83 1081.49,1825.83 1081.49,1823.95 1083.37,1823.95 1083.37,1822.07 1085.25,1822.07 1085.25,1820.19 1087.13,1820.19 1087.13,1818.31 1089.01,1818.31 1089.01,1816.43 1090.89,1816.43 1090.89,1814.55 1092.77,1814.55 1092.77,1812.67 1094.65,1812.67 1094.65,1810.79 1096.53,1810.79 1096.53,1808.91 1098.4,1808.91 1098.4,1807.04 1100.29,1807.04 1100.29,1805.16 1102.17,1805.16 1102.17,1803.28 1104.04,1803.28 1104.04,1801.4 1105.92,1801.4 1105.92,1799.52 1107.8,1799.52 1107.8,1797.64 1109.68,1797.64 1109.68,1795.76 1111.56,1795.76 1111.56,1793.88 1113.44,1793.88 1113.44,1792 1115.32,1792 1115.32,1790.12 1117.2,1790.12 1117.2,1788.24 1119.08,1788.24 1119.08,1786.36 1120.96,1786.36 1120.96,1784.48 1122.84,1784.48 1122.84,1782.6 1124.72,1782.6 1124.72,1780.72 1126.6,1780.72 1126.6,1778.84 1128.48,1778.84 1128.48,1776.96 1130.36,1776.96 1130.36,1775.08 1132.24,1775.08 1132.24,1773.2 1134.12,1773.2 1134.12,1771.32 1136,1771.32 1136,1769.44 1137.88,1769.44 1137.88,1767.56 1139.76,1767.56 1139.76,1765.68 1141.64,1765.68 1141.64,1763.8 1143.52,1763.8 1143.52,1761.92 1145.4,1761.92 1145.4,1760.04 1147.28,1760.04 1147.28,1758.16 1149.16,1758.16 1149.16,1756.28 1151.04,1756.28 1151.04,1754.4 1152.92,1754.4 1152.92,1752.52 1154.8,1752.52 1154.8,1750.64 1156.68,1750.64 1156.68,1748.76 1158.56,1748.76 1158.56,1746.88 1160.43,1746.88 1160.43,1745 1162.31,1745 1162.31,1743.12 1164.19,1743.12 1164.19,1741.25 1166.07,1741.25 1166.07,1739.37 1167.95,1739.37 1167.95,1737.49 1169.83,1737.49 1169.83,1735.61 1171.71,1735.61 1171.71,1733.73 1173.59,1733.73 1173.59,1731.85 1175.47,1731.85 1175.47,1729.97 1177.35,1729.97 1177.35,1728.09 1179.23,1728.09 1179.23,1726.21 1181.11,1726.21 1181.11,1724.33 1182.99,1724.33 1182.99,1722.45 1184.87,1722.45 1184.87,1720.57 1186.75,1720.57 1186.75,1718.69 1188.63,1718.69 1188.63,1716.81 1190.51,1716.81 1190.51,1714.93 1192.39,1714.93 1192.39,1713.05 1194.27,1713.05 1194.27,1711.17 1196.15,1711.17 1196.15,1709.29 1198.03,1709.29 1198.03,1707.41 1199.91,1707.41 1199.91,1705.53 1201.79,1705.53 1201.79,1703.65 1203.67,1703.65 1203.67,1701.77 1205.55,1701.77 1205.55,1699.89 1207.43,1699.89 1207.43,1698.01 1209.31,1698.01 1209.31,1696.13 1211.19,1696.13 1211.19,1694.25 1213.07,1694.25 1213.07,1692.37 1214.95,1692.37 1214.95,1690.49 1216.83,1690.49 1216.83,1688.61 1218.71,1688.61 1218.71,1686.73 1220.59,1686.73 1220.59,1684.86 1222.47,1684.86 1222.47,1682.98 1224.35,1682.98 1224.35,1681.1 1226.22,1681.1 1226.22,1679.22 1228.1,1679.22 1228.1,1677.34 1229.98,1677.34 1229.98,1675.46 1231.86,1675.46 1231.86,1673.58 1233.74,1673.58 1233.74,1671.7 1235.62,1671.7 1235.62,1669.82 1237.5,1669.82 1237.5,1667.94 1239.38,1667.94 1239.38,1666.06 1241.26,1666.06 1241.26,1664.18 1243.14,1664.18 1243.14,1662.3 1245.02,1662.3 1245.02,1660.42 1246.9,1660.42 1246.9,1658.54 1248.78,1658.54 1248.78,1656.66 1250.66,1656.66 1250.66,1654.78 1252.54,1654.78 1252.54,1652.9 1254.42,1652.9 1254.42,1651.02 1256.3,1651.02 1256.3,1649.14 1258.18,1649.14 1258.18,1647.26 1260.06,1647.26 1260.06,1645.38 1261.94,1645.38 1261.94,1643.5 1263.82,1643.5 1263.82,1641.62 1265.7,1641.62 1265.7,1639.74 1267.58,1639.74 1267.58,1637.86 1269.46,1637.86 1269.46,1635.98 1271.34,1635.98 1271.34,1634.1 1273.22,1634.1 1273.22,1632.22 1275.1,1632.22 1275.1,1630.34 1276.98,1630.34 1276.98,1628.46 1278.86,1628.46 1278.86,1626.58 1280.74,1626.58 1280.74,1624.7 1282.61,1624.7 1282.61,1622.82 1284.49,1622.82 1284.49,1620.94 1286.37,1620.94 1286.37,1619.07 1288.25,1619.07 1288.25,1617.19 1290.13,1617.19 1290.13,1615.31 1292.01,1615.31 1292.01,1613.43 1293.89,1613.43 1293.89,1611.55 1295.77,1611.55 1295.77,1609.67 1297.65,1609.67 1297.65,1607.79 1299.53,1607.79 1299.53,1605.91 1301.41,1605.91 1301.41,1604.03 1303.29,1604.03 1303.29,1602.15 1305.17,1602.15 1305.17,1600.27 1307.05,1600.27 1307.05,1598.39 1308.93,1598.39 1308.93,1596.51 1310.81,1596.51 1310.81,1594.63 1312.69,1594.63 1312.69,1592.75 1314.57,1592.75 1314.57,1590.87 1316.45,1590.87 1316.45,1588.99 1318.33,1588.99 1318.33,1587.11 1320.21,1587.11 1320.21,1585.23 1322.09,1585.23 1322.09,1583.35 1323.97,1583.35 1323.97,1581.47 1325.85,1581.47 1325.85,1579.59 1327.73,1579.59 1327.73,1577.71 1329.61,1577.71 1329.61,1575.83 1331.49,1575.83 1331.49,1573.95 1333.37,1573.95 1333.37,1572.07 1335.25,1572.07 1335.25,1570.19 1337.13,1570.19 1337.13,1568.31 1339.01,1568.31 1339.01,1566.43 1340.89,1566.43 1340.89,1564.55 1342.77,1564.55 1342.77,1562.68 1344.65,1562.68 1344.65,1560.8 1346.53,1560.8 1346.53,1558.92 1348.4,1558.92 1348.4,1557.04 1350.28,1557.04 1350.28,1555.16 1352.16,1555.16 1352.16,1553.28 1354.04,1553.28 1354.04,1551.4 1355.92,1551.4 1355.92,1549.52 1357.8,1549.52 1357.8,1547.64 1359.68,1547.64 1359.68,1545.76 1361.56,1545.76 1361.56,1543.88 1363.44,1543.88 1363.44,1542 1365.32,1542 1365.32,1540.12 1367.2,1540.12 1367.2,1538.24 1369.08,1538.24 1369.08,1536.36 1370.96,1536.36 1370.96,1534.48 1372.84,1534.48 1372.84,1532.6 1374.72,1532.6 1374.72,1530.72 1376.6,1530.72 1376.6,1528.84 1378.48,1528.84 1378.48,1526.96 1380.36,1526.96 1380.36,1525.08 1382.24,1525.08 1382.24,1523.2 1384.12,1523.2 1384.12,1521.32 1386,1521.32 1386,1519.44 1387.88,1519.44 1387.88,1517.56 1389.76,1517.56 1389.76,1515.68 1391.64,1515.68 1391.64,1513.8 1393.52,1513.8 1393.52,1511.92 1395.4,1511.92 1395.4,1510.04 1397.28,1510.04 1397.28,1508.16 1399.16,1508.16 1399.16,1506.28 1401.04,1506.28 1401.04,1504.4 1402.91,1504.4 1402.91,1502.52 1404.79,1502.52 1404.79,1500.64 1406.67,1500.64 1406.67,1498.76 1408.55,1498.76 1408.55,1496.89 1410.43,1496.89 1410.43,1495.01 1412.31,1495.01 1412.31,1493.13 1414.19,1493.13 1414.19,1491.25 1416.07,1491.25 1416.07,1489.37 1417.95,1489.37 1417.95,1487.49 1419.83,1487.49 1419.83,1485.61 1421.71,1485.61 1421.71,1483.73 1423.59,1483.73 1423.59,1481.85 1425.47,1481.85 1425.47,1479.97 1427.35,1479.97 1427.35,1478.09 1429.23,1478.09 1429.23,1476.21 1431.11,1476.21 1431.11,1474.33 1432.99,1474.33 1432.99,1472.45 1434.87,1472.45 1434.87,1470.57 1436.75,1470.57 1436.75,1468.69 1438.63,1468.69 1438.63,1466.81 1440.51,1466.81 1440.51,1464.93 1442.39,1464.93 1442.39,1463.05 1444.27,1463.05 1444.27,1461.17 1446.15,1461.17 1446.15,1459.29 1448.03,1459.29 1448.03,1457.41 1449.91,1457.41 1449.91,1453.65 1451.79,1453.65 1451.79,1451.77 1453.67,1451.77 1453.67,1448.01 1455.55,1448.01 1455.55,1442.37 1457.43,1442.37 1457.43,1423.58 1455.55,1423.58 1455.55,1417.94 1453.67,1417.94 1453.67,1414.18 1451.79,1414.18 1451.79,1410.42 1449.91,1410.42 1449.91,1408.54 1448.03,1408.54 1448.03,1406.66 1446.15,1406.66 1446.15,1404.78 1444.27,1404.78 1444.27,1402.9 1442.39,1402.9 1442.39,1401.02 1440.51,1401.02 1440.51,1399.14 1438.63,1399.14 1438.63,1397.26 1436.75,1397.26 1436.75,1395.38 1434.87,1395.38 1434.87,1393.5 1432.99,1393.5 1432.99,1391.62 1431.11,1391.62 1431.11,1389.74 1429.23,1389.74 1429.23,1387.86 1427.35,1387.86 1427.35,1385.98 1425.47,1385.98 1425.47,1384.1 1423.59,1384.1 1423.59,1382.22 1421.71,1382.22 1421.71,1380.34 1419.83,1380.34 1419.83,1378.46 1417.95,1378.46 1417.95,1376.58 1416.07,1376.58 1416.07,1374.71 1414.19,1374.71 1414.19,1372.83 1412.31,1372.83 1412.31,1370.95 1410.43,1370.95 1410.43,1369.07 1408.55,1369.07 1408.55,1367.19 1406.67,1367.19 1406.67,1365.31 1404.79,1365.31 1404.79,1363.43 1402.91,1363.43 1402.91,1361.55 1401.04,1361.55 1401.04,1359.67 1399.16,1359.67 1399.16,1357.79 1397.28,1357.79 1397.28,1355.91 1395.4,1355.91 1395.4,1354.03 1393.52,1354.03 1393.52,1352.15 1391.64,1352.15 1391.64,1350.27 1389.76,1350.27 1389.76,1348.39 1387.88,1348.39 1387.88,1346.51 1386,1346.51 1386,1344.63 1384.12,1344.63 1384.12,1342.75 1382.24,1342.75 1382.24,1340.87 1380.36,1340.87 1380.36,1338.99 1378.48,1338.99 1378.48,1337.11 1376.6,1337.11 1376.6,1335.23 1374.72,1335.23 1374.72,1333.35 1372.84,1333.35 1372.84,1331.47 1370.96,1331.47 1370.96,1329.59 1369.08,1329.59 1369.08,1327.71 1367.2,1327.71 1367.2,1325.83 1365.32,1325.83 1365.32,1323.95 1363.44,1323.95 1363.44,1322.07 1361.56,1322.07 1361.56,1320.19 1359.68,1320.19 1359.68,1318.31 1357.8,1318.31 1357.8,1316.43 1355.92,1316.43 1355.92,1314.55 1354.04,1314.55 1354.04,1312.68 1352.16,1312.68 1352.16,1310.8 1350.28,1310.8 1350.28,1308.92 1348.4,1308.92 1348.4,1307.04 1346.53,1307.04 1346.53,1305.16 1344.65,1305.16 1344.65,1303.28 1342.77,1303.28 1342.77,1301.4 1340.89,1301.4 1340.89,1299.52 1339.01,1299.52 1339.01,1297.64 1337.13,1297.64 1337.13,1295.76 1335.25,1295.76 1335.25,1293.88 1333.37,1293.88 1333.37,1292 1331.49,1292 1331.49,1290.12 1329.61,1290.12 1329.61,1288.24 1327.73,1288.24 1327.73,1286.36 1325.85,1286.36 1325.85,1284.48 1323.97,1284.48 1323.97,1282.6 1322.09,1282.6 1322.09,1280.72 1320.21,1280.72 1320.21,1278.84 1318.33,1278.84 1318.33,1276.96 1316.45,1276.96 1316.45,1275.08 1314.57,1275.08 1314.57,1273.2 1312.69,1273.2 1312.69,1271.32 1310.81,1271.32 1310.81,1269.44 1308.93,1269.44 1308.93,1267.56 1307.05,1267.56 1307.05,1265.68 1305.17,1265.68 1305.17,1263.8 1303.29,1263.8 1303.29,1261.92 1301.41,1261.92 1301.41,1260.04 1299.53,1260.04 1299.53,1258.16 1297.65,1258.16 1297.65,1256.28 1295.77,1256.28 1295.77,1254.4 1293.89,1254.4 1293.89,1252.53 1292.01,1252.53 1292.01,1250.65 1290.13,1250.65 1290.13,1248.77 1288.25,1248.77 1288.25,1246.89 1286.37,1246.89 1286.37,1245.01 1284.49,1245.01 1284.49,1243.13 1282.61,1243.13 1282.61,1241.25 1280.74,1241.25 1280.74,1239.37 1278.86,1239.37 1278.86,1237.49 1276.98,1237.49 1276.98,1235.61 1275.1,1235.61 1275.1,1233.73 1273.22,1233.73 1273.22,1231.85 1271.34,1231.85 1271.34,1229.97 1269.46,1229.97 1269.46,1228.09 1267.58,1228.09 1267.58,1226.21 1265.7,1226.21 1265.7,1224.33 1263.82,1224.33 1263.82,1222.45 1261.94,1222.45 1261.94,1220.57 1260.06,1220.57 1260.06,1218.69 1258.18,1218.69 1258.18,1216.81 1256.3,1216.81 1256.3,1214.93 1254.42,1214.93 1254.42,1213.05 1252.54,1213.05 1252.54,1211.17 1250.66,1211.17 1250.66,1209.29 1248.78,1209.29 1248.78,1207.41 1246.9,1207.41 1246.9,1205.53 1245.02,1205.53 1245.02,1203.65 1243.14,1203.65 1243.14,1201.77 1241.26,1201.77 1241.26,1199.89 1239.38,1199.89 1239.38,1198.01 1237.5,1198.01 1237.5,1196.13 1235.62,1196.13 1235.62,1194.25 1233.74,1194.25 1233.74,1192.37 1231.86,1192.37 1231.86,1190.5 1229.98,1190.5 1229.98,1188.62 1228.1,1188.62 1228.1,1186.74 1226.22,1186.74 1226.22,1184.86 1224.35,1184.86 1224.35,1182.98 1222.47,1182.98 1222.47,1181.1 1220.59,1181.1 1220.59,1179.22 1218.71,1179.22 1218.71,1177.34 1216.83,1177.34 1216.83,1175.46 1214.95,1175.46 1214.95,1173.58 1213.07,1173.58 1213.07,1171.7 1211.19,1171.7 1211.19,1169.82 1209.31,1169.82 1209.31,1167.94 1207.43,1167.94 1207.43,1166.06 1205.55,1166.06 1205.55,1164.18 1203.67,1164.18 1203.67,1162.3 1201.79,1162.3 1201.79,1160.42 1199.91,1160.42 1199.91,1158.54 1198.03,1158.54 1198.03,1156.66 1196.15,1156.66 1196.15,1154.78 1194.27,1154.78 1194.27,1152.9 1192.39,1152.9 1192.39,1151.02 1190.51,1151.02 1190.51,1149.14 1188.63,1149.14 1188.63,1147.26 1186.75,1147.26 1186.75,1145.38 1184.87,1145.38 1184.87,1143.5 1182.99,1143.5 1182.99,1141.62 1181.11,1141.62 1181.11,1139.74 1179.23,1139.74 1179.23,1137.86 1177.35,1137.86 1177.35,1135.98 1175.47,1135.98 1175.47,1134.1 1173.59,1134.1 1173.59,1132.23 1171.71,1132.23 1171.71,1130.35 1169.83,1130.35 1169.83,1128.47 1167.95,1128.47 1167.95,1126.59 1166.07,1126.59 1166.07,1124.71 1164.19,1124.71 1164.19,1122.83 1162.31,1122.83 1162.31,1120.95 1160.43,1120.95 1160.43,1119.07 1158.56,1119.07 1158.56,1117.19 1156.68,1117.19 1156.68,1115.31 1154.8,1115.31 1154.8,1113.43 1152.92,1113.43 1152.92,1111.55 1151.04,1111.55 1151.04,1109.67 1149.16,1109.67 1149.16,1107.79 1147.28,1107.79 1147.28,1105.91 1145.4,1105.91 1145.4,1104.03 1143.52,1104.03 1143.52,1102.15 1141.64,1102.15 1141.64,1100.27 1139.76,1100.27 1139.76,1098.39 1137.88,1098.39 1137.88,1096.51 1136,1096.51 1136,1094.63 1134.12,1094.63 1134.12,1092.75 1132.24,1092.75 1132.24,1090.87 1130.36,1090.87 1130.36,1088.99 1128.48,1088.99 1128.48,1087.11 1126.6,1087.11 1126.6,1085.23 1124.72,1085.23 1124.72,1083.35 1122.84,1083.35 1122.84,1081.47 1120.96,1081.47 1120.96,1079.59 1119.08,1079.59 1119.08,1077.71 1117.2,1077.71 1117.2,1075.83 1115.32,1075.83 1115.32,1073.95 1113.44,1073.95 1113.44,1072.07 1111.56,1072.07 1111.56,1070.2 1109.68,1070.2 1109.68,1068.32 1107.8,1068.32 1107.8,1066.44 1105.92,1066.44 1105.92,1064.56 1104.04,1064.56 1104.04,1062.68 1102.17,1062.68 1102.17,1060.8 1100.29,1060.8 1100.29,1058.92 1098.4,1058.92 1098.4,1057.04 1096.53,1057.04 1096.53,1055.16 1094.65,1055.16 1094.65,1053.28 1092.77,1053.28 1092.77,1051.4 1090.89,1051.4 1090.89,1049.52 1089.01,1049.52 1089.01,1047.64 1087.13,1047.64 1087.13,1045.76 1085.25,1045.76 1085.25,1043.88 1083.37,1043.88 1083.37,1042 1081.49,1042 1081.49,1040.12 1079.61,1040.12 1079.61,1038.24 1077.73,1038.24 1077.73,1036.36 1075.85,1036.36 1075.85,1034.48 1073.97,1034.48 1073.97,1032.6 1072.09,1032.6 1072.09,1030.72 1070.21,1030.72 1070.21,1028.84 1068.33,1028.84 1068.33,1026.96 1066.45,1026.96 1066.45,1025.08 1064.57,1025.08 1064.57,1023.2 1062.69,1023.2 1062.69,1021.32 1060.81,1021.32 1060.81,1019.44 1058.93,1019.44 1058.93,1017.56 1057.05,1017.56 1057.05,1015.68 1055.17,1015.68 1055.17,1013.8 1053.29,1013.8 1053.29,1011.92 1051.41,1011.92 1051.41,1010.04 1049.53,1010.04 1049.53,1008.17 1047.65,1008.17 1047.65,1006.29 1045.77,1006.29 1045.77,1004.41 1043.89,1004.41 1043.89,1002.53 1042.01,1002.53 1042.01,1000.65 1040.13,1000.65 1040.13,998.77 1038.25,998.77 1038.25,996.89 1036.38,996.89 1036.38,995.01 1034.5,995.01 1034.5,993.13 1032.62,993.13 1032.62,991.25 1030.74,991.25 1030.74,989.37 1028.86,989.37 1028.86,987.49 1026.98,987.49 1026.98,985.61 1025.1,985.61 1025.1,983.73 1023.22,983.73 1023.22,981.85 1021.34,981.85 1021.34,979.97 1019.46,979.97 1019.46,978.09 1017.58,978.09 1017.58,976.21 1015.7,976.21 1015.7,974.33 1013.82,974.33 1013.82,972.45 1011.94,972.45 1011.94,970.57 1010.06,970.57 1010.06,968.69 1008.18,968.69 1008.18,966.81 1006.3,966.81 1006.3,964.93 1004.42,964.93 1004.42,963.05 1002.54,963.05 1002.54,961.17 1000.66,961.17 1000.66,959.29 998.78,959.29 998.78,957.41 995.02,957.41 995.02,955.53 991.26,955.53 991.26,953.65 985.62,953.65 985.62,951.77 966.83,951.77 966.83,953.65 961.19,953.65 961.19,955.53 957.43,955.53 957.43,957.41 953.67,957.41 953.67,959.29 951.79,959.29 951.79,961.17 949.91,961.17 949.91,963.05 948.03,963.05 948.03,964.93 946.15,964.93 946.15,968.69 944.27,968.69 944.27,970.57 942.39,970.57 942.39,974.33 940.51,974.33 940.51,981.85 938.63,981.85 938.63,996.89 940.51,996.89 940.51,1002.53 942.39,1002.53 942.39,1006.29 944.27,1006.29 944.27,1010.04 946.15,1010.04 946.15,1011.92 948.03,1011.92 948.03,1013.8 949.91,1013.8 949.91,1015.68 951.79,1015.68 951.79,1017.56 953.67,1017.56 953.67,1019.44 955.55,1019.44 955.55,1021.32 957.43,1021.32 957.43,1023.2 959.31,1023.2 959.31,1025.08 961.19,1025.08 961.19,1026.96 963.07,1026.96 963.07,1028.84 964.95,1028.84 964.95,1030.72 966.83,1030.72 966.83,1032.6 968.71,1032.6 968.71,1034.48 970.59,1034.48 970.59,1036.36 972.47,1036.36 972.47,1038.24 974.35,1038.24 974.35,1040.12 976.22,1040.12 976.22,1042 978.1,1042 978.1,1043.88 979.98,1043.88 979.98,1045.76 981.86,1045.76 981.86,1047.64 983.74,1047.64 983.74,1049.52 985.62,1049.52 985.62,1051.4 987.5,1051.4 987.5,1053.28 989.38,1053.28 989.38,1055.16 991.26,1055.16 991.26,1057.04 993.14,1057.04 993.14,1058.92 995.02,1058.92 995.02,1060.8 996.9,1060.8 996.9,1062.68 998.78,1062.68 998.78,1064.56 1000.66,1064.56 1000.66,1066.44 1002.54,1066.44 1002.54,1068.32 1004.42,1068.32 1004.42,1070.2 1006.3,1070.2 1006.3,1072.07 1008.18,1072.07 1008.18,1073.95 1010.06,1073.95 1010.06,1075.83 1011.94,1075.83 1011.94,1077.71 1013.82,1077.71 1013.82,1079.59 1015.7,1079.59 1015.7,1081.47 1017.58,1081.47 1017.58,1083.35 1019.46,1083.35 1019.46,1085.23 1021.34,1085.23 1021.34,1087.11 1023.22,1087.11 1023.22,1088.99 1025.1,1088.99 1025.1,1090.87 1026.98,1090.87 1026.98,1092.75 1028.86,1092.75 1028.86,1094.63 1030.74,1094.63 1030.74,1096.51 1032.62,1096.51 1032.62,1098.39 1034.5,1098.39 1034.5,1100.27 1036.38,1100.27 1036.38,1102.15 1038.25,1102.15 1038.25,1104.03 1040.13,1104.03 1040.13,1105.91 1042.01,1105.91 1042.01,1107.79 1043.89,1107.79 1043.89,1109.67 1045.77,1109.67 1045.77,1111.55 1047.65,1111.55 1047.65,1113.43 1049.53,1113.43 1049.53,1115.31 1051.41,1115.31 1051.41,1117.19 1053.29,1117.19 1053.29,1119.07 1055.17,1119.07 1055.17,1120.95 1057.05,1120.95 1057.05,1122.83 1058.93,1122.83 1058.93,1124.71 1060.81,1124.71 1060.81,1126.59 1062.69,1126.59 1062.69,1128.47 1064.57,1128.47 1064.57,1130.35 1066.45,1130.35 1066.45,1132.23 1068.33,1132.23 1068.33,1134.1 1070.21,1134.1 1070.21,1135.98 1072.09,1135.98 1072.09,1137.86 1073.97,1137.86 1073.97,1139.74 1075.85,1139.74 1075.85,1141.62 1077.73,1141.62 1077.73,1143.5 1079.61,1143.5 1079.61,1145.38 1081.49,1145.38 1081.49,1147.26 1083.37,1147.26 1083.37,1149.14 1085.25,1149.14 1085.25,1151.02 1087.13,1151.02 1087.13,1152.9 1089.01,1152.9 1089.01,1154.78 1090.89,1154.78 1090.89,1156.66 1092.77,1156.66 1092.77,1158.54 1094.65,1158.54 1094.65,1160.42 1096.53,1160.42 1096.53,1162.3 1098.4,1162.3 1098.4,1164.18 1100.29,1164.18 1100.29,1166.06 1102.17,1166.06 1102.17,1167.94 1104.04,1167.94 1104.04,1169.82 1105.92,1169.82 1105.92,1171.7 1107.8,1171.7 1107.8,1173.58 1109.68,1173.58 1109.68,1175.46 1111.56,1175.46 1111.56,1177.34 1113.44,1177.34 1113.44,1179.22 1115.32,1179.22 1115.32,1181.1 1117.2,1181.1 1117.2,1182.98 1119.08,1182.98 1119.08,1184.86 1120.96,1184.86 1120.96,1186.74 1122.84,1186.74 1122.84,1188.62 1124.72,1188.62 1124.72,1190.5 1126.6,1190.5 1126.6,1192.37 1128.48,1192.37 1128.48,1194.25 1130.36,1194.25 1130.36,1196.13 1132.24,1196.13 1132.24,1198.01 1134.12,1198.01 1134.12,1199.89 1136,1199.89 1136,1201.77 1137.88,1201.77 1137.88,1203.65 1139.76,1203.65 1139.76,1205.53 1141.64,1205.53 1141.64,1207.41 1143.52,1207.41 1143.52,1209.29 1145.4,1209.29 1145.4,1211.17 1147.28,1211.17 1147.28,1213.05 1149.16,1213.05 1149.16,1214.93 1151.04,1214.93 1151.04,1216.81 1152.92,1216.81 1152.92,1218.69 1154.8,1218.69 1154.8,1220.57 1156.68,1220.57 1156.68,1222.45 1158.56,1222.45 1158.56,1224.33 1160.43,1224.33 1160.43,1226.21 1162.31,1226.21 1162.31,1228.09 1164.19,1228.09 1164.19,1229.97 1166.07,1229.97 1166.07,1231.85 1167.95,1231.85 1167.95,1233.73 1169.83,1233.73 1169.83,1235.61 1171.71,1235.61 1171.71,1237.49 1173.59,1237.49 1173.59,1239.37 1175.47,1239.37 1175.47,1241.25 1177.35,1241.25 1177.35,1243.13 1179.23,1243.13 1179.23,1245.01 1181.11,1245.01 1181.11,1246.89 1182.99,1246.89 1182.99,1248.77 1184.87,1248.77 1184.87,1250.65 1186.75,1250.65 1186.75,1252.53 1188.63,1252.53 1188.63,1254.4 1190.51,1254.4 1190.51,1256.28 1192.39,1256.28 1192.39,1258.16 1194.27,1258.16 1194.27,1260.04 1196.15,1260.04 1196.15,1261.92 1198.03,1261.92 1198.03,1263.8 1199.91,1263.8 1199.91,1265.68 1201.79,1265.68 1201.79,1267.56 1203.67,1267.56 1203.67,1269.44 1205.55,1269.44 1205.55,1271.32 1207.43,1271.32 1207.43,1273.2 1209.31,1273.2 1209.31,1275.08 1211.19,1275.08 1211.19,1276.96 1213.07,1276.96 1213.07,1278.84 1214.95,1278.84 1214.95,1280.72 1216.83,1280.72 1216.83,1282.6 1218.71,1282.6 1218.71,1284.48 1220.59,1284.48 1220.59,1286.36 1222.47,1286.36 1222.47,1288.24 1224.35,1288.24 1224.35,1290.12 1226.22,1290.12 1226.22,1292 1228.1,1292 1228.1,1293.88 1229.98,1293.88 1229.98,1295.76 1231.86,1295.76 1231.86,1297.64 1233.74,1297.64 1233.74,1299.52 1235.62,1299.52 1235.62,1301.4 1237.5,1301.4 1237.5,1303.28 1239.38,1303.28 1239.38,1305.16 1241.26,1305.16 1241.26,1307.04 1243.14,1307.04 1243.14,1308.92 1245.02,1308.92 1245.02,1310.8 1246.9,1310.8 1246.9,1312.68 1248.78,1312.68 1248.78,1314.55 1250.66,1314.55 1250.66,1316.43 1252.54,1316.43 1252.54,1318.31 1254.42,1318.31 1254.42,1320.19 1256.3,1320.19 1256.3,1322.07 1258.18,1322.07 1258.18,1323.95 1260.06,1323.95 1260.06,1325.83 1261.94,1325.83 1261.94,1327.71 1263.82,1327.71 1263.82,1329.59 1265.7,1329.59 1265.7,1331.47 1267.58,1331.47 1267.58,1333.35 1269.46,1333.35 1269.46,1335.23 1271.34,1335.23 1271.34,1337.11 1273.22,1337.11 1273.22,1338.99 1275.1,1338.99 1275.1,1340.87 1276.98,1340.87 1276.98,1342.75 1278.86,1342.75 1278.86,1344.63 1280.74,1344.63 1280.74,1346.51 1282.61,1346.51 1282.61,1348.39 1284.49,1348.39 1284.49,1350.27 1286.37,1350.27 1286.37,1352.15 1288.25,1352.15 1288.25,1354.03 1290.13,1354.03 1290.13,1355.91 1292.01,1355.91 1292.01,1357.79 1293.89,1357.79 1293.89,1359.67 1295.77,1359.67 1295.77,1361.55 1297.65,1361.55 1297.65,1363.43 1299.53,1363.43 1299.53,1365.31 1301.41,1365.31 1301.41,1367.19 1303.29,1367.19 1303.29,1369.07 1305.17,1369.07 1305.17,1370.95 1307.05,1370.95 1307.05,1372.83 1308.93,1372.83 1308.93,1374.71 1310.81,1374.71 1310.81,1376.58 1312.69,1376.58 1312.69,1378.46 1314.57,1378.46 1314.57,1380.34 1316.45,1380.34 1316.45,1382.22 1318.33,1382.22 1318.33,1384.1 1320.21,1384.1 1320.21,1385.98 1322.09,1385.98 1322.09,1387.86 1323.97,1387.86 1323.97,1389.74 1325.85,1389.74 1325.85,1391.62 1327.73,1391.62 1327.73,1393.5 1329.61,1393.5 1329.61,1395.38 1331.49,1395.38 1331.49,1397.26 1333.37,1397.26 1333.37,1399.14 1335.25,1399.14 1335.25,1401.02 1337.13,1401.02 1337.13,1402.9 1339.01,1402.9 1339.01,1404.78 1340.89,1404.78 1340.89,1406.66 1342.77,1406.66 1342.77,1408.54 1344.65,1408.54 1344.65,1410.42 1346.53,1410.42 1346.53,1412.3 1348.4,1412.3 1348.4,1414.18 1350.28,1414.18 1350.28,1416.06 1352.16,1416.06 1352.16,1417.94 1354.04,1417.94 1354.04,1419.82 1355.92,1419.82 1355.92,1421.7 1357.8,1421.7 1357.8,1423.58 1359.68,1423.58 1359.68,1425.46 1361.56,1425.46 1361.56,1427.34 1363.44,1427.34 1363.44,1429.22 1365.32,1429.22 1365.32,1431.1 1367.2,1431.1 1367.2,1432.98 1365.32,1432.98 1365.32,1434.86 1363.44,1434.86 1363.44,1436.73 1361.56,1436.73 1361.56,1438.61 1359.68,1438.61 1359.68,1440.5 1357.8,1440.5 1357.8,1442.37 1355.92,1442.37 1355.92,1444.25 1354.04,1444.25 1354.04,1446.13 1352.16,1446.13 1352.16,1448.01 1350.28,1448.01 1350.28,1449.89 1348.4,1449.89 1348.4,1451.77 1346.53,1451.77 1346.53,1453.65 1344.65,1453.65 1344.65,1455.53 1342.77,1455.53 1342.77,1457.41 1340.89,1457.41 1340.89,1459.29 1339.01,1459.29 1339.01,1461.17 1337.13,1461.17 1337.13,1463.05 1335.25,1463.05 1335.25,1464.93 1333.37,1464.93 1333.37,1466.81 1331.49,1466.81 1331.49,1468.69 1329.61,1468.69 1329.61,1470.57 1327.73,1470.57 1327.73,1472.45 1325.85,1472.45 1325.85,1474.33 1323.97,1474.33 1323.97,1476.21 1322.09,1476.21 1322.09,1478.09 1320.21,1478.09 1320.21,1479.97 1318.33,1479.97 1318.33,1481.85 1316.45,1481.85 1316.45,1483.73 1314.57,1483.73 1314.57,1485.61 1312.69,1485.61 1312.69,1487.49 1310.81,1487.49 1310.81,1489.37 1308.93,1489.37 1308.93,1491.25 1307.05,1491.25 1307.05,1493.13 1305.17,1493.13 1305.17,1495.01 1303.29,1495.01 1303.29,1496.89 1301.41,1496.89 1301.41,1498.76 1299.53,1498.76 1299.53,1500.64 1297.65,1500.64 1297.65,1502.52 1295.77,1502.52 1295.77,1504.4 1293.89,1504.4 1293.89,1506.28 1292.01,1506.28 1292.01,1508.16 1290.13,1508.16 1290.13,1510.04 1288.25,1510.04 1288.25,1511.92 1286.37,1511.92 1286.37,1513.8 1284.49,1513.8 1284.49,1515.68 1282.61,1515.68 1282.61,1517.56 1280.74,1517.56 1280.74,1519.44 1278.86,1519.44 1278.86,1521.32 1276.98,1521.32 1276.98,1523.2 1275.1,1523.2 1275.1,1525.08 1273.22,1525.08 1273.22,1526.96 1271.34,1526.96 1271.34,1528.84 1269.46,1528.84 1269.46,1530.72 1267.58,1530.72 1267.58,1532.6 1265.7,1532.6 1265.7,1534.48 1263.82,1534.48 1263.82,1536.36 1261.94,1536.36 1261.94,1538.24 1260.06,1538.24 1260.06,1540.12 1258.18,1540.12 1258.18,1542 1256.3,1542 1256.3,1543.88 1254.42,1543.88 1254.42,1545.76 1252.54,1545.76 1252.54,1547.64 1250.66,1547.64 1250.66,1549.52 1248.78,1549.52 1248.78,1551.4 1246.9,1551.4 1246.9,1553.28 1245.02,1553.28 1245.02,1555.16 1243.14,1555.16 1243.14,1557.04 1241.26,1557.04 1241.26,1558.92 1239.38,1558.92 1239.38,1560.8 1237.5,1560.8 1237.5,1562.68 1235.62,1562.68 1235.62,1564.55 1233.74,1564.55 1233.74,1566.43 1231.86,1566.43 1231.86,1568.31 1229.98,1568.31 1229.98,1570.19 1228.1,1570.19 1228.1,1572.07 1226.22,1572.07 1226.22,1573.95 1224.35,1573.95 1224.35,1575.83 1222.47,1575.83 1222.47,1577.71 1220.59,1577.71 1220.59,1579.59 1218.71,1579.59 1218.71,1581.47 1216.83,1581.47 1216.83,1583.35 1214.95,1583.35 1214.95,1585.23 1213.07,1585.23 1213.07,1587.11 1211.19,1587.11 1211.19,1588.99 1209.31,1588.99 1209.31,1590.87 1207.43,1590.87 1207.43,1592.75 1205.55,1592.75 1205.55,1594.63 1203.67,1594.63 1203.67,1596.51 1201.79,1596.51 1201.79,1598.39 1199.91,1598.39 1199.91,1600.27 1198.03,1600.27 1198.03,1602.15 1196.15,1602.15 1196.15,1604.03 1194.27,1604.03 1194.27,1605.91 1192.39,1605.91 1192.39,1607.79 1190.51,1607.79 1190.51,1609.67 1188.63,1609.67 1188.63,1611.55 1186.75,1611.55 1186.75,1613.43 1184.87,1613.43 1184.87,1615.31 1182.99,1615.31 1182.99,1617.19 1181.11,1617.19 1181.11,1619.07 1179.23,1619.07 1179.23,1620.94 1177.35,1620.94 1177.35,1622.82 1175.47,1622.82 1175.47,1624.7 1173.59,1624.7 1173.59,1626.58 1171.71,1626.58 1171.71,1628.46 1169.83,1628.46 1169.83,1630.34 1167.95,1630.34 1167.95,1632.22 1166.07,1632.22 1166.07,1634.1 1164.19,1634.1 1164.19,1635.98 1162.31,1635.98 1162.31,1637.86 1160.43,1637.86 1160.43,1639.74 1158.56,1639.74 1158.56,1641.62 1156.68,1641.62 1156.68,1643.5 1154.8,1643.5 1154.8,1645.38 1152.92,1645.38 1152.92,1647.26 1151.04,1647.26 1151.04,1649.14 1149.16,1649.14 1149.16,1651.02 1147.28,1651.02 1147.28,1652.9 1145.4,1652.9 1145.4,1654.78 1143.52,1654.78 1143.52,1656.66 1141.64,1656.66 1141.64,1658.54 1139.76,1658.54 1139.76,1660.42 1137.88,1660.42 1137.88,1662.3 1136,1662.3 1136,1664.18 1134.12,1664.18 1134.12,1666.06 1132.24,1666.06 1132.24,1667.94 1130.36,1667.94 1130.36,1669.82 1128.48,1669.82 1128.48,1671.7 1126.6,1671.7 1126.6,1673.58 1124.72,1673.58 1124.72,1675.46 1122.84,1675.46 1122.84,1677.34 1120.96,1677.34 1120.96,1679.22 1119.08,1679.22 1119.08,1681.1 1117.2,1681.1 1117.2,1682.98 1115.32,1682.98 1115.32,1684.86 1113.44,1684.86 1113.44,1686.73 1111.56,1686.73 1111.56,1688.61 1109.68,1688.61 1109.68,1690.49 1107.8,1690.49 1107.8,1692.37 1105.92,1692.37 1105.92,1694.25 1104.04,1694.25 1104.04,1696.13 1102.17,1696.13 1102.17,1698.01 1100.29,1698.01 1100.29,1699.89 1098.4,1699.89 1098.4,1701.77 1096.53,1701.77 1096.53,1703.65 1094.65,1703.65 1094.65,1705.53 1092.77,1705.53 1092.77,1707.41 1090.89,1707.41 1090.89,1709.29 1089.01,1709.29 1089.01,1711.17 1087.13,1711.17 1087.13,1713.05 1085.25,1713.05 1085.25,1714.93 1083.37,1714.93 1083.37,1716.81 1081.49,1716.81 1081.49,1718.69 1079.61,1718.69 1079.61,1720.57 1077.73,1720.57 1077.73,1722.45 1075.85,1722.45 1075.85,1724.33 1073.97,1724.33 1073.97,1726.21 1072.09,1726.21 1072.09,1728.09 1070.21,1728.09 1070.21,1729.97 1068.33,1729.97 1068.33,1731.85 1066.45,1731.85 1066.45,1733.73 1064.57,1733.73 1064.57,1735.61 1062.69,1735.61 1062.69,1737.49 1060.81,1737.49 1060.81,1739.37 1058.93,1739.37 1058.93,1741.25 1057.05,1741.25 1057.05,1743.12 1055.17,1743.12 1055.17,1745 1053.29,1745 1053.29,1746.88 1051.41,1746.88 1051.41,1748.76 1049.53,1748.76 1049.53,1750.64 1047.65,1750.64 1047.65,1752.52 1045.77,1752.52 1045.77,1754.4 1043.89,1754.4 1043.89,1756.28 1042.01,1756.28 1042.01,1758.16 1040.13,1758.16 1040.13,1760.04 1038.25,1760.04 1038.25,1761.92 1036.38,1761.92 1036.38,1763.8 1034.5,1763.8 1034.5,1765.68 1032.62,1765.68 1032.62,1767.56 1030.74,1767.56 1030.74,1769.44 1028.86,1769.44 1028.86,1771.32 1026.98,1771.32 1026.98,1773.2 1025.1,1773.2 1025.1,1775.08 1023.22,1775.08 1023.22,1776.96 1021.34,1776.96 1021.34,1778.84 1019.46,1778.84 1019.46,1780.72 1017.58,1780.72 1017.58,1782.6 1015.7,1782.6 1015.7,1784.48 1013.82,1784.48 1013.82,1786.36 1011.94,1786.36 1011.94,1788.24 1010.06,1788.24 1010.06,1790.12 1008.18,1790.12 1008.18,1792 1006.3,1792 1006.3,1793.88 1004.42,1793.88 1004.42,1795.76 1002.54,1795.76 1002.54,1797.64 1000.66,1797.64 1000.66,1799.52 998.78,1799.52 998.78,1801.4 996.9,1801.4 996.9,1803.28 995.02,1803.28 995.02,1805.16 993.14,1805.16 993.14,1807.04 991.26,1807.04 991.26,1808.91 989.38,1808.91 989.38,1810.79 987.5,1810.79 987.5,1812.67 985.62,1812.67 985.62,1814.55 983.74,1814.55 983.74,1816.43 981.86,1816.43 981.86,1818.31 979.98,1818.31 979.98,1820.19 978.1,1820.19 978.1,1822.07 976.22,1822.07 976.22,1823.95 974.35,1823.95 974.35,1825.83 972.47,1825.83 972.47,1827.71 970.59,1827.71 970.59,1829.59 968.71,1829.59 968.71,1831.47 966.83,1831.47 966.83,1833.35 964.95,1833.35 964.95,1835.23 963.07,1835.23 963.07,1837.11 961.19,1837.11 961.19,1838.99 959.31,1838.99 959.31,1840.87 957.43,1840.87 957.43,1842.75 955.55,1842.75 955.55,1844.63 953.67,1844.63 953.67,1846.51 951.79,1846.51 951.79,1848.39 949.91,1848.39 949.91,1850.27 948.03,1850.27 948.03,1854.03 946.15,1854.03 946.15,1855.91 944.27,1855.91 944.27,1857.79 942.39,1857.79 942.39,1861.55 940.51,1861.55 940.51,1867.18 938.63,1867.18 938.63,1885.98 940.51,1885.98 940.51,1891.62 942.39,1891.62 942.39,1895.38 944.27,1895.38 944.27,1899.14 946.15,1899.14 946.15,1901.02 948.03,1901.02 948.03,1902.9 949.91,1902.9 949.91,1904.78 951.79,1904.78 951.79,1906.66 953.67,1906.66 953.67,1908.54 957.43,1908.54 957.43,1910.42 961.19,1910.42 961.19,1912.3 966.83,1912.3 966.83,1914.18 985.62,1914.18 "/>
+                     </g>
+                </svg>            
+            </button>
+        </div>
+    </section>
+
+    <section id="contact-form">
+        <h1 class="svM"><svg xmlns="http://www.w3.org/2000/svg" transform="scale(1.5)" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-satellite"><path d="M13 7 9 3 5 7l4 4"/><path d="m17 11 4 4-4 4-4-4"/><path d="m8 12 4 4 6-6-4-4Z"/><path d="m16 8 3-3"/><path d="M9 21a6 6 0 0 0-6-6"/></svg>Entre em Contato</h1>
+        <form id="contact" action="#" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="name" required>Nome <i>(Obrigatório)</i>:</label>
+                <input type="text" id="name" name="name" placeholder="Seu Nome" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email" required>E-mail <i>(Obrigatório)</i>:</label>
+                <input type="email" id="email" name="email" placeholder="seuemail@email.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Número de Telefone <i>(Opcional)</i>:</label>
+                <input type="tel" id="phone" name="phone" pattern="\([0-9]{2}\) [0-9]{1} [0-9]{4}-[0-9]{4}" placeholder="Seu número de telefone">
+                <small id="whatsapp-info" class="hidden"><i>*O contato será feito via WhatsApp*</i></small>
+            </div>
+
+            <div class="form-group">
+                <label for="message" required>Mensagem <i>(Obrigatório)</i>:</label>
+                <textarea id="message" name="message" rows="5" placeholder="Digite aqui a sua mensagem" maxlength="10000" required></textarea>
+                <small id="char-count">0/10000 caracteres</small>
+            </div>
+
+            <div class="form-group"> 
+                <label for="attachments">Anexar arquivos de imagem e/ou documento <i>(Opcional)</i>:</label>
+                <span class="upload"><i>*Limitado a 3 arquivos*</i></span>
+                <div class="upload-container">
+                    <label for="attachments" class="file-label">
+                        <div class="file-box">
+                            <span>+</span>
+                        </div>
+                    </label>
+                    <input type="file" id="attachments" name="attachments[]" multiple accept=".jpg,.jpeg,.png,.pdf" class="file-input">
+        <!-- Contêiner de pré-visualização ao lado -->
+                    <div id="preview-container" class="preview-container"></div>
+                </div>
+            </div>
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <!-- Informações de Contato -->
+            <div class="footer-columns">
+              <div class="footer-section">
+                <h4>Informações de Contato</h4>
+                <p><strong>Telefone:</strong> <a href="tel:+5579991489065">+55 (79) 9 9148-9065</a></p>
+                <p><strong>E-mail:</strong> <a href="mailto:quarks.science4fun@gmail.com">quarks.science4fun@gmail.com</a></p>
+                <p><strong>Endereço:</strong> Rua Sergipe nº 825, sala 1, Siqueira Campos, Aracaju - SE, CEP 49075-540</p>
+              </div>
+              <div class="footer-section">
+                <h4>Horário de Atendimento</h4>
+                <p>De segunda a sexta-feira, das 9h às 18h<span style="color:#FF4000">*</span></p>
+                <p style=" text-align: right; font-size: 8pt"><span style="color:#FF4000; font-size: 10pt">*</span>Exceto feriados</p>
+              </div>
+            </div>
+          </div>
+
+            <!-- Seção das Redes Sociais -->
+            <div class="divider"></div>
+            <div class="social-section">
+              <div class="social-icons">
+                <a href="https://instagram.com/quarks.club" target="_blank" aria-label="Instagram">
+                  <img src="image/Instagram_logo.svg" alt="Instagram">
+                </a>
+                <a href="https://wa.me/5579991489065" target="_blank" aria-label="WhatsApp">
+                  <img src="image/WhatsApp_logo.svg" alt="WhatsApp">
+                </a>
+                <a href="mailto:quarks.science4fun@gmail.com" target="_blank" aria-label="E-mail">
+                  <img src="image/email.png" alt="E-mail">
+                </a>
+              </div>
+            </div>
+
+          <div class="footer-copyright">
+            <p>© 2025 Organização Social e Clube de Ciências Quarks | CNPJ: 57.914.912/0001-96</p>
+        </div>
+    </footer>
+
+</body>
+</html>
