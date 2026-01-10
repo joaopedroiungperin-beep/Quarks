@@ -1013,7 +1013,6 @@ header.shrink .desktop-nav {
 .solutions{
     margin-top: 50px;
     display: flex;
-    padding: 20px;
     flex-direction: column;
 }
 
