@@ -22,8 +22,8 @@ a {
 
 header {
     background-color: rgba(0, 0, 0, 0.95);
-    transform: translateX(-50%);
-    left: 50%;
+    left: 0;
+    top:0;
     width: 100%;
     z-index: 999;
     margin: auto;
