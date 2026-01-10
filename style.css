@@ -1019,24 +1019,21 @@ header.shrink .desktop-nav {
 
 .experimental-section {
   position: relative;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  overflow: hidden;
-
+  width: 100%; /* Alterado de 100vw para evitar scroll horizontal indesejado */
+  min-height: 600px; /* Garante que a seção tenha altura para as imagens */
+  overflow: visible; /* Permite que imagens flutuantes não sejam cortadas rigidamente */
+  
+  /* Gradiente Suave: Removendo as travas de porcentagem duplicadas */
   background: linear-gradient(
     to right,
     #000 0%,
-    #000 30%,
-
-    #ff5c5c 30%,
-    #ff5c5c 50%,
-
-    #3aa0ff 50%,
-    #3aa0ff 70%,
-
-    #000 70%,
+    #ff5c5c 35%,
+    #3aa0ff 65%,
     #000 100%
   );
+  
+  /* Garante que esta seção fique sobreposta corretamente se necessário */
+  z-index: 5; 
 }
 
 .experimental-inner {
@@ -1061,19 +1058,22 @@ header.shrink .desktop-nav {
 }
 
 /* Imagens */
-.layer-images {
+/* Ajuste nas imagens para que elas não sumam */
+.layer-images img {
   position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
+  /* Exemplo de ajuste: use porcentagens para posicionar dentro da seção */
+  max-width: 150px; 
 }
 
 /* Conteúdo */
 .layer-content {
   position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 100px 20px; /* Espaçamento interno para o conteúdo respirar */
   z-index: 10;
+  color: #fff; /* Para melhor leitura sobre o fundo escuro/colorido */
 }
-
 
 /* Texto */
 .headline {
