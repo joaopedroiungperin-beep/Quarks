@@ -1024,37 +1024,40 @@ header.shrink .desktop-nav {
   overflow: hidden;
 
   background:
-    /* TOPO – transição suave do preto */
+    /* TOPO */
     linear-gradient(
       to bottom,
       #000 0%,
-      rgba(0,0,0,0.85) 10%,
-      rgba(0,0,0,0.4) 25%,
-      transparent 40%
+      rgba(0,0,0,0.9) 12%,
+      rgba(0,0,0,0.6) 28%,
+      rgba(0,0,0,0.3) 42%,
+      transparent 60%
     ),
 
-    /* BRILHO AZUL CENTRAL */
+    /* AZUL */
     radial-gradient(
       1000px 600px at 50% 35%,
       rgba(58,160,255,0.22),
-      rgba(58,160,255,0.12) 40%,
-      transparent 70%
+      rgba(58,160,255,0.12) 45%,
+      transparent 75%
     ),
 
-    /* BRILHO VERMELHO INFERIOR */
+    /* VERMELHO */
     radial-gradient(
       800px 500px at 80% 65%,
       rgba(255,92,92,0.20),
-      transparent 70%
+      transparent 75%
     ),
 
-    /* BASE – volta suave para o preto */
+    /* BASE */
     linear-gradient(
       to top,
       #000 0%,
-      rgba(0,0,0,0.85) 15%,
-      rgba(0,0,0,0.4) 30%,
-      transparent 45%
+      rgba(0,0,0,0.95) 12%,
+      rgba(0,0,0,0.8) 25%,
+      rgba(0,0,0,0.5) 40%,
+      rgba(0,0,0,0.2) 55%,
+      transparent 70%
     ),
 
     #000;
@@ -1064,6 +1067,7 @@ header.shrink .desktop-nav {
   max-width: 1100px;
   margin: auto;
   padding: 90px 20px 130px;
+  z-index: 10;
 }
 
 /* Canvas */
