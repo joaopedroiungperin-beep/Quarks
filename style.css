@@ -1013,6 +1013,7 @@ header.shrink .desktop-nav {
 .solutions{
     margin-top: 50px;
     display: flex;
+    padding: 20px;
     flex-direction: column;
 }
 
@@ -1023,9 +1024,21 @@ header.shrink .desktop-nav {
   padding: 90px 20px 130px;
   color: #e6ebf2;
   overflow: hidden;
+  /*FUNDO DA SEÇÃO */
+  background:
+    radial-gradient(1200px 600px at 50% 20%, rgba(58,160,255,0.18), transparent 60%),
+    radial-gradient(800px 500px at 80% 70%, rgba(255,92,92,0.18), transparent 60%),
+    #05070c;
 }
 
 /* Canvas */
+.experimental-section canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
 #particles {
   position: absolute;
   inset: 0;
@@ -1040,7 +1053,7 @@ header.shrink .desktop-nav {
   line-height: 1.15;
   margin-bottom: 60px;
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 
 .blue { color: #3aa0ff; }
@@ -1057,7 +1070,7 @@ header.shrink .desktop-nav {
   backdrop-filter: blur(14px);
   box-shadow: 0 30px 80px rgba(0,0,0,0.6);
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 
 .card p {
@@ -1070,7 +1083,7 @@ header.shrink .desktop-nav {
   position: absolute;
   width: 220px;
   opacity: 0.9;
-  z-index: 1;
+  z-index: 2;
   animation: float 10s ease-in-out infinite;
 }
 
