@@ -1020,24 +1020,26 @@ header.shrink .desktop-nav {
 .experimental-section {
   position: relative;
   width: 100%;
-  /* Definimos uma altura mínima para as imagens e o conteúdo não vazarem */
-  min-height: 100vh; 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: visible;
+  /* Aumentamos o padding para dar espaço às imagens e evitar cortes */
+  padding: 150px 0; 
+  margin: 0;
+  overflow: visible; /* Crucial para não cortar átomos/frascos nas bordas */
 
-  /* Gradiente Horizontal (Cima para Baixo) e Suave */
+  /* Gradiente Horizontal Suave (Top to Bottom) */
+  /* Usamos paradas distantes para a cor "espalhar" */
   background: linear-gradient(
-    to bottom,
-    #000 0%,
-    #ff5c5c 40%,
-    #3aa0ff 70%,
-    #000 100%
+    180deg, 
+    #000000 0%, 
+    #ff5c5c 35%, 
+    #3aa0ff 65%, 
+    #000000 100%
   );
   
-  /* Garante que esta seção não seja sobreposta por outras */
-  z-index: 1;
+  /* Garante que a seção tenha altura suficiente para o conteúdo absoluto */
+  min-height: 800px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .experimental-inner {
@@ -1062,10 +1064,13 @@ header.shrink .desktop-nav {
 }
 
 /* Imagens */
-/* Ajuste nas imagens para que elas não sumam */
+/* Ajuste das Imagens para flutuarem sem sumir */
 .layer-images {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: 2;
   pointer-events: none;
 }
@@ -1073,7 +1078,7 @@ header.shrink .desktop-nav {
 /* Conteúdo */
 .layer-content {
   position: relative;
-  max-width: 1100px;
+  max-width: 900px;
   width: 100%;
   padding: 100px 20px;
   z-index: 10;
@@ -1118,6 +1123,8 @@ header.shrink .desktop-nav {
 /* Ilustrações */
 .science {
   position: absolute;
+/* Garante que as imagens fiquem dentro da seção */
+  max-width: 180px; 
   width: 220px;
   opacity: 0.9;
   pointer-events: none;
