@@ -1018,27 +1018,46 @@ header.shrink .desktop-nav {
 }
 
 .experimental-section {
+  position: relative;
   width: 100vw;
   margin-left: calc(-50vw + 50%);
-  position: relative;
-  margin: auto;
-  padding: 90px 20px 130px;
-  color: #e6ebf2;
   overflow: hidden;
 
   background:
+    /* TOPO – transição suave do preto */
+    linear-gradient(
+      to bottom,
+      #000 0%,
+      rgba(0,0,0,0.85) 10%,
+      rgba(0,0,0,0.4) 25%,
+      transparent 40%
+    ),
+
+    /* BRILHO AZUL CENTRAL */
     radial-gradient(
-      1000px 500px at 50% -10%,
-      rgba(58,160,255,0.0),
-      rgba(58,160,255,0.15) 40%,
+      1000px 600px at 50% 35%,
+      rgba(58,160,255,0.22),
+      rgba(58,160,255,0.12) 40%,
       transparent 70%
     ),
+
+    /* BRILHO VERMELHO INFERIOR */
     radial-gradient(
-      800px 500px at 80% 70%,
-      rgba(255,92,92,0.18),
-      transparent 65%
+      800px 500px at 80% 65%,
+      rgba(255,92,92,0.20),
+      transparent 70%
     ),
-    #05070c;
+
+    /* BASE – volta suave para o preto */
+    linear-gradient(
+      to top,
+      #000 0%,
+      rgba(0,0,0,0.85) 15%,
+      rgba(0,0,0,0.4) 30%,
+      transparent 45%
+    ),
+
+    #000;
 }
 
 .experimental-inner {
@@ -1069,7 +1088,7 @@ header.shrink .desktop-nav {
   line-height: 1.15;
   margin-bottom: 60px;
   position: relative;
-  z-index: 3;
+  z-index: 4;
 }
 
 .blue { color: #3aa0ff; }
@@ -1081,17 +1100,19 @@ header.shrink .desktop-nav {
   margin: auto;
   padding: 40px 36px;
   border-radius: 24px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+  background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03));
   border: 1px solid rgba(255,255,255,0.12);
   backdrop-filter: blur(14px);
   box-shadow: 0 30px 80px rgba(0,0,0,0.6);
   position: relative;
-  z-index: 3;
+  z-index: 2;
 }
 
 .card p {
+  position: relative;
   font-size: 18px;
   line-height: 1.7;
+  z-index: 4;
 }
 
 /* Ilustrações */
@@ -1099,7 +1120,8 @@ header.shrink .desktop-nav {
   position: absolute;
   width: 220px;
   opacity: 0.9;
-  z-index: 2;
+  pointer-events: none;
+  z-index: 3;
   animation: float 10s ease-in-out infinite;
 }
 
