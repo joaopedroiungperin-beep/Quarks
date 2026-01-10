@@ -1024,17 +1024,7 @@ header.shrink .desktop-nav {
   overflow: hidden;
 
   background:
-    /* TOPO */
-    linear-gradient(
-      to bottom,
-      #000 0%,
-      rgba(0,0,0,0.9) 12%,
-      rgba(0,0,0,0.6) 28%,
-      rgba(0,0,0,0.3) 42%,
-      transparent 60%
-    ),
-
-    /* AZUL */
+    /* AZUL – meio superior */
     radial-gradient(
       1000px 600px at 50% 35%,
       rgba(58,160,255,0.22),
@@ -1042,25 +1032,20 @@ header.shrink .desktop-nav {
       transparent 75%
     ),
 
-    /* VERMELHO */
+    /* VERMELHO – meio inferior */
     radial-gradient(
-      800px 500px at 80% 65%,
+      900px 600px at 50% 65%,
       rgba(255,92,92,0.20),
+      rgba(255,92,92,0.10) 45%,
       transparent 75%
     ),
 
-    /* BASE */
+    /* BASE PRETA – embaixo de TUDO */
     linear-gradient(
-      to top,
+      to bottom,
       #000 0%,
-      rgba(0,0,0,0.95) 12%,
-      rgba(0,0,0,0.8) 25%,
-      rgba(0,0,0,0.5) 40%,
-      rgba(0,0,0,0.2) 55%,
-      transparent 70%
-    ),
-
-    #000;
+      #000 100%
+    );
 }
 
 .experimental-inner {
@@ -1081,8 +1066,23 @@ header.shrink .desktop-nav {
 #particles {
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: 1;
 }
+
+/* Imagens */
+.layer-images {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Conteúdo */
+.layer-content {
+  position: relative;
+  z-index: 10;
+}
+
 
 /* Texto */
 .headline {
