@@ -1019,6 +1019,9 @@ header.shrink .desktop-nav {
 
 .experimental-section {
   position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: visible;
   /* Gradiente Horizontal Suave com Transparência (RGBA) */
   background: linear-gradient(
     to bottom,
