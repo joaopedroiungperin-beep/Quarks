@@ -1018,6 +1018,8 @@ header.shrink .desktop-nav {
 }
 
 .experimental-section {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
   position: relative;
   margin: auto;
   padding: 90px 20px 130px;
@@ -1037,6 +1039,12 @@ header.shrink .desktop-nav {
       transparent 65%
     ),
     #05070c;
+}
+
+.experimental-inner {
+  max-width: 1100px;
+  margin: auto;
+  padding: 90px 20px 130px;
 }
 
 /* Canvas */
