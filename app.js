@@ -327,7 +327,7 @@ if (canvas) {
     reset() {
       this.x = Math.random() * w;
       this.y = h + Math.random() * 200;
-      this.radius = Math.random() * 1.8 + 0.4;
+      this.radius = Math.random() * 2.2 + 0.6;
       this.speed = Math.random() * 0.3 + 0.05;
       this.life = 0;
       this.maxLife = h / this.speed;
@@ -346,7 +346,7 @@ if (canvas) {
       if (progress < 0.2) alpha = progress / 0.2;
       else if (progress > 0.8) alpha = (1 - progress) / 0.2;
 
-      ctx.fillStyle = `rgba(255,255,255,${alpha * 0.6})`;
+      ctx.fillStyle = `rgba(255,255,255,${alpha * 0.9})`;
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
       ctx.fill();
@@ -355,7 +355,9 @@ if (canvas) {
 
   function init() {
     particles = [];
-    for (let i = 0; i < 140; i++) particles.push(new Particle());
+    for (let i = 0; i < 220; i++) {
+        particles.push(new Particle());
+    }
   }
 
   function animate() {
