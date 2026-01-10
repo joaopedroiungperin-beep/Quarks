@@ -305,12 +305,14 @@ window.addEventListener("scroll", () => {
 const canvas = document.getElementById('particles');
 if (canvas) {
   const ctx = canvas.getContext('2d');
+  const section = canvas.closest('.experimental-section');
+
   let w, h;
   let particles = [];
 
   function resize() {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = document.body.scrollHeight;
+    w = canvas.width = section.offsetWidth;
+    h = canvas.height = section.offsetHeight;
   }
 
   window.addEventListener('resize', resize);
