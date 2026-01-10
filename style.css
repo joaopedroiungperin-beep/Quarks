@@ -1088,7 +1088,7 @@ header.shrink .desktop-nav {
   line-height: 1.15;
   margin-bottom: 60px;
   position: relative;
-  z-index: 4;
+  z-index: 99;
 }
 
 .blue { color: #3aa0ff; }
@@ -1112,7 +1112,7 @@ header.shrink .desktop-nav {
   position: relative;
   font-size: 18px;
   line-height: 1.7;
-  z-index: 5;
+  z-index: 99;
 }
 
 /* Ilustrações */
