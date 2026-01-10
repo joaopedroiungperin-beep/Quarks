@@ -1017,55 +1017,72 @@ header.shrink .desktop-nav {
     flex-direction: column;
 }
 
-.descripSol, .descripSol0 {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 30px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+.experimental-section {
+  position: relative;
+  max-width: 1100px;
+  margin: auto;
+  padding: 90px 20px 130px;
+  color: #e6ebf2;
+  overflow: hidden;
 }
 
-.descripSol0 {
-    flex-direction: row-reverse;
-    padding: 0;
+/* Canvas */
+#particles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
 }
 
-.descripSI {
-    width: 300px;
+/* Texto */
+.headline {
+  text-align: center;
+  font-size: clamp(30px, 5vw, 48px);
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 60px;
+  position: relative;
+  z-index: 2;
 }
 
-@media (max-width: 768px){
-    .descripSol {
-        position: relative;
-    }
+.blue { color: #3aa0ff; }
+.red { color: #ff5c5c; }
 
-    .descripSI {
-        transform: translateY(-50%);
-        top: 50%;
-        width: 80%;
-        opacity: 0.2;
-        z-index: -1;
-        position: absolute;
-    }
-
-    .descripSol, .descripSol0 {
-        flex-direction: column;
-    }
-
+/* Card */
+.card {
+  max-width: 760px;
+  margin: auto;
+  padding: 40px 36px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+  position: relative;
+  z-index: 2;
 }
 
-@media (max-width: 680px){
-    .descripSI {
-        width: 100%;
-    }
+.card p {
+  font-size: 18px;
+  line-height: 1.7;
 }
 
-.descripSol p {
-    font-size: 12pt;
-    font-weight: normal;
+/* Ilustrações */
+.science {
+  position: absolute;
+  width: 220px;
+  opacity: 0.9;
+  z-index: 1;
+  animation: float 10s ease-in-out infinite;
+}
+
+.dna { left: -40px; top: 260px; }
+.flask-blue { right: -40px; top: 340px; animation-delay: 2s; }
+.flask-red { left: -60px; bottom: 120px; animation-delay: 4s; }
+.atom { right: -50px; bottom: 80px; animation-delay: 6s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-18px); }
 }
 
 .tFS {
