@@ -1019,15 +1019,23 @@ header.shrink .desktop-nav {
 
 .experimental-section {
   position: relative;
-  max-width: 1100px;
   margin: auto;
   padding: 90px 20px 130px;
   color: #e6ebf2;
   overflow: hidden;
-  /*FUNDO DA SEÇÃO */
+
   background:
-    radial-gradient(1200px 600px at 50% 20%, rgba(58,160,255,0.18), transparent 60%),
-    radial-gradient(800px 500px at 80% 70%, rgba(255,92,92,0.18), transparent 60%),
+    radial-gradient(
+      1000px 500px at 50% -10%,
+      rgba(58,160,255,0.0),
+      rgba(58,160,255,0.15) 40%,
+      transparent 70%
+    ),
+    radial-gradient(
+      800px 500px at 80% 70%,
+      rgba(255,92,92,0.18),
+      transparent 65%
+    ),
     #05070c;
 }
 
@@ -1095,6 +1103,54 @@ header.shrink .desktop-nav {
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-18px); }
+}
+
+@media (max-width: 768px) {
+
+  .experimental-section {
+    padding: 60px 16px 90px;
+  }
+
+  .headline {
+    font-size: clamp(22px, 6vw, 30px);
+    margin-bottom: 40px;
+  }
+
+  .card {
+    padding: 26px 22px;
+    border-radius: 20px;
+  }
+
+  .card p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* 🔥 IMAGENS */
+  .science {
+    width: 120px;
+    opacity: 0.55;
+  }
+
+  .dna {
+    top: 120px;
+    left: -90px;
+  }
+
+  .flask-blue {
+    top: 220px;
+    right: -90px;
+  }
+
+  .flask-red {
+    bottom: 180px;
+    left: -90px;
+  }
+
+  .atom {
+    bottom: 100px;
+    right: -90px;
+  }
 }
 
 .SciDocMax, .SciDocMax0 {
