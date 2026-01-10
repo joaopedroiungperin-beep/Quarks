@@ -1023,29 +1023,20 @@ header.shrink .desktop-nav {
   margin-left: calc(-50vw + 50%);
   overflow: hidden;
 
-  background:
-    /* AZUL – meio superior */
-    radial-gradient(
-      1000px 600px at 50% 35%,
-      rgba(58,160,255,0.22),
-      rgba(58,160,255,0.12) 45%,
-      transparent 75%
-    ),
+  background: linear-gradient(
+    to right,
+    #000 0%,
+    #000 30%,
 
-    /* VERMELHO – meio inferior */
-    radial-gradient(
-      900px 600px at 50% 65%,
-      rgba(255,92,92,0.20),
-      rgba(255,92,92,0.10) 45%,
-      transparent 75%
-    ),
+    #ff5c5c 30%,
+    #ff5c5c 50%,
 
-    /* BASE PRETA – embaixo de TUDO */
-    linear-gradient(
-      to bottom,
-      #000 0%,
-      #000 100%
-    );
+    #3aa0ff 50%,
+    #3aa0ff 70%,
+
+    #000 70%,
+    #000 100%
+  );
 }
 
 .experimental-inner {
