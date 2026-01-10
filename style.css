@@ -1019,21 +1019,25 @@ header.shrink .desktop-nav {
 
 .experimental-section {
   position: relative;
-  width: 100%; /* Alterado de 100vw para evitar scroll horizontal indesejado */
-  min-height: 600px; /* Garante que a seção tenha altura para as imagens */
-  overflow: visible; /* Permite que imagens flutuantes não sejam cortadas rigidamente */
-  
-  /* Gradiente Suave: Removendo as travas de porcentagem duplicadas */
+  width: 100%;
+  /* Definimos uma altura mínima para as imagens e o conteúdo não vazarem */
+  min-height: 100vh; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+
+  /* Gradiente Horizontal (Cima para Baixo) e Suave */
   background: linear-gradient(
-    to right,
+    to bottom,
     #000 0%,
-    #ff5c5c 35%,
-    #3aa0ff 65%,
+    #ff5c5c 40%,
+    #3aa0ff 70%,
     #000 100%
   );
   
-  /* Garante que esta seção fique sobreposta corretamente se necessário */
-  z-index: 5; 
+  /* Garante que esta seção não seja sobreposta por outras */
+  z-index: 1;
 }
 
 .experimental-inner {
@@ -1059,20 +1063,21 @@ header.shrink .desktop-nav {
 
 /* Imagens */
 /* Ajuste nas imagens para que elas não sumam */
-.layer-images img {
+.layer-images {
   position: absolute;
-  /* Exemplo de ajuste: use porcentagens para posicionar dentro da seção */
-  max-width: 150px; 
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
 }
 
 /* Conteúdo */
 .layer-content {
   position: relative;
   max-width: 1100px;
-  margin: 0 auto;
-  padding: 100px 20px; /* Espaçamento interno para o conteúdo respirar */
+  width: 100%;
+  padding: 100px 20px;
   z-index: 10;
-  color: #fff; /* Para melhor leitura sobre o fundo escuro/colorido */
+  text-align: center;
 }
 
 /* Texto */
