@@ -1019,16 +1019,6 @@ header.shrink .desktop-nav {
 
 .experimental-section {
   position: relative;
-  /* Força a seção a ocupar a largura total da tela, ignorando pais */
-  width: 100vw;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  
-  padding: 100px 0;
-  overflow: visible;
-
   /* Gradiente Horizontal Suave com Transparência (RGBA) */
   background: linear-gradient(
     to bottom,
@@ -1037,7 +1027,6 @@ header.shrink .desktop-nav {
     rgba(58, 160, 255, 0.4) 60%, /* Azul com 40% de opacidade */
     rgba(0, 0, 0, 1) 100%
   );
-  
   min-height: 700px;
   display: flex;
   align-items: center;
