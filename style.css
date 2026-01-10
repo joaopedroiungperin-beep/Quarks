@@ -1335,12 +1335,8 @@ tbody tr:hover {
     display: flex;
 }
 
-.insideParticipation, .donateParticipation {
+.insideParticipation{
     flex-basis: 50%;
-}
-
-.donateTitles {
-    text-align: start;
 }
 
 #formParticipation {
@@ -1402,53 +1398,6 @@ tbody tr:hover {
     background-color: #bd4415;
 }
 
-.pDonate{
-    padding: 0 50px 0 50px;
-    margin-top: 15px;
-    color: #ffbc00;
-    text-align: center;
-}
-
-.donateParticipation button {
-    background-color: #00e6e6;
-    color: black;
-    border: none;
-    padding: 10px 15px;
-    margin: 5px 0 0 0;
-    border-radius: 6px;
-    cursor: pointer;
-    font-family: Poppins;
-    font-weight: bold;
-    font-size: 11pt;
-}
-
-.donateParticipation button:hover {
-    background-color: #00a6cc;
-}
-
-.countsDonate{
-    gap: 40px;
-    justify-content: center;
-    display: flex;
-    margin: 5px 0 20px 0;
-}
-
-.countsDonate p{
-    padding: 5px;
-    border: white 1px solid;
-}
-
-.reciboTitle {
-    font-size: 14pt;
-    text-align: center;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-#modalRecibo{
-    display: none;
-}
-
 @media (max-width: 1024px) {
     .stepImplement{
         width: 80%;
@@ -1461,16 +1410,12 @@ tbody tr:hover {
         flex-wrap: wrap;
     }
 
-    .insideParticipation, .donateParticipation {
+    .insideParticipation {
         flex-basis: 100%;
     }
 
     #formParticipation {
         margin-top: 20px;
-    }
-
-    .donateTitles {
-        text-align: center;
     }
 }
 
