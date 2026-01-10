@@ -1085,16 +1085,6 @@ header.shrink .desktop-nav {
   50% { transform: translateY(-18px); }
 }
 
-.tFS {
-    color: #1c73a9;
-}
-
-.tFS, .sTS{
-    margin: 0 auto;
-    width: 90%;
-    text-align: center;
-}
-
 .SciDocMax, .SciDocMax0 {
     margin: 0 auto;
     max-width: 1000px;
