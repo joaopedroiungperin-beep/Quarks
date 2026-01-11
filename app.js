@@ -303,72 +303,75 @@ window.addEventListener("scroll", () => {
 
 // Animação Solutions 
 const canvas = document.getElementById('particles');
-const ctx = canvas.getContext('2d');
+if (canvas) {
+  const ctx = canvas.getContext('2d');
+  const section = canvas.closest('.experimental-section');
 
-let w, h;
-let particles = [];
+  let w, h;
+  let particles = [];
 
-function resize() {
-  w = canvas.width = window.innerWidth;
-  h = canvas.height = document.querySelector('.experimental-section').offsetHeight;
+  function resize() {
+    w = canvas.width = section.offsetWidth;
+    h = canvas.height = section.offsetHeight;
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+
+  class Particle {
+    constructor() {
+      this.reset();
+      this.y = Math.random() * h;
+    }
+
+    reset() {
+      this.x = Math.random() * w;
+      this.y = h + Math.random() * 200;
+      this.radius = Math.random() * 2.2 + 0.6;
+      this.speed = Math.random() * 0.3 + 0.05;
+      this.life = 0;
+      this.maxLife = h / this.speed;
+    }
+
+    update() {
+      this.y -= this.speed;
+      this.life++;
+      if (this.y < -50) this.reset();
+    }
+
+    draw() {
+      const progress = this.life / this.maxLife;
+      let alpha = 1;
+
+      if (progress < 0.2) alpha = progress / 0.2;
+      else if (progress > 0.8) alpha = (1 - progress) / 0.2;
+
+      ctx.fillStyle = `rgba(255,255,255,${alpha * 0.9})`;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function init() {
+    particles = [];
+    for (let i = 0; i < 220; i++) {
+        particles.push(new Particle());
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, w, h);
+    particles.forEach(p => {
+      p.update();
+      p.draw();
+    });
+    requestAnimationFrame(animate);
+  }
+
+  init();
+  animate();
 }
-
-window.addEventListener('resize', resize);
-resize();
-
-class Particle {
-  constructor() {
-    this.reset();
-    this.y = Math.random() * h;
-  }
-
-  reset() {
-    this.x = Math.random() * w;
-    this.y = h + Math.random() * 200;
-    this.radius = Math.random() * 1.6 + 0.4;
-    this.speed = Math.random() * 0.4 + 0.15;
-    this.life = 0;
-    this.maxLife = h / this.speed;
-  }
-
-  update() {
-    this.y -= this.speed;
-    this.life++;
-    if (this.y < -50) this.reset();
-  }
-
-  draw() {
-    const progress = this.life / this.maxLife;
-    let alpha = 1;
-
-    if (progress < 0.2) alpha = progress / 0.2;
-    else if (progress > 0.8) alpha = (1 - progress) / 0.2;
-
-    ctx.fillStyle = `rgba(255,255,255,${alpha * 0.7})`;
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-    ctx.fill();
-  }
-}
-
-function init() {
-  particles = [];
-  for (let i = 0; i < 160; i++) {
-    particles.push(new Particle());
-  }
-}
-
-function animate() {
-  ctx.clearRect(0, 0, w, h);
-  particles.forEach(p => {
-    p.update();
-    p.draw();
-  });
-  requestAnimationFrame(animate);
-}
-
-init();
-animate();
 
 //Estudos Nacionais
 const SciDoc0 = document.getElementById('SciDoc0');
