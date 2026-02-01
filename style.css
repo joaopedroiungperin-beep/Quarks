@@ -1415,17 +1415,11 @@ tbody tr:hover {
     color: #84eaf5;
     text-align: center;
     margin-top: 20px;
-    display: flex;
-    gap: 20px;
 }
 
 .insideParticipation{
     flex-direction: column;
     display: flex;
-}
-
-.insideParticipation{
-    flex-basis: 50%;
 }
 
 #formParticipation {
