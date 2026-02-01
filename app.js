@@ -376,15 +376,15 @@ if (canvas) {
 //Estudos Nacionais
 const SciDoc0 = document.getElementById('SciDoc0');
 const estudos0 = [
-    { autores: "Perkins & Salomon", ano: "1992", link: "https://www.scirp.org/reference/referencespapers?referenceid=3014151" },
-    { autores: "Slavin", ano: "1995", link: "https://www.sciencedirect.com/science/article/pii/089543569400097A" },
-    { autores: "Hake", ano: "1998", link: "https://www.scirp.org/reference/referencespapers?referenceid=1542019" },
-    { autores: "Bransford et al.", ano: "2000", link: "https://nap.nationalacademies.org/read/10067/chapter/7" },
-    { autores: "Jonassen", ano: "2000", link: "https://www.scirp.org/reference/referencespapers?referenceid=2894252" },
-    { autores: "Deci & Ryan", ano: "2000", link: "https://psycnet.apa.org/record/2001-03012-001" },
-    { autores: "Barnett & Ceci", ano: "2002", link: "https://pubmed.ncbi.nlm.nih.gov/12081085/" },
-    { autores: "Prince", ano: "2004", link: "https://www.scirp.org/reference/referencespapers?referenceid=1505162" },
-    { autores: "Mayer & Wittrock", ano: "2006", link: "https://www.scirp.org/reference/referencespapers?referenceid=1062571" },
+    { autores: "Giordan", ano: "1999", link: "https://fep.if.usp.br/~profis/arquivo/encontros/enpec/iienpec/Dados/trabalhos/A33.pdf" },
+    { autores: "Hamburger", ano: "2007", link: "https://www.scielo.br/j/ea/a/5JgWQ5v8f4vqS4WKXnBjzLf/?format=pdf&lang=pt" },
+    { autores: "Malheiro & Diniz", ano: "2008", link: "https://periodicos.ufpa.br/index.php/revistaamazonia/article/view/1721" },
+    { autores: "Oliveira", ano: "2010", link: "http://www.periodicos.ulbra.br/index.php/acta/article/view/31" },
+    { autores: "Andrade & Massabni", ano: "2011", link: "https://www.scielo.br/j/ciedu/a/vYTLzSk4LJFt9gvDQqztQvw/?format=pdf&lang=pt" },
+    { autores: "Santos", ano: "2016", link: "https://pantheon.ufrj.br/bitstream/11422/16811/1/GARSantos.pdf" },
+    { autores: "Silva", ano: "2016", link: "https://repositorio.unesp.br/server/api/core/bitstreams/5ae3d3a1-4e3f-42c6-8e91-1a6932fb42d5/content" },
+    { autores: "Tebaldi-Reis et al.", ano: "2021", link: "https://portal.amelica.org/ameli/journal/509/5092220027/html/" },
+    { autores: "França et al.", ano: "2023", link: "https://www.scielo.br/j/rbedu/a/VQn3KTRhr7HfSvVYqtxX3Pv/?lang=pt" },
 ];
 
 estudos0.forEach(estudo0 => {
