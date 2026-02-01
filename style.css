@@ -1011,14 +1011,12 @@ header.shrink .desktop-nav {
 }
 
 .experimental-solutions {
-  margin-top: 50px;
   display: flex;
-  padding: 20px 0;
+  padding: 0;
   flex-direction: column;
 }
 
 .solutions{
-    margin-top: 50px;
     display: flex;
     padding: 20px;
     flex-direction: column;
