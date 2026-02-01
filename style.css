@@ -1150,7 +1150,7 @@ header.shrink .desktop-nav {
 
   .science {
     width: clamp(90px, 28vw, 120px);
-    opacity: 0.55;
+    opacity: 0.75;
   }
 
   .dna { transform: translateX(-60%); }
