@@ -1022,10 +1022,8 @@ header.shrink .desktop-nav {
   position: relative;
   width: 100%;
   min-height: 100vh;
-
   overflow-x: clip;
   overflow-y: visible;
-
   background: linear-gradient(
     to bottom,
     #000 0%,
@@ -1033,7 +1031,6 @@ header.shrink .desktop-nav {
     rgba(58, 160, 255, 0.35) 60%,
     #000 100%
   );
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1051,7 +1048,7 @@ header.shrink .desktop-nav {
 .layer-images {
   position: absolute;
   inset: 0;
-  z-index: 5;
+  z-index: auto !important;
   pointer-events: none;
 }
 
@@ -1061,6 +1058,7 @@ header.shrink .desktop-nav {
   opacity: 0.85;
   animation: float 10s ease-in-out infinite;
   filter: drop-shadow(0 15px 35px rgba(0,0,0,0.6));
+  z-index: 2;
 }
 
 /* POSIÇÕES (SEM OVERFLOW) */
@@ -1091,7 +1089,7 @@ header.shrink .desktop-nav {
 /* CONTEÚDO */
 .layer-content {
   position: relative;
-  z-index: 10;
+  z-index: auto !important;
   max-width: 850px;
   width: 90%;
   text-align: center;
@@ -1103,6 +1101,8 @@ header.shrink .desktop-nav {
   font-weight: 800;
   line-height: 1.15;
   margin-bottom: 50px;
+  position: relative;
+  z-index: 5 !important;
 }
 
 .blue { color: #3aa0ff; }
@@ -1111,15 +1111,22 @@ header.shrink .desktop-nav {
 /* CARD */
 .card {
   position: relative;
-  z-index: 10;
+  z-index: auto !important;
   padding: 36px 32px;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1 !important;  
   border-radius: 24px;
   background: linear-gradient(
     180deg,
     rgba(255,255,255,0.12),
     rgba(255,255,255,0.03)
   );
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(2px);
   border: 1px solid rgba(255,255,255,0.12);
   box-shadow: 0 30px 80px rgba(0,0,0,0.6);
 }
@@ -1127,6 +1134,8 @@ header.shrink .desktop-nav {
 .card p {
   font-size: 18px;
   line-height: 1.7;
+  position: relative;
+  z-index: 5 !important;
 }
 
 /* ANIMAÇÃO */
