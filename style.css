@@ -2829,6 +2829,10 @@ footer {
   color: #ccc;
   font-size: 13px;
   border-top: 1px solid #333;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
 }
 
 /* Responsividade */
@@ -2839,8 +2843,6 @@ footer {
     text-align: center;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 25px;
   }
 
   .footer-section {
