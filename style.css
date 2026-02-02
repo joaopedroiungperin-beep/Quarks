@@ -2764,12 +2764,6 @@ footer {
   line-height: 1.6;
 }
 
-.footer-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px 15px;
-}
-
 .social-section {
   text-align: center;
   margin-bottom: 20px;
@@ -2803,6 +2797,9 @@ footer {
 
 /* Informações de Contato e Horário */
 .footer-columns {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 15px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
