@@ -2837,7 +2837,10 @@ footer {
     justify-content: space-between;
     flex-direction: column;
     text-align: center;
+    display: flex;
     align-items: center;
+    justify-content: center;
+    gap: 25px;
   }
 
   .footer-section {
