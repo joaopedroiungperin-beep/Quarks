@@ -1856,63 +1856,82 @@ tbody tr:hover {
 .hex-wrapper:active .hex-borda.cor-rosa { filter: drop-shadow(0 0 30px #FF416C); }
 
 
-/* --- RESPONSIVIDADE MOBILE (CORREÇÃO PARA 2 POR LINHA) --- */
+/* --- RESPONSIVIDADE MOBILE (CORREÇÃO DEFINITIVA 2 POR LINHA) --- */
 @media (max-width: 768px) {
+    
+    /* Remove espaçamentos laterais que "comem" espaço da tela */
     .servicos-container {
-        padding: 40px 5px; /* Quase sem padding lateral para aproveitar espaço */
+        padding: 40px 0; 
+        width: 100%;
+        overflow-x: hidden; /* Evita rolagem lateral indesejada */
     }
 
     .hex-grid {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: row; /* Força direção horizontal */
+        flex-wrap: wrap;     /* Permite quebrar linha */
         justify-content: center;
-        gap: 10px; /* Gap pequeno para não empurrar para baixo */
+        gap: 10px; /* Espaço pequeno entre eles */
+        width: 100%;
+        padding: 0;
     }
     
     .hex-wrapper {
-        /* O PULO DO GATO: */
-        /* Força ocupar um pouco menos da metade da tela para caber 2 */
-        width: 145px; 
-        height: 168px; /* Proporcional à largura para não deformar o hexágono */
-        margin-bottom: 5px;
+        /* O SEGREDO: Força ocupar quase metade da tela cada um */
+        flex: 0 0 45%; 
+        width: 45%; 
+        max-width: 160px; /* Limite para não ficar gigante em tablets */
         
-        /* Glow leve permanente no mobile para destacar */
-        filter: drop-shadow(0 0 3px rgba(255,255,255,0.2)); 
+        /* Mantém a proporção do hexágono automaticamente */
+        aspect-ratio: 0.88; 
+        height: auto; 
+        
+        margin-bottom: 15px;
+        
+        /* SHADOW MAIOR (GLOW) PERMANENTE NO MOBILE */
+        filter: drop-shadow(0 0 8px rgba(255,255,255,0.3)); 
     }
 
-    /* Ajuste fino do conteúdo interno */
+    /* Conteúdo interno ajustado */
     .hex-conteudo {
-        padding: 5px 2px; /* Espaço interno mínimo */
+        padding: 5px;
         width: 96%;
         height: 96%;
+        /* Garante que o texto fique centralizado verticalmente */
+        justify-content: center; 
     }
 
-    /* Fontes menores para caber no hexágono pequeno */
+    /* Fontes calibradas para o tamanho reduzido */
     .hex-conteudo h3 {
-        font-size: 0.75rem; /* Fonte pequena mas legível */
-        line-height: 1.1;
-        margin-bottom: 4px;
-        white-space: normal; /* Permite quebrar linha */
+        font-size: 0.7rem; /* Fonte pequena */
+        line-height: 1.2;
+        margin-bottom: 5px;
+        white-space: normal;
     }
-
+    
     .hex-conteudo p {
-        font-size: 0.60rem; /* Descrição bem pequena */
-        line-height: 1.1;
-        display: block;
-        padding: 0 2px;
+        font-size: 0.55rem;
+        line-height: 1;
     }
 
     .hex-conteudo svg {
-        width: 24px;
-        height: 24px;
-        margin-bottom: 4px;
+        width: 28px;
+        height: 28px;
+        margin-bottom: 5px;
     }
     
-    /* Centraliza o último item (o 5º elemento) sozinho na linha de baixo */
+    /* O último item (Projetos Personalizados) fica centralizado sozinho */
     .hex-wrapper:last-child {
         margin-left: auto;
         margin-right: auto;
     }
+    
+    /* Aumenta o brilho neon específico de cada cor no mobile para destacar mais */
+    .hex-wrapper .hex-borda.cor-azul { filter: drop-shadow(0 0 10px #00d2ff); }
+    .hex-wrapper .hex-borda.cor-roxa { filter: drop-shadow(0 0 10px #9d50bb); }
+    .hex-wrapper .hex-borda.cor-laranja { filter: drop-shadow(0 0 10px #f5af19); }
+    .hex-wrapper .hex-borda.cor-verde { filter: drop-shadow(0 0 10px #38ef7d); }
+    .hex-wrapper .hex-borda.cor-rosa { filter: drop-shadow(0 0 10px #FF416C); }
 }
 
 /* Ajuste de segurança para telas muito estreitas (iPhone SE antigo, Galaxy Fold) */
