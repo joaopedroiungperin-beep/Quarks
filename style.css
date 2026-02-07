@@ -1708,24 +1708,26 @@ tbody tr:hover {
   }
 }
 
-/* --- ESTILO DA COLMEIA DE SERVIÇOS --- */
+/* =========================================
+   CSS DA COLMEIA DE SERVIÇOS (HEXÁGONOS)
+   ========================================= */
+
 .servicos-container {
     text-align: center;
-    padding: 60px 20px;
+    padding: 60px 10px; /* Reduzi padding lateral para dar espaço no mobile */
     width: 100%;
 }
 
 .titulo-servicos {
     font-size: 2rem;
     color: #ffffff;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     text-transform: uppercase;
     letter-spacing: 2px;
     position: relative;
     display: inline-block;
 }
 
-/* Linha decorativa abaixo do título */
 .titulo-servicos::after {
     content: '';
     display: block;
@@ -1740,26 +1742,26 @@ tbody tr:hover {
 .hex-grid {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px; /* Espaço entre hexágonos */
+    justify-content: center; /* Isso garante que o último item fique centralizado */
+    gap: 30px; 
     max-width: 1200px;
     margin: 0 auto;
 }
 
-/* Wrapper para controlar tamanho e margem */
+/* Wrapper (Tamanho do Hexágono) */
 .hex-wrapper {
     width: 220px;
     height: 250px;
     position: relative;
-    /* Animação suave de entrada */
     transition: transform 0.3s ease;
+    /* Adiciona um brilho base leve para já parecer neon */
+    filter: drop-shadow(0 0 5px rgba(255,255,255,0.1)); 
 }
 
-/* A Borda Colorida (O Hexágono de trás) */
+/* A Borda Colorida */
 .hex-borda {
     width: 100%;
     height: 100%;
-    background: #333; /* Cor padrão se falhar */
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     display: flex;
     justify-content: center;
@@ -1767,50 +1769,49 @@ tbody tr:hover {
     transition: all 0.3s ease;
 }
 
-/* O Conteúdo (O Hexágono da frente, preto) */
+/* O Conteúdo (Preto) */
 .hex-conteudo {
-    width: 96%; /* Um pouco menor para mostrar a borda */
-    height: 96%;
-    background: #0a0a0a; /* Fundo preto quase total */
+    width: 95%; 
+    height: 95%;
+    background: #050505; /* Fundo bem escuro */
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 15px;
     text-align: center;
     z-index: 2;
 }
 
-/* Tipografia e Ícones */
+/* Ícones e Texto */
 .hex-conteudo svg {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     transition: transform 0.3s ease;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
 }
 
 .hex-conteudo h3 {
     font-size: 1.1rem;
     color: #fff;
-    margin: 0 0 10px 0;
+    margin: 0 0 8px 0;
     font-weight: 700;
     text-transform: uppercase;
 }
 
 .hex-conteudo p {
     font-size: 0.85rem;
-    color: #ccc;
+    color: #bbb;
     margin: 0;
-    line-height: 1.3;
+    line-height: 1.2;
 }
 
-/* --- DEFINIÇÃO DAS CORES NEON --- */
+/* --- CORES NEON --- */
 .cor-azul { background: linear-gradient(45deg, #00d2ff, #3a7bd5); }
 .cor-azul svg { color: #00d2ff; }
 
-.cor-roxa { background: linear-gradient(45deg, #b92b27, #1565C0); } /* Gradiente misto */
-.hex-borda.cor-roxa { background: linear-gradient(45deg, #9d50bb, #6e48aa); }
+.cor-roxa { background: linear-gradient(45deg, #9d50bb, #6e48aa); }
 .cor-roxa svg { color: #9d50bb; }
 
 .cor-laranja { background: linear-gradient(45deg, #f12711, #f5af19); }
@@ -1823,61 +1824,79 @@ tbody tr:hover {
 .cor-rosa svg { color: #FF416C; }
 
 
-/* --- ANIMAÇÕES E INTERAÇÃO (HOVER/TOUCH) --- */
+/* --- EFEITO HOVER (PC) - MUITO MAIS FORTE --- */
+@media (hover: hover) {
+    .hex-wrapper:hover {
+        transform: translateY(-10px) scale(1.05);
+        z-index: 10;
+    }
 
-.hex-wrapper:hover {
-    transform: translateY(-10px) scale(1.02);
-    z-index: 10;
+    /* Aumentei muito o drop-shadow aqui para dar o efeito "Glow Forte" */
+    .hex-wrapper:hover .hex-borda.cor-azul { filter: drop-shadow(0 0 25px #00d2ff); }
+    .hex-wrapper:hover .hex-borda.cor-roxa { filter: drop-shadow(0 0 25px #9d50bb); }
+    .hex-wrapper:hover .hex-borda.cor-laranja { filter: drop-shadow(0 0 25px #f5af19); }
+    .hex-wrapper:hover .hex-borda.cor-verde { filter: drop-shadow(0 0 25px #38ef7d); }
+    .hex-wrapper:hover .hex-borda.cor-rosa { filter: drop-shadow(0 0 25px #FF416C); }
+
+    .hex-wrapper:hover svg {
+        transform: scale(1.2);
+        filter: drop-shadow(0 0 8px currentColor);
+    }
 }
 
-/* Faz o ícone pular e a borda brilhar */
-.hex-wrapper:hover .hex-borda {
-    filter: drop-shadow(0 0 15px rgba(255,255,255,0.4));
+/* --- EFEITO TOUCH (CELULAR) - CLIQUE --- */
+.hex-wrapper:active {
+    transform: scale(0.95);
 }
-
-.hex-wrapper:hover svg {
-    transform: scale(1.2);
-    filter: drop-shadow(0 0 5px currentColor); /* Brilho no ícone */
-}
-
-/* Brilhos Específicos por Cor no Hover */
-.hex-wrapper:hover .cor-azul { filter: drop-shadow(0 0 20px #00d2ff); }
-.hex-wrapper:hover .cor-roxa { filter: drop-shadow(0 0 20px #9d50bb); }
-.hex-wrapper:hover .cor-laranja { filter: drop-shadow(0 0 20px #f5af19); }
-.hex-wrapper:hover .cor-verde { filter: drop-shadow(0 0 20px #38ef7d); }
-.hex-wrapper:hover .cor-rosa { filter: drop-shadow(0 0 20px #FF416C); }
+/* Glow forte ao tocar */
+.hex-wrapper:active .hex-borda.cor-azul { filter: drop-shadow(0 0 30px #00d2ff); }
+.hex-wrapper:active .hex-borda.cor-roxa { filter: drop-shadow(0 0 30px #9d50bb); }
+.hex-wrapper:active .hex-borda.cor-laranja { filter: drop-shadow(0 0 30px #f5af19); }
+.hex-wrapper:active .hex-borda.cor-verde { filter: drop-shadow(0 0 30px #38ef7d); }
+.hex-wrapper:active .hex-borda.cor-rosa { filter: drop-shadow(0 0 30px #FF416C); }
 
 
-/* --- AJUSTE MOBILE --- */
+/* --- RESPONSIVIDADE MOBILE (2 POR LINHA + TEXTO MENOR) --- */
 @media (max-width: 768px) {
     .hex-grid {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px; /* Menos espaço no mobile para caber melhor */
+        gap: 15px 10px; /* Gap vertical maior, gap horizontal menor */
     }
     
     .hex-wrapper {
-        width: 180px; /* Um pouco menor no celular */
-        height: 208px;
+        /* Cálculo para caber 2 lado a lado: (100% / 2) - gap */
+        width: 155px; 
+        height: 180px; 
+        filter: drop-shadow(0 0 3px rgba(255,255,255,0.2)); /* Glow base leve no mobile */
     }
-    
-    /* Alterna levemente a posição para parecer uma colmeia vertical */
-    .hex-wrapper:nth-child(even) {
-        margin-left: 50px; /* Desloca os pares para a direita */
-        margin-top: -40px; /* Sobrepõe levemente */
-        margin-bottom: -40px;
+
+    .hex-conteudo {
+        padding: 10px 5px; /* Menos padding interno para caber texto */
     }
-    
-    .hex-wrapper:nth-child(odd) {
-        margin-right: 50px; /* Desloca os ímpares para a esquerda */
+
+    /* Diminuindo o texto especificamente no mobile */
+    .hex-conteudo h3 {
+        font-size: 0.85rem; /* Fonte menor */
+        line-height: 1.1;
+        margin-bottom: 5px;
     }
-    
-    /* Ajuste para telas MUITO pequenas */
-    @media (max-width: 400px) {
-        .hex-wrapper:nth-child(n) {
-            margin: 0; /* Remove o efeito zigue-zague se a tela for minúscula */
-            margin-bottom: 10px;
-        }
+
+    .hex-conteudo p {
+        font-size: 0.7rem; /* Descrição menor */
+        display: block; /* Garante que apareça */
+    }
+
+    .hex-conteudo svg {
+        width: 28px; /* Ícone menor */
+        height: 28px;
+        margin-bottom: 5px;
+    }
+}
+
+/* Para celulares muito pequenos (iPhone SE, Galaxy Fold), evita quebra */
+@media (max-width: 350px) {
+    .hex-wrapper {
+        width: 140px;
+        height: 160px;
     }
 }
 
