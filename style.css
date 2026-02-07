@@ -1505,7 +1505,7 @@ tbody tr:hover {
 
 /* Seção Sobre o Quarks */
 .sobre-quarks {
-  padding: 72px 60px 15px 60px;
+  padding: 75px 60px 5px 60px;
   text-align: left;
   font-size: 1rem;
   line-height: 1.6;
@@ -2920,7 +2920,7 @@ tbody tr:hover {
 #contact-form {
     color: #baf6fd;
     max-width: 600px;
-    margin: 20px auto;
+    margin: 0 auto 40px auto;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
