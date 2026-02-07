@@ -2014,12 +2014,6 @@ tbody tr:hover {
   user-select: none; /* Impede que o ícone seja selecionado como texto */
 }
 
-/* Garante que o azul não volte mesmo se o botão ficar focado */
-.seta:focus {
-    outline: none;
-    box-shadow: none;
-}
-
 .seta svg{
     position: absolute;
     fill: #FFFFEE;
