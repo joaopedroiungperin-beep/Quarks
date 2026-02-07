@@ -1714,13 +1714,13 @@ tbody tr:hover {
 
 .servicos-container {
     text-align: center;
-    padding: 60px 10px; /* Reduzi padding lateral para dar espaço no mobile */
+    padding: 40px 10px; /* Reduzi padding lateral para dar espaço no mobile */
     width: 100%;
 }
 
 .titulo-servicos {
     font-size: 2rem;
-    color: #ffffff;
+    color: #9ef5ff;
     margin-bottom: 40px;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -1750,8 +1750,8 @@ tbody tr:hover {
 
 /* Wrapper (Tamanho do Hexágono) */
 .hex-wrapper {
-    width: 220px;
-    height: 250px;
+    width: 200px;
+    height: 230px;
     position: relative;
     transition: transform 0.3s ease;
     /* Adiciona um brilho base leve para já parecer neon */
