@@ -2037,7 +2037,8 @@ tbody tr:hover {
 /* Esse efeito acontece enquanto você segura o dedo/clique e some logo depois */
 .seta:active {
     opacity: 1;
-    background-color: rgba(100, 5, 4, 0.8);
+    background-color: rgba(100, 5, 4, 0.9);
+    transform: translateY(-50%) scale(0.95);
 }
 
 /* Responsividade */
