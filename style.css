@@ -1856,47 +1856,70 @@ tbody tr:hover {
 .hex-wrapper:active .hex-borda.cor-rosa { filter: drop-shadow(0 0 30px #FF416C); }
 
 
-/* --- RESPONSIVIDADE MOBILE (2 POR LINHA + TEXTO MENOR) --- */
+/* --- RESPONSIVIDADE MOBILE (CORREÇÃO PARA 2 POR LINHA) --- */
 @media (max-width: 768px) {
+    .servicos-container {
+        padding: 40px 5px; /* Quase sem padding lateral para aproveitar espaço */
+    }
+
     .hex-grid {
-        gap: 15px 10px; /* Gap vertical maior, gap horizontal menor */
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px; /* Gap pequeno para não empurrar para baixo */
     }
     
     .hex-wrapper {
-        /* Cálculo para caber 2 lado a lado: (100% / 2) - gap */
-        width: 155px; 
-        height: 180px; 
-        filter: drop-shadow(0 0 3px rgba(255,255,255,0.2)); /* Glow base leve no mobile */
-    }
-
-    .hex-conteudo {
-        padding: 10px 5px; /* Menos padding interno para caber texto */
-    }
-
-    /* Diminuindo o texto especificamente no mobile */
-    .hex-conteudo h3 {
-        font-size: 0.85rem; /* Fonte menor */
-        line-height: 1.1;
+        /* O PULO DO GATO: */
+        /* Força ocupar um pouco menos da metade da tela para caber 2 */
+        width: 145px; 
+        height: 168px; /* Proporcional à largura para não deformar o hexágono */
         margin-bottom: 5px;
+        
+        /* Glow leve permanente no mobile para destacar */
+        filter: drop-shadow(0 0 3px rgba(255,255,255,0.2)); 
+    }
+
+    /* Ajuste fino do conteúdo interno */
+    .hex-conteudo {
+        padding: 5px 2px; /* Espaço interno mínimo */
+        width: 96%;
+        height: 96%;
+    }
+
+    /* Fontes menores para caber no hexágono pequeno */
+    .hex-conteudo h3 {
+        font-size: 0.75rem; /* Fonte pequena mas legível */
+        line-height: 1.1;
+        margin-bottom: 4px;
+        white-space: normal; /* Permite quebrar linha */
     }
 
     .hex-conteudo p {
-        font-size: 0.7rem; /* Descrição menor */
-        display: block; /* Garante que apareça */
+        font-size: 0.60rem; /* Descrição bem pequena */
+        line-height: 1.1;
+        display: block;
+        padding: 0 2px;
     }
 
     .hex-conteudo svg {
-        width: 28px; /* Ícone menor */
-        height: 28px;
-        margin-bottom: 5px;
+        width: 24px;
+        height: 24px;
+        margin-bottom: 4px;
+    }
+    
+    /* Centraliza o último item (o 5º elemento) sozinho na linha de baixo */
+    .hex-wrapper:last-child {
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
-/* Para celulares muito pequenos (iPhone SE, Galaxy Fold), evita quebra */
-@media (max-width: 350px) {
+/* Ajuste de segurança para telas muito estreitas (iPhone SE antigo, Galaxy Fold) */
+@media (max-width: 330px) {
     .hex-wrapper {
-        width: 140px;
-        height: 160px;
+        width: 130px;
+        height: 150px;
     }
 }
 
