@@ -1920,12 +1920,6 @@ tbody tr:hover {
         margin-bottom: 5px;
     }
     
-    /* O último item (Projetos Personalizados) fica centralizado sozinho */
-    .hex-wrapper:last-child {
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
     /* Aumenta o brilho neon específico de cada cor no mobile para destacar mais */
     .hex-wrapper .hex-borda.cor-azul { filter: drop-shadow(0 0 10px #00d2ff); }
     .hex-wrapper .hex-borda.cor-roxa { filter: drop-shadow(0 0 10px #9d50bb); }
