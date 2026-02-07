@@ -1652,7 +1652,29 @@ tbody tr:hover {
     .valores:hover { box-shadow: 0 10px 30px rgba(255, 145, 0, 0.2); }
 }
 
+/* --- EFEITOS DE TOQUE PARA CELULAR (:active) --- */
+/* Efeito geral ao tocar no card */
+.mvv-card:active {
+    transform: scale(0.98); /* Diminui levemente para dar sensação de clique */
+    background: rgba(255, 255, 255, 0.15); /* Fica mais claro */
+    transition: transform 0.1s; /* Ação rápida */
+}
 
+/* Brilho Neon Específico ao tocar (com mais intensidade) */
+.missao:active {
+    box-shadow: 0 0 25px rgba(158, 245, 255, 0.6);
+    border-color: #9ef5ff;
+}
+
+.visao:active {
+    box-shadow: 0 0 25px rgba(166, 94, 255, 0.6);
+    border-color: #a65eff;
+}
+
+.valores:active {
+    box-shadow: 0 0 25px rgba(255, 145, 0, 0.6);
+    border-color: #ff9100;
+}
 
 /* Responsividade Mobile */
 @media (max-width: 768px) {
