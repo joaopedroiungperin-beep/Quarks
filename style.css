@@ -2008,12 +2008,14 @@ tbody tr:hover {
   cursor: pointer;
   opacity: 0.2;
   transition: opacity 0.3s, background-color 0.3s;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .seta svg{
     position: absolute;
     fill: #FFFFEE;
     width: 200%;
+    pointer-events: none; /* Garante que o clique passe para o botão */
 }
 
 .seta-esquerda {
@@ -2024,9 +2026,20 @@ tbody tr:hover {
   right: 0px;
 }
 
-.seta:hover {
-  opacity: 1;
-  background-color: rgba(100, 5, 4, 0.8);
+/* 1. HOVER (Apenas para quem tem mouse/PC) */
+@media (hover: hover) {
+    .seta:hover {
+        opacity: 1;
+        background-color: rgba(100, 5, 4, 0.8);
+    }
+}
+
+/* 2. ACTIVE (Para Celular e Clique no PC) */
+/* Esse efeito acontece enquanto você segura o dedo/clique e some logo depois */
+.seta:active {
+    opacity: 1;
+    background-color: rgba(100, 5, 4, 0.9);
+    transform: translateY(-50%) scale(0.95); /* Efeito tátil de "apertar" */
 }
 
 /* Responsividade */
