@@ -2008,7 +2008,6 @@ tbody tr:hover {
   cursor: pointer;
   opacity: 0.2;
   transition: opacity 0.3s, background-color 0.3s;
-  -webkit-tap-highlight-color: transparent;
 }
 
 .seta svg{
@@ -2038,8 +2037,7 @@ tbody tr:hover {
 /* Esse efeito acontece enquanto você segura o dedo/clique e some logo depois */
 .seta:active {
     opacity: 1;
-    background-color: rgba(100, 5, 4, 0.9);
-    transform: translateY(-50%) scale(0.95); /* Efeito tátil de "apertar" */
+    background-color: rgba(100, 5, 4, 0.8);
 }
 
 /* Responsividade */
