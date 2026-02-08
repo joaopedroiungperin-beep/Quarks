@@ -2712,9 +2712,15 @@ tbody tr:hover {
 }
 
 .popupPartner-content {
+    font-family: 'Poppins', sans-serif;
+    color: #333; /* Cinza escuro para melhor leitura no fundo claro */
+    width: 95%;
     margin: 0 auto;
-    width: 90%;
-    color: black;
+}
+
+.partner-header {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .partner-desc {
@@ -2813,27 +2819,142 @@ tbody tr:hover {
 }
 
 .infC img {
-    width: 350px;
+    max-width: 220px; /* Tamanho controlado do logo */
     height: auto;
+    display: block;
+    margin: 0 auto 5px auto;
 }
 
-.who {
-    display: flex;
-    flex-direction: column;
-    text-align: justify;
+.partner-since {
+    display: block;
+    font-size: 0.85rem;
+    color: #666;
+    font-style: italic;
+    margin-top: 5px;
 }
 
-.who h4, a {
+.who-section {
+    background-color: rgba(0, 0, 0, 0.05); /* Fundo sutil para separar do resto */
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.info-row {
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+.info-row:last-child {
+    margin-bottom: 0;
+}
+
+.info-row h4 {
     display: inline-block;
+    color: #c13838; /* Vermelho da marca para rótulos */
+    margin-right: 6px;
+    font-size: 1rem;
+    margin-bottom: 0;
 }
 
-.who h4 {
-    margin-right: 5px;
-    color: #001b1e;
+.info-row a {
+    color: #007bff;
+    font-weight: 600;
 }
 
-.who p {
+.info-row p {
     display: inline;
+    text-align: justify;
+    font-size: 0.95rem;
+    color: #444;
+}
+
+.project-section {
+    border-top: 2px dashed #ccc; /* Linha pontilhada separando */
+    padding-top: 20px;
+    text-align: center;
+}
+
+.project-section h3 {
+    color: #00474e; /* Verde escuro do tema */
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.edition-badge {
+    display: inline-block;
+    background-color: #f1683a; /* Laranja da marca */
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.project-description {
+    background-color: #fff;
+    padding: 15px;
+    border-left: 4px solid #00474e; /* Detalhe visual elegante */
+    border-radius: 4px;
+    text-align: left;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.project-description h4 {
+    color: #333;
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+.partner-desc {
+    text-align: justify;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
+    margin: 0;
+}
+
+/* Botões de Ação (Demonstrativos e Imagens) */
+.project-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    text-decoration: none;
+    background-color: #00474e;
+    color: #fff !important;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.action-btn:hover {
+    background-color: #006870;
+    transform: translateY(-2px); /* Efeito de elevação leve */
+}
+
+/* Responsividade para telas muito pequenas */
+@media (max-width: 480px) {
+    .project-actions {
+        flex-direction: column;
+    }
+    
+    .action-btn {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 .firstP {
