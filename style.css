@@ -1408,11 +1408,11 @@ tbody tr:hover {
     display: flex;
     flex-wrap: wrap; /* Isso é o que faz o "Contato" descer se não couber */
     justify-content: center;
-    align-items: flex-start; /* Alinha ambos pelo topo */
-    gap: 20px; /* Espaço entre as duas caixas */
+    align-items: stretch; /* Alinha ambos pelo topo */
+    gap: 150px; /* Espaço entre as duas caixas */
     max-width: 1300px; /* Largura máxima total */
-    margin: 0 auto 40px auto;
-    padding: 0 20px;
+    margin: 0 auto 60px auto;
+    padding: 0 40px;
 }
 
 /* Configuração compartilhada para as duas seções filhas */
@@ -1420,13 +1420,17 @@ tbody tr:hover {
 #contact-form {
     /* Flex-grow: 1 (cresce), Flex-shrink: 1 (encolhe), Flex-basis: 500px (largura ideal) */
     /* Se a tela for menor que 500px + 500px + gap, ele quebra a linha */
+    /* Garante que o conteúdo interno ocupe a altura total */
+    display: flex;
+    flex-direction: column;
     flex: 1 1 500px; 
     width: 100%; /* Garante que preencha o espaço disponível */
     margin: 0 !important; /* Remove as margens antigas que centralizavam individualmente */
     max-width: none !important; /* Remove limitação de largura antiga */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adiciona sombra ao Participe também para ficar igual */
-    border-radius: 8px;
-    background-color: transparent; /* Ou uma cor de fundo se desejar */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Adiciona sombra ao Participe também para ficar igual */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background-color: transparent; /* Ou coloque uma cor escura leve: rgba(255,255,255,0.02) */
+    border-radius: 15px;
 }
 
 /* Seção Participe */
@@ -1440,6 +1444,15 @@ tbody tr:hover {
     color: #baf6fd;
     text-align: center;
     margin-top: 20px;
+}
+
+/* Ajuste interno para os formulários/conteúdos preencherem o espaço */
+.participation, 
+#contact-form form {
+    flex-grow: 1; /* Faz o conteúdo esticar para preencher o cartão */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza o conteúdo verticalmente */
 }
 
 .insideParticipation{
@@ -1504,6 +1517,23 @@ tbody tr:hover {
 
 #formParticipation button:hover {
     background-color: #bd4415;
+}
+
+/* RESPONSIVIDADE (Quando a tela fica menor que 1150px) */
+@media (max-width: 1150px) {
+    .split-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 40px; /* Reduz o gap quando estiver um em cima do outro */
+        padding: 0 20px;
+    }
+
+    #participe, 
+    #contact-form {
+        width: 100%;
+        max-width: 800px !important;
+        flex-basis: auto; /* Reseta a base flexível */
+    }
 }
 
 @media (max-width: 1060px) {
