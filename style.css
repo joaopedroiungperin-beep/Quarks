@@ -1424,10 +1424,7 @@ tbody tr:hover {
     width: 100%; /* Garante que preencha o espaço disponível */
     margin: 0 !important; /* Remove as margens antigas que centralizavam individualmente */
     max-width: none !important; /* Remove limitação de largura antiga */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Adiciona sombra ao Participe também para ficar igual */
-    border: 1px solid rgba(255, 255, 255, 0.05);
     background-color: transparent; /* Ou coloque uma cor escura leve: rgba(255,255,255,0.02) */
-    border-radius: 15px;
     padding: 40px; /* Mais espaço interno para não ficar "poluído" */
 }   
 
@@ -2827,7 +2824,7 @@ tbody tr:hover {
     color: #001b1e;
 }
 
-#transparence, #partner, #portfolio, .split-wrapper {
+#transparence, #partner, #portfolio, #participe, #contact-form {
     padding: 75px 40px 5px 40px;
 }
 
