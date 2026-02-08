@@ -2694,69 +2694,40 @@ tbody tr:hover {
 }
 
 .popupPartner {
-    scrollbar-width: auto;
-    scrollbar-color: #a91212 transparent;
-    position: relative;
+    display: none;
+    position: fixed;
+    z-index: 10000;
     left: 0;
-    opacity: 0;
-    scale: 0.2;
-    background-color: #ffffa0;
-    border-radius: 8px;
-    padding: 15px 10px;;
-    width: 62%;
-    min-width: 400px;
-    max-height: 400px;
-    overflow-y: auto; /* Permite rolagem se o conteúdo ultrapassar a altura */
-    text-align: left;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
 }
 
 .popupPartner-content {
-    font-family: 'Poppins', sans-serif;
-    color: #333;
-    width: 95%;
-    margin: 0 auto;
-}
-
-.partner-header {
-    text-align: center;
-    margin-bottom: 20px;
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 1100px;
+    border-radius: 10px;
+    position: relative;
+    height: 500px;
 }
 
 .infC img {
-    max-width: 220px;
-    height: auto;
-    display: block;
-    margin: 0 auto 5px auto;
-}
-
-.partner-desc {
-    padding-left: 40px; /* Mantém o alinhamento visual com os títulos */
-    padding-right: 10px; /* Pequena margem à direita para não colar na borda */
-    color: #001b1e;      /* Mesma cor escura usada nos títulos do popup */
-    text-align: justify; /* Justifica o texto para ficar "quadradinho" e elegante */
-    font-size: 0.95rem;  /* Tamanho levemente menor que o título para hierarquia */
-    line-height: 1.5;    /* Espaçamento entre linhas para facilitar a leitura */
-    margin-top: 0;
-    margin-bottom: 15px; /* Espaço antes do próximo item (Demonstrativos) */
-}
-
-/* Ajuste responsivo para telas pequenas (opcional, mas recomendado) */
-@media (max-width: 600px) {
-    .partner-desc {
-        padding-left: 20px; /* Reduz o recuo em celulares */
-        padding-right: 5px;
-        text-align: left; /* Em telas muito pequenas, justificado pode criar buracos */
-    }
+    width: 100%;
 }
 
 .close-btnPartner {
-    color: #C13838;
-    position: sticky;
-    display: flex;
-    justify-content: flex-end;
-    top: -5%;
-    font-size: 1.5rem;
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
     cursor: pointer;
 }
 
@@ -2811,103 +2782,67 @@ tbody tr:hover {
     }
 }
 
+@media (max-width: 1024px) {
+    .partnership {
+        flex-direction: column;
+        align-items: center;
+        overflow-y: scroll;
+        height: 450px;
+    }
+
+    .infC, .who, .firstP {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 20px;
+        height: auto;
+    }
+
+    .infC img {
+        max-width: 200px;
+    }
+}
+
 .partnership {
-    margin-right: 5px;
-    color: #00474e;
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    justify-content: space-between;
+    padding: 20px;
 }
 
 .infC {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
+    border-radius: 20px;
+    width: 30%;
+    height: 380px;
+    margin-right: 20px;
 }
 
-.partner-since {
-    display: block;
-    font-size: 0.85rem;
-    color: #666;
-    font-style: italic;
-    margin-top: 5px;
-}
 
 .who {
     background-color: rgba(0, 0, 0, 0.05);
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 25px;
-    text-align: left;
-    width: 100%; /* Garante largura total */
-    box-sizing: border-box; /* Evita que padding estoure a largura */
+    color: #001b1e;
+    padding: 20px;
+    border-radius: 20px;
+    width: 30%;
+    height: 380px;
+    margin-right: 20px;
 }
-.info-row {
-    margin-bottom: 12px;
-    line-height: 1.5;
-}
-.info-row h4 {
-    display: inline-block;
+
+.who h4 {
     color: #c13838;
-    margin-right: 6px;
-    font-size: 1rem;
-    margin-bottom: 0;
+    display: inline-block;
 }
-.info-row a { color: #007bff; font-weight: 600; }
-.info-row p {
+
+.who a {
+    color: #007bff;
+    font-weight: 600;
+}
+
+.who p {
     display: inline;
     text-align: justify;
-    font-size: 0.95rem;
-    color: #444;
-}
-
-.project-section {
-    border-top: 2px dashed #ccc; /* Linha pontilhada separando */
-    padding-top: 20px;
-    text-align: center;
-}
-
-.project-section h3 {
-    color: #00474e; /* Verde escuro do tema */
-    font-size: 1.4rem;
-    text-transform: uppercase;
-    margin-bottom: 15px;
-    line-height: 1.2;
-}
-
-.edition-badge {
-    display: inline-block;
-    background-color: #f1683a;
-    color: #fff;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-.project-description {
-    background-color: #fff;
-    padding: 15px;
-    border-left: 4px solid #00474e;
-    border-radius: 4px;
-    text-align: left;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
-.project-description h4 { 
-    margin-bottom: 8px; 
-    font-size: 1rem; 
-    color: #333;
-}
-
-.partner-desc {
-    text-align: justify;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #555;
-    margin: 0;
 }
 
 /* Botões de Ação (Demonstrativos e Imagens) */
@@ -2942,21 +2877,30 @@ tbody tr:hover {
 }
 
 .firstP {
-    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #001b1e;
+    padding: 20px;
+    border-radius: 20px;
+    width: 40%;
+    height: 380px;
+    margin-right: 20px;
 }
 
 .firstE {
-    border-top: 2px dashed #ccc;
-    padding-top: 20px;
-    text-align: center;
+    color: #001b1e;
+    padding: 20px;
+    border-radius: 20px;
     width: 100%;
-    box-sizing: border-box;
+    height: 330px;
+    margin-right: 20px;
 }
-.firstE h3 {
-    color: #00474e;
-    font-size: 1.3rem;
-    text-transform: uppercase;
-    margin-bottom: 15px;
+
+.firstE h4 {
+    color: #c13838;
 }
 
 #transparence, #partner, #portfolio, #participe, #contact-form {
