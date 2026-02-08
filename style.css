@@ -2008,6 +2008,16 @@ tbody tr:hover {
   cursor: pointer;
   opacity: 0.2;
   transition: opacity 0.3s, background-color 0.3s;
+  /* --- COMANDOS PARA REMOVER O AZUL NO MOBILE --- */
+  tap-highlight-color: transparent; /* Remove o flash azul do toque */
+  outline: none; /* Remove a linha de foco */
+  user-select: none; /* Impede que o ícone seja selecionado como texto */
+}
+
+/* Garante que o azul não volte mesmo se o botão ficar focado */
+.seta:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 .seta svg{
