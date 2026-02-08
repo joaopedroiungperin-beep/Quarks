@@ -1403,11 +1403,36 @@ tbody tr:hover {
     display: flex;
 }
 
+/* O Container que segura as duas seções */
+.split-wrapper {
+    display: flex;
+    flex-wrap: wrap; /* Isso é o que faz o "Contato" descer se não couber */
+    justify-content: center;
+    align-items: flex-start; /* Alinha ambos pelo topo */
+    gap: 20px; /* Espaço entre as duas caixas */
+    max-width: 1300px; /* Largura máxima total */
+    margin: 0 auto 40px auto;
+    padding: 0 20px;
+}
+
+/* Configuração compartilhada para as duas seções filhas */
+#participe, 
+#contact-form {
+    /* Flex-grow: 1 (cresce), Flex-shrink: 1 (encolhe), Flex-basis: 500px (largura ideal) */
+    /* Se a tela for menor que 500px + 500px + gap, ele quebra a linha */
+    flex: 1 1 500px; 
+    width: 100%; /* Garante que preencha o espaço disponível */
+    margin: 0 !important; /* Remove as margens antigas que centralizavam individualmente */
+    max-width: none !important; /* Remove limitação de largura antiga */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adiciona sombra ao Participe também para ficar igual */
+    border-radius: 8px;
+    background-color: transparent; /* Ou uma cor de fundo se desejar */
+}
+
 /* Seção Participe */
 .participacao h1 {
     color: #baf6fd;
     text-align: center;
-    margin-bottom: 11px;
     font-size: 2rem;
 }
 
@@ -1424,9 +1449,8 @@ tbody tr:hover {
 
 #formParticipation {
     margin: 0 auto;
-    max-width: 500px;
-    margin-top: auto;
-    text-align: start;
+    width: 100%;
+    max-width: 100% !important; /* Deixa o formulário expandir na caixa */
 }
 
 .formPart-group {
@@ -1479,6 +1503,21 @@ tbody tr:hover {
 
 #formParticipation button:hover {
     background-color: #bd4415;
+}
+
+@media (max-width: 1060px) {
+    /* Quando a tela for menor que ~1060px, força um embaixo do outro */
+    .split-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #participe, 
+    #contact-form {
+        width: 100%;
+        max-width: 800px !important; /* Limita a largura quando estiverem empilhados */
+        flex-basis: auto;
+    }
 }
 
 @media (max-width: 1024px) {
@@ -2759,7 +2798,7 @@ tbody tr:hover {
     color: #001b1e;
 }
 
-#transparence, #participe, #partner, #portfolio, #contact-form{
+#transparence, #partner, #portfolio, .split-wrapper {
     padding: 75px 40px 5px 40px;
 }
 
@@ -2941,10 +2980,6 @@ tbody tr:hover {
 
 #contact-form {
     color: #baf6fd;
-    max-width: 600px;
-    margin: 0 auto 40px auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 #contact-form h1 {
