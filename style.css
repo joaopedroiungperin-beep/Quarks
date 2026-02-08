@@ -2694,40 +2694,36 @@ tbody tr:hover {
 }
 
 .popupPartner {
-    display: none;
-    position: fixed;
-    z-index: 10000;
+    scrollbar-width: auto;
+    scrollbar-color: #a91212 transparent;
+    position: relative;
     left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.5);
+    opacity: 0;
+    scale: 0.2;
+    background-color: #ffffa0;
+    border-radius: 8px;
+    padding: 15px 10px;;
+    width: 62%;
+    min-width: 400px;
+    max-height: 400px;
+    overflow-y: auto; /* Permite rolagem se o conteúdo ultrapassar a altura */
+    text-align: left;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
 }
 
 .popupPartner-content {
-    background-color: #fefefe;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 1100px;
-    border-radius: 10px;
-    position: relative;
-    height: 500px;
-}
-
-.infC img {
-    width: 100%;
+    margin: 0 auto;
+    width: 90%;
+    color: black;
 }
 
 .close-btnPartner {
-    color: #aaa;
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 28px;
-    font-weight: bold;
+    color: #C13838;
+    position: sticky;
+    display: flex;
+    justify-content: flex-end;
+    top: -5%;
+    font-size: 1.5rem;
     cursor: pointer;
 }
 
@@ -2782,120 +2778,50 @@ tbody tr:hover {
     }
 }
 
-@media (max-width: 1024px) {
-    .partnership {
-        flex-direction: column;
-        align-items: center;
-        overflow-y: scroll;
-        height: 450px;
-    }
-
-    .infC, .who, .firstP {
-        width: 100%;
-        margin-right: 0;
-        margin-bottom: 20px;
-        height: auto;
-    }
-
-    .infC img {
-        max-width: 200px;
-    }
-}
-
-/* --- ESTILO RESTAURADO DOS PARCEIROS --- */
-
 .partnership {
+    margin-right: 5px;
+    color: #00474e;
     display: flex;
-    justify-content: space-between;
-    padding: 20px;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .infC {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
-    border-radius: 20px;
-    width: 30%;
-    height: 380px;
-    margin-right: 20px;
 }
 
 .infC img {
-    width: 100%; /* Garante que a imagem não estoure o container */
+    width: 350px;
+    height: auto;
 }
 
 .who {
-    background-color: rgba(0, 0, 0, 0.05);
-    color: #001b1e;
-    padding: 20px;
-    border-radius: 20px;
-    width: 30%;
-    height: 380px;
-    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
 }
 
-.who h4 {
-    color: #c13838;
+.who h4, a {
     display: inline-block;
 }
 
-.who a {
-    color: #007bff;
-    font-weight: 600;
+.who h4 {
+    margin-right: 5px;
+    color: #001b1e;
 }
 
 .who p {
     display: inline;
-    text-align: justify;
 }
 
 .firstP {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.05);
+    margin-top: 5px;
+}
+
+.firstE h4, .secondE h4{
     color: #001b1e;
-    padding: 20px;
-    border-radius: 20px;
-    width: 40%;
-    height: 380px;
-    margin-right: 20px;
-}
-
-.firstE {
-    color: #001b1e;
-    padding: 20px;
-    border-radius: 20px;
-    width: 100%;
-    height: 330px;
-    margin-right: 20px;
-}
-
-.firstE h4 {
-    color: #c13838;
-}
-
-/* Responsividade do Popup */
-@media (max-width: 1024px) {
-    .partnership {
-        flex-direction: column;
-        align-items: center;
-        overflow-y: scroll;
-        height: 450px;
-    }
-
-    .infC, .who, .firstP {
-        width: 100%;
-        margin-right: 0;
-        margin-bottom: 20px;
-        height: auto;
-    }
-
-    .infC img {
-        max-width: 200px;
-    }
 }
 
 #transparence, #partner, #portfolio, #participe, #contact-form {
