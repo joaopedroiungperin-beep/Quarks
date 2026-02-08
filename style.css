@@ -2713,7 +2713,7 @@ tbody tr:hover {
 
 .popupPartner-content {
     font-family: 'Poppins', sans-serif;
-    color: #333; /* Cinza escuro para melhor leitura no fundo claro */
+    color: #333;
     width: 95%;
     margin: 0 auto;
 }
@@ -2721,6 +2721,13 @@ tbody tr:hover {
 .partner-header {
     text-align: center;
     margin-bottom: 20px;
+}
+
+.infC img {
+    max-width: 220px;
+    height: auto;
+    display: block;
+    margin: 0 auto 5px auto;
 }
 
 .partner-desc {
@@ -2818,13 +2825,6 @@ tbody tr:hover {
     align-items: center;
 }
 
-.infC img {
-    max-width: 220px; /* Tamanho controlado do logo */
-    height: auto;
-    display: block;
-    margin: 0 auto 5px auto;
-}
-
 .partner-since {
     display: block;
     font-size: 0.85rem;
@@ -2833,36 +2833,27 @@ tbody tr:hover {
     margin-top: 5px;
 }
 
-.who-section {
-    background-color: rgba(0, 0, 0, 0.05); /* Fundo sutil para separar do resto */
+.who {
+    background-color: rgba(0, 0, 0, 0.05);
     padding: 15px;
     border-radius: 8px;
     margin-bottom: 25px;
     text-align: left;
+    width: 100%; /* Garante largura total */
+    box-sizing: border-box; /* Evita que padding estoure a largura */
 }
-
 .info-row {
     margin-bottom: 12px;
     line-height: 1.5;
 }
-
-.info-row:last-child {
-    margin-bottom: 0;
-}
-
 .info-row h4 {
     display: inline-block;
-    color: #c13838; /* Vermelho da marca para rótulos */
+    color: #c13838;
     margin-right: 6px;
     font-size: 1rem;
     margin-bottom: 0;
 }
-
-.info-row a {
-    color: #007bff;
-    font-weight: 600;
-}
-
+.info-row a { color: #007bff; font-weight: 600; }
 .info-row p {
     display: inline;
     text-align: justify;
@@ -2886,7 +2877,7 @@ tbody tr:hover {
 
 .edition-badge {
     display: inline-block;
-    background-color: #f1683a; /* Laranja da marca */
+    background-color: #f1683a;
     color: #fff;
     padding: 4px 12px;
     border-radius: 20px;
@@ -2898,17 +2889,17 @@ tbody tr:hover {
 .project-description {
     background-color: #fff;
     padding: 15px;
-    border-left: 4px solid #00474e; /* Detalhe visual elegante */
+    border-left: 4px solid #00474e;
     border-radius: 4px;
     text-align: left;
     margin-bottom: 20px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-.project-description h4 {
+.project-description h4 { 
+    margin-bottom: 8px; 
+    font-size: 1rem; 
     color: #333;
-    margin-bottom: 8px;
-    font-size: 1rem;
 }
 
 .partner-desc {
@@ -2926,7 +2917,6 @@ tbody tr:hover {
     gap: 15px;
     flex-wrap: wrap;
 }
-
 .action-btn {
     text-decoration: none;
     background-color: #00474e;
@@ -2936,14 +2926,8 @@ tbody tr:hover {
     font-size: 0.9rem;
     font-weight: 500;
     transition: background 0.3s ease;
-    display: inline-flex;
-    align-items: center;
 }
-
-.action-btn:hover {
-    background-color: #006870;
-    transform: translateY(-2px); /* Efeito de elevação leve */
-}
+.action-btn:hover { background-color: #006870; transform: translateY(-2px); }
 
 /* Responsividade para telas muito pequenas */
 @media (max-width: 480px) {
@@ -2961,8 +2945,18 @@ tbody tr:hover {
     margin-top: 5px;
 }
 
-.firstE h4 {
-    color: #001b1e;
+.firstE {
+    border-top: 2px dashed #ccc;
+    padding-top: 20px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+.firstE h3 {
+    color: #00474e;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    margin-bottom: 15px;
 }
 
 #transparence, #partner, #portfolio, #participe, #contact-form {
