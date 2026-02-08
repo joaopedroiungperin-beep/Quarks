@@ -1418,9 +1418,6 @@ tbody tr:hover {
 /* Configuração compartilhada para as duas seções filhas */
 #participe, 
 #contact-form {
-    /* Flex-grow: 1 (cresce), Flex-shrink: 1 (encolhe), Flex-basis: 500px (largura ideal) */
-    /* Se a tela for menor que 500px + 500px + gap, ele quebra a linha */
-    /* Garante que o conteúdo interno ocupe a altura total */
     display: flex;
     flex-direction: column;
     flex: 1 1 500px; 
@@ -1431,7 +1428,8 @@ tbody tr:hover {
     border: 1px solid rgba(255, 255, 255, 0.05);
     background-color: transparent; /* Ou coloque uma cor escura leve: rgba(255,255,255,0.02) */
     border-radius: 15px;
-}
+    padding: 40px; /* Mais espaço interno para não ficar "poluído" */
+}   
 
 /* Seção Participe */
 .participacao h1 {
