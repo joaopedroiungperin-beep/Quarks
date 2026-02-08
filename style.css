@@ -2802,6 +2802,8 @@ tbody tr:hover {
     }
 }
 
+/* --- ESTILO RESTAURADO DOS PARCEIROS --- */
+
 .partnership {
     display: flex;
     justify-content: space-between;
@@ -2819,6 +2821,9 @@ tbody tr:hover {
     margin-right: 20px;
 }
 
+.infC img {
+    width: 100%; /* Garante que a imagem não estoure o container */
+}
 
 .who {
     background-color: rgba(0, 0, 0, 0.05);
@@ -2843,37 +2848,6 @@ tbody tr:hover {
 .who p {
     display: inline;
     text-align: justify;
-}
-
-/* Botões de Ação (Demonstrativos e Imagens) */
-.project-actions {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-.action-btn {
-    text-decoration: none;
-    background-color: #00474e;
-    color: #fff !important;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: background 0.3s ease;
-}
-.action-btn:hover { background-color: #006870; transform: translateY(-2px); }
-
-/* Responsividade para telas muito pequenas */
-@media (max-width: 480px) {
-    .project-actions {
-        flex-direction: column;
-    }
-    
-    .action-btn {
-        width: 100%;
-        justify-content: center;
-    }
 }
 
 .firstP {
@@ -2901,6 +2875,27 @@ tbody tr:hover {
 
 .firstE h4 {
     color: #c13838;
+}
+
+/* Responsividade do Popup */
+@media (max-width: 1024px) {
+    .partnership {
+        flex-direction: column;
+        align-items: center;
+        overflow-y: scroll;
+        height: 450px;
+    }
+
+    .infC, .who, .firstP {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 20px;
+        height: auto;
+    }
+
+    .infC img {
+        max-width: 200px;
+    }
 }
 
 #transparence, #partner, #portfolio, #participe, #contact-form {
