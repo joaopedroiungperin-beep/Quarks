@@ -2739,6 +2739,29 @@ tbody tr:hover {
     fill: transparent;
 }
 
+#popup {
+    position: fixed; /* Ou absolute, dependendo do seu layout */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: -1; /* Começa atrás */
+    transition: all 0.3s ease;
+}
+
+.favo {
+    position: relative; /* Necessário para o z-index funcionar */
+    z-index: 10; /* Camada padrão do favo */
+}
+
+#popup.hidden {
+    display: none; /* Ou opacity: 0; visibility: hidden; */
+}
+
 @media (max-width: 940px) {
     .infC img {
         width: 200px !important;
