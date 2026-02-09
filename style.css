@@ -2870,21 +2870,25 @@ tbody tr:hover {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Hover: Apenas um leve clareamento */
 .btn-report-minimal:hover {
     background-color: #253d47;
     box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    transform: translateY(-1px);
 }
 
+/* Active: O Vermelho Vinho que você pediu */
 .btn-report-minimal:active {
     background-color: #610b0b !important;
     transform: scale(0.98); /* Efeito de compressão ao clicar */
     border-color: #4a0808;
+    transform: translateY(1px);
 }
 
 /* Ajuste do ícone SVG dentro do botão */
 .btn-report-minimal svg {
-    flex-shrink: 0;
     opacity: 0.9;
+    flex-shrink: 0;
 }
 
 /* Transparência */
