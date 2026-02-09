@@ -620,7 +620,6 @@ document.querySelectorAll(".dotP").forEach(dot => {
             document.getElementById("project-port").src = checkpoint.dataset.part;
             document.getElementById("project-descPort").innerText = checkpoint.dataset.desc;
             document.getElementById("transpRel").href = checkpoint.dataset.rel;
-            document.getElementById("transpBal").href = checkpoint.dataset.bal;
 
             // Controle de exibição
             if (checkpoint.id === "introP") {
