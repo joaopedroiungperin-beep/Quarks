@@ -2847,51 +2847,45 @@ tbody tr:hover {
     }
 }
 
-/* Container para garantir a centralização */
-.container-download {
+/* Container para garantir centralização sem quebra de layout */
+.btn-center-wrapper {
     display: flex;
     justify-content: center;
     width: 100%;
-    margin: 20px 0;
+    margin: 10px 0 20px 0;
 }
 
-.btn-quarks-download {
-    display: flex;
+.btn-report-minimal {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    background-color: #004085; /* Azul institucional inicial */
+    gap: 8px;
+    background-color: #004085; /* Azul mais sóbrio */
     color: #ffffff !important;
-    padding: 12px 30px;
-    border-radius: 50px; /* Bordas bem arredondadas */
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 4px; /* Bordas levemente arredondadas, mais quadrado */
     text-decoration: none;
-    font-weight: 600;
-    font-size: 16px;
-    border: 2px solid transparent;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease; /* Suaviza todas as transições */
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Efeito ao passar o mouse */
-.btn-quarks-download:hover {
+/* Hover: Apenas um leve clareamento */
+.btn-report-minimal:hover {
     background-color: #0056b3;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
 }
 
-/* Efeito de clique (Active) - Vermelho Vinho */
-.btn-quarks-download:active {
-    background-color: #610b0b; /* Vermelho Vinho */
-    transform: translateY(1px); /* Botão "afunda" levemente */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+/* Active: O Vermelho Vinho que você pediu */
+.btn-report-minimal:active {
+    background-color: #610b0b !important;
+    transform: translateY(1px);
     border-color: #4a0808;
 }
 
-/* Estilização do ícone dentro do botão */
-.icon-download {
-    width: 18px;
-    margin-right: 12px;
-    filter: brightness(0) invert(1); /* Deixa a seta branca */
-    transform: rotate(90deg); /* Aponta a seta para baixo, indicando download */
+/* Ajuste do ícone SVG dentro do botão */
+.btn-report-minimal svg {
+    flex-shrink: 0;
 }
 
 /* Transparência */
