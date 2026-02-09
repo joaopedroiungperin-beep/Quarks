@@ -449,7 +449,7 @@ if (SciDocContainer) {
     SciDocContainer.addEventListener('mouseleave', () => isPausedSci = false);
 }
 
-// --- LOGICA DE ANIMAÇÃO UNIFICADA (Resolve Firefox e evita conflitos) ---
+// --- LOGICA DE ANIMAÇÃO UNIFICADA (Com controle de velocidade) ---
 (function() {
     const containers = [
         { el: document.querySelector('.SciDoc-container0'), pause: 'isPausedSci0' },
@@ -459,16 +459,21 @@ if (SciDocContainer) {
     containers.forEach(item => {
         if (!item.el) return;
 
-        // Desativa scroll suave para permitir animação contínua via JS
         item.el.style.scrollBehavior = 'auto';
+        let frameCounter = 0;
 
         function animate() {
-            // Verifica o estado de pausa global
             if (!window[item.pause]) {
-                // Incremento de 1px para maior estabilidade
-                item.el.scrollLeft += 1;
+                frameCounter++;
 
-                // Lógica de loop com arredondamento para o Firefox
+                // Altere o número '2' para controlar a velocidade:
+                // 2 = Metade da velocidade (move a cada 2 quadros)
+                // 3 = Um terço da velocidade (move a cada 3 quadros)
+                if (frameCounter >= 2) { 
+                    item.el.scrollLeft += 1;
+                    frameCounter = 0;
+                }
+
                 const reachedEnd = Math.ceil(item.el.scrollLeft + item.el.clientWidth) >= item.el.scrollWidth - 1;
                 
                 if (reachedEnd) {
