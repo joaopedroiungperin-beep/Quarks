@@ -2847,28 +2847,51 @@ tbody tr:hover {
     }
 }
 
-.download-link {
-    display: inline-flex;
+/* Container para garantir a centralização */
+.container-download {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 20px 0;
+}
+
+.btn-quarks-download {
+    display: flex;
     align-items: center;
-    background-color: #007bff; /* Ou a cor principal da Quarks */
-    color: white !important;
-    padding: 10px 20px;
-    border-radius: 5px;
+    justify-content: center;
+    background-color: #004085; /* Azul institucional inicial */
+    color: #ffffff !important;
+    padding: 12px 30px;
+    border-radius: 50px; /* Bordas bem arredondadas */
     text-decoration: none;
-    margin-left: 40px;
-    transition: background 0.3s ease;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 16px;
+    border: 2px solid transparent;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease; /* Suaviza todas as transições */
 }
 
-.download-link:hover {
+/* Efeito ao passar o mouse */
+.btn-quarks-download:hover {
     background-color: #0056b3;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-.download-link img {
-    margin-right: 10px;
-    filter: brightness(0) invert(1); /* Deixa o ícone branco */
+/* Efeito de clique (Active) - Vermelho Vinho */
+.btn-quarks-download:active {
+    background-color: #610b0b; /* Vermelho Vinho */
+    transform: translateY(1px); /* Botão "afunda" levemente */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-color: #4a0808;
+}
+
+/* Estilização do ícone dentro do botão */
+.icon-download {
+    width: 18px;
+    margin-right: 12px;
+    filter: brightness(0) invert(1); /* Deixa a seta branca */
+    transform: rotate(90deg); /* Aponta a seta para baixo, indicando download */
 }
 
 /* Transparência */
