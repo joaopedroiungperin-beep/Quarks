@@ -2954,6 +2954,21 @@ tbody tr:hover {
     padding: 75px 40px 5px 40px;
 }
 
+#transparence {
+    margin: 0 auto;
+    max-width: 900px;
+}
+
+#about {
+    margin: 0 auto;
+    max-width: 1700px;
+}
+
+.implementation, .layer-images, #partner {
+    margin: 0 auto;
+    max-width: 1500px;
+}
+
 #transparence h1{
     color: #5be0ef;
     text-align: center;
