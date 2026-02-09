@@ -1201,6 +1201,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Função para abrir o pop-up
     function openPopup(doc, link) {
+        const popup = document.getElementById("popup");
+        const favo = document.querySelector('.favo'); // Seleciona o favo
+    
+        // Traz o popup para a camada da frente
+        popup.style.zIndex = "9999";
+        // Opcional: Garante que o favo fique em uma camada inferior enquanto aberto
+        if (favo) favo.style.zIndex = "1";
+        
         const dataInfo = JSON.parse(doc.getAttribute("data-info"));
         const complement = link.textContent; // Pega o nome do projeto ou ano
         const category = link.closest('.category').querySelector('h2').textContent; // Pega o título da categoria (Finanças ou Projetos)
@@ -1272,6 +1280,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // Fechar pop-up
     closePopup.addEventListener("click", () => {
         popup.classList.add("hidden");
+        // Volta o popup para uma camada inferior
+        popup.style.zIndex = "-1"; 
+        const favo = document.querySelector('.favo');
+        if (favo) favo.style.zIndex = "10"; // Ou o valor padrão que você usa para o favo
+        
         popup.scrollTop = 0; // Reseta o scroll do container principal ao fechar
         popupInfo.scrollTop = 0; // Reseta o scroll da área de conteúdo ao fechar
     });
@@ -1279,6 +1292,11 @@ document.addEventListener("DOMContentLoaded", () => {
     popup.addEventListener("click", (e) => {
         if (e.target === popup) {
             popup.classList.add("hidden");
+            popup.style.zIndex = "-1";
+
+            const favo = document.querySelector('.favo');
+            if (favo) favo.style.zIndex = "10";
+            
             popup.scrollTop = 0; // Reseta aqui também
             popupInfo.scrollTop = 0;
         }
