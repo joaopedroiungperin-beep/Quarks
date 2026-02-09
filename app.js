@@ -1201,6 +1201,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Função para abrir o pop-up
     function openPopup(doc, link) {
+        const popup = document.getElementById("popup");
         popup.scrollTop = 0;
         const dataInfo = JSON.parse(doc.getAttribute("data-info"));
         const complement = link.textContent; // Pega o nome do projeto ou ano
