@@ -469,7 +469,7 @@ if (SciDocContainer) {
                 // Altere o número '2' para controlar a velocidade:
                 // 2 = Metade da velocidade (move a cada 2 quadros)
                 // 3 = Um terço da velocidade (move a cada 3 quadros)
-                if (frameCounter >= 2) { 
+                if (frameCounter >= 3) { 
                     item.el.scrollLeft += 1;
                     frameCounter = 0;
                 }
