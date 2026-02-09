@@ -466,14 +466,14 @@ if (SciDocContainer) {
             if (!window[item.pause]) {
                 frameCounter++;
 
-                // Altere o número '2' para controlar a velocidade:
+                // Altere o número para controlar a velocidade:
                 // 2 = Metade da velocidade (move a cada 2 quadros)
                 // 3 = Um terço da velocidade (move a cada 3 quadros)
                 if (frameCounter >= 3) { 
                     item.el.scrollLeft += 1;
                     frameCounter = 0;
                 }
-
+                
                 const reachedEnd = Math.ceil(item.el.scrollLeft + item.el.clientWidth) >= item.el.scrollWidth - 1;
                 
                 if (reachedEnd) {
