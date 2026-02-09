@@ -2887,7 +2887,7 @@ tbody tr:hover {
 }
 
 .partner-desc {
-    padding-left: 60px; /* Mantém o alinhamento visual com os títulos */
+    padding-left: 40px; /* Mantém o alinhamento visual com os títulos */
     padding-right: 20px; /* Pequena margem à direita para não colar na borda */
     color: #001b1e;      /* Mesma cor escura usada nos títulos do popup */
     text-align: justify; /* Justifica o texto para ficar "quadradinho" e elegante */
