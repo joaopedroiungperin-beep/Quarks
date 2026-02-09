@@ -2693,6 +2693,41 @@ tbody tr:hover {
     color: #ffa500;
 }
 
+/* Ajuste para telas mobile */
+@media (max-width: 940px) {
+    .textPartH1Mobile {
+        font-size: 24px !important; /* Tamanho reduzido para o título principal */
+        line-height: 1.2;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .textPartH3Mobile {
+        font-size: 16px !important; /* Tamanho reduzido para o subtítulo */
+        font-weight: normal;
+        line-height: 1.4;
+        text-align: center;
+        padding: 0 20px; /* Adiciona respiro nas laterais */
+    }
+    
+    /* Garante que o container não esprema o texto */
+    .textPartMobile {
+        padding: 20px 10px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+/* Ajuste adicional para telas muito pequenas (iPhone SE, etc) */
+@media (max-width: 400px) {
+    .textPartH1Mobile {
+        font-size: 20px !important;
+    }
+    .textPartH3Mobile {
+        font-size: 14px !important;
+    }
+}
+
 .popupPartner {
     scrollbar-width: auto;
     scrollbar-color: #a91212 transparent;
