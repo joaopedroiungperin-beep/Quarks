@@ -403,9 +403,12 @@ let isPausedSci0 = false;
 const SciDocContainer0 = document.querySelector('.SciDoc-container0');
 
 function scrollSciDoc0() {
-    if (!isPausedSci0) {
+    if (!isPausedSci0 && SciDocContainer0) {
+        // Incrementa 1px para estabilidade no Firefox
         SciDocContainer0.scrollLeft += scrollSpeedSci0;
-        if (SciDocContainer0.scrollLeft + SciDocContainer0.clientWidth >= SciDocContainer0.scrollWidth) {
+
+        // Math.ceil garante que 999.8 vira 1000, batendo com o scrollWidth
+        if (Math.ceil(SciDocContainer0.scrollLeft + SciDocContainer0.clientWidth) >= SciDocContainer0.scrollWidth - 1) {
             SciDocContainer0.scrollLeft = 0;
         }
     }
@@ -414,6 +417,9 @@ function scrollSciDoc0() {
 
 SciDocContainer0.addEventListener('mouseenter', () => isPausedSci0 = true);
 SciDocContainer0.addEventListener('mouseleave', () => isPausedSci0 = false);
+
+SciDocContainer0.style.scrollBehavior = 'auto';
+SciDocContainer.style.scrollBehavior = 'auto';
 
 scrollSciDoc0();
 
@@ -455,9 +461,10 @@ let isPausedSci = false;
 const SciDocContainer = document.querySelector('.SciDoc-container');
 
 function scrollSciDoc() {
-    if (!isPausedSci) {
+    if (!isPausedSci && SciDocContainer) {
         SciDocContainer.scrollLeft += scrollSpeedSci;
-        if (SciDocContainer.scrollLeft + SciDocContainer.clientWidth >= SciDocContainer.scrollWidth) {
+
+        if (Math.ceil(SciDocContainer.scrollLeft + SciDocContainer.clientWidth) >= SciDocContainer.scrollWidth - 1) {
             SciDocContainer.scrollLeft = 0;
         }
     }
