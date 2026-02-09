@@ -398,7 +398,7 @@ estudos0.forEach(estudo0 => {
 });
 
 let scrollAmountSci0 = 0;
-let scrollSpeedSci0 = 1;
+let scrollSpeedSci0 = 0.5;
 let isPausedSci0 = false;
 const SciDocContainer0 = document.querySelector('.SciDoc-container0');
 
@@ -450,7 +450,7 @@ estudos.forEach(estudo => {
 });
 
 let scrollAmountSci = 0;
-let scrollSpeedSci = 1;
+let scrollSpeedSci = 0.5;
 let isPausedSci = false;
 const SciDocContainer = document.querySelector('.SciDoc-container');
 
