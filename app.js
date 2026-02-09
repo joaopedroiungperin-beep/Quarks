@@ -1201,6 +1201,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Função para abrir o pop-up
     function openPopup(doc, link) {
+        popup.scrollTop = 0;
         const dataInfo = JSON.parse(doc.getAttribute("data-info"));
         const complement = link.textContent; // Pega o nome do projeto ou ano
         const category = link.closest('.category').querySelector('h2').textContent; // Pega o título da categoria (Finanças ou Projetos)
