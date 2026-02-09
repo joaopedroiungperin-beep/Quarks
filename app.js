@@ -681,7 +681,7 @@ document.querySelectorAll(".dotP").forEach(dot => {
             container.appendChild(canvas);  // Adiciona o canvas ao container
 
             // Define o URL do PDF
-            const pdfUrl = `http://localhost/Quarks/documents/didatic/${pdfFile}`;
+            const pdfUrl = `./documents/didatic/${pdfFile}`;
 
             // Configuração do PDF.js
             const pdfjsLib = window.pdfjsLib;
