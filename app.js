@@ -1201,15 +1201,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Função para abrir o pop-up
     function openPopup(doc, link) {
-        const popup = document.getElementById("popup");
-        const popupContent = popup.querySelector(".popup-content");
-
-        // Garante que o scroll suba tanto no container principal quanto no conteúdo interno
-        popup.scrollTop = 0;
-        if (popupContent) {
-            popupContent.scrollTop = 0;
-        }
-        
         const dataInfo = JSON.parse(doc.getAttribute("data-info"));
         const complement = link.textContent; // Pega o nome do projeto ou ano
         const category = link.closest('.category').querySelector('h2').textContent; // Pega o título da categoria (Finanças ou Projetos)
@@ -1239,6 +1230,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         popup.classList.remove("hidden");
+
+        setTimeout(() => {
+            popup.scrollTop = 0;
+            popupInfo.scrollTop = 0;
+        }, 10); // 10ms é o suficiente para o navegador entender que o elemento apareceu
     }
 
     // Abrir pop-up para elementos com a classe fPU
@@ -1276,11 +1272,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // Fechar pop-up
     closePopup.addEventListener("click", () => {
         popup.classList.add("hidden");
+        popup.scrollTop = 0; // Reseta o scroll do container principal ao fechar
+        popupInfo.scrollTop = 0; // Reseta o scroll da área de conteúdo ao fechar
     });
 
     popup.addEventListener("click", (e) => {
         if (e.target === popup) {
             popup.classList.add("hidden");
+            popup.scrollTop = 0; // Reseta aqui também
+            popupInfo.scrollTop = 0;
         }
     });
 });
