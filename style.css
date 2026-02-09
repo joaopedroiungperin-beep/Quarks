@@ -2825,23 +2825,13 @@ tbody tr:hover {
 }
 
 .partner-desc {
-    padding-left: 40px; /* Mantém o alinhamento visual com os títulos */
-    padding-right: 10px; /* Pequena margem à direita para não colar na borda */
+    padding-left: 60px; /* Mantém o alinhamento visual com os títulos */
+    padding-right: 20px; /* Pequena margem à direita para não colar na borda */
     color: #001b1e;      /* Mesma cor escura usada nos títulos do popup */
     text-align: justify; /* Justifica o texto para ficar "quadradinho" e elegante */
-    font-size: 0.95rem;  /* Tamanho levemente menor que o título para hierarquia */
     line-height: 1.5;    /* Espaçamento entre linhas para facilitar a leitura */
     margin-top: 0;
     margin-bottom: 15px; /* Espaço antes do próximo item (Demonstrativos) */
-}
-
-/* Ajuste responsivo para telas pequenas (opcional, mas recomendado) */
-@media (max-width: 600px) {
-    .partner-desc {
-        padding-left: 20px; /* Reduz o recuo em celulares */
-        padding-right: 5px;
-        text-align: left; /* Em telas muito pequenas, justificado pode criar buracos */
-    }
 }
 
 /* Transparência */
