@@ -373,7 +373,7 @@ if (canvas) {
   animate();
 }
 
-//Estudos Nacionais
+// --- Estudos Nacionais ---
 const SciDoc0 = document.getElementById('SciDoc0');
 const estudos0 = [
     { autores: "Giordan", ano: "1999", link: "https://fep.if.usp.br/~profis/arquivo/encontros/enpec/iienpec/Dados/trabalhos/A33.pdf" },
@@ -392,12 +392,22 @@ if (SciDoc0) {
         const item0 = document.createElement('div');
         item0.classList.add('SciDoc-item0');
         item0.innerHTML = `${estudo0.autores} (${estudo0.ano})`;
-        item0.addEventListener('click', () => { window.open(estudo0.link, '_blank'); });
+        item0.addEventListener('click', () => {
+            window.open(estudo0.link, '_blank');
+        });
         SciDoc0.appendChild(item0);
     });
 }
 
-//Estudos internacionais
+let isPausedSci0 = false;
+const SciDocContainer0 = document.querySelector('.SciDoc-container0');
+
+if (SciDocContainer0) {
+    SciDocContainer0.addEventListener('mouseenter', () => isPausedSci0 = true);
+    SciDocContainer0.addEventListener('mouseleave', () => isPausedSci0 = false);
+}
+
+// --- Estudos Internacionais ---
 const SciDoc = document.getElementById('SciDoc');
 const estudos = [
     { autores: "Johnson et al.", ano: "1990", link: "https://www.scirp.org/reference/referencespapers?referenceid=2177221" },
@@ -424,54 +434,53 @@ if (SciDoc) {
         const item = document.createElement('div');
         item.classList.add('SciDoc-item');
         item.innerHTML = `${estudo.autores} (${estudo.ano})`;
-        item.addEventListener('click', () => { window.open(estudo.link, '_blank'); });
+        item.addEventListener('click', () => {
+            window.open(estudo.link, '_blank');
+        });
         SciDoc.appendChild(item);
     });
 }
 
-// --- LÓGICA DE ANIMAÇÃO (CONSERTADA) ---
-let scrollSpeedSci0 = 0.5;
-let isPausedSci0 = false;
-const SciDocContainer0 = document.querySelector('.SciDoc-container0');
-
-function scrollSciDoc0() {
-    if (!isPausedSci0 && SciDocContainer0) {
-        SciDocContainer0.scrollLeft += scrollSpeedSci0;
-        if (Math.ceil(SciDocContainer0.scrollLeft + SciDocContainer0.clientWidth) >= SciDocContainer0.scrollWidth - 1) {
-            SciDocContainer0.scrollLeft = 0;
-        }
-    }
-    requestAnimationFrame(scrollSciDoc0);
-}
-
-let scrollSpeedSci = 0.5;
 let isPausedSci = false;
 const SciDocContainer = document.querySelector('.SciDoc-container');
 
-function scrollSciDoc() {
-    if (!isPausedSci && SciDocContainer) {
-        SciDocContainer.scrollLeft += scrollSpeedSci;
-        if (Math.ceil(SciDocContainer.scrollLeft + SciDocContainer.clientWidth) >= SciDocContainer.scrollWidth - 1) {
-            SciDocContainer.scrollLeft = 0;
-        }
-    }
-    requestAnimationFrame(scrollSciDoc);
-}
-
-// Inicialização dos Listeners com segurança
-if (SciDocContainer0) {
-    SciDocContainer0.style.scrollBehavior = 'auto';
-    SciDocContainer0.addEventListener('mouseenter', () => isPausedSci0 = true);
-    SciDocContainer0.addEventListener('mouseleave', () => isPausedSci0 = false);
-    scrollSciDoc0();
-}
-
 if (SciDocContainer) {
-    SciDocContainer.style.scrollBehavior = 'auto';
     SciDocContainer.addEventListener('mouseenter', () => isPausedSci = true);
     SciDocContainer.addEventListener('mouseleave', () => isPausedSci = false);
-    scrollSciDoc();
 }
+
+// --- LOGICA DE ANIMAÇÃO UNIFICADA (Resolve Firefox e evita conflitos) ---
+(function() {
+    const containers = [
+        { el: document.querySelector('.SciDoc-container0'), pause: 'isPausedSci0' },
+        { el: document.querySelector('.SciDoc-container'), pause: 'isPausedSci' }
+    ];
+
+    containers.forEach(item => {
+        if (!item.el) return;
+
+        // Desativa scroll suave para permitir animação contínua via JS
+        item.el.style.scrollBehavior = 'auto';
+
+        function animate() {
+            // Verifica o estado de pausa global
+            if (!window[item.pause]) {
+                // Incremento de 1px para maior estabilidade
+                item.el.scrollLeft += 1;
+
+                // Lógica de loop com arredondamento para o Firefox
+                const reachedEnd = Math.ceil(item.el.scrollLeft + item.el.clientWidth) >= item.el.scrollWidth - 1;
+                
+                if (reachedEnd) {
+                    item.el.scrollLeft = 0;
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+    });
+})();
+
 
 // PORTFÓLIO
 const imageament = document.getElementById("project-imgPort");
