@@ -2847,6 +2847,30 @@ tbody tr:hover {
     }
 }
 
+.download-link {
+    display: inline-flex;
+    align-items: center;
+    background-color: #007bff; /* Ou a cor principal da Quarks */
+    color: white !important;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-left: 40px;
+    transition: background 0.3s ease;
+    font-weight: bold;
+}
+
+.download-link:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.download-link img {
+    margin-right: 10px;
+    filter: brightness(0) invert(1); /* Deixa o ícone branco */
+}
+
 /* Transparência */
 #transparence, #partner, #portfolio, #participe, #contact-form {
     padding: 75px 40px 5px 40px;
