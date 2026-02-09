@@ -1202,7 +1202,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // Função para abrir o pop-up
     function openPopup(doc, link) {
         const popup = document.getElementById("popup");
+        const popupContent = popup.querySelector(".popup-content");
+
+        // Garante que o scroll suba tanto no container principal quanto no conteúdo interno
         popup.scrollTop = 0;
+        if (popupContent) {
+            popupContent.scrollTop = 0;
+        }
+        
         const dataInfo = JSON.parse(doc.getAttribute("data-info"));
         const complement = link.textContent; // Pega o nome do projeto ou ano
         const category = link.closest('.category').querySelector('h2').textContent; // Pega o título da categoria (Finanças ou Projetos)
