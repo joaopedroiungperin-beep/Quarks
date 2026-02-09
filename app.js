@@ -387,41 +387,15 @@ const estudos0 = [
     { autores: "França et al.", ano: "2023", link: "https://www.scielo.br/j/rbedu/a/VQn3KTRhr7HfSvVYqtxX3Pv/?lang=pt" },
 ];
 
-estudos0.forEach(estudo0 => {
-    const item0 = document.createElement('div');
-    item0.classList.add('SciDoc-item0');
-    item0.innerHTML = `${estudo0.autores} (${estudo0.ano})`;
-    item0.addEventListener('click', () => {
-        window.open(estudo0.link, '_blank');
+if (SciDoc0) {
+    estudos0.forEach(estudo0 => {
+        const item0 = document.createElement('div');
+        item0.classList.add('SciDoc-item0');
+        item0.innerHTML = `${estudo0.autores} (${estudo0.ano})`;
+        item0.addEventListener('click', () => { window.open(estudo0.link, '_blank'); });
+        SciDoc0.appendChild(item0);
     });
-    SciDoc0.appendChild(item0);
-});
-
-let scrollAmountSci0 = 0;
-let scrollSpeedSci0 = 0.5;
-let isPausedSci0 = false;
-const SciDocContainer0 = document.querySelector('.SciDoc-container0');
-
-function scrollSciDoc0() {
-    if (!isPausedSci0 && SciDocContainer0) {
-        // Incrementa 1px para estabilidade no Firefox
-        SciDocContainer0.scrollLeft += scrollSpeedSci0;
-
-        // Math.ceil garante que 999.8 vira 1000, batendo com o scrollWidth
-        if (Math.ceil(SciDocContainer0.scrollLeft + SciDocContainer0.clientWidth) >= SciDocContainer0.scrollWidth - 1) {
-            SciDocContainer0.scrollLeft = 0;
-        }
-    }
-    requestAnimationFrame(scrollSciDoc0);
 }
-
-SciDocContainer0.addEventListener('mouseenter', () => isPausedSci0 = true);
-SciDocContainer0.addEventListener('mouseleave', () => isPausedSci0 = false);
-
-SciDocContainer0.style.scrollBehavior = 'auto';
-SciDocContainer.style.scrollBehavior = 'auto';
-
-scrollSciDoc0();
 
 //Estudos internacionais
 const SciDoc = document.getElementById('SciDoc');
@@ -445,17 +419,31 @@ const estudos = [
     { autores: "Schacter", ano: "2021", link: "https://pmc.ncbi.nlm.nih.gov/articles/PMC8285452/" },
 ];
 
-estudos.forEach(estudo => {
-    const item = document.createElement('div');
-    item.classList.add('SciDoc-item');
-    item.innerHTML = `${estudo.autores} (${estudo.ano})`;
-    item.addEventListener('click', () => {
-        window.open(estudo.link, '_blank');
+if (SciDoc) {
+    estudos.forEach(estudo => {
+        const item = document.createElement('div');
+        item.classList.add('SciDoc-item');
+        item.innerHTML = `${estudo.autores} (${estudo.ano})`;
+        item.addEventListener('click', () => { window.open(estudo.link, '_blank'); });
+        SciDoc.appendChild(item);
     });
-    SciDoc.appendChild(item);
-});
+}
 
-let scrollAmountSci = 0;
+// --- LÓGICA DE ANIMAÇÃO (CONSERTADA) ---
+let scrollSpeedSci0 = 0.5;
+let isPausedSci0 = false;
+const SciDocContainer0 = document.querySelector('.SciDoc-container0');
+
+function scrollSciDoc0() {
+    if (!isPausedSci0 && SciDocContainer0) {
+        SciDocContainer0.scrollLeft += scrollSpeedSci0;
+        if (Math.ceil(SciDocContainer0.scrollLeft + SciDocContainer0.clientWidth) >= SciDocContainer0.scrollWidth - 1) {
+            SciDocContainer0.scrollLeft = 0;
+        }
+    }
+    requestAnimationFrame(scrollSciDoc0);
+}
+
 let scrollSpeedSci = 0.5;
 let isPausedSci = false;
 const SciDocContainer = document.querySelector('.SciDoc-container');
@@ -463,7 +451,6 @@ const SciDocContainer = document.querySelector('.SciDoc-container');
 function scrollSciDoc() {
     if (!isPausedSci && SciDocContainer) {
         SciDocContainer.scrollLeft += scrollSpeedSci;
-
         if (Math.ceil(SciDocContainer.scrollLeft + SciDocContainer.clientWidth) >= SciDocContainer.scrollWidth - 1) {
             SciDocContainer.scrollLeft = 0;
         }
@@ -471,10 +458,20 @@ function scrollSciDoc() {
     requestAnimationFrame(scrollSciDoc);
 }
 
-SciDocContainer.addEventListener('mouseenter', () => isPausedSci = true);
-SciDocContainer.addEventListener('mouseleave', () => isPausedSci = false);
+// Inicialização dos Listeners com segurança
+if (SciDocContainer0) {
+    SciDocContainer0.style.scrollBehavior = 'auto';
+    SciDocContainer0.addEventListener('mouseenter', () => isPausedSci0 = true);
+    SciDocContainer0.addEventListener('mouseleave', () => isPausedSci0 = false);
+    scrollSciDoc0();
+}
 
-scrollSciDoc();
+if (SciDocContainer) {
+    SciDocContainer.style.scrollBehavior = 'auto';
+    SciDocContainer.addEventListener('mouseenter', () => isPausedSci = true);
+    SciDocContainer.addEventListener('mouseleave', () => isPausedSci = false);
+    scrollSciDoc();
+}
 
 // PORTFÓLIO
 const imageament = document.getElementById("project-imgPort");
