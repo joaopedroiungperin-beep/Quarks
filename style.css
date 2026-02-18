@@ -2508,85 +2508,126 @@ tbody tr:hover {
     justify-content: flex-start;
 }
 
-/* --- ESTILO DA GALERIA DE VÍDEOS (Player Style) --- */
+/* Container principal sem margens internas para alinhar com o projeto */
 .video-player-container {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-    padding: 20px 0;
+    gap: 15px;
+    padding: 0; /* Removida a margem interna */
+    margin-bottom: 30px;
 }
 
-/* Área do Vídeo em Destaque */
-.main-stage {
+/* --- O TRUQUE DO CORTE (Clipping Mask) --- */
+/* Esta é a "moldura" que vai esconder o cabeçalho e rodapé do Instagram */
+.main-stage-clipper {
+    width: 320px;  /* Largura fixa ideal para Reels */
+    height: 570px; /* Altura calculada para mostrar só o vídeo */
+    overflow: hidden; /* O segredo: esconde tudo que vaza da caixa */
+    position: relative;
+    border-radius: 12px; /* Bordas arredondadas para ficar bonito */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    background: #000; /* Fundo preto enquanto carrega */
+}
+
+/* O container interno que segura o iframe */
+.main-stage-inner {
     width: 100%;
+    /* Puxa o vídeo para cima para esconder o cabeçalho do perfil */
+    margin-top: -65px; 
+    /* Puxa um pouco para baixo para tentar esconder a barra de likes (varies) */
+    margin-bottom: -70px; 
     display: flex;
     justify-content: center;
-    min-height: 550px; /* Altura reservada para o post do Instagram */
-    transition: opacity 0.3s ease;
 }
 
-/* Container do Carrossel (Fila de baixo) */
+/* Força o iframe do Instagram a se comportar dentro do nosso corte */
+.insta-iframe-hack {
+    /* Removemos os estilos inline do JS e controlamos aqui */
+    background: transparent !important; 
+    box-shadow: none !important;
+    margin: 0 auto !important;
+    /* Força o iframe a ocupar a largura do clipper */
+    min-width: 320px !important;
+    width: 320px !important; 
+}
+
+
+/* --- CARROSSEL MENOR E MAIS LIMPO --- */
 .carousel-wrapper {
     position: relative;
     width: 100%;
-    max-width: 800px; /* Largura máxima da fila */
+    max-width: 600px; /* Carrossel mais estreito no total */
     display: flex;
     align-items: center;
+    margin-top: 10px;
 }
 
-/* A trilha onde ficam os vídeos pequenos */
 .carousel-track {
     display: flex;
-    gap: 15px;
+    gap: 10px; /* Menos espaço entre os itens */
     overflow-x: auto;
     scroll-behavior: smooth;
-    padding: 10px;
+    padding: 5px;
     width: 100%;
-    /* Esconde a barra de rolagem nativa para ficar mais limpo */
     scrollbar-width: none; 
     -ms-overflow-style: none;
 }
-.carousel-track::-webkit-scrollbar { 
-    display: none; 
-}
+.carousel-track::-webkit-scrollbar { display: none; }
 
-/* Item individual do carrossel */
 .carousel-item {
-    flex: 0 0 200px; /* Largura fixa da miniatura */
+    flex: 0 0 100px; /* Miniaturas BEM menores (era 200px) */
+    height: 178px;   /* Proporção aproximada de Reels */
     position: relative;
     cursor: pointer;
-    border: 2px solid transparent;
     border-radius: 8px;
     overflow: hidden;
-    transition: transform 0.2s, border-color 0.2s;
-    background: #f0f0f0;
+    transition: transform 0.2s, opacity 0.2s;
+    background: transparent; /* Remove fundo cinza */
+    opacity: 0.7; /* Deixa os vídeos da fila meio apagados */
 }
 
 .carousel-item:hover {
     transform: scale(1.05);
-    border-color: #004aad; /* Cor de destaque ao passar o mouse */
+    opacity: 1; /* Acende ao passar o mouse */
 }
 
-/* Overlay transparente para capturar o clique no carrossel */
+/* O truque do corte também nas miniaturas */
+.carousel-item-clipper {
+    width: 100px;
+    height: 178px;
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel-item-inner {
+     /* O zoom out para caber na miniatura */
+    transform: scale(0.31); /* Reduz o embed gigante para caber na caixa de 100px */
+    transform-origin: top left;
+    width: 320px; /* Largura original do embed */
+    margin-top: -65px; /* O mesmo corte do principal */
+}
+
+
+/* Overlay transparente */
 .click-overlay {
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    z-index: 10; /* Fica acima do iframe do Instagram */
+    z-index: 10;
     background: rgba(255,255,255,0);
 }
 
-/* Botões de navegação (Setinhas) */
+/* Botões de navegação menores */
 .nav-btn {
-    background-color: rgba(0, 74, 173, 0.8);
+    background-color: rgba(0, 74, 173, 0.6);
     color: white;
     border: none;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
+    width: 30px; /* Menor */
+    height: 30px; /* Menor */
+    font-size: 16px;
     cursor: pointer;
     z-index: 20;
     display: flex;
@@ -2595,19 +2636,14 @@ tbody tr:hover {
     position: absolute;
     transition: background 0.3s;
 }
+.nav-btn:hover { background-color: #003380; }
+.nav-prev { left: -35px; }
+.nav-next { right: -35px; }
 
-.nav-btn:hover {
-    background-color: #003380;
-}
-
-.nav-prev { left: -50px; }
-.nav-next { right: -50px; }
-
-/* Ajuste para telas menores */
-@media (max-width: 900px) {
+@media (max-width: 768px) {
+    .carousel-wrapper { max-width: 100%; padding: 0 35px; }
     .nav-prev { left: 0; }
     .nav-next { right: 0; }
-    .carousel-wrapper { padding: 0 40px; }
 }
 
 .registerProject {
