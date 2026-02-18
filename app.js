@@ -708,6 +708,111 @@ document.querySelectorAll(".dotP").forEach(dot => {
                 return page.render(renderContext);
             })
         });
+        // ==========================================
+        //  LÓGICA DO PLAYER DE VÍDEO (Instagram)
+        // ==========================================
+        const galleryContainer = document.getElementById('gallery');
+        galleryContainer.innerHTML = ''; // Limpa tudo
+        
+        if (checkpoint.dataset.videos) {
+            try {
+                const videoList = JSON.parse(checkpoint.dataset.videos);
+                
+                // 1. Cria a estrutura HTML do Player
+                const playerHTML = `
+                    <div class="video-player-container">
+                        <div id="main-stage" class="main-stage">
+                            </div>
+        
+                        <div class="carousel-wrapper">
+                            <button id="btn-prev" class="nav-btn nav-prev">&#10094;</button>
+                            
+                            <div id="carousel-track" class="carousel-track">
+                                </div>
+        
+                            <button id="btn-next" class="nav-btn nav-next">&#10095;</button>
+                        </div>
+                    </div>
+                    
+                    <div id="image-section-placeholder" style="margin-top: 40px;"></div>
+                `;
+                
+                galleryContainer.innerHTML = playerHTML;
+        
+                const mainStage = document.getElementById('main-stage');
+                const track = document.getElementById('carousel-track');
+        
+                // Função auxiliar para gerar o HTML do Embed do Instagram
+                function getInstaEmbed(url) {
+                    return `
+                        <blockquote class="instagram-media" 
+                            data-instgrm-permalink="${url}" 
+                            data-instgrm-version="14" 
+                            style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
+                        </blockquote>
+                    `;
+                }
+        
+                // Função para carregar o vídeo principal
+                function setFeaturedVideo(url) {
+                    mainStage.innerHTML = getInstaEmbed(url);
+                    // Re-processa o script do Instagram para renderizar o novo vídeo
+                    if (window.instgrm) window.instgrm.Embeds.process();
+                }
+        
+                // 2. Renderiza o primeiro vídeo como destaque inicial
+                if (videoList.length > 0) {
+                    setFeaturedVideo(videoList[0]);
+                }
+        
+                // 3. Renderiza a lista de baixo (Carrossel)
+                videoList.forEach((url, index) => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'carousel-item';
+                    
+                    // Colocamos o embed pequeno
+                    // Nota: O Instagram não permite "apenas thumbnail" fácil sem API, 
+                    // então carregamos o post, mas o overlay impede o clique direto.
+                    itemDiv.innerHTML = getInstaEmbed(url);
+        
+                    // Cria o overlay invisível para capturar o clique
+                    const overlay = document.createElement('div');
+                    overlay.className = 'click-overlay';
+                    
+                    // Ao clicar no item da lista:
+                    overlay.addEventListener('click', () => {
+                        setFeaturedVideo(url); // Manda esse vídeo para o destaque
+                        
+                        // (Opcional) Scroll suave para centralizar o item clicado
+                        itemDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    });
+        
+                    itemDiv.appendChild(overlay);
+                    track.appendChild(itemDiv);
+                });
+        
+                // 4. Lógica das Setinhas (Scroll)
+                const btnPrev = document.getElementById('btn-prev');
+                const btnNext = document.getElementById('btn-next');
+        
+                btnPrev.addEventListener('click', () => {
+                    track.scrollLeft -= 220; // Rola para a esquerda
+                });
+        
+                btnNext.addEventListener('click', () => {
+                    track.scrollLeft += 220; // Rola para a direita
+                });
+        
+                // Força processamento inicial do Instagram
+                if (window.instgrm) window.instgrm.Embeds.process();
+        
+            } catch (e) {
+                console.error("Erro ao montar galeria de vídeos:", e);
+            }
+        } else {
+            // Caso não tenha vídeos, insira aqui sua lógica antiga ou placeholder
+            galleryContainer.innerHTML = '<p style="text-align:center;">Galeria de imagens será carregada aqui futuramente.</p>';
+        }
     });
 });
 
