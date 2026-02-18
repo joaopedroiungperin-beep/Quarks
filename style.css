@@ -2508,6 +2508,108 @@ tbody tr:hover {
     justify-content: flex-start;
 }
 
+/* --- ESTILO DA GALERIA DE VÍDEOS (Player Style) --- */
+.video-player-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0;
+}
+
+/* Área do Vídeo em Destaque */
+.main-stage {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    min-height: 550px; /* Altura reservada para o post do Instagram */
+    transition: opacity 0.3s ease;
+}
+
+/* Container do Carrossel (Fila de baixo) */
+.carousel-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 800px; /* Largura máxima da fila */
+    display: flex;
+    align-items: center;
+}
+
+/* A trilha onde ficam os vídeos pequenos */
+.carousel-track {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px;
+    width: 100%;
+    /* Esconde a barra de rolagem nativa para ficar mais limpo */
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+}
+.carousel-track::-webkit-scrollbar { 
+    display: none; 
+}
+
+/* Item individual do carrossel */
+.carousel-item {
+    flex: 0 0 200px; /* Largura fixa da miniatura */
+    position: relative;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+    background: #f0f0f0;
+}
+
+.carousel-item:hover {
+    transform: scale(1.05);
+    border-color: #004aad; /* Cor de destaque ao passar o mouse */
+}
+
+/* Overlay transparente para capturar o clique no carrossel */
+.click-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 10; /* Fica acima do iframe do Instagram */
+    background: rgba(255,255,255,0);
+}
+
+/* Botões de navegação (Setinhas) */
+.nav-btn {
+    background-color: rgba(0, 74, 173, 0.8);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    transition: background 0.3s;
+}
+
+.nav-btn:hover {
+    background-color: #003380;
+}
+
+.nav-prev { left: -50px; }
+.nav-next { right: -50px; }
+
+/* Ajuste para telas menores */
+@media (max-width: 900px) {
+    .nav-prev { left: 0; }
+    .nav-next { right: 0; }
+    .carousel-wrapper { padding: 0 40px; }
+}
+
 .registerProject {
     opacity: 0;
     align-items: center;
