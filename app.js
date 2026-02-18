@@ -709,115 +709,126 @@ document.querySelectorAll(".dotP").forEach(dot => {
             })
         });
         // ==========================================
-        //  LÓGICA DO PLAYER DE VÍDEO (Instagram)
+        //  LÓGICA DA GALERIA (VÍDEOS OU IMAGENS)
         // ==========================================
-        const galleryContainer = document.getElementById('gallery');
-        galleryContainer.innerHTML = ''; // Limpa tudo
         
-        if (checkpoint.dataset.videos) {
-            // --- MODO VÍDEO (ESTILO CINEMA LIMPO) ---
-            try {
-                const videoList = JSON.parse(checkpoint.dataset.videos);
-                
-                // 1. Nova Estrutura HTML com "Clipping" (Corte)
-                const playerHTML = `
-                    <div class="video-player-container">
-                        <div class="main-stage-clipper">
-                             <div id="main-stage-inner" class="main-stage-inner"></div>
-                        </div>
+        // 1. Selecionamos o elemento da galeria com segurança
+        const targetGallery = document.getElementById('gallery');
+        
+        // 2. Limpamos o conteúdo atual se o elemento existir
+        if (targetGallery) {
+            targetGallery.innerHTML = ''; 
 
-                        <div class="carousel-wrapper">
-                            <button id="btn-prev" class="nav-btn nav-prev">&#10094;</button>
-                            
-                            <div id="carousel-track" class="carousel-track">
-                                </div>
-
-                            <button id="btn-next" class="nav-btn nav-next">&#10095;</button>
-                        </div>
-                    </div>
-                `;
-                
-                galleryElement.innerHTML = playerHTML;
-
-                const mainStageInner = document.getElementById('main-stage-inner');
-                const track = document.getElementById('carousel-track');
-
-                // Helper para o embed (LIMPO, sem styles inline malucos)
-                function getInstaEmbed(url, isThumbnail = false) {
-                    // Adicionamos nossa classe 'insta-iframe-hack' para controlar via CSS
-                    return `
-                        <blockquote class="instagram-media insta-iframe-hack" 
-                            data-instgrm-permalink="${url}" 
-                            data-instgrm-version="14">
-                        </blockquote>
-                    `;
-                }
-
-                // Função para trocar o destaque
-                function setFeaturedVideo(url) {
-                    mainStageInner.innerHTML = getInstaEmbed(url);
-                    // Reprocessa o script do Instagram
-                    if (window.instgrm) window.instgrm.Embeds.process();
-                }
-
-                // 2. Renderiza o primeiro vídeo no destaque
-                if (videoList.length > 0) {
-                    setFeaturedVideo(videoList[0]);
-                }
-
-                // 3. Renderiza o carrossel de baixo (Miniaturas)
-                videoList.forEach((url) => {
-                    const itemDiv = document.createElement('div');
-                    itemDiv.className = 'carousel-item';
+            if (checkpoint.dataset.videos) {
+                // --- MODO VÍDEO (ESTILO CINEMA LIMPO) ---
+                try {
+                    const videoList = JSON.parse(checkpoint.dataset.videos);
                     
-                    // Estrutura de corte para a miniatura + zoom out via CSS
-                    itemDiv.innerHTML = `
-                        <div class="carousel-item-clipper">
-                            <div class="carousel-item-inner">
-                                ${getInstaEmbed(url, true)}
+                    // Estrutura HTML com "Clipping" (Corte)
+                    const playerHTML = `
+                        <div class="video-player-container">
+                            <div class="main-stage-clipper">
+                                 <div id="main-stage-inner" class="main-stage-inner"></div>
+                            </div>
+
+                            <div class="carousel-wrapper">
+                                <button id="btn-prev" class="nav-btn nav-prev">&#10094;</button>
+                                
+                                <div id="carousel-track" class="carousel-track">
+                                    </div>
+
+                                <button id="btn-next" class="nav-btn nav-next">&#10095;</button>
                             </div>
                         </div>
                     `;
-
-                    // Overlay para capturar o clique
-                    const overlay = document.createElement('div');
-                    overlay.className = 'click-overlay';
                     
-                    overlay.addEventListener('click', () => {
-                        setFeaturedVideo(url); // Joga pro destaque
-                        // Centraliza a miniatura clicada
-                        itemDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    // IMPORTANTE: Aqui usamos a variável certa 'targetGallery'
+                    targetGallery.innerHTML = playerHTML;
+
+                    const mainStageInner = document.getElementById('main-stage-inner');
+                    const track = document.getElementById('carousel-track');
+
+                    // Helper para o embed (LIMPO)
+                    function getInstaEmbed(url, isThumbnail = false) {
+                        return `
+                            <blockquote class="instagram-media insta-iframe-hack" 
+                                data-instgrm-permalink="${url}" 
+                                data-instgrm-version="14">
+                            </blockquote>
+                        `;
+                    }
+
+                    // Função para trocar o destaque
+                    function setFeaturedVideo(url) {
+                        if(mainStageInner) {
+                            mainStageInner.innerHTML = getInstaEmbed(url);
+                            if (window.instgrm) window.instgrm.Embeds.process();
+                        }
+                    }
+
+                    // Renderiza o primeiro vídeo no destaque
+                    if (videoList.length > 0) {
+                        setFeaturedVideo(videoList[0]);
+                    }
+
+                    // Renderiza o carrossel de baixo (Miniaturas)
+                    videoList.forEach((url) => {
+                        const itemDiv = document.createElement('div');
+                        itemDiv.className = 'carousel-item';
+                        
+                        // Estrutura de corte para a miniatura
+                        itemDiv.innerHTML = `
+                            <div class="carousel-item-clipper">
+                                <div class="carousel-item-inner">
+                                    ${getInstaEmbed(url, true)}
+                                </div>
+                            </div>
+                        `;
+
+                        // Overlay para capturar o clique
+                        const overlay = document.createElement('div');
+                        overlay.className = 'click-overlay';
+                        
+                        overlay.addEventListener('click', () => {
+                            setFeaturedVideo(url);
+                            itemDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                        });
+
+                        itemDiv.appendChild(overlay);
+                        if(track) track.appendChild(itemDiv);
                     });
 
-                    itemDiv.appendChild(overlay);
-                    track.appendChild(itemDiv);
-                });
+                    // Lógica dos Botões de Navegação
+                    const btnPrev = document.getElementById('btn-prev');
+                    const btnNext = document.getElementById('btn-next');
 
-                // 4. Lógica dos Botões de Navegação (Scroll mais curto)
-                const btnPrev = document.getElementById('btn-prev');
-                const btnNext = document.getElementById('btn-next');
+                    if(btnPrev && btnNext && track) {
+                        btnPrev.addEventListener('click', (e) => {
+                            e.stopPropagation(); 
+                            track.scrollBy({ left: -150, behavior: 'smooth' });
+                        });
 
-                if(btnPrev && btnNext && track) {
-                    btnPrev.addEventListener('click', (e) => {
-                        e.stopPropagation(); 
-                        track.scrollBy({ left: -150, behavior: 'smooth' }); // Scroll menor
-                    });
+                        btnNext.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            track.scrollBy({ left: 150, behavior: 'smooth' });
+                        });
+                    }
 
-                    btnNext.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        track.scrollBy({ left: 150, behavior: 'smooth' }); // Scroll menor
-                    });
+                    // Processamento inicial do Instagram
+                    if (window.instgrm) window.instgrm.Embeds.process();
+
+                } catch (e) {
+                    console.error("Erro ao carregar vídeos:", e);
                 }
-
-                // Processamento inicial do Instagram para as miniaturas
-                if (window.instgrm) window.instgrm.Embeds.process();
-
-            } catch (e) {
-                console.error("Erro ao carregar vídeos:", e);
+            } else {
+                // --- MODO IMAGEM (PADRÃO PARA OUTROS PROJETOS) ---
+                // Se não tiver vídeos, volta para as imagens padrão
+                const images = [];
+                for (let k = 1; k <= 20; k++) {
+                    images.push(`<img src="https://picsum.photos/100?random=${k}" alt="Imagem ${k}">`);
+                }
+                targetGallery.innerHTML = images.join('');
             }
-        } else {
-            // Caso não tenha vídeos, insira aqui sua lógica antiga ou placeholder
-            galleryContainer.innerHTML = '<p style="text-align:center;">Galeria de imagens será carregada aqui futuramente.</p>';
         }
     });
 });
