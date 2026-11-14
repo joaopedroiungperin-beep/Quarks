@@ -1,8 +1,10 @@
-/* Entrada da home. A ordem importa: scroll → preloader → fundo → seções → revelações. */
+/* Entrada da home.
+   Durante o preloader a thread principal fica livre (só a animação roda);
+   o fundo WebGL (Three.js, import dinâmico) e as seções com dados são
+   montados assim que a marca termina de se desenhar. */
 
-import { $$, initScroll, initNav, initReveals, hasGSAP, reducedMotion } from './core.js';
+import { $$, loadJSON, initScroll, initNav, initReveals, hasGSAP, reducedMotion } from './core.js';
 import { runPreloader } from './preloader.js';
-import { createField } from './field.js';
 import { initShowcase, initBenefits, initStudies, initCompare, initPortfolio, initTeam, initRegistros, initTransparency } from './sections.js';
 import { initLattice } from './lattice.js';
 import { initForms } from './forms.js';
@@ -16,27 +18,41 @@ if (lenis) lenis.stop();
 window.scrollTo(0, 0);
 
 const intro = runPreloader();
+
+// trabalho leve e síncrono: pode rodar já
 initNav();
-createField(document.getElementById('field'), { sections: $$('[data-formation]') });
 initForms();
-initCompare();
-initBenefits();
 
+const idle = (fn) => (window.requestIdleCallback ? requestIdleCallback(fn, { timeout: 400 }) : setTimeout(fn, 1));
 const safe = (p) => p.catch((e) => console.error(e));
-Promise.all([
-  safe(initShowcase()),
-  safe(initStudies()),
-  safe(initPortfolio()),
-  safe(initTeam()),
-  safe(initTransparency()),
-  safe(initLattice()),
-]).then(() => {
-  initRegistros();
-  if (hasGSAP()) { window.ScrollTrigger.sort(); window.ScrollTrigger.refresh(); }
-});
 
-intro.then(() => {
+async function mountHeavy() {
+  initCompare();
+  initBenefits();
+  await Promise.all([
+    safe(initShowcase()),
+    safe(initStudies()),
+    safe(initPortfolio()),
+    safe(initTeam()),
+    safe(initTransparency()),
+    safe(initLattice()),
+  ]);
+  initRegistros();
+  // fundo WebGL por último, fora do caminho crítico
+  idle(() => import('./field.js')
+    .then(({ createField }) => createField(document.getElementById('field'), { sections: $$('[data-formation]') }))
+    .catch((e) => console.error(e)));
+}
+
+const start = () => {
   lenis?.start();
-  initReveals();
-  if (hasGSAP()) window.ScrollTrigger.refresh();
-});
+  return mountHeavy().then(() => {
+    initReveals();
+    if (hasGSAP()) { window.ScrollTrigger.sort(); window.ScrollTrigger.refresh(); }
+  });
+};
+
+// os dados JSON já começam a baixar durante a animação (rede, fora da thread principal)
+['services', 'studies', 'projects', 'partners', 'team', 'documents'].forEach((n) => loadJSON(n).catch(() => {}));
+
+intro.then(start);
