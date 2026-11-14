@@ -85,7 +85,7 @@ O fundo mede o próprio fps e, se ele ficar baixo, reduz resolução e detalhe s
 
 ## Acessibilidade e desempenho
 
-- Com `prefers-reduced-motion` ativo, o fundo WebGL e as animações de scroll ficam desligados.
+- Com `prefers-reduced-motion` ativo, as animações de scroll ficam desligadas e o fundo vira um quadro estático por fase (sem túnel de minhoca).
 - Sem JavaScript, todo o conteúdo estático continua legível.
 - O DPR é limitado a 1,5, o render pausa com a aba oculta e o número de partículas cai no celular.
 - Os embeds do Instagram só carregam quando o visitante clica no vídeo.
