@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Energia Sustentável é Fundamental · Quarks</title>
+  <meta name="description" content="Projeto Energia Sustentável é Fundamental (2024–2025), do Clube de Ciências Quarks em parceria com o CONCESE: kits experimentais, formação docente, visita técnica e 12 obras didáticas.">
+  <meta name="theme-color" content="#060912">
+  <link rel="icon" href="../../assets/brand/quarks-mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Unbounded:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/main.css">
+  <link rel="stylesheet" href="../../css/project.css">
+  <script>document.documentElement.classList.add('js', 'intro-seen');</script>
+  <script src="../../vendor/gsap.min.js" defer></script>
+  <script src="../../vendor/ScrollTrigger.min.js" defer></script>
+  <script src="../../vendor/lenis.min.js" defer></script>
+  <script type="module" src="../../js/project.js"></script>
+</head>
+<!-- Template de capítulo: copie esta pasta, troque data-project pelo slug do
+     data/projects.json e escreva a cena exclusiva em scene.js. -->
+<body data-page="project" data-project="energia-sustentavel">
+
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<canvas class="field" id="field" aria-hidden="true"></canvas>
+<div class="field-fallback" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a class="nav__brand" href="../../" aria-label="Quarks — página inicial">
+    <svg class="mark" viewBox="0 0 2000 1370" aria-hidden="true"><use href="#q-mark"/></svg>
+  </a>
+  <nav class="nav__links" aria-label="Capítulo">
+    <a href="#jornada">Jornada</a>
+    <a href="#obras">Obras</a>
+    <a href="#registros">Registros</a>
+    <a href="#relatorio">Relatório</a>
+  </nav>
+  <a class="btn btn--small btn--ghost nav__back" href="../../#portfolio">← Portfólio</a>
+</header>
+
+<main id="conteudo">
+  <!-- HERO + PALCO DA CENA 3D (a cena recebe o progresso da rolagem) -->
+  <section class="p-hero" data-formation="4">
+    <div class="wrap p-hero__grid">
+      <div>
+        <p class="kicker mono" data-bind="edition">Portfólio</p>
+        <h1 class="h1 display p-hero__title" data-bind="title" data-split>Carregando…</h1>
+        <div class="p-hero__tags" data-bind="tags"></div>
+      </div>
+      <figure class="p-hero__badge" data-reveal><img data-bind="cover" alt="" width="800" height="800"></figure>
+    </div>
+  </section>
+
+  <section class="stage" id="stage" data-formation="5" aria-label="Experiência interativa do projeto">
+    <div class="stage__pin">
+      <div class="stage__canvas" id="sceneMount"></div>
+      <div class="wrap stage__copy">
+        <p class="kicker mono">Experiência do capítulo</p>
+        <p class="stage__line display" data-stage-line>O projeto, desmontado peça por peça.</p>
+        <div class="stage__progress mono" aria-hidden="true"><span id="stageNum">00</span>%</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" data-formation="2">
+    <div class="wrap">
+      <ul class="stats p-stats" data-bind="stats"></ul>
+      <p class="p-summary" data-bind="summary" data-reveal></p>
+    </div>
+  </section>
+
+  <section class="section" id="jornada" data-formation="3">
+    <div class="wrap">
+      <p class="kicker mono">Jornada do projeto</p>
+      <h2 class="h2 display" data-split>Uma revolução na educação sergipana.</h2>
+      <ol class="journey" data-bind="journey"></ol>
+    </div>
+  </section>
+
+  <section class="section" id="obras" data-formation="5">
+    <div class="wrap">
+      <div class="section-head section-head--row">
+        <div>
+          <p class="kicker mono">Materiais didáticos personalizados</p>
+          <h2 class="h2 display" data-split>Doze obras que ficam na escola.</h2>
+        </div>
+        <p class="muted" data-reveal>Clique em uma capa para abrir o PDF.</p>
+      </div>
+      <ul class="shelf" data-bind="publications"></ul>
+    </div>
+  </section>
+
+  <section class="section" id="registros" data-formation="6">
+    <div class="wrap">
+      <div class="section-head section-head--row">
+        <div>
+          <p class="kicker mono">Registros do projeto</p>
+          <h2 class="h2 display" data-split>Em movimento.</h2>
+        </div>
+        <p class="muted" data-reveal>Os vídeos carregam do Instagram só quando você clica.</p>
+      </div>
+      <ul class="reels" data-bind="reels"></ul>
+    </div>
+  </section>
+
+  <section class="section" id="relatorio" data-formation="0">
+    <div class="wrap grid-2 p-report">
+      <a class="p-report__doc" data-bind="report" target="_blank" rel="noopener"><img alt="Capa do relatório final do projeto" width="480" height="621"></a>
+      <div>
+        <p class="kicker mono">Demonstrativos finais</p>
+        <h2 class="h2 display" data-split>Relatório final do projeto.</h2>
+        <p class="lead" data-reveal>Toda a execução documentada: escolas atendidas, formações, visitas técnicas, mostras e publicações.</p>
+        <div class="p-partner glass" data-bind="partner" data-reveal></div>
+        <div class="hero__actions" data-reveal>
+          <a class="btn" data-bind="reportBtn" target="_blank" rel="noopener">Abrir relatório (PDF)</a>
+          <a class="btn btn--ghost" href="../../#portfolio">Voltar ao portfólio</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer footer--slim" data-formation="0">
+  <div class="wrap footer__legal mono">
+    <span>© 2026 Organização Social e Clube de Ciências Quarks</span>
+    <span>CNPJ: 57.914.912/0001-96</span>
+  </div>
+</footer>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="q-mark" viewBox="0 0 2000 1370">
+    <g fill="none" stroke="currentColor" stroke-width="62" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M490 330Q1000-170 1500 330M680 330Q1000 50 1310 330M895 355Q1000 275 1105 355M595 840Q1000 1260 1400 840M480 955Q1000 1465 1510 955"/>
+      <circle cx="228" cy="592" r="166"/><path d="M215 640L352 785M450 440V610a127 127 0 0 0 254 0V440M858 745L985 445M1012 690V470h88a75 75 0 0 1 0 150h-88M1100 620l70 125M1395 440V745M1600 450L1425 615M1500 545L1600 745M1955 505C1900 440 1720 430 1715 520C1712 600 1960 580 1965 670C1970 760 1780 772 1712 700"/>
+    </g>
+    <g fill="currentColor">
+      <circle cx="1000" cy="125" r="30"/><circle cx="305" cy="325" r="30"/><circle cx="1860" cy="325" r="30"/><circle cx="140" cy="885" r="30"/><circle cx="1720" cy="885" r="30"/><circle cx="1555" cy="850" r="34"/><circle cx="1000" cy="1165" r="30"/><circle cx="1000" cy="1300" r="30"/>
+      <circle cx="1000" cy="895" r="64"/><circle cx="912" cy="868" r="27"/><circle cx="1088" cy="868" r="27"/>
+    </g>
+  </symbol>
+</svg>
+</body>
+</html>

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "concese",
+    "name": "CONCESE",
+    "fullName": "Conselho de Consumidores da Energisa",
+    "since": "Parceiro desde maio de 2024",
+    "site": "https://www.concese.com.br/",
+    "siteLabel": "www.concese.com.br",
+    "logo": "assets/img/parceiros/concese.webp",
+    "logoWide": "assets/img/parceiros/concese-wide.webp",
+    "about": "É um órgão sem personalidade jurídica, de caráter consultivo, formado por representantes das principais classes de consumo, com a incumbência de contribuir para o aprimoramento dos assuntos relacionados à prestação do serviço público de energia elétrica. Detalhadamente, o CONCESE foca nas questões ligadas ao fornecimento de energia elétrica, tarifas e adequados serviços prestados ao consumidor final.",
+    "projects": ["energia-sustentavel"]
+  }
+]

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 1370" fill="none" stroke="#7FE7F2" stroke-width="62" stroke-linecap="round" stroke-linejoin="round">
+  <title>Quarks</title>
+  <g class="q-arcs">
+    <path d="M490 330Q1000-170 1500 330"/>
+    <path d="M680 330Q1000 50 1310 330"/>
+    <path d="M895 355Q1000 275 1105 355"/>
+    <path d="M595 840Q1000 1260 1400 840"/>
+    <path d="M480 955Q1000 1465 1510 955"/>
+  </g>
+  <g class="q-letters">
+    <circle cx="228" cy="592" r="166"/><path d="M215 640L352 785"/>
+    <path d="M450 440V610a127 127 0 0 0 254 0V440"/>
+    <path d="M858 745L985 445"/>
+    <path d="M1012 690V470h88a75 75 0 0 1 0 150h-88M1100 620l70 125"/>
+    <path d="M1395 440V745M1600 450L1425 615M1500 545L1600 745"/>
+    <path d="M1955 505C1900 440 1720 430 1715 520C1712 600 1960 580 1965 670C1970 760 1780 772 1712 700"/>
+  </g>
+  <g class="q-dots" fill="#7FE7F2" stroke="none">
+    <circle cx="1000" cy="125" r="30"/><circle cx="305" cy="325" r="30"/><circle cx="1860" cy="325" r="30"/>
+    <circle cx="140" cy="885" r="30"/><circle cx="1720" cy="885" r="30"/><circle cx="1555" cy="850" r="34"/>
+    <circle cx="1000" cy="1165" r="30"/><circle cx="1000" cy="1300" r="30"/>
+  </g>
+  <g class="q-nucleus" fill="#7FE7F2" stroke="none">
+    <circle cx="1000" cy="895" r="64"/><circle cx="912" cy="868" r="27"/><circle cx="1088" cy="868" r="27"/>
+  </g>
+</svg>
