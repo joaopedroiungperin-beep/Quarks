@@ -89,6 +89,35 @@
     ]
   },
   {
+    "id": "diteq",
+    "title": "DITeQ (NIT)",
+    "items": [
+      {
+        "title": "Regimento Interno do DITeQ",
+        "date": "Núcleo de Inovação Tecnológica · 2026",
+        "files": [
+          {
+            "label": "Regimento Interno",
+            "file": "documents/DITeQ/Regimento Interno DITeQ.pdf",
+            "cover": "assets/img/capas/diteq-regimento.webp"
+          }
+        ]
+      },
+      {
+        "title": "Reunião da Diretoria — Criação do NIT",
+        "date": "18 de fevereiro de 2026",
+        "files": [
+          {
+            "label": "Convocação",
+            "file": "documents/DITeQ/Convocacao para reuniao da diretoria.pdf",
+            "cover": "assets/img/capas/diteq-convocacao.webp"
+          }
+        ],
+        "note": "Ata em revisão para publicação (proteção de dados pessoais)."
+      }
+    ]
+  },
+  {
     "id": "assembleias",
     "title": "Assembleias",
     "items": [

@@ -4,7 +4,8 @@
      0 Nebulosa · 1 Colapso gravitacional · 2 Ignição · 3 Supernova
      4 Magnetar · 5 Buraco negro + radiação Hawking · 6 Evaporação e rasgo
      (bolha de novo vácuo) · 7 Universo estranho (gravidade intensa, mar de
-     polaritons) · 8 Vácuo quântico · 9 Nova nebulosa (o ciclo recomeça)
+     polaritons) · 8 Rasgo tridimensional (tempo dilatado, eletricidade estática,
+     forças se unificando) · 9 Grande Colapso · 10 Singularidade → Big Bang
 
    Ao clicar num projeto, seguimos uma partícula virtual que escapou do
    horizonte até um buraco de minhoca (transição de página); a página do
@@ -32,8 +33,9 @@ const CAPTIONS = [
   ['Buraco negro', 'radiação Hawking: pares virtuais no horizonte, T ∝ 1/M'],
   ['Evaporação e rasgo', 'o buraco negro evapora; um falso vácuo decai e uma bolha de novo vácuo se expande (hipótese)'],
   ['Universo estranho', 'gravidade mais intensa e um mar de polaritons — luz e matéria acopladas; o cursor cria um vórtice quântico (especulativo)'],
-  ['Vácuo quântico', 'mesmo o “nada” flutua'],
-  ['Nova nebulosa', 'o ciclo recomeça'],
+  ['Rasgo tridimensional', 'gravidade extrema: o tempo quase para, a eletricidade congela e as forças forte, fraca e eletromagnética se aproximam (hipótese da Grande Unificação)'],
+  ['Grande Colapso', 'toda matéria e energia se comprimem rumo a um único ponto (Big Crunch, hipotético)'],
+  ['Singularidade → Big Bang', 'densidade infinita num ponto infinitesimal… e tudo recomeça'],
 ];
 const WORMHOLE_CAPTION = ['Buraco de minhoca', 'ponte de Einstein–Rosen — hipotética'];
 
@@ -50,7 +52,7 @@ const BG_VERT = /* glsl */`
 const BG_FRAG = /* glsl */`
   precision highp float;
   uniform vec2 uRes;
-  uniform float uTime, uPhase, uMouseOn, uWarp, uAspect, uDim, uSide;
+  uniform float uTime, uPhase, uMouseOn, uWarp, uAspect, uDim, uSide, uBang, uTunnelZ, uTunnelDim, uWarpHide;
   uniform vec2 uMouse, uCenter, uWarpC;
   uniform int uOct;
   ${COMMON}
@@ -100,7 +102,7 @@ const BG_FRAG = /* glsl */`
     float p = uPhase, t = uTime;
     vec2 m = uMouse, c = uCenter;
 
-    float wNeb = max(bump(p, 0.0, 1.2), sm(8.2, 9.0, p));
+    float wNeb = bump(p, 0.0, 1.2);
     float wCol = bump(p, 1.0, 1.0);
     float wStar = bump(p, 2.0, 1.0);
     float wSN = bump(p, 3.0, 1.0);
@@ -109,7 +111,9 @@ const BG_FRAG = /* glsl */`
     float wBH = bump(p, 5.0, 1.0);
     float wRift = bump(p, 6.0, 1.0);
     float wOdd = bump(p, 7.0, 1.0);
-    float wCalm = bump(p, 8.0, 1.0);
+    float w3D = bump(p, 8.0, 1.0);             // rasgo tridimensional / unificação
+    float crunch = sm(8.4, 9.85, p);           // grande colapso
+    float wSing = sm(9.3, 10.0, p);            // singularidade
 
     vec2 d = q - c; float r = length(d) + 1e-4;
     const float RS = 0.085;
@@ -118,14 +122,18 @@ const BG_FRAG = /* glsl */`
     float eB = sm(5.85, 6.9, p);              // bolha do novo vácuo
 
     /* lente gravitacional: buraco negro + cursor (mini-lente) */
-    vec2 ql = q - d / r * (wBH * 0.024 * (1.0 - 0.8 * evap) + wOdd * 0.012) / (r + 0.03);
+    vec2 ql = q - d / r * (wBH * 0.024 * (1.0 - 0.8 * evap) + wOdd * 0.012 + w3D * 0.03) / (r + 0.03);
     vec2 dm = q - m; float rm = length(dm) + 1e-4;
     ql -= dm / rm * (uMouseOn * (0.0012 + 0.0035 * wBH + 0.006 * wOdd)) / (rm + 0.03);
 
-    vec3 col = stars(ql + vec2(0.0, t * 0.003)) * (0.5 + 0.5 * wCalm + 0.3 * wBH);
+    vec3 st = stars(ql + vec2(0.0, t * 0.003));
+    if (crunch > 0.01) {                       // a luz das estrelas escorre para o centro
+      for (int i = 1; i < 5; i++) st += stars(c + (ql - c) * (1.0 + float(i) * 0.08 * crunch)) * (1.0 - float(i) * 0.2) * crunch;
+    }
+    vec3 col = st * (0.55 + 0.3 * wBH) * (1.0 - 0.95 * wSing);
 
     /* nebulosa → colapso em disco protoestelar */
-    float wNebAll = wNeb + wCol * 0.95 + wStar * 0.6 + wCalm * 0.16 + wRift * 0.08;
+    float wNebAll = wNeb + wCol * 0.95 + wStar * 0.6 + wRift * 0.08;
     if (wNebAll > 0.01) {
       float ck = wCol + wStar * 0.8;
       vec2 dd = ql - c; float rr = length(dd);
@@ -247,13 +255,75 @@ const BG_FRAG = /* glsl */`
       col += VIOLET * grid * wOdd * (0.5 + fade);
     }
 
+    /* rasgo tridimensional: gravidade extrema, tempo dilatado, eletricidade estática
+       e as forças forte, fraca e eletromagnética se aproximando */
+    if (w3D > 0.01) {
+      vec2 rd = q - c;
+      float layers = 0.0;
+      for (int k = 0; k < 6; k++) {                       // contornos da fenda recuando em profundidade
+        float z = fract(float(k) / 6.0 + t * 0.035);
+        float sc = mix(0.12, 2.6, z * z);
+        vec2 lq = rd / sc;
+        float an = atan(lq.y, lq.x);
+        float rad = 0.2 + 0.06 * noise(vec2(an * 3.0 + float(k) * 5.0, float(k) * 1.7));
+        float e = length(lq * vec2(1.7, 0.62));
+        layers += exp(-pow((e - rad) / 0.014, 2.0)) * (1.0 - z) * sm(0.0, 0.18, z);
+      }
+      col += mix(VIOLET, CYAN, 0.35) * layers * 0.95 * w3D;
+      float abyss = 1.0 - sm(0.07, 0.16, length(rd * vec2(1.7, 0.62)));
+      col = mix(col, vec3(0.01, 0.0, 0.03), abyss * 0.85 * w3D);
+      // eletricidade estática: raios congelados, curvados pela gravidade
+      float a = atan(rd.y, rd.x), bolts = 0.0;
+      for (int k = 0; k < 7; k++) {
+        float ak = float(k) * 0.8976 + 0.3;
+        float off = (fbm3(vec2(r * 7.0, float(k) * 3.1)) - 0.5) * 0.9 + 0.05 / (r + 0.05);
+        float da = abs(mod(a - ak - off + 3.14159, 6.28318) - 3.14159);
+        bolts += exp(-da * r * 110.0) * sm(0.12, 0.22, r) * exp(-r * 1.3);
+      }
+      col += mix(vec3(0.9, 0.97, 1.0), CYAN, 0.3) * bolts * 0.75 * w3D;
+      // força forte: tubos de fluxo de cor ligando quarks (vermelho/verde/azul ≈ laranja/verde/ciano)
+      for (int k = 0; k < 4; k++) {
+        float fk = float(k);
+        float ang0 = fk * 1.5708 + t * 0.05;
+        vec2 pa = c + vec2(cos(ang0), sin(ang0) * 0.8) * (0.3 + 0.05 * fk);
+        vec2 pb = pa + vec2(cos(ang0 + 2.1), sin(ang0 + 2.1)) * 0.09;
+        vec2 ba = pb - pa; float h = clamp(dot(q - pa, ba) / dot(ba, ba), 0.0, 1.0);
+        float dseg = length(q - pa - ba * h);
+        vec3 qc = k == 0 ? ORANGE : (k == 1 ? GREEN : (k == 2 ? CYAN : VIOLET));
+        col += qc * (exp(-dseg * 160.0) * (0.7 + 0.3 * sin(t * 3.0 + fk)) + exp(-length(q - pa) * 220.0) * 1.5 + exp(-length(q - pb) * 220.0) * 1.5) * 0.7 * w3D;
+      }
+      // força fraca: lampejos raros (decaimentos), lentos por causa do tempo dilatado
+      vec2 cell = floor(q * vec2(6.0, 4.0));
+      float hh = hash(cell + 3.7);
+      float ft = fract(t * 0.25 + hh * 7.0);
+      vec2 cpos = (cell + vec2(hash(cell + 1.1), hash(cell + 2.2))) / vec2(6.0, 4.0);
+      col += mix(ORANGE, GREEN, hh) * exp(-length(q - cpos) * 140.0) * sm(0.0, 0.05, ft) * (1.0 - sm(0.05, 0.25, ft)) * step(0.55, hh) * 1.4 * w3D;
+    }
+
+    /* grande colapso → singularidade → Big Bang */
+    if (crunch > 0.01 || uBang > 0.001) {
+      col *= 1.0 - 0.6 * crunch * sm(0.05, 0.6, r);                     // tudo escurece fora do centro
+      float core = (0.0015 + 0.004 * crunch) / (r * r + mix(0.003, 0.00002, crunch));
+      col += mix(VIOLET, vec3(1.0), crunch) * core * crunch * (1.0 - uBang) * (0.85 + 0.15 * sin(t * 8.0));
+      if (uBang > 0.001) {
+        float R = uBang * 2.4;
+        float ring = exp(-pow((r - R) / (0.02 + 0.12 * uBang), 2.0));
+        float flash = exp(-r * r * 30.0) * (1.0 - sm(0.0, 0.35, uBang)) * 4.0;
+        float cmb = fbm(q * 6.0 + 11.0);                                 // radiação cósmica de fundo
+        vec3 cmbCol = mix(vec3(0.15, 0.25, 0.6), vec3(0.95, 0.55, 0.25), sm(0.35, 0.7, cmb));
+        col += mix(vec3(1.0, 0.95, 0.85), ORANGE, uBang) * ring * (1.0 - uBang * 0.6) * 1.6;
+        col += vec3(1.0) * flash;
+        col += cmbCol * (1.0 - sm(R - 0.1, R + 0.05, r)) * 0.22 * sm(0.15, 0.6, uBang);
+      }
+    }
+
     /* o cursor como partícula de teste */
     col += CYAN * exp(-dot(q - m, q - m) * 900.0) * 0.1 * uMouseOn;
 
     /* buraco de minhoca (entrada e saída / buraco branco) */
     if (uWarp > 0.001) {
       vec2 wd = q - uWarpC; float wr = length(wd) + 1e-3; float wa = atan(wd.y, wd.x);
-      float z = 0.22 / wr + t * 2.6;                       // profundidade no túnel
+      float z = 0.22 / wr + uTunnelZ + t * (0.35 + 2.25 * uWarpHide);   // profundidade (tempo ou rolagem)
       vec2 tc = vec2(abs(wa) * 2.2, z);                    // ângulo espelhado: sem costura
       float tun = fbm(tc * vec2(1.0, 1.4));
       float rings = pow(0.5 + 0.5 * sin(z * 9.0), 6.0);    // anéis vindo em direção ao observador
@@ -262,11 +332,12 @@ const BG_FRAG = /* glsl */`
       tcol += CYAN * rings * 0.35 * sm(0.04, 0.35, wr);
       tcol *= 0.3 + 0.9 * sm(0.0, 0.7, wr);
       tcol += vec3(1.0) * exp(-wr * wr * 45.0) * uWarp * 1.6;
+      tcol *= uTunnelDim;
       col = mix(col, tcol, sm(0.0, 1.0, uWarp * 1.35 - wr * 0.55));
     }
 
     /* leitura: escurece a coluna de texto (desktop) e normaliza o brilho */
-    col *= mix(1.0, 0.55 + 0.45 * sm(-0.25, 0.45, q.x / (uAspect * 0.5)), uSide * (1.0 - uWarp));
+    col *= mix(1.0, 0.55 + 0.45 * sm(-0.25, 0.45, q.x / (uAspect * 0.5)), uSide * (1.0 - uWarp * uWarpHide));
     col *= uDim;
     col = 1.0 - exp(-col * 1.25);
     gl_FragColor = vec4(col, 1.0);
@@ -281,13 +352,13 @@ const COPY_FRAG = /* glsl */`
 
 const PT_VERT = /* glsl */`
   attribute vec4 aSeed; attribute float aPair; attribute float aSide;
-  uniform float uTime, uPhase, uAspect, uMouseOn, uPx;
+  uniform float uTime, uPhase, uAspect, uMouseOn, uPx, uBang;
   uniform vec2 uCenter, uMouse;
   varying vec3 vCol; varying float vA;
   ${COMMON}
   void main() {
     float p = uPhase, t = uTime; vec4 s = aSeed; vec2 c = uCenter;
-    float wNeb = max(bump(p, 0.0, 1.2), sm(8.2, 9.0, p)) + bump(p, 8.0, 1.0) * 0.35;
+    float wNeb = bump(p, 0.0, 1.2) + sm(8.5, 10.0, p);   // poeira também no fim (é ela que colapsa)
     float wCol = bump(p, 1.0, 1.0), wStar = bump(p, 2.0, 1.0), wSN = bump(p, 3.0, 1.0);
     float wMag = bump(p, 4.0, 1.0), wBH = bump(p, 5.0, 1.0), wR = bump(p, 6.0, 1.0), wO = bump(p, 7.0, 1.0);
     float eSN = sm(2.35, 3.7, p);
@@ -331,10 +402,19 @@ const PT_VERT = /* glsl */`
     float ra = (1.5708 + floor(s.z * 18.0) * 3.14159) / 9.0;
     vec2 ry = c + vec2(cos(ra), sin(ra)) * (0.03 + fract(t * 0.08 * (1.0 + s.y) + s.w) * 1.1);
 
+    // rasgo 3D: matéria orbitando devagar (tempo dilatado)
+    float w3 = bump(p, 8.0, 1.0);
+    float oa = s.z * 6.2831 + t * 0.04 * (0.5 + s.y);
+    vec2 orb = c + vec2(cos(oa) * 1.7, sin(oa) * 0.62) * (0.22 + 0.5 * s.w) ;
     float wD = wNeb + wCol + wStar;
-    float W = wD + wSN + wMag + wBH + wR + wO + 1e-4;
-    vec2 pos = (dust * wD + ej * wSN + mg * wMag + hk * wBH + rf * wR + ry * wO) / W;
-    vA = wD * (0.3 + 0.4 * s.y) + wSN * (1.0 - eSN * 0.5) * 0.9 + wMag * 0.7 + wBH * hA + wR * 0.7 + wO * 0.55;
+    float W = wD + wSN + wMag + wBH + wR + wO + w3 + 1e-4;
+    vec2 pos = (dust * wD + ej * wSN + mg * wMag + hk * wBH + rf * wR + ry * wO + orb * w3) / W;
+    // grande colapso: tudo cai para o ponto; Big Bang: tudo é lançado para fora
+    float cr = sm(8.4, 9.85, p);
+    pos = c + (pos - c) * pow(1.0 - cr, 1.6);
+    pos = mix(pos, c + dir * uBang * (0.25 + 1.4 * s.w), sm(0.0, 0.05, uBang));
+    vA = wD * (0.3 + 0.4 * s.y) + wSN * (1.0 - eSN * 0.5) * 0.9 + wMag * 0.7 + wBH * hA + wR * 0.7 + wO * 0.55 + w3 * 0.6;
+    vA *= 1.0 - 0.7 * sm(9.5, 10.0, p) * (1.0 - sm(0.0, 0.05, uBang));
 
     vec3 colC = vec3(0.50, 0.91, 0.95), colO = vec3(0.95, 0.65, 0.35), colG = vec3(0.35, 0.8, 0.65);
     vCol = s.y < 0.45 ? colC : (s.y < 0.8 ? colO : colG);
@@ -376,7 +456,8 @@ const TRAIL_FRAG = /* glsl */`
   }
 `;
 
-export function createCosmos(canvas, { sections = [] } = {}) {
+export function createCosmos(canvas, { sections = [], mode = 'scroll' } = {}) {
+  const tunnelMode = mode === 'wormhole';   // página do projeto: a travessia acompanha a rolagem
   if (!canvas) return null;
   let renderer;
   try {
@@ -400,6 +481,7 @@ export function createCosmos(canvas, { sections = [] } = {}) {
     uMouse: { value: new THREE.Vector2(9, 9) }, uMouseOn: { value: 0 }, uCenter: { value: new THREE.Vector2() },
     uWarp: { value: 0 }, uWarpC: { value: new THREE.Vector2() }, uOct: { value: small ? 3 : 4 },
     uAspect: { value: 1 }, uDim: { value: small ? 0.52 : 0.9 }, uSide: { value: small ? 0 : 1 },
+    uBang: { value: 0 }, uTunnelZ: { value: 0 }, uTunnelDim: { value: 1 }, uWarpHide: { value: 1 },
   };
   const bgScene = new THREE.Scene();
   bgScene.add(new THREE.Mesh(quad, new THREE.ShaderMaterial({ vertexShader: BG_VERT, fragmentShader: BG_FRAG, uniforms: U, depthTest: false, depthWrite: false })));
@@ -425,7 +507,7 @@ export function createCosmos(canvas, { sections = [] } = {}) {
   pGeo.setAttribute('aSide', new THREE.BufferAttribute(side, 1));
   const PU = {
     uTime: U.uTime, uPhase: U.uPhase, uAspect: U.uAspect, uMouseOn: U.uMouseOn, uMouse: U.uMouse, uCenter: U.uCenter,
-    uPx: { value: 2.2 * DPR },
+    uPx: { value: 2.2 * DPR }, uBang: U.uBang,
   };
   const points = new THREE.Points(pGeo, new THREE.ShaderMaterial({
     vertexShader: PT_VERT, fragmentShader: PT_FRAG, uniforms: PU,
@@ -484,7 +566,9 @@ export function createCosmos(canvas, { sections = [] } = {}) {
   };
   const targetPhase = () => {
     if (!marks.length) return 0;
-    const y = window.scrollY + window.innerHeight * 0.5;
+    const maxS = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    const kEnd = Math.min(1, Math.max(0, (window.scrollY - (maxS - window.innerHeight * 0.6)) / (window.innerHeight * 0.6)));
+    const y = window.scrollY + window.innerHeight * (0.5 + 0.5 * kEnd * kEnd * (3 - 2 * kEnd));
     for (let i = 0; i < marks.length; i++) {
       const m = marks[i];
       if (y < m.bottom || i === marks.length - 1) {
@@ -606,18 +690,33 @@ export function createCosmos(canvas, { sections = [] } = {}) {
     const dt = Math.min(raw, 0.05);          // física das partículas (estável)
     const real = Math.min(raw, 0.25);        // suavização: converge mesmo com fps baixo
     if (raw < 0.5) adapt(raw);               // ignora pausas (aba oculta, etc.)
-    time += dt;
+    // dilatação gravitacional: perto do rasgo 3D e do colapso o tempo quase para
+    const ss = (a, b, x) => { const k = Math.min(1, Math.max(0, (x - a) / (b - a))); return k * k * (3 - 2 * k); };
+    const timeScale = 1 - 0.82 * ss(7.6, 8.5, phase) * (1 - ss(9.7, 10, phase));
+    time += dt * timeScale;
     U.uTime.value = time;
-    const tp = forced ?? targetPhase();
+    const tp = tunnelMode ? 7 : (forced ?? targetPhase());
     phase += (tp - phase) * Math.min(1, real * 2.4);
     U.uPhase.value = phase;
     U.uMouse.value.x += (mouseT.x - U.uMouse.value.x) * Math.min(1, dt * 8);
     U.uMouse.value.y += (mouseT.y - U.uMouse.value.y) * Math.min(1, dt * 8);
     U.uMouseOn.value += (mouseT.on - U.uMouseOn.value) * Math.min(1, real * 3);
     if (warp.anim) warp.anim(real);
+    else if (tunnelMode) {
+      U.uWarpC.value.copy(U.uCenter.value);   // centro do túnel fora da coluna de texto
+      // atravessando o buraco de minhoca ao longo da página; a saída acontece no fim
+      const maxS = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      const s = window.scrollY / maxS;
+      const want = 0.85 * (1 - ss(0.78, 0.97, s));
+      warp.v += (want - warp.v) * Math.min(1, real * 3);
+      U.uTunnelZ.value += ((s * 18) - U.uTunnelZ.value) * Math.min(1, real * 4);
+    }
     U.uWarp.value = warp.v;
+    // Big Bang: dispara ao chegar à singularidade; reinicia se o visitante voltar
+    if (phase > 9.85) U.uBang.value = Math.min(1, U.uBang.value + real / 2.6);
+    else if (phase < 9.4) U.uBang.value = 0;
     updateHero(Math.min(raw, 0.1));
-    setCaption(Math.max(0, Math.min(9, Math.round(phase))), warp.v > 0.15 ? WORMHOLE_CAPTION : null);
+    setCaption(Math.max(0, Math.min(10, Math.round(phase))), warp.v > 0.15 ? WORMHOLE_CAPTION : null);
     draw();
     requestAnimationFrame(frame);
   }
@@ -628,6 +727,7 @@ export function createCosmos(canvas, { sections = [] } = {}) {
     else if (document.hidden) running = false;
   });
 
+  if (tunnelMode) { U.uTunnelDim.value = 0.55; U.uWarpHide.value = 0; }
   resize();
   if (reducedMotion) {
     // um quadro estático por fase, atualizado só quando a fase muda
@@ -664,6 +764,7 @@ export function createCosmos(canvas, { sections = [] } = {}) {
     /* entra no buraco de minhoca a partir de um ponto da tela */
     warp(clientX, clientY) {
       if (reducedMotion) return Promise.resolve();
+      U.uWarpHide.value = 1; U.uTunnelDim.value = 1;
       const [x, y] = toQ(clientX, clientY);
       U.uWarpC.value.set(x, y);
       return animateWarp(0, 1, 1050, (k) => k * k * (3 - 2 * k));
@@ -671,8 +772,8 @@ export function createCosmos(canvas, { sections = [] } = {}) {
     /* sai do outro lado (buraco branco) */
     emerge() {
       if (reducedMotion) return Promise.resolve();
-      U.uWarpC.value.set(0, 0);
-      return animateWarp(1, 0, 1500, (k) => 1 - Math.pow(1 - k, 3));
+      U.uWarpC.value.copy(tunnelMode ? U.uCenter.value : new THREE.Vector2(0, 0));
+      return animateWarp(1, tunnelMode ? 0.85 : 0, 1500, (k) => 1 - Math.pow(1 - k, 3));
     },
     reset() { warp.v = 0; warp.anim = null; U.uWarp.value = 0; if (reducedMotion) draw(); },
     force(v) { forced = v; },
