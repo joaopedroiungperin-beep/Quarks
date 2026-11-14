@@ -41,7 +41,7 @@ documents/ assembleias/     PDFs oficiais
 | Projetos do portfólio | `data/projects.json` |
 | Parceiros | `data/partners.json` |
 | Time | `data/team.json` |
-| Obras e ISBNs | `data/publications.json` (preencha o campo `isbn` de cada volume) |
+| Obras e ISBNs | `data/publications.json` (`items`: série do projeto, exibida na estante; `others`: demais publicações) |
 | Documentos de transparência | `data/documents.json` (`"status": "em-publicacao"` mostra a tag e não cria link) |
 | Estudos citados | `data/studies.json` |
 
@@ -75,13 +75,14 @@ A rolagem é o "tempo cósmico". Cada seção declara sua fase em `data-phase`, 
 | 3 | Supernova | Proposta |
 | 4 | Magnetar | Atuação |
 | 5 | Buraco negro + radiação Hawking | Portfólio |
-| 6 | Recondensação (cristal) | Parceiros |
-| 7 | Vácuo quântico | Sobre, Transparência |
-| 8 | Nova nebulosa | Participe, rodapé |
+| 6 | Evaporação e rasgo (bolha de novo vácuo) | Parceiros |
+| 7 | Universo estranho: gravidade intensa, raios, mar de polaritons; o cursor cria um vórtice quântico | Sobre |
+| 8 | Vácuo quântico | Transparência |
+| 9 | Nova nebulosa | Participe, rodapé |
 
 Ao clicar num link com `data-wormhole`, a partícula virtual seguida entra num buraco de minhoca e a página do projeto começa saindo do outro lado. Use só fases adjacentes entre seções vizinhas: um salto de 0 para 7 atravessaria todas as fases intermediárias.
 
-O fundo mede o próprio fps e, se ele ficar baixo, reduz resolução e detalhe sozinho. No console, `__cosmos.debug()` mostra a fase atual e o nível de qualidade.
+O fundo mede o próprio fps e, se ele ficar baixo, reduz resolução e detalhe sozinho. No console, `__cosmos.debug()` mostra a fase atual e o nível de qualidade, e `__cosmos.force(6.4)` fixa uma fase para inspeção (`force(null)` volta à rolagem).
 
 ## Acessibilidade e desempenho
 

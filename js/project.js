@@ -13,6 +13,7 @@ import { $, $$, h, asset, loadJSON, initScroll, initNav, initReveals, hasGSAP, r
 import { createCosmos } from './cosmos.js';
 
 const slug = document.body.dataset.project;
+const volLabel = (v) => (typeof v === 'number' ? `Vol. ${String(v).padStart(2, '0')}` : `Volume ${v}`);
 const bind = (k) => $(`[data-bind="${k}"]`);
 
 if (hasGSAP() && !reducedMotion) document.documentElement.classList.add('anim');
@@ -53,9 +54,9 @@ if (document.documentElement.classList.contains('from-wormhole')) {
   bind('publications').append(...pubs.items.map((b) => {
     const inner = [
       b.cover ? h('img', { src: asset(b.cover), alt: '', loading: 'lazy', width: '480', height: '678' })
-        : h('span', { class: 'shelf__blank' }, h('span', { class: 'mono' }, `Vol. ${b.volume}`), h('strong', {}, b.title)),
+        : h('span', { class: 'shelf__blank' }, h('span', { class: 'mono' }, volLabel(b.volume)), h('strong', {}, b.title)),
       h('span', { class: 'shelf__meta' },
-        h('span', { class: 'mono' }, `Vol. ${String(b.volume).padStart(2, '0')}`),
+        h('span', { class: 'mono' }, volLabel(b.volume)),
         h('strong', {}, b.title),
         b.isbn ? h('span', { class: 'tag' }, `ISBN ${b.isbn}`) : h('span', { class: 'tag tag--pending' }, 'ISBN em registro')),
     ];
