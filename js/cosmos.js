@@ -2,8 +2,9 @@
    A rolagem é o "tempo cósmico" (uPhase, contínuo de 0 a 8):
 
      0 Nebulosa · 1 Colapso gravitacional · 2 Ignição · 3 Supernova
-     4 Magnetar · 5 Buraco negro + radiação Hawking · 6 Recondensação (cristal)
-     7 Vácuo quântico · 8 Nova nebulosa (o ciclo recomeça)
+     4 Magnetar · 5 Buraco negro + radiação Hawking · 6 Evaporação e rasgo
+     (bolha de novo vácuo) · 7 Universo estranho (gravidade intensa, mar de
+     polaritons) · 8 Vácuo quântico · 9 Nova nebulosa (o ciclo recomeça)
 
    Ao clicar num projeto, seguimos uma partícula virtual que escapou do
    horizonte até um buraco de minhoca (transição de página); a página do
@@ -29,7 +30,8 @@ const CAPTIONS = [
   ['Supernova', '~10⁴⁴ J liberados em poucos segundos'],
   ['Magnetar', 'estrela de nêutrons com campo de até ~10¹¹ T; uma volta a cada poucos segundos'],
   ['Buraco negro', 'radiação Hawking: pares virtuais no horizonte, T ∝ 1/M'],
-  ['Recondensação', 'a matéria se organiza de novo — do quark ao cristal'],
+  ['Evaporação e rasgo', 'o buraco negro evapora; um falso vácuo decai e uma bolha de novo vácuo se expande (hipótese)'],
+  ['Universo estranho', 'gravidade mais intensa e um mar de polaritons — luz e matéria acopladas; o cursor cria um vórtice quântico (especulativo)'],
   ['Vácuo quântico', 'mesmo o “nada” flutua'],
   ['Nova nebulosa', 'o ciclo recomeça'],
 ];
@@ -74,6 +76,7 @@ const BG_FRAG = /* glsl */`
   const vec3 ORANGE = vec3(0.95, 0.65, 0.35);
   const vec3 GREEN = vec3(0.25, 0.65, 0.55);
   const vec3 DEEP = vec3(0.10, 0.07, 0.22);
+  const vec3 VIOLET = vec3(0.62, 0.50, 1.0);
 
   vec3 stars(vec2 p) {
     vec3 col = vec3(0.0);
@@ -97,28 +100,32 @@ const BG_FRAG = /* glsl */`
     float p = uPhase, t = uTime;
     vec2 m = uMouse, c = uCenter;
 
-    float wNeb = max(bump(p, 0.0, 1.2), sm(7.2, 8.0, p));
+    float wNeb = max(bump(p, 0.0, 1.2), sm(8.2, 9.0, p));
     float wCol = bump(p, 1.0, 1.0);
     float wStar = bump(p, 2.0, 1.0);
     float wSN = bump(p, 3.0, 1.0);
     float eSN = sm(2.35, 3.7, p);
     float wMag = bump(p, 4.0, 1.0);
     float wBH = bump(p, 5.0, 1.0);
-    float wX = bump(p, 6.0, 1.0);
-    float wCalm = bump(p, 7.0, 1.0);
+    float wRift = bump(p, 6.0, 1.0);
+    float wOdd = bump(p, 7.0, 1.0);
+    float wCalm = bump(p, 8.0, 1.0);
 
     vec2 d = q - c; float r = length(d) + 1e-4;
     const float RS = 0.085;
+    float evap = sm(5.15, 6.0, p);            // evaporação: o horizonte encolhe
+    float RSv = RS * (1.0 - 0.92 * evap);
+    float eB = sm(5.85, 6.9, p);              // bolha do novo vácuo
 
     /* lente gravitacional: buraco negro + cursor (mini-lente) */
-    vec2 ql = q - d / r * (wBH * 0.024) / (r + 0.02);
+    vec2 ql = q - d / r * (wBH * 0.024 * (1.0 - 0.8 * evap) + wOdd * 0.012) / (r + 0.03);
     vec2 dm = q - m; float rm = length(dm) + 1e-4;
-    ql -= dm / rm * (uMouseOn * (0.0012 + 0.0035 * wBH)) / (rm + 0.03);
+    ql -= dm / rm * (uMouseOn * (0.0012 + 0.0035 * wBH + 0.006 * wOdd)) / (rm + 0.03);
 
     vec3 col = stars(ql + vec2(0.0, t * 0.003)) * (0.5 + 0.5 * wCalm + 0.3 * wBH);
 
     /* nebulosa → colapso em disco protoestelar */
-    float wNebAll = wNeb + wCol * 0.95 + wStar * 0.6 + wCalm * 0.16 + wX * 0.1;
+    float wNebAll = wNeb + wCol * 0.95 + wStar * 0.6 + wCalm * 0.16 + wRift * 0.08;
     if (wNebAll > 0.01) {
       float ck = wCol + wStar * 0.8;
       vec2 dd = ql - c; float rr = length(dd);
@@ -179,26 +186,65 @@ const BG_FRAG = /* glsl */`
     /* buraco negro: anel de fótons, disco de acreção com Doppler, horizonte */
     if (wBH > 0.01) {
       float tex = fbm3(vec2(atan(d.y, d.x) * 4.0 - t * 1.2, r * 30.0));
-      col += mix(ORANGE, vec3(1.0, 0.92, 0.8), tex) * exp(-pow((r - RS * 1.5) / (RS * 0.13), 2.0)) * (0.6 + 0.6 * tex) * wBH;
-      col += ORANGE * exp(-pow((r - RS * 2.0) / (RS * 0.35), 2.0)) * sm(-0.01, RS * 0.8, d.y) * 0.55 * wBH;   // face oculta do disco, lenteada
-      col += CYAN * exp(-pow((r - RS) / (RS * 0.09), 2.0)) * 0.25 * wBH;                                     // brilho Hawking
-      col = mix(col, col * sm(RS * 0.92, RS * 1.02, r), wBH);                                                // horizonte
+      col += mix(ORANGE, vec3(1.0, 0.92, 0.8), tex) * exp(-pow((r - RSv * 1.5) / (RSv * 0.13), 2.0)) * (0.6 + 0.6 * tex) * wBH;
+      col += ORANGE * exp(-pow((r - RSv * 2.0) / (RSv * 0.35), 2.0)) * sm(-0.01, RSv * 0.8, d.y) * 0.55 * wBH;   // face oculta do disco, lenteada
+      col += CYAN * exp(-pow((r - RS) / (RSv * 0.09), 2.0)) * (0.25 + 1.4 * evap) * wBH;                       // brilho Hawking (T ∝ 1/M)
+      col = mix(col, col * sm(RSv * 0.92, RSv * 1.02, r), wBH);                                                // horizonte
       vec2 de = vec2(d.x, d.y / 0.27); float re = length(de);
-      float disk = sm(RS * 1.6, RS * 2.2, re) * (1.0 - sm(RS * 3.2, RS * 5.5, re));
+      float disk = sm(RSv * 1.6, RSv * 2.2, re) * (1.0 - sm(RSv * 3.2, RSv * 5.5, re));
       float dtex = fbm(vec2(atan(de.y, de.x) * 4.0 - t * 1.4, re * 28.0));
       float dop = 0.45 + 0.55 * clamp(-de.x / (re + 1e-4), -1.0, 1.0) * 0.5 + 0.275;
-      float front = d.y < 0.0 ? 1.0 : sm(RS * 1.0, RS * 1.12, r);
-      col += mix(ORANGE, vec3(1.0, 0.9, 0.75), dtex) * disk * (0.45 + dtex) * dop * front * 0.95 * wBH;
+      float front = d.y < 0.0 ? 1.0 : sm(RSv * 1.0, RSv * 1.12, r);
+      col += mix(ORANGE, vec3(1.0, 0.9, 0.75), dtex) * disk * (0.45 + dtex) * dop * front * 0.95 * wBH * (1.0 - evap);
+    }
+    col += vec3(0.9, 0.95, 1.0) * exp(-r * r * 260.0) * bump(p, 5.95, 0.12) * 3.0;   // flash final da evaporação
+
+
+    /* rasgo no espaço-tempo e bolha de novo vácuo (decaimento do falso vácuo) */
+    if (wRift > 0.01 || (eB > 0.01 && eB < 0.999)) {
+      float span = sm(5.5, 6.2, p) * 0.75 * (1.0 - sm(6.6, 7.2, p));
+      float xr = c.x + (fbm3(vec2(q.y * 4.0, 3.1)) - 0.5) * 0.12 + (noise(vec2(q.y * 22.0, t * 0.6)) - 0.5) * 0.015;
+      float dx = abs(q.x - xr);
+      float along = 1.0 - sm(span * 0.6, span + 1e-3, abs(q.y - c.y));
+      float open = sm(5.6, 6.3, p);
+      float crack = exp(-dx / (0.002 + 0.012 * open)) * along;
+      col += mix(VIOLET, vec3(1.0), 0.5) * crack * 1.4 * (wRift + wOdd * 0.3);
+      col += VIOLET * exp(-dx * 18.0) * along * 0.25 * open * wRift;
+      float Rb = eB * 1.6;
+      float wall = exp(-pow((r - Rb) / (0.012 + 0.02 * eB), 2.0)) * (0.5 + fbm3(vec2(atan(d.y, d.x) * 5.0, t * 0.4)));
+      col += mix(VIOLET, CYAN, 0.3) * wall * (1.0 - sm(0.85, 1.0, eB)) * 0.9;
+      float inside = 1.0 - sm(Rb - 0.02, Rb + 0.02, r);
+      col = mix(col, col * vec3(0.85, 0.75, 1.15), inside * eB);
     }
 
-    /* recondensação: rede cristalina surgindo */
-    if (wX > 0.01) {
-      vec2 hp = (q - c) * 16.0;
-      vec2 a = vec2(hp.x + hp.y * 0.57735, hp.y * 1.1547);
-      vec2 f = fract(a) - 0.5;
-      float dt = length(vec2(f.x - f.y * 0.5, f.y * 0.866));
-      float appear = sm(0.2, 0.9, wX + 0.3 * noise(floor(a) * 0.7) - 0.15);
-      col += CYAN * smoothstep(0.12, 0.0, dt) * appear * 0.35 * wX * exp(-length(q - c) * 1.2);
+    /* universo estranho: gravidade intensa, raios e um mar de polaritons */
+    if (wOdd > 0.01) {
+      vec2 gq = q;
+      vec2 toC = c - gq; gq += toC * 0.06 / (dot(toC, toC) + 0.05) * wOdd;                 // poço gravitacional
+      vec2 toM = m - gq; gq += toM * 0.05 * uMouseOn / (dot(toM, toM) + 0.04) * wOdd;      // o cursor também pesa
+      gq += vec2(sin(gq.y * 9.0 - t * 1.6), cos(gq.x * 7.0 - t * 1.3)) * 0.008;             // ondas gravitacionais
+      // três ondas planas a 120° → rede hexagonal de interferência;
+      // a fase de vórtice no cursor gera o "garfo" típico de um vórtice quântico
+      vec2 pq = q + vec2(sin(q.y * 9.0 - t * 1.6), cos(q.x * 7.0 - t * 1.3)) * 0.006;   // condensado: só a ondulação
+      vec2 psi = vec2(0.0);
+      float vort = uMouseOn * atan(q.y - m.y, q.x - m.x);
+      for (int k = 0; k < 3; k++) {
+        float a = float(k) * 2.0944 + 0.25;
+        vec2 kv = vec2(cos(a), sin(a)) * 30.0;
+        float ph = dot(kv, pq) - t * 1.1 + (k == 0 ? vort : 0.0);
+        float amp = 0.75 + 0.5 * noise(pq * 3.0 + float(k) * 7.0 + t * 0.15);              // flutuações
+        psi += vec2(cos(ph), sin(ph)) * amp;
+      }
+      float I = dot(psi, psi) / 9.0;
+      I *= mix(1.0, sm(0.0, 0.05, length(q - m)), uMouseOn);                                // núcleo do vórtice
+      float ang = atan(d.y, d.x);
+      float rays = pow(abs(sin(ang * 9.0 + fbm3(vec2(ang * 2.0, t * 0.2)) * 3.0)), 30.0) * exp(-r * 1.4) * sm(0.03, 0.12, r);
+      vec2 gl = abs(fract(gq * 7.0) - 0.5);
+      float grid = (1.0 - sm(0.0, 0.03, min(gl.x, gl.y))) * 0.12;
+      float fade = exp(-length(q - c) * 0.9);
+      col += mix(VIOLET, CYAN, sm(0.3, 0.9, I)) * pow(I, 2.6) * 0.62 * wOdd * (0.45 + 0.55 * fade);
+      col += mix(vec3(1.0), VIOLET, 0.4) * rays * 0.32 * wOdd;
+      col += VIOLET * grid * wOdd * (0.5 + fade);
     }
 
     /* o cursor como partícula de teste */
@@ -241,9 +287,9 @@ const PT_VERT = /* glsl */`
   ${COMMON}
   void main() {
     float p = uPhase, t = uTime; vec4 s = aSeed; vec2 c = uCenter;
-    float wNeb = max(bump(p, 0.0, 1.2), sm(7.2, 8.0, p)) + bump(p, 7.0, 1.0) * 0.35;
+    float wNeb = max(bump(p, 0.0, 1.2), sm(8.2, 9.0, p)) + bump(p, 8.0, 1.0) * 0.35;
     float wCol = bump(p, 1.0, 1.0), wStar = bump(p, 2.0, 1.0), wSN = bump(p, 3.0, 1.0);
-    float wMag = bump(p, 4.0, 1.0), wBH = bump(p, 5.0, 1.0), wX = bump(p, 6.0, 1.0);
+    float wMag = bump(p, 4.0, 1.0), wBH = bump(p, 5.0, 1.0), wR = bump(p, 6.0, 1.0), wO = bump(p, 7.0, 1.0);
     float eSN = sm(2.35, 3.7, p);
 
     // poeira (nebulosa / colapso)
@@ -276,19 +322,24 @@ const PT_VERT = /* glsl */`
                           : c + rot(tau * 0.8) * hd * (RS * 1.04 + tau * (0.3 + 0.5 * s.w));
     float hA = aSide < 0.5 ? pow(1.0 - tau, 3.0) : (1.0 - tau) * sm(0.0, 0.05, tau);
 
-    // cristal
-    float idx = floor(s.x * 120.0);
-    vec2 cell = vec2(mod(idx, 12.0), floor(idx / 12.0));
-    vec2 xp = c + vec2((cell.x - 5.5 + mod(cell.y, 2.0) * 0.5) * 0.07, (cell.y - 4.5) * 0.06);
+    // rasgo: filamentos ao longo da fenda e matéria na parede da bolha
+    float eB = sm(5.85, 6.9, p);
+    vec2 rf = s.x < 0.4
+      ? vec2(c.x + (s.y - 0.5) * 0.03, c.y + (s.z - 0.5) * 1.2 * sm(5.5, 6.2, p))
+      : c + dir * eB * 1.6 * (0.97 + 0.06 * s.y);
+    // universo estranho: partículas correndo pelos raios
+    float ra = (1.5708 + floor(s.z * 18.0) * 3.14159) / 9.0;
+    vec2 ry = c + vec2(cos(ra), sin(ra)) * (0.03 + fract(t * 0.08 * (1.0 + s.y) + s.w) * 1.1);
 
     float wD = wNeb + wCol + wStar;
-    float W = wD + wSN + wMag + wBH + wX + 1e-4;
-    vec2 pos = (dust * wD + ej * wSN + mg * wMag + hk * wBH + xp * wX) / W;
-    vA = wD * (0.3 + 0.4 * s.y) + wSN * (1.0 - eSN * 0.5) * 0.9 + wMag * 0.7 + wBH * hA + wX * 0.55;
+    float W = wD + wSN + wMag + wBH + wR + wO + 1e-4;
+    vec2 pos = (dust * wD + ej * wSN + mg * wMag + hk * wBH + rf * wR + ry * wO) / W;
+    vA = wD * (0.3 + 0.4 * s.y) + wSN * (1.0 - eSN * 0.5) * 0.9 + wMag * 0.7 + wBH * hA + wR * 0.7 + wO * 0.55;
 
     vec3 colC = vec3(0.50, 0.91, 0.95), colO = vec3(0.95, 0.65, 0.35), colG = vec3(0.35, 0.8, 0.65);
     vCol = s.y < 0.45 ? colC : (s.y < 0.8 ? colO : colG);
     vCol = mix(vCol, aSide < 0.5 ? colO : colC, wBH);
+    vCol = mix(vCol, vec3(0.62, 0.5, 1.0), (wR + wO) * 0.7);
 
     gl_Position = vec4(pos.x / (uAspect * 0.5), pos.y / 0.5, 0.0, 1.0);
     gl_PointSize = uPx * (1.0 + s.w * 1.8) * (1.0 + wSN * 0.4 + wBH * 0.5 * aSide);
@@ -485,6 +536,7 @@ export function createCosmos(canvas, { sections = [] } = {}) {
 
   /* ---------- quadro ---------- */
   let phase = targetPhase();
+  let forced = null;   // diagnóstico: __cosmos.force(6.4) fixa uma fase; force(null) volta à rolagem
   let warp = { v: 0, anim: null };
   const clock = new THREE.Clock();
   let time = 0;
@@ -556,7 +608,7 @@ export function createCosmos(canvas, { sections = [] } = {}) {
     if (raw < 0.5) adapt(raw);               // ignora pausas (aba oculta, etc.)
     time += dt;
     U.uTime.value = time;
-    const tp = targetPhase();
+    const tp = forced ?? targetPhase();
     phase += (tp - phase) * Math.min(1, real * 2.4);
     U.uPhase.value = phase;
     U.uMouse.value.x += (mouseT.x - U.uMouse.value.x) * Math.min(1, dt * 8);
@@ -565,7 +617,7 @@ export function createCosmos(canvas, { sections = [] } = {}) {
     if (warp.anim) warp.anim(real);
     U.uWarp.value = warp.v;
     updateHero(Math.min(raw, 0.1));
-    setCaption(Math.max(0, Math.min(8, Math.round(phase))), warp.v > 0.15 ? WORMHOLE_CAPTION : null);
+    setCaption(Math.max(0, Math.min(9, Math.round(phase))), warp.v > 0.15 ? WORMHOLE_CAPTION : null);
     draw();
     requestAnimationFrame(frame);
   }
@@ -623,6 +675,7 @@ export function createCosmos(canvas, { sections = [] } = {}) {
       return animateWarp(1, 0, 1500, (k) => 1 - Math.pow(1 - k, 3));
     },
     reset() { warp.v = 0; warp.anim = null; U.uWarp.value = 0; if (reducedMotion) draw(); },
+    force(v) { forced = v; },
     /* diagnóstico (console): fase atual × alvo e marcos das seções */
     debug: () => ({ level, bgScale: +bgScale.toFixed(3), phase: +phase.toFixed(3), target: +targetPhase().toFixed(3), marks: marks.map((m) => [Math.round(m.top), Math.round(m.bottom), m.f]) }),
   };

@@ -4,7 +4,11 @@
     "title": "Kits Experimentais",
     "kicker": "Equipamentos de baixo custo",
     "summary": "Ferramentas experimentais simples, acessíveis e reutilizáveis, que permitem diversas atividades ao longo do ano letivo — sem equipamentos caros usados uma única vez.",
-    "points": ["Alinhados à BNCC e aos ODS", "Física, Química e Biologia", "Acompanhados de material instrucional completo"],
+    "points": [
+      "Alinhados à BNCC e aos ODS",
+      "Física, Química e Biologia",
+      "Acompanhados de material instrucional completo"
+    ],
     "accent": "cyan"
   },
   {
@@ -12,15 +16,24 @@
     "title": "Formação de Professores",
     "kicker": "Formação continuada em STEAM",
     "summary": "Capacitações continuadas para educadores da rede pública do Ensino Fundamental e Médio, fortalecendo a autonomia pedagógica e a cultura maker em sala de aula.",
-    "points": ["Oficinas práticas para docentes", "Metodologia mão na massa", "Acompanhamento da aplicação"],
+    "points": [
+      "Oficinas práticas para docentes",
+      "Metodologia mão na massa",
+      "Acompanhamento da aplicação"
+    ],
     "accent": "orange"
   },
   {
     "id": "publicacoes",
     "title": "Material Didático & Publicações",
     "kicker": "Conteúdos alinhados à BNCC, com ISBN",
-    "summary": "Doze volumes didáticos publicados — onze apostilas temáticas do projeto Energia Sustentável é Fundamental e a obra “Ciência mão na massa: desafios e soluções para um futuro sustentável”.",
-    "points": ["12 obras didáticas publicadas", "ISBN 978-65-84002-02-9", "Anais da FIICEST 2026 com ISBN"],
+    "summary": "Treze obras com ISBN registrado: as onze apostilas temáticas e o Guia prático para experimentos didáticos (obra completa, volume único) do projeto Energia Sustentável é Fundamental, além do livro “Ciência mão na massa: desafios e soluções para um futuro sustentável”.",
+    "points": [
+      "13 obras com ISBN registrado",
+      "Ciência mão na massa — ISBN 978-65-84002-02-9",
+      "Guia prático, obra completa — ISBN 978-65-84002-01-2",
+      "Anais da FIICEST 2026 com ISBN"
+    ],
     "accent": "green"
   },
   {
@@ -28,7 +41,11 @@
     "title": "Feiras & Olimpíadas Científicas",
     "kicker": "Iniciação científica e popularização da ciência",
     "summary": "Organização de eventos que colocam estudantes sergipanos como protagonistas da pesquisa e da inovação.",
-    "points": ["OSFIC — Olimpíada Sergipana Fundamental de Inovação e Ciências", "FIICEST 2026 — Feira Interdisciplinar de Inovação, Ciência e Tecnologia, no IFS Campus Estância", "Publicação oficial dos Anais com ISBN pelo Quarks"],
+    "points": [
+      "OSFIC — Olimpíada Sergipana Fundamental de Inovação e Ciências",
+      "FIICEST 2026 — Feira Interdisciplinar de Inovação, Ciência e Tecnologia, no IFS Campus Estância",
+      "Publicação oficial dos Anais com ISBN pelo Quarks"
+    ],
     "accent": "orange"
   },
   {
@@ -36,7 +53,10 @@
     "title": "Inovação & Propriedade Intelectual",
     "kicker": "DITeQ — Departamento de Inovação e Tecnologias do Quarks",
     "summary": "Desenvolvimento de tecnologias educacionais e transferência de conhecimento: a propriedade intelectual e a tecnologia desenvolvida ficam com a escola.",
-    "points": ["Patente de Invenção BR 10 2025 015217 7 — Aparato de percepção óptica cromocinética", "Modelo de Utilidade BR 20 2025 014049 2 — Indicador portátil de condutividade da água"],
+    "points": [
+      "Patente de Invenção BR 10 2025 015217 7 — Aparato de percepção óptica cromocinética",
+      "Modelo de Utilidade BR 20 2025 014049 2 — Indicador portátil de condutividade da água"
+    ],
     "accent": "cyan"
   },
   {
@@ -44,7 +64,11 @@
     "title": "Projetos Ambientais",
     "kicker": "Clima, biodiversidade e descontaminação",
     "summary": "Frente dedicada à mitigação das mudanças climáticas, conservação da biodiversidade e descontaminação ecológica, integrando educação ambiental e experimentação científica.",
-    "points": ["Projeto MOSEE", "Educação ambiental experimental", "Ciência aplicada ao território sergipano"],
+    "points": [
+      "Projeto MOSEE",
+      "Educação ambiental experimental",
+      "Ciência aplicada ao território sergipano"
+    ],
     "accent": "green"
   },
   {
@@ -52,7 +76,11 @@
     "title": "Consultoria Pedagógica",
     "kicker": "Acompanhamento de aplicação",
     "summary": "Apoio às escolas na implementação do ensino experimental, conectando o conhecimento acadêmico de ponta ao chão da escola.",
-    "points": ["Diagnóstico e planejamento", "Acompanhamento em sala", "Avaliação contínua por projetos"],
+    "points": [
+      "Diagnóstico e planejamento",
+      "Acompanhamento em sala",
+      "Avaliação contínua por projetos"
+    ],
     "accent": "orange"
   },
   {
@@ -60,7 +88,11 @@
     "title": "Projetos Sob Medida",
     "kicker": "Soluções educacionais personalizadas",
     "summary": "Projetos estruturantes desenhados com parceiros estratégicos para transformar escolas em polos tecnológicos.",
-    "points": ["Parcerias institucionais", "Kits, formação e publicações integrados", "Legado: transferência real de tecnologia"],
+    "points": [
+      "Parcerias institucionais",
+      "Kits, formação e publicações integrados",
+      "Legado: transferência real de tecnologia"
+    ],
     "accent": "cyan"
   }
 ]

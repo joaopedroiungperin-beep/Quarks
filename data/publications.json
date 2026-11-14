@@ -1,18 +1,21 @@
 {
-  "_comment": "Preencha o campo isbn de cada obra (formato 978-65-XXXXX-XX-X). Obras sem PDF/capa ficam com null.",
+  "_comment": "Obras com ISBN registrado. 'items' = série do projeto Energia Sustentável é Fundamental (aparece na estante do projeto); 'others' = demais publicações do Quarks.",
   "series": "Energia Sustentável é Fundamental",
   "items": [
-    { "volume": 1,  "title": "Eletrostática",                      "file": "documents/didatic/CAPA_ELETROSTATICA.pdf",                    "cover": "assets/img/capas/eletrostatica.webp",                      "isbn": "" },
-    { "volume": 2,  "title": "Magnetismo",                         "file": "documents/didatic/CAPA_MAGNETISMO.pdf",                       "cover": "assets/img/capas/magnetismo.webp",                         "isbn": "" },
-    { "volume": 3,  "title": "Eletromagnetismo",                   "file": "documents/didatic/CAPA_ELETROMAGNETISMO.pdf",                 "cover": "assets/img/capas/eletromagnetismo.webp",                   "isbn": "" },
-    { "volume": 4,  "title": "Geração de Energia",                 "file": "documents/didatic/CAPA_GERACAO_DE_ENERGIA.pdf",               "cover": "assets/img/capas/geracao-de-energia.webp",                 "isbn": "" },
-    { "volume": 5,  "title": "Circuitos Elétricos",                "file": "documents/didatic/CAPA _CIRCUITOS_ELETRICOS.pdf",             "cover": "assets/img/capas/circuitos-eletricos.webp",                "isbn": "" },
-    { "volume": 6,  "title": "Transformações da Energia Elétrica", "file": "documents/didatic/CAPA _TRANSFORMACOES_DA_ENERGIA_ELETRICA.pdf", "cover": "assets/img/capas/transformacoes-da-energia-eletrica.webp", "isbn": "" },
-    { "volume": 7,  "title": "Eletrodinâmica",                     "file": "documents/didatic/CAPA_ELETRODINAMICA.pdf",                   "cover": "assets/img/capas/eletrodinamica.webp",                     "isbn": "" },
-    { "volume": 8,  "title": "Eletroquímica",                      "file": "documents/didatic/CAPA_ELETROQUIMICA.pdf",                    "cover": "assets/img/capas/eletroquimica.webp",                      "isbn": "" },
-    { "volume": 9,  "title": "Eficiência Energética",              "file": "documents/didatic/CAPA_EFICIENCIA_ENERGETICA.pdf",            "cover": "assets/img/capas/eficiencia-energetica.webp",              "isbn": "" },
-    { "volume": 10, "title": "Perigos da Eletricidade",            "file": "documents/didatic/CAPA_PERIGOS_DA_ELETRICIDADE.pdf",          "cover": "assets/img/capas/perigos-da-eletricidade.webp",            "isbn": "" },
-    { "volume": 11, "title": "Jogo: Responde ou Passa",            "file": "documents/didatic/CAPA_JOGO_RESPONDE_OU_PASSA.pdf",           "cover": "assets/img/capas/jogo-responde-ou-passa.webp",             "isbn": "" },
-    { "volume": 12, "title": "Ciência mão na massa: desafios e soluções para um futuro sustentável", "file": null, "cover": null, "isbn": "978-65-84002-02-9" }
+    { "volume": 1,  "title": "Eletrostática",                      "file": "documents/didatic/CAPA_ELETROSTATICA.pdf",                    "cover": "assets/img/capas/eletrostatica.webp",                      "isbn": "978-65-986987-0-6" },
+    { "volume": 2,  "title": "Magnetismo",                         "file": "documents/didatic/CAPA_MAGNETISMO.pdf",                       "cover": "assets/img/capas/magnetismo.webp",                         "isbn": "978-65-986987-1-3" },
+    { "volume": 3,  "title": "Eletromagnetismo",                   "file": "documents/didatic/CAPA_ELETROMAGNETISMO.pdf",                 "cover": "assets/img/capas/eletromagnetismo.webp",                   "isbn": "978-65-986987-3-7" },
+    { "volume": 4,  "title": "Geração de Energia Elétrica",        "file": "documents/didatic/CAPA_GERACAO_DE_ENERGIA.pdf",               "cover": "assets/img/capas/geracao-de-energia.webp",                 "isbn": "978-65-986987-2-0" },
+    { "volume": 5,  "title": "Circuitos Elétricos",                "file": "documents/didatic/CAPA _CIRCUITOS_ELETRICOS.pdf",             "cover": "assets/img/capas/circuitos-eletricos.webp",                "isbn": "978-65-986987-4-4" },
+    { "volume": 6,  "title": "Transformações da Energia Elétrica", "file": "documents/didatic/CAPA _TRANSFORMACOES_DA_ENERGIA_ELETRICA.pdf", "cover": "assets/img/capas/transformacoes-da-energia-eletrica.webp", "isbn": "978-65-986987-5-1" },
+    { "volume": 7,  "title": "Eletrodinâmica",                     "file": "documents/didatic/CAPA_ELETRODINAMICA.pdf",                   "cover": "assets/img/capas/eletrodinamica.webp",                     "isbn": "978-65-986987-6-8" },
+    { "volume": 8,  "title": "Eletroquímica",                      "file": "documents/didatic/CAPA_ELETROQUIMICA.pdf",                    "cover": "assets/img/capas/eletroquimica.webp",                      "isbn": "978-65-986987-7-5" },
+    { "volume": 9,  "title": "Eficiência Energética",              "file": "documents/didatic/CAPA_EFICIENCIA_ENERGETICA.pdf",            "cover": "assets/img/capas/eficiencia-energetica.webp",              "isbn": "978-65-986987-9-9" },
+    { "volume": 10, "title": "Perigos da Eletricidade",            "file": "documents/didatic/CAPA_PERIGOS_DA_ELETRICIDADE.pdf",          "cover": "assets/img/capas/perigos-da-eletricidade.webp",            "isbn": "978-65-986987-8-2" },
+    { "volume": 11, "title": "Jogo Responde ou Passa",             "file": "documents/didatic/CAPA_JOGO_RESPONDE_OU_PASSA.pdf",           "cover": "assets/img/capas/jogo-responde-ou-passa.webp",             "isbn": "978-65-84002-00-5" },
+    { "volume": "único", "title": "Guia prático para experimentos didáticos — Obra completa", "file": "documents/didatic/CAPA_Guia_Pratico _para_Exeperimentos_Didaticos.pdf", "cover": "assets/img/capas/guia-pratico-obra-completa.webp", "isbn": "978-65-84002-01-2" }
+  ],
+  "others": [
+    { "title": "Ciência mão na massa", "subtitle": "Desafios e soluções para um futuro sustentável", "file": null, "cover": null, "isbn": "978-65-84002-02-9" }
   ]
 }
