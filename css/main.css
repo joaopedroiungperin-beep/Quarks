@@ -150,6 +150,28 @@ main, .footer { position: relative; z-index: 2; }
 /* ---------- 6. Fundo atmosférico ---------- */
 .field { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 1.4s var(--ease-out); }
 .has-field .field { opacity: 1; }
+
+/* legenda educativa da fase cósmica */
+.cosmos-caption {
+  position: fixed; right: var(--gutter); top: 84px; z-index: 30; pointer-events: none;
+  display: none; align-items: baseline; gap: 10px; max-width: min(520px, 46vw);
+  padding: 8px 14px; border-radius: 999px; border: 1px solid var(--c-line);
+  background: rgba(6, 9, 18, 0.55); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  color: var(--c-muted); font-size: 0.72rem; line-height: 1.35;
+  opacity: 0; transform: translateY(6px); transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+}
+.has-field .cosmos-caption { display: flex; }
+.cosmos-caption.is-in { opacity: 1; transform: none; }
+.cosmos-caption__k { color: var(--c-orange); white-space: nowrap; }
+.cosmos-caption b { color: var(--c-cyan); font-weight: 500; white-space: nowrap; }
+@media (max-width: 759px) { .cosmos-caption { display: none !important; } }
+
+/* buraco de minhoca: o conteúdo se dissolve e o túnel toma a tela */
+main, .nav, .footer { transition: opacity 0.6s var(--ease-in-out), transform 0.9s var(--ease-in-out), filter 0.6s; }
+.is-warping main, .is-warping .nav, .is-warping .footer { opacity: 0; transform: scale(0.96); filter: blur(6px); pointer-events: none; }
+.is-warping .cosmos-caption { z-index: 60; }
+/* chegada pelo outro lado (página do projeto) */
+.from-wormhole main, .from-wormhole .nav, .from-wormhole .footer { opacity: 0; transform: scale(1.04); filter: blur(6px); }
 .field-fallback {
   position: fixed; inset: 0; z-index: -1; pointer-events: none;
   background:
@@ -369,7 +391,7 @@ main, .footer { position: relative; z-index: 2; }
 @media (min-width: 960px) { .svc { flex-basis: 400px; min-height: min(500px, 62vh); } .is-pinned .showcase__pin { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; } .is-pinned .showcase__head { margin-bottom: 28px; } }
 
 /* ---------- 14. Portfólio ---------- */
-.projects { border-top: 1px solid var(--c-line); }
+.projects { border-top: 1px solid var(--c-line); background: linear-gradient(90deg, rgba(6, 9, 18, 0.8), rgba(6, 9, 18, 0.42)); border-radius: 0 0 var(--radius) var(--radius); padding-inline: clamp(12px, 2vw, 28px); }
 .project { border-bottom: 1px solid var(--c-line); }
 .project a, .project > div {
   position: relative; display: grid; grid-template-columns: 1fr; gap: 10px 32px; align-items: center;
@@ -551,5 +573,5 @@ main, .footer { position: relative; z-index: 2; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
   .ticker__track { animation: none; flex-wrap: wrap; width: auto; }
   .ticker { mask-image: none; -webkit-mask-image: none; padding-inline: var(--gutter); }
-  .field { display: none; }
+  /* o cosmos continua, mas como um quadro estático por fase (ver js/cosmos.js) */
 }

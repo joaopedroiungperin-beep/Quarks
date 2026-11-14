@@ -1,0 +1,629 @@
+/* COSMOS — fundo narrativo do site: o ciclo de vida de uma estrela.
+   A rolagem é o "tempo cósmico" (uPhase, contínuo de 0 a 8):
+
+     0 Nebulosa · 1 Colapso gravitacional · 2 Ignição · 3 Supernova
+     4 Magnetar · 5 Buraco negro + radiação Hawking · 6 Recondensação (cristal)
+     7 Vácuo quântico · 8 Nova nebulosa (o ciclo recomeça)
+
+   Ao clicar num projeto, seguimos uma partícula virtual que escapou do
+   horizonte até um buraco de minhoca (transição de página); a página do
+   projeto começa saindo do outro lado.
+
+   Arquitetura (leve):
+   • um shader procedural de tela cheia renderizado em resolução reduzida
+     (nebulosa, lente gravitacional, campo de dipolo, onda de choque, túnel);
+   • um sistema de partículas sem estado na GPU (posições calculadas no
+     vertex shader a partir de sementes + fase + tempo);
+   • uma partícula "seguida" com rastro, controlada em JS.
+   Tudo pausa com a aba oculta; com "reduzir movimento" renderiza só um
+   quadro estático por fase. */
+
+import * as THREE from '../vendor/three.module.min.js';
+import { reducedMotion, isTouch } from './core.js';
+
+/* ---------- legendas educativas ---------- */
+const CAPTIONS = [
+  ['Nebulosa', 'berçário estelar de gás e poeira, a 10–100 K'],
+  ['Colapso gravitacional', 'a nuvem contrai e gira mais rápido — conservação do momento angular'],
+  ['Ignição', 'fusão de hidrogênio no núcleo, a ~15 milhões de K'],
+  ['Supernova', '~10⁴⁴ J liberados em poucos segundos'],
+  ['Magnetar', 'estrela de nêutrons com campo de até ~10¹¹ T; uma volta a cada poucos segundos'],
+  ['Buraco negro', 'radiação Hawking: pares virtuais no horizonte, T ∝ 1/M'],
+  ['Recondensação', 'a matéria se organiza de novo — do quark ao cristal'],
+  ['Vácuo quântico', 'mesmo o “nada” flutua'],
+  ['Nova nebulosa', 'o ciclo recomeça'],
+];
+const WORMHOLE_CAPTION = ['Buraco de minhoca', 'ponte de Einstein–Rosen — hipotética'];
+
+const COMMON = /* glsl */`
+  float bump(float x, float c, float w) { return clamp(1.0 - abs(x - c) / w, 0.0, 1.0); }
+  float sm(float a, float b, float x) { return smoothstep(a, b, x); }
+  mat2 rot(float a) { float c = cos(a), s = sin(a); return mat2(c, -s, s, c); }
+`;
+
+const BG_VERT = /* glsl */`
+  void main() { gl_Position = vec4(position.xy, 0.0, 1.0); }
+`;
+
+const BG_FRAG = /* glsl */`
+  precision highp float;
+  uniform vec2 uRes;
+  uniform float uTime, uPhase, uMouseOn, uWarp, uAspect, uDim, uSide;
+  uniform vec2 uMouse, uCenter, uWarpC;
+  uniform int uOct;
+  ${COMMON}
+
+  float hash(vec2 p) { p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
+  float noise(vec2 p) {
+    vec2 i = floor(p), f = fract(p); vec2 u = f * f * (3.0 - 2.0 * f);
+    return mix(mix(hash(i), hash(i + vec2(1, 0)), u.x), mix(hash(i + vec2(0, 1)), hash(i + vec2(1, 1)), u.x), u.y);
+  }
+  float fbm(vec2 p) {
+    float v = 0.0, a = 0.5; mat2 m = mat2(1.6, 1.2, -1.2, 1.6);
+    for (int i = 0; i < 6; i++) { if (i >= uOct) break; v += a * noise(p); p = m * p; a *= 0.5; }
+    return v;
+  }
+  // versão barata (3 oitavas) para distorção de domínio e detalhes secundários
+  float fbm3(vec2 p) {
+    mat2 m = mat2(1.6, 1.2, -1.2, 1.6);
+    float v = 0.5 * noise(p); p = m * p; v += 0.25 * noise(p); p = m * p; v += 0.125 * noise(p);
+    return v * 1.143;
+  }
+
+  const vec3 CYAN = vec3(0.50, 0.91, 0.95);
+  const vec3 ORANGE = vec3(0.95, 0.65, 0.35);
+  const vec3 GREEN = vec3(0.25, 0.65, 0.55);
+  const vec3 DEEP = vec3(0.10, 0.07, 0.22);
+
+  vec3 stars(vec2 p) {
+    vec3 col = vec3(0.0);
+    for (int k = 0; k < 2; k++) {
+      float sc = k == 0 ? 42.0 : 95.0;
+      vec2 g = p * sc; vec2 id = floor(g); vec2 f = fract(g) - 0.5;
+      float h = hash(id + float(k) * 17.0);
+      if (h > 0.9) {
+        vec2 o = vec2(hash(id + 3.1), hash(id + 7.7)) - 0.5;
+        float d = length(f - o * 0.6);
+        float tw = 0.65 + 0.35 * sin(uTime * (1.0 + h * 3.0) + h * 40.0);
+        vec3 tint = mix(vec3(0.65, 0.88, 1.0), vec3(1.0, 0.82, 0.62), hash(id + 1.3));
+        col += tint * smoothstep(0.22, 0.0, d) * tw * (k == 0 ? 0.9 : 0.45);
+      }
+    }
+    return col;
+  }
+
+  void main() {
+    vec2 q = (gl_FragCoord.xy - 0.5 * uRes) / uRes.y;
+    float p = uPhase, t = uTime;
+    vec2 m = uMouse, c = uCenter;
+
+    float wNeb = max(bump(p, 0.0, 1.2), sm(7.2, 8.0, p));
+    float wCol = bump(p, 1.0, 1.0);
+    float wStar = bump(p, 2.0, 1.0);
+    float wSN = bump(p, 3.0, 1.0);
+    float eSN = sm(2.35, 3.7, p);
+    float wMag = bump(p, 4.0, 1.0);
+    float wBH = bump(p, 5.0, 1.0);
+    float wX = bump(p, 6.0, 1.0);
+    float wCalm = bump(p, 7.0, 1.0);
+
+    vec2 d = q - c; float r = length(d) + 1e-4;
+    const float RS = 0.085;
+
+    /* lente gravitacional: buraco negro + cursor (mini-lente) */
+    vec2 ql = q - d / r * (wBH * 0.024) / (r + 0.02);
+    vec2 dm = q - m; float rm = length(dm) + 1e-4;
+    ql -= dm / rm * (uMouseOn * (0.0012 + 0.0035 * wBH)) / (rm + 0.03);
+
+    vec3 col = stars(ql + vec2(0.0, t * 0.003)) * (0.5 + 0.5 * wCalm + 0.3 * wBH);
+
+    /* nebulosa → colapso em disco protoestelar */
+    float wNebAll = wNeb + wCol * 0.95 + wStar * 0.6 + wCalm * 0.16 + wX * 0.1;
+    if (wNebAll > 0.01) {
+      float ck = wCol + wStar * 0.8;
+      vec2 dd = ql - c; float rr = length(dd);
+      vec2 np = c + rot(ck * 1.4 / (rr * 5.0 + 0.35) + t * 0.03 * ck) * dd * mix(1.0, 2.6, ck);
+      vec2 dmm = np - m;
+      float g = uMouseOn * (wNeb + wCol * 0.6) * exp(-dot(dmm, dmm) * 18.0);
+      np = m + rot(g * 2.4) * dmm * (1.0 - g * 0.25);              // vórtice no cursor
+      vec2 w = vec2(fbm3(np * 1.6 + vec2(0.0, t * 0.02)), fbm3(np * 1.6 + vec2(5.2, 1.3) - t * 0.015));
+      float n = fbm(np * 2.2 + w * 1.8);
+      float n2 = fbm3(np * 4.0 + w * 3.0 + 3.0);
+      vec3 neb = mix(DEEP, CYAN * 0.7, sm(0.35, 0.8, n));
+      neb = mix(neb, ORANGE, sm(0.55, 0.95, n2) * 0.6);
+      neb = mix(neb, GREEN, sm(0.6, 0.9, w.x) * 0.35);
+      float dens = sm(0.3, 0.85, n);
+      dens *= mix(1.0, exp(-rr * rr * 14.0) * 2.2 + 0.12, ck);
+      float lit = 1.0 + wStar * 0.9 * exp(-rr * 3.0)
+                + wStar * uMouseOn * 1.4 * exp(-dot(q - m, q - m) * 26.0);   // luz da estrela revela poeira
+      col += neb * dens * lit * (0.72 + 0.3 * wNeb) * wNebAll;
+    }
+
+    /* protoestrela / estrela */
+    float core = wCol * 0.4 + wStar * 0.85 + wSN * (1.0 - eSN) * 1.1;
+    if (core > 0.01) {
+      float glow = 0.0014 / (r * r + 0.0009);
+      float corona = fbm3(vec2(atan(d.y, d.x) * 3.0, r * 8.0 - t * 0.6));
+      col += vec3(1.0, 0.85, 0.6) * glow * core * (0.7 + 0.6 * corona);
+      col += CYAN * exp(-r * 9.0) * core * 0.25 * (1.0 + 0.2 * sin(t * 2.0));
+    }
+
+    /* supernova: onda de choque com filamentos */
+    if (wSN > 0.01) {
+      float R = eSN * 1.25;
+      float shell = exp(-pow((r - R) / (0.03 + 0.08 * eSN), 2.0));
+      float fil = fbm(vec2(atan(d.y, d.x) * 6.0, r * 10.0) + t * 0.05);
+      vec3 sc = mix(vec3(1.0, 0.95, 0.85), ORANGE, eSN);
+      sc = mix(sc, CYAN, fil * 0.5);
+      col += sc * shell * (0.4 + fil) * wSN * 1.3;
+      col += vec3(1.0, 0.9, 0.8) * exp(-r * r * 60.0) * bump(eSN, 0.08, 0.12) * 1.3;
+      col += ORANGE * (1.0 - sm(0.0, R + 1e-3, r)) * fil * 0.18 * wSN;
+    }
+
+    /* magnetar: linhas de campo de dipolo (r = L·sin²θ) + feixes girando */
+    if (wMag > 0.01) {
+      vec2 qd = q;
+      vec2 tm = m - qd; qd += tm * 0.35 * uMouseOn * exp(-dot(tm, tm) * 10.0);   // o cursor curva o campo
+      vec2 dv = rot(-t * 0.9) * (qd - c);
+      float rr = length(dv) + 1e-4;
+      float s = abs(dv.x) / rr;
+      float L = rr / max(s * s, 1e-3);
+      float f = fract(log(L * 9.0) * 1.7);
+      float line = (1.0 - sm(0.0, 0.07, abs(f - 0.5))) * sm(0.02, 0.07, rr) * exp(-rr * 1.6) * (1.0 - sm(0.9, 1.6, L));
+      col += CYAN * line * 0.75 * wMag;
+      float ang = abs(dv.x) / (abs(dv.y) + 0.02);
+      col += mix(vec3(1.0), ORANGE, 0.4) * exp(-ang * ang * 40.0) * exp(-rr * 0.9) * 0.55 * wMag;
+      col += vec3(0.9, 0.97, 1.0) * 0.0007 / (rr * rr + 0.0002) * wMag;
+    }
+
+    /* buraco negro: anel de fótons, disco de acreção com Doppler, horizonte */
+    if (wBH > 0.01) {
+      float tex = fbm3(vec2(atan(d.y, d.x) * 4.0 - t * 1.2, r * 30.0));
+      col += mix(ORANGE, vec3(1.0, 0.92, 0.8), tex) * exp(-pow((r - RS * 1.5) / (RS * 0.13), 2.0)) * (0.6 + 0.6 * tex) * wBH;
+      col += ORANGE * exp(-pow((r - RS * 2.0) / (RS * 0.35), 2.0)) * sm(-0.01, RS * 0.8, d.y) * 0.55 * wBH;   // face oculta do disco, lenteada
+      col += CYAN * exp(-pow((r - RS) / (RS * 0.09), 2.0)) * 0.25 * wBH;                                     // brilho Hawking
+      col = mix(col, col * sm(RS * 0.92, RS * 1.02, r), wBH);                                                // horizonte
+      vec2 de = vec2(d.x, d.y / 0.27); float re = length(de);
+      float disk = sm(RS * 1.6, RS * 2.2, re) * (1.0 - sm(RS * 3.2, RS * 5.5, re));
+      float dtex = fbm(vec2(atan(de.y, de.x) * 4.0 - t * 1.4, re * 28.0));
+      float dop = 0.45 + 0.55 * clamp(-de.x / (re + 1e-4), -1.0, 1.0) * 0.5 + 0.275;
+      float front = d.y < 0.0 ? 1.0 : sm(RS * 1.0, RS * 1.12, r);
+      col += mix(ORANGE, vec3(1.0, 0.9, 0.75), dtex) * disk * (0.45 + dtex) * dop * front * 0.95 * wBH;
+    }
+
+    /* recondensação: rede cristalina surgindo */
+    if (wX > 0.01) {
+      vec2 hp = (q - c) * 16.0;
+      vec2 a = vec2(hp.x + hp.y * 0.57735, hp.y * 1.1547);
+      vec2 f = fract(a) - 0.5;
+      float dt = length(vec2(f.x - f.y * 0.5, f.y * 0.866));
+      float appear = sm(0.2, 0.9, wX + 0.3 * noise(floor(a) * 0.7) - 0.15);
+      col += CYAN * smoothstep(0.12, 0.0, dt) * appear * 0.35 * wX * exp(-length(q - c) * 1.2);
+    }
+
+    /* o cursor como partícula de teste */
+    col += CYAN * exp(-dot(q - m, q - m) * 900.0) * 0.1 * uMouseOn;
+
+    /* buraco de minhoca (entrada e saída / buraco branco) */
+    if (uWarp > 0.001) {
+      vec2 wd = q - uWarpC; float wr = length(wd) + 1e-3; float wa = atan(wd.y, wd.x);
+      float z = 0.22 / wr + t * 2.6;                       // profundidade no túnel
+      vec2 tc = vec2(abs(wa) * 2.2, z);                    // ângulo espelhado: sem costura
+      float tun = fbm(tc * vec2(1.0, 1.4));
+      float rings = pow(0.5 + 0.5 * sin(z * 9.0), 6.0);    // anéis vindo em direção ao observador
+      vec3 tcol = mix(vec3(0.03, 0.05, 0.12), CYAN * 0.85, sm(0.42, 0.95, tun));
+      tcol += ORANGE * sm(0.62, 1.0, fbm3(tc * 3.0 + 4.0)) * 0.55;
+      tcol += CYAN * rings * 0.35 * sm(0.04, 0.35, wr);
+      tcol *= 0.3 + 0.9 * sm(0.0, 0.7, wr);
+      tcol += vec3(1.0) * exp(-wr * wr * 45.0) * uWarp * 1.6;
+      col = mix(col, tcol, sm(0.0, 1.0, uWarp * 1.35 - wr * 0.55));
+    }
+
+    /* leitura: escurece a coluna de texto (desktop) e normaliza o brilho */
+    col *= mix(1.0, 0.55 + 0.45 * sm(-0.25, 0.45, q.x / (uAspect * 0.5)), uSide * (1.0 - uWarp));
+    col *= uDim;
+    col = 1.0 - exp(-col * 1.25);
+    gl_FragColor = vec4(col, 1.0);
+  }
+`;
+
+const COPY_FRAG = /* glsl */`
+  precision highp float;
+  uniform sampler2D uTex; uniform vec2 uRes;
+  void main() { gl_FragColor = texture2D(uTex, gl_FragCoord.xy / uRes); }
+`;
+
+const PT_VERT = /* glsl */`
+  attribute vec4 aSeed; attribute float aPair; attribute float aSide;
+  uniform float uTime, uPhase, uAspect, uMouseOn, uPx;
+  uniform vec2 uCenter, uMouse;
+  varying vec3 vCol; varying float vA;
+  ${COMMON}
+  void main() {
+    float p = uPhase, t = uTime; vec4 s = aSeed; vec2 c = uCenter;
+    float wNeb = max(bump(p, 0.0, 1.2), sm(7.2, 8.0, p)) + bump(p, 7.0, 1.0) * 0.35;
+    float wCol = bump(p, 1.0, 1.0), wStar = bump(p, 2.0, 1.0), wSN = bump(p, 3.0, 1.0);
+    float wMag = bump(p, 4.0, 1.0), wBH = bump(p, 5.0, 1.0), wX = bump(p, 6.0, 1.0);
+    float eSN = sm(2.35, 3.7, p);
+
+    // poeira (nebulosa / colapso)
+    vec2 base = vec2((s.x * 2.0 - 1.0) * uAspect * 0.55, (s.y * 2.0 - 1.0) * 0.55)
+              + vec2(sin(t * 0.07 + s.z * 6.2831), cos(t * 0.05 + s.w * 6.2831)) * 0.04;
+    float ck = wCol + wStar * 0.7;
+    vec2 bd = base - c; float br = length(bd);
+    vec2 dust = c + rot(ck * (1.2 / (br * 4.0 + 0.3)) + t * 0.15 * ck) * bd * mix(1.0, 0.35 + 0.4 * s.w, ck);
+    vec2 dmv = dust - uMouse; float g = uMouseOn * exp(-dot(dmv, dmv) * 20.0) * (wNeb + wCol);
+    dust = uMouse + rot(g * 1.5) * dmv * (1.0 + g * 0.15);
+
+    // ejetos da supernova (desviados pelo cursor)
+    float an = s.z * 6.2831; vec2 dir = vec2(cos(an), sin(an));
+    vec2 ej = c + dir * eSN * (0.15 + 1.1 * s.w);
+    vec2 em = ej - uMouse; ej += normalize(em + 1e-4) * uMouseOn * 0.07 * exp(-dot(em, em) * 30.0);
+
+    // magnetar: partículas correndo pelas linhas de campo
+    float L = 0.12 + s.w * 0.55;
+    float th = fract(s.z + t * 0.04 * (1.0 + s.y)) * 3.14159;
+    float rr = L * sin(th) * sin(th);
+    vec2 loc = vec2(rr * sin(th) * (s.x < 0.5 ? 1.0 : -1.0), rr * cos(th));
+    vec2 mg = c + rot(t * 0.9) * loc;
+
+    // radiação Hawking: um par nasce no horizonte; um cai, o outro escapa
+    const float RS = 0.085;
+    float tau = fract(t / 3.0 + aPair);
+    float ph = aPair * 6.2831 * 7.0;
+    vec2 hd = vec2(cos(ph), sin(ph));
+    vec2 hk = aSide < 0.5 ? c + hd * RS * (1.04 - 0.12 * tau)
+                          : c + rot(tau * 0.8) * hd * (RS * 1.04 + tau * (0.3 + 0.5 * s.w));
+    float hA = aSide < 0.5 ? pow(1.0 - tau, 3.0) : (1.0 - tau) * sm(0.0, 0.05, tau);
+
+    // cristal
+    float idx = floor(s.x * 120.0);
+    vec2 cell = vec2(mod(idx, 12.0), floor(idx / 12.0));
+    vec2 xp = c + vec2((cell.x - 5.5 + mod(cell.y, 2.0) * 0.5) * 0.07, (cell.y - 4.5) * 0.06);
+
+    float wD = wNeb + wCol + wStar;
+    float W = wD + wSN + wMag + wBH + wX + 1e-4;
+    vec2 pos = (dust * wD + ej * wSN + mg * wMag + hk * wBH + xp * wX) / W;
+    vA = wD * (0.3 + 0.4 * s.y) + wSN * (1.0 - eSN * 0.5) * 0.9 + wMag * 0.7 + wBH * hA + wX * 0.55;
+
+    vec3 colC = vec3(0.50, 0.91, 0.95), colO = vec3(0.95, 0.65, 0.35), colG = vec3(0.35, 0.8, 0.65);
+    vCol = s.y < 0.45 ? colC : (s.y < 0.8 ? colO : colG);
+    vCol = mix(vCol, aSide < 0.5 ? colO : colC, wBH);
+
+    gl_Position = vec4(pos.x / (uAspect * 0.5), pos.y / 0.5, 0.0, 1.0);
+    gl_PointSize = uPx * (1.0 + s.w * 1.8) * (1.0 + wSN * 0.4 + wBH * 0.5 * aSide);
+  }
+`;
+
+const PT_FRAG = /* glsl */`
+  precision highp float;
+  varying vec3 vCol; varying float vA;
+  void main() {
+    float d = length(gl_PointCoord - 0.5);
+    float a = pow(smoothstep(0.5, 0.0, d), 1.6);
+    gl_FragColor = vec4(vCol, a * vA);
+  }
+`;
+
+const TRAIL_VERT = /* glsl */`
+  attribute float aAge;
+  uniform float uAspect, uPx, uAlpha;
+  varying float vA;
+  void main() {
+    vA = (1.0 - aAge) * uAlpha;
+    gl_Position = vec4(position.x / (uAspect * 0.5), position.y / 0.5, 0.0, 1.0);
+    gl_PointSize = uPx * mix(7.0, 1.5, aAge);
+  }
+`;
+const TRAIL_FRAG = /* glsl */`
+  precision highp float;
+  varying float vA;
+  void main() {
+    float d = length(gl_PointCoord - 0.5);
+    float a = pow(smoothstep(0.5, 0.0, d), 1.4);
+    gl_FragColor = vec4(mix(vec3(0.5, 0.91, 0.95), vec3(1.0), 0.35), a * vA);
+  }
+`;
+
+export function createCosmos(canvas, { sections = [] } = {}) {
+  if (!canvas) return null;
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false, powerPreference: 'high-performance' });
+  } catch (e) { canvas.remove(); return null; }
+
+  const small = window.innerWidth < 760 || isTouch;
+  const DPR = Math.min(window.devicePixelRatio || 1, 1.5);
+  let bgScale = small ? 0.32 : 0.42;
+  const N = small ? 700 : 1600;
+  renderer.setPixelRatio(DPR);
+  renderer.setClearColor(0x060912, 1);
+
+  const cam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  const quad = new THREE.PlaneGeometry(2, 2);
+
+  /* passe 1: fundo procedural em resolução reduzida */
+  const rt = new THREE.WebGLRenderTarget(2, 2, { depthBuffer: false });
+  const U = {
+    uRes: { value: new THREE.Vector2(1, 1) }, uTime: { value: 0 }, uPhase: { value: 0 },
+    uMouse: { value: new THREE.Vector2(9, 9) }, uMouseOn: { value: 0 }, uCenter: { value: new THREE.Vector2() },
+    uWarp: { value: 0 }, uWarpC: { value: new THREE.Vector2() }, uOct: { value: small ? 3 : 4 },
+    uAspect: { value: 1 }, uDim: { value: small ? 0.52 : 0.9 }, uSide: { value: small ? 0 : 1 },
+  };
+  const bgScene = new THREE.Scene();
+  bgScene.add(new THREE.Mesh(quad, new THREE.ShaderMaterial({ vertexShader: BG_VERT, fragmentShader: BG_FRAG, uniforms: U, depthTest: false, depthWrite: false })));
+
+  /* passe 2: compõe o fundo + partículas em resolução cheia */
+  const scene = new THREE.Scene();
+  const copyU = { uTex: { value: rt.texture }, uRes: { value: new THREE.Vector2(1, 1) } };
+  const copy = new THREE.Mesh(quad, new THREE.ShaderMaterial({ vertexShader: BG_VERT, fragmentShader: COPY_FRAG, uniforms: copyU, depthTest: false, depthWrite: false }));
+  copy.renderOrder = 0; copy.frustumCulled = false;
+  scene.add(copy);
+
+  const seeds = new Float32Array(N * 4), pair = new Float32Array(N), side = new Float32Array(N);
+  for (let i = 0; i < N; i++) {
+    for (let k = 0; k < 4; k++) seeds[i * 4 + k] = Math.random();
+    const pid = Math.floor(i / 2);
+    pair[i] = ((pid * 0.6180339887) % 1);
+    side[i] = i % 2;
+  }
+  const pGeo = new THREE.BufferGeometry();
+  pGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(N * 3), 3));
+  pGeo.setAttribute('aSeed', new THREE.BufferAttribute(seeds, 4));
+  pGeo.setAttribute('aPair', new THREE.BufferAttribute(pair, 1));
+  pGeo.setAttribute('aSide', new THREE.BufferAttribute(side, 1));
+  const PU = {
+    uTime: U.uTime, uPhase: U.uPhase, uAspect: U.uAspect, uMouseOn: U.uMouseOn, uMouse: U.uMouse, uCenter: U.uCenter,
+    uPx: { value: 2.2 * DPR },
+  };
+  const points = new THREE.Points(pGeo, new THREE.ShaderMaterial({
+    vertexShader: PT_VERT, fragmentShader: PT_FRAG, uniforms: PU,
+    transparent: true, depthTest: false, depthWrite: false, blending: THREE.AdditiveBlending,
+  }));
+  points.frustumCulled = false; points.renderOrder = 1;
+  scene.add(points);
+
+  /* a partícula virtual que seguimos (com rastro) */
+  const TRAIL = 22;
+  const trailPos = new Float32Array(TRAIL * 3);
+  const trailAge = new Float32Array(TRAIL).map((_, i) => i / (TRAIL - 1));
+  const tGeo = new THREE.BufferGeometry();
+  const tAttr = new THREE.BufferAttribute(trailPos, 3); tAttr.setUsage(THREE.DynamicDrawUsage);
+  tGeo.setAttribute('position', tAttr);
+  tGeo.setAttribute('aAge', new THREE.BufferAttribute(trailAge, 1));
+  const TU = { uAspect: U.uAspect, uPx: { value: 2.2 * DPR }, uAlpha: { value: 0 } };
+  const trail = new THREE.Points(tGeo, new THREE.ShaderMaterial({
+    vertexShader: TRAIL_VERT, fragmentShader: TRAIL_FRAG, uniforms: TU,
+    transparent: true, depthTest: false, depthWrite: false, blending: THREE.AdditiveBlending,
+  }));
+  trail.frustumCulled = false; trail.renderOrder = 2;
+  scene.add(trail);
+  const hero = { x: 0, y: 0, vx: 0, vy: 0, history: [] };
+
+  /* legenda */
+  const cap = document.createElement('div');
+  cap.className = 'cosmos-caption mono';
+  cap.setAttribute('aria-hidden', 'true');
+  cap.innerHTML = '<span class="cosmos-caption__k"></span><b></b><span class="cosmos-caption__d"></span>';
+  document.body.append(cap);
+  let capIdx = -1, capOverride = null;
+  const setCaption = (i, override) => {
+    const key = override ? 'w' : i;
+    if (key === capIdx) return;
+    capIdx = key;
+    const [title, desc] = override || CAPTIONS[i];
+    cap.classList.remove('is-in');
+    clearTimeout(setCaption.t);
+    setCaption.t = setTimeout(() => {
+      cap.children[0].textContent = override ? 'Fase ∞' : `Fase ${String(i + 1).padStart(2, '0')}`;
+      cap.children[1].textContent = title;
+      cap.children[2].textContent = desc;
+      cap.classList.add('is-in');
+    }, 220);
+  };
+
+  /* fase a partir da rolagem */
+  let marks = [];
+  const measure = () => {
+    marks = sections.map((el) => {
+      const rect = el.getBoundingClientRect();
+      const top = rect.top + window.scrollY;
+      return { top, bottom: top + rect.height, f: parseFloat(el.dataset.phase) || 0 };
+    }).sort((a, b) => a.top - b.top);
+  };
+  const targetPhase = () => {
+    if (!marks.length) return 0;
+    const y = window.scrollY + window.innerHeight * 0.5;
+    for (let i = 0; i < marks.length; i++) {
+      const m = marks[i];
+      if (y < m.bottom || i === marks.length - 1) {
+        if (y < m.top) return m.f;
+        const pr = (y - m.top) / Math.max(1, m.bottom - m.top);
+        const next = marks[i + 1];
+        if (next && pr > 0.65) return m.f + (next.f - m.f) * ((pr - 0.65) / 0.35);
+        return m.f;
+      }
+    }
+    return 0;
+  };
+
+  /* cursor e alvo (projeto em foco) */
+  let W = 1, H = 1, aspect = 1;
+  const toQ = (cx, cy) => [(cx - W / 2) / H, (H / 2 - cy) / H];
+  const mouseT = { x: 9, y: 9, on: 0 };
+  let target = null;
+  if (!isTouch) {
+    window.addEventListener('pointermove', (e) => { [mouseT.x, mouseT.y] = toQ(e.clientX, e.clientY); mouseT.on = 1; }, { passive: true });
+    document.addEventListener('pointerleave', () => { mouseT.on = 0; });
+  }
+  document.addEventListener('pointerover', (e) => {
+    const a = e.target.closest?.('a[data-wormhole]');
+    if (!a) return;
+    const r = a.getBoundingClientRect();
+    target = toQ(r.left + r.width * 0.58, r.top + r.height / 2);
+  });
+  document.addEventListener('pointerout', (e) => {
+    const a = e.target.closest?.('a[data-wormhole]');
+    if (a && !a.contains(e.relatedTarget)) target = null;
+  });
+
+  const resize = () => {
+    W = window.innerWidth; H = window.innerHeight; aspect = W / H;
+    renderer.setSize(W, H, false);
+    const bw = Math.max(2, Math.round(W * DPR * bgScale)), bh = Math.max(2, Math.round(H * DPR * bgScale));
+    rt.setSize(bw, bh);
+    U.uRes.value.set(bw, bh);
+    copyU.uRes.value.set(W * DPR, H * DPR);
+    U.uAspect.value = aspect;
+    if (small || aspect < 1.1) U.uCenter.value.set(0, -0.2);   // celular: terço inferior, longe dos títulos
+    else U.uCenter.value.set(aspect * 0.5 * 0.5, 0.0);
+    measure();
+    if (reducedMotion) draw();
+  };
+  window.addEventListener('resize', resize);
+  new ResizeObserver(() => measure()).observe(document.body);
+
+  /* ---------- quadro ---------- */
+  let phase = targetPhase();
+  let warp = { v: 0, anim: null };
+  const clock = new THREE.Clock();
+  let time = 0;
+
+  function updateHero(dt) {
+    const wBH = Math.max(0, 1 - Math.abs(phase - 5));
+    const c = U.uCenter.value;
+    const RS = 0.085;
+    let tx, ty;
+    if (warp.anim) { tx = U.uWarpC.value.x; ty = U.uWarpC.value.y; }
+    else if (target) { [tx, ty] = target; }
+    else {
+      // escapa do horizonte numa espiral e volta a nascer: uma partícula Hawking
+      const u = (time * 0.09) % 1;
+      const a = 2.2 + u * 2.4;
+      const rad = RS * 1.05 + u * 0.55;
+      tx = c.x + Math.cos(a) * rad; ty = c.y + Math.sin(a) * rad;
+      if (u < 0.02) { hero.x = tx; hero.y = ty; hero.vx = hero.vy = 0; hero.history.length = 0; }
+    }
+    const k = warp.anim ? 40 : target ? 46 : 30;
+    hero.vx += (tx - hero.x) * k * dt; hero.vy += (ty - hero.y) * k * dt;
+    const damp = Math.exp(-(target ? 6 : 9) * dt);
+    hero.vx *= damp; hero.vy *= damp;
+    hero.x += hero.vx * dt * 6; hero.y += hero.vy * dt * 6;
+    hero.history.unshift([hero.x, hero.y]);
+    if (hero.history.length > TRAIL) hero.history.length = TRAIL;
+    for (let i = 0; i < TRAIL; i++) {
+      const h = hero.history[Math.min(i, hero.history.length - 1)] || [hero.x, hero.y];
+      trailPos[i * 3] = h[0]; trailPos[i * 3 + 1] = h[1];
+    }
+    tAttr.needsUpdate = true;
+    const want = warp.anim ? 1 : Math.min(1, wBH * 1.6);
+    TU.uAlpha.value += (want - TU.uAlpha.value) * Math.min(1, dt * 5);
+  }
+
+  /* qualidade adaptativa: se o fps ficar baixo, reduz resolução/detalhe
+     (nunca volta a subir, para não oscilar) */
+  let level = 0, skipBg = false, frameNo = 0, ema = 1 / 60, since = 0;
+  function adapt(raw) {
+    ema += (raw - ema) * 0.05;
+    since += raw;
+    if (since < 2.5 || level >= 3) return;
+    since = 0;
+    if (ema > 1 / 38) {
+      level++;
+      if (level === 1) { bgScale *= 0.78; U.uOct.value = Math.max(2, U.uOct.value - 1); }
+      if (level === 2) { bgScale *= 0.8; PU.uPx.value *= 1.1; }
+      if (level === 3) { skipBg = true; }
+      resize();
+    }
+  }
+
+  function draw() {
+    frameNo++;
+    if (!skipBg || frameNo % 2 === 0 || warp.v > 0.001) {
+      renderer.setRenderTarget(rt);
+      renderer.render(bgScene, cam);
+    }
+    renderer.setRenderTarget(null);
+    renderer.render(scene, cam);
+  }
+
+  let running = true;
+  function frame() {
+    if (!running) return;
+    const raw = clock.getDelta();
+    const dt = Math.min(raw, 0.05);          // física das partículas (estável)
+    const real = Math.min(raw, 0.25);        // suavização: converge mesmo com fps baixo
+    if (raw < 0.5) adapt(raw);               // ignora pausas (aba oculta, etc.)
+    time += dt;
+    U.uTime.value = time;
+    const tp = targetPhase();
+    phase += (tp - phase) * Math.min(1, real * 2.4);
+    U.uPhase.value = phase;
+    U.uMouse.value.x += (mouseT.x - U.uMouse.value.x) * Math.min(1, dt * 8);
+    U.uMouse.value.y += (mouseT.y - U.uMouse.value.y) * Math.min(1, dt * 8);
+    U.uMouseOn.value += (mouseT.on - U.uMouseOn.value) * Math.min(1, real * 3);
+    if (warp.anim) warp.anim(real);
+    U.uWarp.value = warp.v;
+    updateHero(Math.min(raw, 0.1));
+    setCaption(Math.max(0, Math.min(8, Math.round(phase))), warp.v > 0.15 ? WORMHOLE_CAPTION : null);
+    draw();
+    requestAnimationFrame(frame);
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (reducedMotion) return;
+    if (!document.hidden && !running) { running = true; clock.getDelta(); requestAnimationFrame(frame); }
+    else if (document.hidden) running = false;
+  });
+
+  resize();
+  if (reducedMotion) {
+    // um quadro estático por fase, atualizado só quando a fase muda
+    U.uTime.value = 12;
+    let last = -1, raf = 0;
+    const update = () => {
+      raf = 0;
+      const ph = Math.round(targetPhase());
+      if (ph === last) return;
+      last = ph; phase = ph; U.uPhase.value = ph;
+      setCaption(ph);
+      draw();
+    };
+    window.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(update); }, { passive: true });
+    update();
+  } else {
+    requestAnimationFrame(frame);
+  }
+  document.documentElement.classList.add('has-field');
+
+  const animateWarp = (from, to, ms, ease) => new Promise((res) => {
+    let e = 0;
+    warp.v = from;
+    warp.anim = (dt) => {
+      e += (dt * 1000) / ms;
+      const k = Math.min(1, e);
+      warp.v = from + (to - from) * ease(k);
+      if (k >= 1) { warp.anim = null; res(); }
+    };
+  });
+
+  return {
+    measure,
+    /* entra no buraco de minhoca a partir de um ponto da tela */
+    warp(clientX, clientY) {
+      if (reducedMotion) return Promise.resolve();
+      const [x, y] = toQ(clientX, clientY);
+      U.uWarpC.value.set(x, y);
+      return animateWarp(0, 1, 1050, (k) => k * k * (3 - 2 * k));
+    },
+    /* sai do outro lado (buraco branco) */
+    emerge() {
+      if (reducedMotion) return Promise.resolve();
+      U.uWarpC.value.set(0, 0);
+      return animateWarp(1, 0, 1500, (k) => 1 - Math.pow(1 - k, 3));
+    },
+    reset() { warp.v = 0; warp.anim = null; U.uWarp.value = 0; if (reducedMotion) draw(); },
+    /* diagnóstico (console): fase atual × alvo e marcos das seções */
+    debug: () => ({ level, bgScale: +bgScale.toFixed(3), phase: +phase.toFixed(3), target: +targetPhase().toFixed(3), marks: marks.map((m) => [Math.round(m.top), Math.round(m.bottom), m.f]) }),
+  };
+}
