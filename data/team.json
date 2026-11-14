@@ -6,6 +6,11 @@
   { "name": "Adriana de Jesus Santos", "role": "Coordenadora de Educação & Inovação", "bio": "Bióloga e Doutora em Ciências Farmacêuticas, docente e pesquisadora do ITP-UNIT.", "photo": "assets/img/time/adriana.webp" },
   { "name": "Cochiran Pereira dos Santos", "role": "Coordenador de Educação Científica", "bio": "Físico e Doutor em Ciência e Engenharia de Materiais, operador do CMNano - UFS e Embaixador do CNPEM em Sergipe.", "photo": "assets/img/time/cochiran.webp" },
   { "name": "Celso Hiroshi Hayasi", "role": "Coordenador de Gestão Estratégica", "bio": "Engenheiro de Produção Mecânica, Diretor da Cerâmica Capri, idealizador da Acelerase Venture Builder e Presidente do Concese.", "photo": "assets/img/time/hiro.webp" },
-  { "name": "Fábio Cleisto Alda Dossi", "role": "Conselheiro Fiscal", "bio": "Biólogo e Doutor em Entomologia e integra o NUESC - ITP.", "photo": "assets/img/time/fabio.webp" },
-  { "name": "Lara da Costa Nunes Barbosa", "role": "Associada Fundadora", "bio": "Astrofísica e Mestranda em Física & Astrofísica no DF - UFMG.", "photo": "assets/img/time/lara.webp" }
+  { "name": "Orlando Pedreschi Neto", "role": "Conselheiro Fiscal", "bio": "Professor da educação básica, biólogo e pedagogo. Mestre em Biologia Animal e Doutor em Ciências Biológicas, com pós-doutorados em Gestão da Qualidade e em Arqueologia.", "photo": "assets/img/time/orlando.webp" },
+  { "name": "Lara da Costa Nunes Barbosa", "role": "Associada Fundadora", "bio": "Astrofísica e Mestranda em Física & Astrofísica no DF - UFMG.", "photo": "assets/img/time/lara.webp" },
+  { "name": "Antônio Carlos de Oliveira", "role": "Associado Efetivo", "bio": "Professor do ensino médio e técnico ceramista, licenciado em Física.", "photo": "assets/img/time/antonio.webp" },
+  { "name": "Marielly Coelho Neves", "role": "Associada Efetiva", "bio": "Professora, graduanda em Licenciatura em Letras-Inglês.", "photo": "assets/img/time/marielly.webp" },
+  { "name": "Pedro Martiniano Lins Neto", "role": "Associado Efetivo", "bio": "Engenheiro Eletricista, bacharel em Engenharia Elétrica.", "photo": "assets/img/time/pedro.webp" },
+  { "name": "Ronaldo Santos da Silva", "role": "Associado Efetivo", "bio": "Professor do magistério superior, com graduação, mestrado e doutorado em Física.", "photo": "assets/img/time/ronaldo.webp" },
+  { "name": "Yuri Menezes Andrade", "role": "Associado Efetivo", "bio": "Graduando em Astrofísica (bacharelado).", "photo": "assets/img/time/yuri.webp" }
 ]
