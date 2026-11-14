@@ -144,7 +144,7 @@ export async function initPortfolio() {
 
   projects.forEach((p) => {
     const li = h('li', { class: 'project' },
-      h('a', { href: asset(p.url), 'data-preview': asset(p.cover) },
+      h('a', { href: asset(p.url), 'data-preview': asset(p.cover), 'data-wormhole': '' },
         h('span', { class: 'project__year' }, p.year),
         h('span', {},
           h('span', { class: 'project__title' }, p.title),

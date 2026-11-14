@@ -38,11 +38,33 @@ async function mountHeavy() {
     safe(initLattice()),
   ]);
   initRegistros();
-  // fundo WebGL por último, fora do caminho crítico
-  idle(() => import('./field.js')
-    .then(({ createField }) => createField(document.getElementById('field'), { sections: $$('[data-formation]') }))
+  // cosmos (WebGL) por último, fora do caminho crítico
+  idle(() => import('./cosmos.js')
+    .then(({ createCosmos }) => { cosmos = createCosmos(document.getElementById('field'), { sections: $$('[data-phase]') }); window.__cosmos = cosmos; })
     .catch((e) => console.error(e)));
 }
+
+/* ---------- buraco de minhoca: projeto → página do capítulo ---------- */
+let cosmos = null;
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('a[data-wormhole]');
+  if (!a || !cosmos || reducedMotion || e.defaultPrevented) return;
+  if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.target === '_blank') return;
+  e.preventDefault();
+  root.classList.add('is-warping');
+  lenis?.stop();
+  cosmos.warp(e.clientX, e.clientY).then(() => {
+    try { sessionStorage.setItem('q-wormhole', '1'); } catch (err) { /* ok */ }
+    window.location.href = a.href;
+  });
+});
+// voltar pelo histórico (bfcache) devolve a página intacta
+window.addEventListener('pageshow', (e) => {
+  if (!e.persisted) return;
+  root.classList.remove('is-warping');
+  cosmos?.reset();
+  lenis?.start();
+});
 
 const start = () => {
   lenis?.start();

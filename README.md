@@ -21,7 +21,7 @@ css/project.css             Estilos dos capítulos de projeto
 js/main.js                  Entrada da home
 js/core.js                  Lenis + GSAP, revelações, navegação, painel lateral, utilidades
 js/preloader.js             Oscilador harmônico amortecido → marca Quarks
-js/field.js                 Fundo WebGL (Three.js): trios de quarks que mudam de formação com a rolagem
+js/cosmos.js                Fundo WebGL narrativo: o ciclo de vida estelar guiado pela rolagem (ver abaixo)
 js/sections.js              Vitrine de atuação, método, portfólio, time, transparência
 js/lattice.js               Parceiros como rede cristalina (Canvas 2D)
 js/forms.js · js/config.js  Formulários (Web3Forms + WhatsApp)
@@ -62,6 +62,26 @@ Para incluir um novo parceiro, adicione um objeto em `partners.json` com o logo 
 ## Formulários
 
 Crie uma chave gratuita em [web3forms.com](https://web3forms.com) com o e-mail que deve receber as mensagens e cole-a em `js/config.js` (`WEB3FORMS_KEY`). Enquanto a chave estiver vazia, o envio abre o WhatsApp com a mensagem já preenchida.
+
+## Fundo narrativo (js/cosmos.js)
+
+A rolagem é o "tempo cósmico". Cada seção declara sua fase em `data-phase`, e o fundo interpola entre fases vizinhas:
+
+| Fase | Momento | Seção na home |
+|---|---|---|
+| 0 | Nebulosa | Início |
+| 1 | Colapso gravitacional | Contexto (IDEB) |
+| 2 | Ignição | Método |
+| 3 | Supernova | Proposta |
+| 4 | Magnetar | Atuação |
+| 5 | Buraco negro + radiação Hawking | Portfólio |
+| 6 | Recondensação (cristal) | Parceiros |
+| 7 | Vácuo quântico | Sobre, Transparência |
+| 8 | Nova nebulosa | Participe, rodapé |
+
+Ao clicar num link com `data-wormhole`, a partícula virtual seguida entra num buraco de minhoca e a página do projeto começa saindo do outro lado. Use só fases adjacentes entre seções vizinhas: um salto de 0 para 7 atravessaria todas as fases intermediárias.
+
+O fundo mede o próprio fps e, se ele ficar baixo, reduz resolução e detalhe sozinho. No console, `__cosmos.debug()` mostra a fase atual e o nível de qualidade.
 
 ## Acessibilidade e desempenho
 

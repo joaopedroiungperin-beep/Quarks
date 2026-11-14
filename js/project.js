@@ -10,7 +10,7 @@
 
 import * as THREE from '../vendor/three.module.min.js';
 import { $, $$, h, asset, loadJSON, initScroll, initNav, initReveals, hasGSAP, reducedMotion } from './core.js';
-import { createField } from './field.js';
+import { createCosmos } from './cosmos.js';
 
 const slug = document.body.dataset.project;
 const bind = (k) => $(`[data-bind="${k}"]`);
@@ -18,7 +18,14 @@ const bind = (k) => $(`[data-bind="${k}"]`);
 if (hasGSAP() && !reducedMotion) document.documentElement.classList.add('anim');
 initScroll();
 initNav();
-createField($('#field'), { sections: $$('[data-formation]') });
+const cosmos = createCosmos($('#field'), { sections: $$('[data-phase]') });
+
+// chegada pelo buraco de minhoca: a página "sai do outro lado"
+if (document.documentElement.classList.contains('from-wormhole')) {
+  try { sessionStorage.removeItem('q-wormhole'); } catch (e) { /* ok */ }
+  const reveal = () => document.documentElement.classList.remove('from-wormhole');
+  if (cosmos) { cosmos.emerge(); setTimeout(reveal, 550); } else reveal();
+}
 
 (async () => {
   const [projects, partners, pubs] = await Promise.all([loadJSON('projects'), loadJSON('partners'), loadJSON('publications')]);
