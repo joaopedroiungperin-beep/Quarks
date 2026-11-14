@@ -1,0 +1,11 @@
+[
+  { "name": "Lucas Francisco de Jesus Santos", "role": "Presidente", "bio": "Graduando em Engenharia Elétrica no DEL - UFS.", "photo": "assets/img/time/lucas.webp" },
+  { "name": "João Pedro Iung Perin", "role": "Vice-presidente", "bio": "Físico Médico e Mestrando em Física da Matéria Condensada no DFI - UFS.", "photo": "assets/img/time/joao.webp" },
+  { "name": "Riane da Silveira Storgatto", "role": "Secretária Geral & Diretora e Analista de Marketing", "bio": "Graduanda em Física: Astrofísica no DFI - UFS.", "photo": "assets/img/time/riane.webp" },
+  { "name": "Lígia Mara de Oliveira Lima", "role": "Tesoureira", "bio": "Graduanda em Física: Astrofísica no DFI - UFS.", "photo": "assets/img/time/ligia.webp" },
+  { "name": "Adriana de Jesus Santos", "role": "Coordenadora de Educação & Inovação", "bio": "Bióloga e Doutora em Ciências Farmacêuticas, docente e pesquisadora do ITP-UNIT.", "photo": "assets/img/time/adriana.webp" },
+  { "name": "Cochiran Pereira dos Santos", "role": "Coordenador de Educação Científica", "bio": "Físico e Doutor em Ciência e Engenharia de Materiais, operador do CMNano - UFS e Embaixador do CNPEM em Sergipe.", "photo": "assets/img/time/cochiran.webp" },
+  { "name": "Celso Hiroshi Hayasi", "role": "Coordenador de Gestão Estratégica", "bio": "Engenheiro de Produção Mecânica, Diretor da Cerâmica Capri, idealizador da Acelerase Venture Builder e Presidente do Concese.", "photo": "assets/img/time/hiro.webp" },
+  { "name": "Fábio Cleisto Alda Dossi", "role": "Conselheiro Fiscal", "bio": "Biólogo e Doutor em Entomologia e integra o NUESC - ITP.", "photo": "assets/img/time/fabio.webp" },
+  { "name": "Lara da Costa Nunes Barbosa", "role": "Associada Fundadora", "bio": "Astrofísica e Mestranda em Física & Astrofísica no DF - UFMG.", "photo": "assets/img/time/lara.webp" }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "slug": "energia-sustentavel",
+    "title": "Energia Sustentável é Fundamental",
+    "edition": "Edição 2024–2025",
+    "year": "2024–25",
+    "partner": "concese",
+    "url": "projetos/energia-sustentavel/",
+    "cover": "assets/img/projetos/energia-sustentavel.webp",
+    "tags": ["Kits experimentais", "Formação docente", "Publicações", "Visita técnica"],
+    "places": ["Aracaju", "Simão Dias"],
+    "summary": "O projeto “Energia Sustentável é Fundamental”, realizado em parceria com o CONCESE, focou na promoção da educação científica e ambiental em escolas públicas de Aracaju e Simão Dias. A ação contou com a entrega de kits de experimentos de baixo custo, abordando dez diferentes temas, dentre eles Eletrostática, Eletromagnetismo, Geração de Energia e Perigos da Eletricidade. Além disso, ocorreu capacitações docentes e visitas técnicas, como à Usina Hidrelétrica de Xingó. A metodologia utilizou a experimentação para conectar conteúdos curriculares ao cotidiano, resultando em mostras científicas e na publicação de 12 obras didáticas.",
+    "stats": [
+      { "value": 10, "label": "temas de kits experimentais" },
+      { "value": 12, "label": "obras didáticas publicadas" },
+      { "value": 2,  "label": "municípios atendidos" },
+      { "value": 13, "label": "registros em vídeo" }
+    ],
+    "journey": [
+      { "title": "Kits nas escolas", "text": "Entrega de kits de experimentos de baixo custo em escolas públicas de Aracaju e Simão Dias, abordando dez temas de eletricidade e energia." },
+      { "title": "Capacitação docente", "text": "Formação dos professores para conduzir as atividades experimentais e conectar o currículo ao cotidiano." },
+      { "title": "Visita técnica", "text": "Estudantes e educadores na Usina Hidrelétrica de Xingó: a geração de energia vista de perto." },
+      { "title": "Mostras científicas", "text": "Os estudantes apresentam o que construíram e aprenderam em mostras científicas abertas." },
+      { "title": "Publicações", "text": "Doze obras didáticas publicadas, que permanecem como legado para as escolas." }
+    ],
+    "report": { "file": "projetos/ESEF/RELATORIO_ESEF.pdf", "cover": "assets/img/capas/relatorio-esef.webp" },
+    "reels": [
+      "https://www.instagram.com/reel/DQEj2jwAFnc/",
+      "https://www.instagram.com/reel/DIWWeUcOOGe/",
+      "https://www.instagram.com/reel/DI7DJYcyVz0/",
+      "https://www.instagram.com/reel/DI8pqPZuKCu/",
+      "https://www.instagram.com/reel/DI_ar_4Ov1v/",
+      "https://www.instagram.com/reel/DJpLROqOLSR/",
+      "https://www.instagram.com/reel/DJ_pz4CAIOk/",
+      "https://www.instagram.com/reel/DKCFXT8gkok/",
+      "https://www.instagram.com/reel/DMfj1QCsZeI/",
+      "https://www.instagram.com/reel/DOL7LF0gPuw/",
+      "https://www.instagram.com/reel/DOOIzcVgBNx/",
+      "https://www.instagram.com/reel/DP1hgt1AH7y/",
+      "https://www.instagram.com/reel/DP1iyBngAyY/"
+    ],
+    "scene": "projetos/energia-sustentavel/scene.js"
+  }
+]
