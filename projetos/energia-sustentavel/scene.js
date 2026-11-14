@@ -8,6 +8,7 @@
 export function mount(container, { THREE }) {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+  renderer.setClearColor(0x000000, 0);   // fundo 100% transparente: o cosmos aparece sem 'janela' escura
   container.append(renderer.domElement);
 
   const scene = new THREE.Scene();

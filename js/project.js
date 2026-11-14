@@ -19,7 +19,7 @@ const bind = (k) => $(`[data-bind="${k}"]`);
 if (hasGSAP() && !reducedMotion) document.documentElement.classList.add('anim');
 initScroll();
 initNav();
-const cosmos = createCosmos($('#field'), { sections: $$('[data-phase]') });
+const cosmos = createCosmos($('#field'), { sections: $$('[data-phase]'), mode: 'wormhole' });
 
 // chegada pelo buraco de minhoca: a página "sai do outro lado"
 if (document.documentElement.classList.contains('from-wormhole')) {
@@ -45,7 +45,8 @@ if (document.documentElement.classList.contains('from-wormhole')) {
   bind('summary').textContent = p.summary;
 
   bind('stats').append(...p.stats.map((s) => h('li', {},
-    h('strong', { class: 'stat__n', 'data-count': String(s.value) }, String(s.value)), h('span', {}, s.label))));
+    h('strong', { class: 'stat__n' }, s.prefix ? h('span', { class: 'stat__pre' }, s.prefix) : null,
+      h('span', { 'data-count': String(s.value) }, String(s.value))), h('span', {}, s.label))));
 
   bind('journey').append(...p.journey.map((j, i) => h('li', { class: 'journey__step', 'data-reveal': '' },
     h('span', { class: 'mono journey__n' }, String(i + 1).padStart(2, '0')),

@@ -18,6 +18,7 @@
 .stage__progress { margin-top: 18px; color: var(--c-cyan); }
 
 .p-stats { margin-top: 0; }
+@media (min-width: 760px) { .p-stats { grid-template-columns: repeat(3, 1fr); } .p-stats li:nth-child(3n) { border-right: 0; } .p-stats li:nth-child(n+4) { padding-left: 18px; } .p-stats li:nth-child(3n+1) { padding-left: 0; } }
 .p-summary { font-size: var(--t-lead); max-width: 62ch; color: var(--c-muted); margin-top: clamp(40px, 6vw, 80px); line-height: 1.6; }
 
 .journey { counter-reset: j; display: grid; gap: 0; margin-top: clamp(40px, 6vw, 80px); border-left: 1px solid var(--c-line); }

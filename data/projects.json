@@ -7,23 +7,70 @@
     "partner": "concese",
     "url": "projetos/energia-sustentavel/",
     "cover": "assets/img/projetos/energia-sustentavel.webp",
-    "tags": ["Kits experimentais", "Formação docente", "Publicações", "Visita técnica"],
-    "places": ["Aracaju", "Simão Dias"],
+    "tags": [
+      "Kits experimentais",
+      "Formação docente",
+      "Publicações",
+      "Visita técnica"
+    ],
+    "places": [
+      "Aracaju",
+      "Simão Dias"
+    ],
     "summary": "O projeto “Energia Sustentável é Fundamental”, realizado em parceria com o CONCESE, focou na promoção da educação científica e ambiental em escolas públicas de Aracaju e Simão Dias. A ação contou com a entrega de kits de experimentos de baixo custo, abordando dez diferentes temas, dentre eles Eletrostática, Eletromagnetismo, Geração de Energia e Perigos da Eletricidade. Além disso, ocorreu capacitações docentes e visitas técnicas, como à Usina Hidrelétrica de Xingó. A metodologia utilizou a experimentação para conectar conteúdos curriculares ao cotidiano, resultando em mostras científicas e na publicação de 12 obras didáticas.",
     "stats": [
-      { "value": 10, "label": "temas de kits experimentais" },
-      { "value": 12, "label": "obras didáticas publicadas" },
-      { "value": 2,  "label": "municípios atendidos" },
-      { "value": 13, "label": "registros em vídeo" }
+      {
+        "value": 99,
+        "label": "experimentos entregues (33 tipos × 3 unidades)"
+      },
+      {
+        "value": 33,
+        "label": "experimentos diferentes"
+      },
+      {
+        "value": 5,
+        "label": "escolas públicas atendidas"
+      },
+      {
+        "value": 300,
+        "prefix": "≈",
+        "label": "pessoas alcançadas — estudantes, docentes e profissionais (estimativa)"
+      },
+      {
+        "value": 2,
+        "label": "municípios: Aracaju e Simão Dias"
+      },
+      {
+        "value": 12,
+        "label": "obras didáticas com ISBN"
+      }
     ],
     "journey": [
-      { "title": "Kits nas escolas", "text": "Entrega de kits de experimentos de baixo custo em escolas públicas de Aracaju e Simão Dias, abordando dez temas de eletricidade e energia." },
-      { "title": "Capacitação docente", "text": "Formação dos professores para conduzir as atividades experimentais e conectar o currículo ao cotidiano." },
-      { "title": "Visita técnica", "text": "Estudantes e educadores na Usina Hidrelétrica de Xingó: a geração de energia vista de perto." },
-      { "title": "Mostras científicas", "text": "Os estudantes apresentam o que construíram e aprenderam em mostras científicas abertas." },
-      { "title": "Publicações", "text": "Doze obras didáticas publicadas, que permanecem como legado para as escolas." }
+      {
+        "title": "Kits nas escolas",
+        "text": "Entrega de 33 experimentos diferentes, em 3 unidades cada (99 ao todo), para escolas públicas de Aracaju e Simão Dias, abordando dez temas de eletricidade e energia."
+      },
+      {
+        "title": "Capacitação docente",
+        "text": "Formação dos professores para conduzir as atividades experimentais e conectar o currículo ao cotidiano."
+      },
+      {
+        "title": "Visita técnica",
+        "text": "Estudantes e educadores na Usina Hidrelétrica de Xingó: a geração de energia vista de perto."
+      },
+      {
+        "title": "Mostras científicas",
+        "text": "Os estudantes apresentam o que construíram e aprenderam em mostras científicas abertas."
+      },
+      {
+        "title": "Publicações",
+        "text": "Doze obras didáticas com ISBN, que permanecem como legado para as escolas."
+      }
     ],
-    "report": { "file": "projetos/ESEF/RELATORIO_ESEF.pdf", "cover": "assets/img/capas/relatorio-esef.webp" },
+    "report": {
+      "file": "projetos/ESEF/RELATORIO_ESEF.pdf",
+      "cover": "assets/img/capas/relatorio-esef.webp"
+    },
     "reels": [
       "https://www.instagram.com/reel/DQEj2jwAFnc/",
       "https://www.instagram.com/reel/DIWWeUcOOGe/",

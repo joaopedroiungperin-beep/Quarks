@@ -42,7 +42,8 @@ documents/ assembleias/     PDFs oficiais
 | Parceiros | `data/partners.json` |
 | Time | `data/team.json` |
 | Obras e ISBNs | `data/publications.json` (`items`: série do projeto, exibida na estante; `others`: demais publicações) |
-| Documentos de transparência | `data/documents.json` (`"status": "em-publicacao"` mostra a tag e não cria link) |
+| Documentos de transparência | `data/documents.json` (`"status": "em-publicacao"` mostra a tag e não cria link; `note` aparece no painel) |
+| Funções no DITeQ (NIT) | campo `diteq` em `data/team.json` |
 | Estudos citados | `data/studies.json` |
 
 Para incluir um novo parceiro, adicione um objeto em `partners.json` com o logo em `assets/img/parceiros/`. Ele aparece automaticamente na rede cristalina e na lista.
@@ -77,10 +78,11 @@ A rolagem é o "tempo cósmico". Cada seção declara sua fase em `data-phase`, 
 | 5 | Buraco negro + radiação Hawking | Portfólio |
 | 6 | Evaporação e rasgo (bolha de novo vácuo) | Parceiros |
 | 7 | Universo estranho: gravidade intensa, raios, mar de polaritons; o cursor cria um vórtice quântico | Sobre |
-| 8 | Vácuo quântico | Transparência |
-| 9 | Nova nebulosa | Participe, rodapé |
+| 8 | Rasgo tridimensional: tempo dilatado, eletricidade estática, forças forte/fraca/eletromagnética se aproximando | DITeQ, Transparência |
+| 9 | Grande Colapso (Big Crunch) | Participe / Contato |
+| 10 | Singularidade → Big Bang (dispara ao chegar ao fim da página) | Rodapé |
 
-Ao clicar num link com `data-wormhole`, a partícula virtual seguida entra num buraco de minhoca e a página do projeto começa saindo do outro lado. Use só fases adjacentes entre seções vizinhas: um salto de 0 para 7 atravessaria todas as fases intermediárias.
+Ao clicar num link com `data-wormhole`, a partícula virtual seguida entra num buraco de minhoca. Na página do projeto (`createCosmos(..., { mode: 'wormhole' })`) a travessia acompanha a rolagem e a saída, no universo estranho, acontece no fim da página. Use só fases adjacentes entre seções vizinhas: um salto de 0 para 7 atravessaria todas as fases intermediárias.
 
 O fundo mede o próprio fps e, se ele ficar baixo, reduz resolução e detalhe sozinho. No console, `__cosmos.debug()` mostra a fase atual e o nível de qualidade, e `__cosmos.force(6.4)` fixa uma fase para inspeção (`force(null)` volta à rolagem).
 

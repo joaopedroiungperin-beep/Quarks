@@ -195,6 +195,7 @@ export async function initTeam() {
       h('img', { src: asset(m.photo), alt: `Foto de ${m.name}`, loading: 'lazy', width: '480', height: '640' }),
       h('div', { class: 'member__info' },
         h('p', { class: 'member__role' }, m.role),
+        m.diteq ? h('p', { class: 'member__diteq' }, `DITeQ · ${m.diteq}`) : null,
         h('h4', {}, m.name),
         h('p', { class: 'member__bio' }, m.bio),
       )));
@@ -232,6 +233,7 @@ export async function initTransparency() {
     const content = h('div', {},
       h('p', { class: 'mono drawer__crumb' }, `Transparência / ${cat.title}`),
       h('h2', { id: 'drawerTitle' }, item.title + (item.date ? ` · ${item.date}` : '')),
+      item.note ? h('p', { class: 'tag tag--pending', style: 'margin-bottom:18px' }, item.note) : null,
       h('div', { class: 'drawer__files' }, item.files.map((f) =>
         h('a', { class: 'drawer__file', href: asset(f.file), target: '_blank', rel: 'noopener' },
           f.cover ? h('img', { src: asset(f.cover), alt: '', loading: 'lazy' }) : h('span', { class: 'doc__thumb', html: ICON_DOC }),
@@ -281,4 +283,12 @@ export async function initTransparency() {
     n.focus(); n.click();
   });
   render(cats[0]);
+
+  // atalhos externos para uma aba (ex.: botão na seção DITeQ)
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('[data-doc-tab]');
+    if (!a) return;
+    const btn = document.getElementById(`tab-${a.dataset.docTab}`);
+    if (btn) setTimeout(() => btn.click(), 50);
+  });
 }
