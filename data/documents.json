@@ -111,9 +111,13 @@
             "label": "Convocação",
             "file": "documents/DITeQ/Convocacao para reuniao da diretoria.pdf",
             "cover": "assets/img/capas/diteq-convocacao.webp"
+          },
+          {
+            "label": "Ata",
+            "file": "documents/DITeQ/ATA_-_REUNIAO_DA_DIRETORIA_-_18_02_2026.pdf",
+            "cover": "assets/img/capas/diteq-ata.webp"
           }
-        ],
-        "note": "Ata em revisão para publicação (proteção de dados pessoais)."
+        ]
       }
     ]
   },
