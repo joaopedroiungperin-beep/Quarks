@@ -3,47 +3,252 @@
     "id": "institucional",
     "title": "Institucional",
     "items": [
-      { "title": "Estatuto Social Atualizado", "files": [{ "label": "Estatuto Social", "file": "documents/institucional/ESTATUTO_SOCIAL_ATUALIZADO_DO_CLUBE_DE_CIENCIAS_QUARKS.pdf", "cover": "assets/img/capas/estatuto-social-atualizado-do-clube-de-ciencias.webp" }] },
-      { "title": "Cadastro Nacional de Pessoa Jurídica", "files": [{ "label": "CNPJ", "file": "documents/institucional/CNPJ.pdf", "cover": "assets/img/capas/cnpj.webp" }] },
-      { "title": "Comprovante de Inscrição do Contribuinte", "files": [{ "label": "Comprovante", "file": "documents/institucional/COMPROVANTE_DE_INSCRICAO_DO_CONTRIBUINTE.pdf", "cover": "assets/img/capas/comprovante-de-inscricao-do-contribuinte.webp" }] },
-      { "title": "Alvará de Localização e Funcionamento", "files": [{ "label": "Alvará", "file": "documents/institucional/ALVARA_DE_LOCALIZACAO_E_FUNCIONAMENTO.pdf", "cover": "assets/img/capas/alvara-de-localizacao-e-funcionamento.webp" }] },
-      { "title": "Regimento de Cargos & Salários", "files": [{ "label": "Regimento", "file": "documents/institucional/REGIMENTO_DE_CARGOS_&_SALARIOS_DO_CLUBE_DE _CIENCIAS_QUARKS.pdf", "cover": "assets/img/capas/regimento-de-cargos-salarios-do-clube-de-ciencias.webp" }] }
+      {
+        "title": "Estatuto Social Atualizado",
+        "files": [
+          {
+            "label": "Estatuto Social",
+            "file": "documents/institucional/ESTATUTO_SOCIAL_ATUALIZADO_DO_CLUBE_DE_CIENCIAS_QUARKS.pdf",
+            "cover": "assets/img/capas/estatuto-social-atualizado-do-clube-de-ciencias.webp"
+          }
+        ]
+      },
+      {
+        "title": "Certidão de Registro da Ata de Fundação e Estatuto",
+        "date": "Cartório do 10º Ofício de Aracaju · 01/08/2024",
+        "files": [
+          {
+            "label": "Certidão",
+            "file": "documents/institucional/3 - CERTIDÃO - QUARKS - fundação.pdf",
+            "cover": "assets/img/capas/certidao-fundacao.webp"
+          }
+        ]
+      },
+      {
+        "title": "Cadastro Nacional de Pessoa Jurídica",
+        "files": [
+          {
+            "label": "CNPJ",
+            "file": "documents/institucional/CNPJ.pdf",
+            "cover": "assets/img/capas/cnpj.webp"
+          }
+        ]
+      },
+      {
+        "title": "Comprovante de Inscrição do Contribuinte",
+        "files": [
+          {
+            "label": "Comprovante",
+            "file": "documents/institucional/COMPROVANTE_DE_INSCRICAO_DO_CONTRIBUINTE.pdf",
+            "cover": "assets/img/capas/comprovante-de-inscricao-do-contribuinte.webp"
+          }
+        ]
+      },
+      {
+        "title": "Alvará de Localização e Funcionamento",
+        "files": [
+          {
+            "label": "Alvará",
+            "file": "documents/institucional/ALVARA_DE_LOCALIZACAO_E_FUNCIONAMENTO.pdf",
+            "cover": "assets/img/capas/alvara-de-localizacao-e-funcionamento.webp"
+          }
+        ]
+      },
+      {
+        "title": "Regimento de Cargos & Salários",
+        "files": [
+          {
+            "label": "Regimento",
+            "file": "documents/institucional/REGIMENTO_DE_CARGOS_&_SALARIOS_DO_CLUBE_DE _CIENCIAS_QUARKS.pdf",
+            "cover": "assets/img/capas/regimento-de-cargos-salarios-do-clube-de-ciencias.webp"
+          }
+        ]
+      },
+      {
+        "title": "Imunidade Tributária (ISS) e Isenção de TLF",
+        "date": "Parecer SEMFAZ/Aracaju nº 2007/2025 · 17/09/2025",
+        "files": [
+          {
+            "label": "Parecer de reconhecimento",
+            "file": "documents/institucional/imunidade_iss.pdf",
+            "cover": "assets/img/capas/imunidade-iss.webp"
+          }
+        ]
+      },
+      {
+        "title": "Plano Anual de Atividades e Metas — PAM 2025",
+        "date": "Planejamento e cumprimento de metas",
+        "files": [
+          {
+            "label": "PAM 2025",
+            "file": "documents/institucional/PAM 2025.pdf",
+            "cover": "assets/img/capas/pam-2025.webp"
+          }
+        ]
+      }
     ]
   },
   {
     "id": "assembleias",
     "title": "Assembleias",
     "items": [
-      { "title": "Assembleia de Fundação", "date": "Junho de 2024", "files": [
-        { "label": "Convocação", "file": "assembleias/EDITAL_DE_CONVOCACAOO_PARA_ASSEMBLEIA_DE_FUNDACAO_QUARKS.pdf", "cover": "assets/img/capas/edital-de-convocacaoo-para-assembleia-de-fundacao.webp" },
-        { "label": "Ata", "file": "assembleias/ATA_DA_ASSEMBLEIA_DE_FUNDACAO_QUARKS.pdf", "cover": "assets/img/capas/ata-da-assembleia-de-fundacao.webp" } ] },
-      { "title": "Assembleia Geral Ordinária", "date": "Fevereiro de 2025", "files": [
-        { "label": "Convocação", "file": "assembleias/EDITAL_DE_CONVOCACAO_PARA_ASSEMBLEIA_GERAL_ORDINARIA_QUARKS_JANEIRO_2025.pdf", "cover": "assets/img/capas/edital-de-convocacao-para-assembleia-geral-ordinaria-janeiro-2025.webp" },
-        { "label": "Ata", "file": "assembleias/ATA_DA_ASSEMBLEIA_GERAL_ORDINARIA_2025_QUARKS.PDF", "cover": "assets/img/capas/ata-da-assembleia-geral-ordinaria-2025.webp" } ] },
-      { "title": "Assembleia Extraordinária", "date": "Junho de 2025", "files": [
-        { "label": "Convocação", "file": "assembleias/EDITAL_DE_CONVOCACAO_PARA_ASSEMBLEIA_DE_ALTERACAO_DE_ENDERECO_QUARKS.pdf", "cover": "assets/img/capas/edital-de-convocacao-para-assembleia-de-alteracao-de-endereco.webp" },
-        { "label": "Ata", "file": "assembleias/ATA_DA_ASSEMBLEIA_DE_ALTERACAO_DE_ENDERECO_QUARKS.pdf", "cover": "assets/img/capas/ata-da-assembleia-de-alteracao-de-endereco.webp" } ] },
-      { "title": "Assembleia Extraordinária", "date": "Setembro de 2025", "files": [
-        { "label": "Convocação", "file": "assembleias/EDITAL_DE_CONVOCACAO_ASSEMBLEIA_EXTRAORDINARIA_SETEMBRO_2025_QUARKS.pdf", "cover": "assets/img/capas/edital-de-convocacao-assembleia-extraordinaria-setembro-2025.webp" },
-        { "label": "Ata", "file": "assembleias/ATA_DA_ASSEMBLEIA_EXTRAORDINARIA_SETEMBRO_2025_QUARKS.pdf", "cover": "assets/img/capas/ata-da-assembleia-extraordinaria-setembro-2025.webp" } ] },
-      { "title": "Assembleia Geral Ordinária", "date": "Fevereiro de 2026", "status": "em-publicacao", "files": [] }
+      {
+        "title": "Assembleia de Fundação",
+        "date": "Junho de 2024",
+        "files": [
+          {
+            "label": "Convocação",
+            "file": "assembleias/EDITAL_DE_CONVOCACAOO_PARA_ASSEMBLEIA_DE_FUNDACAO_QUARKS.pdf",
+            "cover": "assets/img/capas/edital-de-convocacaoo-para-assembleia-de-fundacao.webp"
+          },
+          {
+            "label": "Ata",
+            "file": "assembleias/ATA_DA_ASSEMBLEIA_DE_FUNDACAO_QUARKS.pdf",
+            "cover": "assets/img/capas/ata-da-assembleia-de-fundacao.webp"
+          }
+        ]
+      },
+      {
+        "title": "Assembleia Geral Ordinária",
+        "date": "Fevereiro de 2025",
+        "files": [
+          {
+            "label": "Convocação",
+            "file": "assembleias/EDITAL_DE_CONVOCACAO_PARA_ASSEMBLEIA_GERAL_ORDINARIA_QUARKS_JANEIRO_2025.pdf",
+            "cover": "assets/img/capas/edital-de-convocacao-para-assembleia-geral-ordinaria-janeiro-2025.webp"
+          },
+          {
+            "label": "Ata",
+            "file": "assembleias/ATA_DA_ASSEMBLEIA_GERAL_ORDINARIA_2025_QUARKS.PDF",
+            "cover": "assets/img/capas/ata-da-assembleia-geral-ordinaria-2025.webp"
+          }
+        ]
+      },
+      {
+        "title": "Assembleia Extraordinária",
+        "date": "Junho de 2025",
+        "files": [
+          {
+            "label": "Convocação",
+            "file": "assembleias/EDITAL_DE_CONVOCACAO_PARA_ASSEMBLEIA_DE_ALTERACAO_DE_ENDERECO_QUARKS.pdf",
+            "cover": "assets/img/capas/edital-de-convocacao-para-assembleia-de-alteracao-de-endereco.webp"
+          },
+          {
+            "label": "Ata",
+            "file": "assembleias/ATA_DA_ASSEMBLEIA_DE_ALTERACAO_DE_ENDERECO_QUARKS.pdf",
+            "cover": "assets/img/capas/ata-da-assembleia-de-alteracao-de-endereco.webp"
+          }
+        ]
+      },
+      {
+        "title": "Assembleia Extraordinária",
+        "date": "Setembro de 2025",
+        "files": [
+          {
+            "label": "Convocação",
+            "file": "assembleias/EDITAL_DE_CONVOCACAO_ASSEMBLEIA_EXTRAORDINARIA_SETEMBRO_2025_QUARKS.pdf",
+            "cover": "assets/img/capas/edital-de-convocacao-assembleia-extraordinaria-setembro-2025.webp"
+          },
+          {
+            "label": "Ata",
+            "file": "assembleias/ATA_DA_ASSEMBLEIA_EXTRAORDINARIA_SETEMBRO_2025_QUARKS.pdf",
+            "cover": "assets/img/capas/ata-da-assembleia-extraordinaria-setembro-2025.webp"
+          }
+        ]
+      },
+      {
+        "title": "Assembleia Geral Ordinária",
+        "date": "Março de 2026",
+        "files": [
+          {
+            "label": "Convocação",
+            "file": "assembleias/EDITAL DE CONVOCAÇÃO - ASSEMBLEIA ORDINÁRIA - 2026 - QUARKS.pdf",
+            "cover": "assets/img/capas/edital-assembleia-geral-ordinaria-2026.webp"
+          },
+          {
+            "label": "Ata",
+            "file": "assembleias/ATA_DA_ASSEMBLEIA_GERAL_ORDINARIA_-_2026_assinado.pdf",
+            "cover": "assets/img/capas/ata-assembleia-geral-ordinaria-2026.webp"
+          }
+        ]
+      },
+      {
+        "title": "Assembleia Extraordinária",
+        "date": "Julho de 2026",
+        "files": [
+          {
+            "label": "Convocação",
+            "file": "assembleias/EDITAL DE CONVOCAÇÃO - assembleia extraordinária - junho de 2026 - QUARKS.pdf",
+            "cover": "assets/img/capas/edital-assembleia-extraordinaria-julho-2026.webp"
+          },
+          {
+            "label": "Ata",
+            "file": "assembleias/ATA_ASSEMBLEIA_EXTRAORDINARIA_julho_2026.pdf",
+            "cover": "assets/img/capas/ata-assembleia-extraordinaria-julho-2026.webp"
+          }
+        ]
+      }
     ]
   },
   {
     "id": "financas",
     "title": "Finanças",
     "items": [
-      { "title": "Exercício 2024", "date": "Balanço Anual · DRE · DFC", "status": "em-publicacao", "files": [] },
-      { "title": "Exercício 2025", "date": "Balanço Anual · DRE · DFC", "status": "em-publicacao", "files": [] },
-      { "title": "Exercício 2026", "date": "Balanço Anual · DRE · DFC", "status": "em-publicacao", "files": [] }
+      {
+        "title": "Exercício 2024",
+        "date": "Agosto a dezembro de 2024",
+        "files": [
+          {
+            "label": "Balancetes mensais (agosto–dezembro)",
+            "file": "documents/financas/08_2024 -_ 12_2025/2024/Balancetes/Balancetes agosto-dezembro 2024 (Assinado).pdf",
+            "cover": "assets/img/capas/balancetes-2024.webp"
+          },
+          {
+            "label": "Demonstrativo de Resultado do Exercício (DRE)",
+            "file": "documents/financas/08_2024 -_ 12_2025/2024/DRE/Demonstrativo de Resultado do Exercício 2024 (Assinado).pdf",
+            "cover": "assets/img/capas/dre-2024.webp"
+          }
+        ]
+      },
+      {
+        "title": "Exercício 2025",
+        "date": "Janeiro a dezembro de 2025",
+        "files": [
+          {
+            "label": "Balanço Patrimonial",
+            "file": "documents/financas/08_2024 -_ 12_2025/2025/Balanço Patrimonial/Balanço Patrimonial 2025.pdf",
+            "cover": "assets/img/capas/balanco-patrimonial-2025.webp"
+          },
+          {
+            "label": "Demonstrativo de Resultado do Exercício (DRE)",
+            "file": "documents/financas/08_2024 -_ 12_2025/2025/DRE/DRE_2025.pdf",
+            "cover": "assets/img/capas/dre-2025.webp"
+          }
+        ]
+      },
+      {
+        "title": "Exercício 2026",
+        "date": "Documentos contábeis",
+        "status": "em-publicacao",
+        "files": []
+      }
     ]
   },
   {
     "id": "projetos",
     "title": "Projetos",
     "items": [
-      { "title": "Energia Sustentável é Fundamental", "date": "Edição 2024–2025", "files": [
-        { "label": "Relatório Final do Projeto", "file": "projetos/ESEF/RELATORIO_ESEF.pdf", "cover": "assets/img/capas/relatorio-esef.webp" } ] }
+      {
+        "title": "Energia Sustentável é Fundamental",
+        "date": "Edição 2024–2025",
+        "files": [
+          {
+            "label": "Relatório Final do Projeto",
+            "file": "projetos/ESEF/RELATORIO_ESEF.pdf",
+            "cover": "assets/img/capas/relatorio-esef.webp"
+          }
+        ]
+      }
     ]
   }
 ]
