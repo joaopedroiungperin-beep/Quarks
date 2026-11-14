@@ -1,5 +1,6 @@
 /* Preloader: uma massa presa a uma mola oscila em movimento harmônico amortecido
    real, x(t) = −A·e^(−γt)·cos(ωt), e se estabiliza como o núcleo da marca Quarks.
+   A mola aparece comprimida, é "carregada" por um instante e então é solta.
    Em seguida os arcos e as letras são desenhados.
 
    Fluidez: mola e massa ficam em camadas próprias e só recebem `transform`
@@ -16,10 +17,12 @@ const VIEW = `${VB.x} ${VB.y} ${VB.w} ${VB.h}`;
 const ANCHOR_Y = -140;
 const REST = NUCLEUS_TOP;              // ponta da mola em repouso (topo do núcleo)
 const L = REST - ANCHOR_Y;             // comprimento de repouso
-const AMP = 105;                       // compressão inicial (unidades do SVG)
-const OMEGA = 2 * Math.PI * 1.55;      // frequência angular
-const GAMMA = 4.1;                     // amortecimento
-const SETTLE = 1.2;                    // s — amplitude residual < 1 unidade
+const AMP = 190;                       // compressão inicial (unidades do SVG) → mola a ~50% do comprimento
+const PRELOAD = 0.8;                   // começa em 80% da compressão e termina de "carregar"
+const HOLD = 0.6;                      // s — mola comprimida visível antes de ser solta
+const OMEGA = 2 * Math.PI * 1.5;       // frequência angular
+const GAMMA = 3.6;                     // amortecimento
+const SETTLE = 1.45;                   // s após soltar — amplitude residual < 1 unidade
 const COILS = 16;
 
 const svg = (cls, inner, extra = '') =>
@@ -88,7 +91,7 @@ export function runPreloader() {
     n.mass.style.transform = `translate3d(0, ${(x / VB.h) * 100}%, 0)`;
     n.spring.style.transform = `scaleY(${(L + x) / L})`;
   };
-  place(-AMP);
+  place(-AMP * PRELOAD);
 
   let skipped = false;
   const skip = () => { skipped = true; };
@@ -104,8 +107,18 @@ export function runPreloader() {
     const tick = (now) => {
       if (t0 === null) t0 = now;
       const t = (now - t0) / 1000;
-      if (t < SETTLE && !skipped) {
-        place(-AMP * Math.exp(-GAMMA * t) * Math.cos(OMEGA * t));
+      if (!skipped && t < HOLD) {
+        // fase 1: a mola aparece comprimida e termina de ser "carregada"
+        // (ease-in-out → velocidade zero no instante da soltura)
+        const k = t / HOLD;
+        const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+        place(-AMP * (PRELOAD + (1 - PRELOAD) * e));
+        requestAnimationFrame(tick);
+        return;
+      }
+      const tr = t - HOLD; // fase 2: soltura → oscilação amortecida a partir da compressão máxima
+      if (!skipped && tr < SETTLE) {
+        place(-AMP * Math.exp(-GAMMA * tr) * Math.cos(OMEGA * tr));
         requestAnimationFrame(tick);
         return;
       }
