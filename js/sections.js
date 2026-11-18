@@ -67,24 +67,301 @@ export async function initShowcase() {
 export function initBenefits() {
   const items = $$('.benefits__list li');
   const meter = $('#benefitIndex');
+  const note = $('#benefitNote');
+  const viz = $('.bviz');
+  const icons = $$('.bviz__icon');
+  const ticks = $$('.bviz__ticks circle');
+  const list = $('.benefits__list');
   if (!items.length) return;
+  let cur = -1;
   const setActive = (n) => {
+    if (n === cur) return;
+    cur = n;
     items.forEach((li, i) => { li.classList.toggle('is-on', i <= n); li.classList.toggle('is-current', i === n); });
-    if (meter) meter.textContent = String(n + 1).padStart(2, '0');
+    icons.forEach((g, i) => g.classList.toggle('is-current', i === n));
+    ticks.forEach((t, i) => t.classList.toggle('is-on', i <= n));
+    if (meter) meter.style.setProperty('--i', n); // odômetro: a faixa 01…07 desliza
+    if (note) { note.classList.remove('is-in'); void note.offsetWidth; note.textContent = items[n].dataset.note || ''; note.classList.add('is-in'); }
+    // régua graduada: preenche até o centro do tópico atual
+    if (list) { const li = items[n]; list.style.setProperty('--fill', ((li.offsetTop + li.offsetHeight / 2) / list.offsetHeight).toFixed(4)); }
   };
-  if (!hasGSAP() || reducedMotion) { items.forEach((li) => li.classList.add('is-on')); return; }
+  // progresso contínuo: o anel avança a cada pixel de rolagem, não só a cada troca de tópico
+  const setProgress = (p) => viz && viz.style.setProperty('--p', p.toFixed(4));
+  if (!hasGSAP() || reducedMotion) {
+    setActive(0); setProgress(1 / items.length);
+    if (!('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting) { const i = items.indexOf(e.target); setActive(i); setProgress((i + 1) / items.length); }
+    }), { rootMargin: '-45% 0px -45% 0px' });
+    items.forEach((li) => io.observe(li));
+    return;
+  }
   const { gsap } = window;
   const mm = gsap.matchMedia();
   mm.add('(min-width: 960px)', () => {
     window.ScrollTrigger.create({
-      trigger: '#benefits', start: 'top top', end: '+=' + items.length * 55 + '%', pin: '.benefits__inner', scrub: true,
-      onUpdate: (st) => setActive(Math.min(items.length - 1, Math.floor(st.progress * items.length))),
+      trigger: '#benefits', start: 'top top', end: '+=' + items.length * 38 + '%', pin: '.benefits__inner', scrub: true,
+      onUpdate: (st) => { setProgress(st.progress); setActive(Math.min(items.length - 1, Math.floor(st.progress * items.length))); },
     });
   });
   mm.add('(max-width: 959px)', () => {
-    items.forEach((li, i) => window.ScrollTrigger.create({ trigger: li, start: 'top 70%', onEnter: () => setActive(i), onLeaveBack: () => setActive(Math.max(0, i - 1)) }));
+    window.ScrollTrigger.create({ trigger: list, start: 'top 60%', end: 'bottom 60%', onUpdate: (st) => setProgress(st.progress) });
+    items.forEach((li, i) => window.ScrollTrigger.create({ trigger: li, start: 'top 60%', onEnter: () => setActive(i), onLeaveBack: () => setActive(Math.max(0, i - 1)) }));
   });
   setActive(0);
+  window.addEventListener('resize', () => { const n = cur; cur = -1; setActive(Math.max(0, n)); }, { passive: true });
+}
+
+/* ---------- 01 · IDEB: o Brasil se desenha e a lupa amplia Sergipe ---------- */
+// cada parte do mapa tem uma janela [a, b] dentro do progresso da rolagem (--m, 0→1)
+const MAP_STEPS = [
+  ['#brrasil\\.svg', 0, 0.42, 'draw'],                 // contorno do Brasil
+  ['.str0', 0.32, 0.46, 'draw'],                       // Sergipe, pequeno
+  ['.str2, .str7', 0.42, 0.54, 'draw'],                // lupa sobre Sergipe
+  ['line', 0.5, 0.64, 'draw'],                         // feixes até a lente
+  ['.fil6', 0.56, 0.7, 'fade'],                        // cone de luz
+  ['.str3, .str5', 0.58, 0.78, 'draw zoom'],           // lente ampliada
+  ['#BRSE', 0.66, 0.9, 'draw zoom'],                   // Sergipe ampliado
+];
+export async function initIdebMap() {
+  const fig = $('.ideb__map');
+  const img = fig && fig.querySelector('img');
+  if (!img) return;
+  let svg;
+  try {
+    const txt = await fetch(img.getAttribute('src')).then((r) => r.text());
+    svg = new DOMParser().parseFromString(txt, 'image/svg+xml').querySelector('svg');
+  } catch (e) { return; } // sem SVG embutido, fica a imagem estática
+  if (!svg) return;
+  ['width', 'height', 'style'].forEach((a) => svg.removeAttribute(a));
+  svg.setAttribute('role', 'img');
+  svg.setAttribute('aria-label', img.alt);
+  MAP_STEPS.forEach(([sel, a, b, mode]) => svg.querySelectorAll(sel).forEach((el) => {
+    mode.split(' ').forEach((m) => el.classList.add('mp-' + m));
+    if (mode.includes('draw')) el.setAttribute('pathLength', '1');
+    el.style.setProperty('--a', a);
+    el.style.setProperty('--b', b);
+  }));
+  svg.querySelector('#BRSE')?.classList.add('mp-fill');
+  img.replaceWith(svg);
+  if (!hasGSAP() || reducedMotion) { svg.style.setProperty('--m', 1); return; }
+  window.ScrollTrigger.create({
+    trigger: fig, start: 'top 85%', end: 'bottom 45%', scrub: 0.6,
+    onUpdate: (st) => svg.style.setProperty('--m', st.progress.toFixed(4)),
+  });
+}
+
+/* ---------- 01 · IDEB: corrida no anel (Sergipe persegue o Brasil) ---------- */
+export function initRace() {
+  const canvas = $('#raceCanvas');
+  const btn = $('#raceBoost');
+  if (!canvas || !canvas.getContext) return;
+  const ctx = canvas.getContext('2d');
+  const dpr = Math.min(1.5, window.devicePixelRatio || 1);
+  const TOP = -Math.PI / 2;
+  const lanes = { br: { a: TOP + 0.9, v: 0.5, s: 1, c: '127,231,242' }, se: { a: TOP, v: 0.53, s: 0.8, c: '242,166,90' } };
+  let w = 0, h = 0, boost = 0, boosting = false, running = false, last = 0;
+
+  const pt = (a, s) => [w / 2 + w * 0.44 * s * Math.cos(a), h / 2 + h * 0.38 * s * Math.sin(a)];
+  const mono = '10px "JetBrains Mono", monospace';
+
+  function draw() {
+    if (!w) return;
+    ctx.clearRect(0, 0, w, h);
+    // pista: duas raias e marcações de telemetria
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(243,234,216,0.12)';
+    [1, 0.8].forEach((s) => { ctx.beginPath(); ctx.ellipse(w / 2, h / 2, w * 0.44 * s, h * 0.38 * s, 0, 0, Math.PI * 2); ctx.stroke(); });
+    for (let i = 0; i < 60; i++) {
+      const a = (i / 60) * Math.PI * 2;
+      const [x1, y1] = pt(a, 1.04);
+      const [x2, y2] = pt(a, i % 5 ? 1.07 : 1.1);
+      ctx.strokeStyle = `rgba(243,234,216,${i % 5 ? 0.12 : 0.28})`;
+      ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+    }
+    // linha de chegada: a média nacional
+    const [fx1, fy1] = pt(TOP, 0.7);
+    const [fx2, fy2] = pt(TOP, 1.1);
+    ctx.setLineDash([3, 3]); ctx.strokeStyle = 'rgba(243,234,216,0.5)';
+    ctx.beginPath(); ctx.moveTo(fx1, fy1); ctx.lineTo(fx2, fy2); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(243,234,216,0.55)'; ctx.font = mono; ctx.textAlign = 'center';
+    ctx.fillText('MÉDIA NACIONAL', w / 2, fy1 + 16);
+    // pulsos com rastro (o de Sergipe se alonga com o impulso)
+    Object.values(lanes).forEach((l) => {
+      const k = l === lanes.se ? boost : 0;
+      const len = 0.5 + k * 0.9;
+      for (let i = 0; i < 28; i++) {
+        const t = i / 27;
+        const [x, y] = pt(l.a - len * (1 - t), l.s);
+        ctx.fillStyle = `rgba(${l.c},${(t * t * 0.7).toFixed(3)})`;
+        ctx.beginPath(); ctx.arc(x, y, 1 + t * 2.4, 0, Math.PI * 2); ctx.fill();
+      }
+      const [x, y] = pt(l.a, l.s);
+      ctx.shadowColor = `rgb(${l.c})`; ctx.shadowBlur = 16 + k * 18;
+      ctx.fillStyle = `rgb(${l.c})`; ctx.beginPath(); ctx.arc(x, y, 4.5, 0, Math.PI * 2); ctx.fill();
+      ctx.shadowBlur = 0;
+    });
+    // centro: indicador de impulso
+    const on = boost > 0.05;
+    ctx.fillStyle = `rgba(242,166,90,${(0.2 + boost * 0.8).toFixed(3)})`;
+    ctx.font = `500 ${Math.round(Math.min(w, 520) / 18)}px Unbounded, sans-serif`;
+    ctx.fillText(on ? 'IMPULSO' : 'SERGIPE', w / 2, h / 2 + 4);
+    ctx.fillStyle = 'rgba(243,234,216,0.45)'; ctx.font = mono;
+    ctx.fillText(on ? 'ensino experimental' : 'acelerando', w / 2, h / 2 + 22);
+  }
+
+  const resize = () => {
+    w = canvas.clientWidth; h = canvas.clientHeight;
+    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    draw();
+  };
+
+  function frame(now) {
+    if (!running) return;
+    const dt = Math.min(0.05, (now - (last || now)) / 1000);
+    last = now;
+    boost += ((boosting ? 1 : 0) - boost) * Math.min(1, dt * 4);
+    lanes.br.a += lanes.br.v * dt;
+    lanes.se.a += (lanes.se.v + boost * 1.1) * dt;
+    draw();
+    requestAnimationFrame(frame);
+  }
+  const play = (on) => {
+    if (on === running || reducedMotion) return;
+    running = on; last = 0;
+    if (on) requestAnimationFrame(frame);
+  };
+
+  const press = (on) => {
+    boosting = on;
+    if (btn) btn.setAttribute('aria-pressed', String(on));
+    // movimento reduzido: um salto discreto em vez da aceleração contínua
+    if (reducedMotion && on) { lanes.se.a += 0.35; boost = 1; draw(); boost = 0; }
+  };
+  if (btn) {
+    btn.addEventListener('pointerdown', (e) => { try { btn.setPointerCapture(e.pointerId); } catch (err) { /* ok */ } press(true); });
+    ['pointerup', 'pointercancel', 'lostpointercapture'].forEach((ev) => btn.addEventListener(ev, () => press(false)));
+    btn.addEventListener('keydown', (e) => { if ((e.key === ' ' || e.key === 'Enter') && !e.repeat) { e.preventDefault(); press(true); } });
+    btn.addEventListener('keyup', (e) => { if (e.key === ' ' || e.key === 'Enter') press(false); });
+    btn.addEventListener('contextmenu', (e) => e.preventDefault());
+  }
+  new ResizeObserver(resize).observe(canvas);
+  // só anima enquanto o anel está na tela e a aba está visível
+  let visible = false;
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; play(visible && !document.hidden); }).observe(canvas);
+  document.addEventListener('visibilitychange', () => play(visible && !document.hidden));
+}
+
+/* ---------- 02 · A virada: sala tradicional, bancada (balança) e o método ---------- */
+export function initVirada() {
+  const bench = $('#bench');
+  const method = $('#method');
+  const steps = $$('#method li');
+
+  const onView = (el, fn, start = 'top 70%') => {
+    if (!el) return;
+    if (!hasGSAP() || reducedMotion) { fn(); return; }
+    window.ScrollTrigger.create({ trigger: el, start, once: true, onEnter: fn });
+  };
+
+  // 3. o caminho do método acende etapa por etapa
+  let lit = false;
+  const lightMethod = () => {
+    if (lit || !method) return;
+    lit = true;
+    steps.forEach((li, i) => setTimeout(() => {
+      li.classList.add('is-on');
+      method.style.setProperty('--done', i + 1);
+    }, reducedMotion ? 0 : 200 + i * 450));
+  };
+  onView(method, lightMethod, 'top 75%');
+
+  // 2. balança: caixa (x = 4) + 3 blocos à esquerda; o visitante põe blocos à direita
+  if (!bench) return;
+  const LEFT = 7, MAX = 12, PX = 180, PY = 64, ARM = 120;
+  const beam = $('.bench__beam', bench);
+  const [panL, panR] = $$('.bench__pan', bench);
+  const right = $('#benchRight');
+  const out = $('#benchOut');
+  const msg = $('#benchMsg');
+  const puzzleMsg = $('#puzzleMsg');
+  const puzzleText = puzzleMsg ? puzzleMsg.textContent : '';
+  const tray = $('#benchTray');
+  const card = bench.closest('.lab__act');
+  const lab = bench.closest('.lab');
+  const st = { t: 18 }; // inclinação em graus; positivo = esquerda para baixo
+  let n = 0;
+  const render = () => {
+    const r = (st.t * Math.PI) / 180;
+    const c = Math.cos(r) * ARM, s = Math.sin(r) * ARM;
+    beam.setAttribute('transform', `rotate(${(-st.t).toFixed(2)} ${PX} ${PY})`);
+    panL.setAttribute('transform', `translate(${(PX - c).toFixed(1)} ${(PY + s).toFixed(1)})`);
+    panR.setAttribute('transform', `translate(${(PX + c).toFixed(1)} ${(PY - s).toFixed(1)})`);
+  };
+  const cube = (i) => {
+    const el = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    const attrs = { class: 'bench__cube', x: -33 + (i % 6) * 11, y: 48 - Math.floor(i / 6) * 12, width: 10, height: 10, rx: 2 };
+    Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
+    return el;
+  };
+  const setN = (next) => {
+    n = Math.max(0, Math.min(MAX, next));
+    while (right.children.length < n) right.append(cube(right.children.length));
+    while (right.children.length > n) right.lastElementChild.remove();
+    const target = Math.max(-18, Math.min(18, (LEFT - n) * 3));
+    if (hasGSAP() && !reducedMotion) window.gsap.to(st, { t: target, duration: 1.4, ease: 'elastic.out(1, 0.4)', onUpdate: render, overwrite: true });
+    else { st.t = target; render(); }
+    out.textContent = n + (n === 1 ? ' bloco' : ' blocos');
+    const solved = n === LEFT;
+    lab.classList.toggle('is-solved', solved);
+    if (solved) msg.textContent = 'Equilíbrio! 7 blocos pesam o mesmo que a caixa mais 3 — então a caixa vale 4.';
+    else if (n < LEFT) msg.textContent = 'A esquerda ainda pesa mais. Continue pondo blocos e observe o ponteiro.';
+    else msg.textContent = 'Passou do ponto: agora a direita pesa mais. Toque no prato para tirar um bloco.';
+    if (puzzleMsg) puzzleMsg.textContent = solved ? 'Depois da experiência, as peças se encaixam: a caixa “x” guardava 4 blocos. Agora o símbolo tem significado.' : puzzleText;
+    if (solved) lightMethod();
+  };
+  const touched = () => card.classList.add('is-touched');
+  $$('[data-bench]', card).forEach((b) => b.addEventListener('click', () => { touched(); setN(n + Number(b.dataset.bench)); }));
+
+  // arrastar da bandeja até o prato (um toque rápido na bandeja também põe um bloco)
+  const toSvg = (e) => {
+    const p = bench.createSVGPoint(); p.x = e.clientX; p.y = e.clientY;
+    return p.matrixTransform(bench.getScreenCTM().inverse());
+  };
+  const overPan = (p) => {
+    const r = (st.t * Math.PI) / 180;
+    return Math.hypot(p.x - (PX + Math.cos(r) * ARM), p.y - (PY - Math.sin(r) * ARM + 50)) < 62;
+  };
+  let drag = null;
+  tray.addEventListener('pointerdown', (e) => {
+    e.preventDefault(); touched();
+    try { tray.setPointerCapture(e.pointerId); } catch (err) { /* ok */ }
+    const p = toSvg(e);
+    const el = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    Object.entries({ class: 'bench__drag', width: 18, height: 18, rx: 3, x: p.x - 9, y: p.y - 9 }).forEach(([k, v]) => el.setAttribute(k, v));
+    bench.append(el);
+    drag = { el, x0: p.x, y0: p.y, moved: false };
+  });
+  tray.addEventListener('pointermove', (e) => {
+    if (!drag) return;
+    const p = toSvg(e);
+    drag.moved = drag.moved || Math.hypot(p.x - drag.x0, p.y - drag.y0) > 6;
+    drag.el.setAttribute('x', p.x - 9); drag.el.setAttribute('y', p.y - 9);
+    bench.classList.toggle('is-over', overPan(p));
+  });
+  const drop = (e) => {
+    if (!drag) return;
+    const add = !drag.moved || overPan(toSvg(e));
+    drag.el.remove(); drag = null;
+    bench.classList.remove('is-over');
+    if (add) setN(n + 1);
+  };
+  tray.addEventListener('pointerup', drop);
+  tray.addEventListener('pointercancel', () => { if (drag) { drag.el.remove(); drag = null; bench.classList.remove('is-over'); } });
+  // tocar no prato da direita tira um bloco
+  $('.bench__panhit', bench).addEventListener('click', () => { touched(); setN(n - 1); });
+  render();
 }
 
 export async function initStudies() {

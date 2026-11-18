@@ -100,41 +100,115 @@
         <p class="kicker mono">01 — Ponto de partida</p>
         <h2 class="h2 display" data-split>A educação básica de Sergipe está crescendo.</h2>
         <p class="lead" data-reveal>O Índice de Desenvolvimento da Educação Básica (IDEB), pontuado de zero a dez, mede a qualidade do ensino fundamental e médio nos estados do Brasil com base em dois fatores: <strong>desempenho dos alunos em avaliações nacionais</strong> e <strong>taxa de aprovação escolar</strong>.</p>
-        <figure class="ideb__map" data-reveal>
+        <figure class="ideb__map">
           <img src="assets/img/mapa-sergipe.svg" alt="Mapa do Brasil com o estado de Sergipe em destaque" width="800" height="450" loading="lazy">
+        </figure>
+        <!-- corrida: dois pulsos num anel; Sergipe persegue o Brasil (js/sections.js · initRace) -->
+        <figure class="race glass" data-reveal>
+          <div class="race__head">
+            <p class="race__kicker mono">Corrida pela média nacional</p>
+            <p class="race__legend mono" aria-hidden="true"><span class="lg lg--br">Brasil</span><span class="lg lg--se">Sergipe</span></p>
+          </div>
+          <canvas class="race__canvas" id="raceCanvas" aria-hidden="true"></canvas>
+          <button class="race__boost mono" id="raceBoost" type="button" aria-pressed="false">
+            <span class="race__ring" aria-hidden="true"></span>Segure para acelerar com ciência
+          </button>
+          <figcaption class="sr-only">Animação: dois pulsos de luz correm num anel. Sergipe persegue o Brasil e acelera enquanto o botão é pressionado.</figcaption>
         </figure>
       </div>
       <div class="ideb__chart glass" data-reveal>
-        <p class="ideb__note">Os dados mais recentes (2023) revelam que Sergipe ainda está <strong>um pouco abaixo da média nacional</strong> nas três etapas.</p>
-        <div class="bars" role="table" aria-label="IDEB 2023: Sergipe e Brasil">
+        <div class="ideb__badge">
+          <span class="ideb__year display">2025</span>
+          <span class="mono">IDEB · resultado mais recente<br>divulgado pelo INEP em agosto de 2026</span>
+        </div>
+        <p class="ideb__note">O IDEB 2025 mostra Sergipe <strong>avançando nas três etapas</strong>, mas ainda abaixo da média nacional. Na <strong>rede pública</strong>, onde o Quarks atua, a distância chega a 0,7 ponto.</p>
+        <div class="bars" role="table" aria-label="IDEB 2025: Sergipe e Brasil, total e rede pública">
           <div class="bars__legend mono" aria-hidden="true"><span class="lg lg--se">Sergipe</span><span class="lg lg--br">Brasil</span></div>
-          <div class="bars__group" role="row">
-            <span class="bars__label mono" role="rowheader">Fundamental I</span>
-            <div class="bar bar--se" role="cell" style="--v:5.4"><i></i><b data-count="5.4" data-decimals="1">5,4</b></div>
-            <div class="bar bar--br" role="cell" style="--v:6.0"><i></i><b data-count="6.0" data-decimals="1">6,0</b></div>
+          <div class="bars__group" role="rowgroup">
+            <p class="bars__head"><span class="bars__label mono">Fundamental I</span><span class="bars__sub mono">1º ao 5º ano</span></p>
+            <div class="bars__cut" role="row"><span class="bars__cutlabel mono" role="rowheader"><span class="sr-only">Fundamental I, </span>Total <span class="bars__hint">pública + privada</span></span><div class="bar bar--se" role="cell" style="--v:5.8"><i></i><b data-count="5.8" data-decimals="1">5,8</b><span class="sr-only"> Sergipe</span></div><div class="bar bar--br" role="cell" style="--v:6.3"><i></i><b data-count="6.3" data-decimals="1">6,3</b><span class="sr-only"> Brasil</span></div></div>
+            <div class="bars__cut bars__cut--pub" role="row"><span class="bars__cutlabel mono" role="rowheader"><span class="sr-only">Fundamental I, </span>Rede pública <span class="bars__delta">▲ 0,5 em Sergipe desde 2023</span></span><div class="bar bar--se" role="cell" style="--v:5.4"><i></i><b data-count="5.4" data-decimals="1">5,4</b><span class="sr-only"> Sergipe</span></div><div class="bar bar--br" role="cell" style="--v:6.1"><i></i><b data-count="6.1" data-decimals="1">6,1</b><span class="sr-only"> Brasil</span></div></div>
           </div>
-          <div class="bars__group" role="row">
-            <span class="bars__label mono" role="rowheader">Fundamental II</span>
-            <div class="bar bar--se" role="cell" style="--v:4.4"><i></i><b data-count="4.4" data-decimals="1">4,4</b></div>
-            <div class="bar bar--br" role="cell" style="--v:5.0"><i></i><b data-count="5.0" data-decimals="1">5,0</b></div>
+          <div class="bars__group" role="rowgroup">
+            <p class="bars__head"><span class="bars__label mono">Fundamental II</span><span class="bars__sub mono">6º ao 9º ano</span></p>
+            <div class="bars__cut" role="row"><span class="bars__cutlabel mono" role="rowheader"><span class="sr-only">Fundamental II, </span>Total <span class="bars__hint">pública + privada</span></span><div class="bar bar--se" role="cell" style="--v:4.8"><i></i><b data-count="4.8" data-decimals="1">4,8</b><span class="sr-only"> Sergipe</span></div><div class="bar bar--br" role="cell" style="--v:5.3"><i></i><b data-count="5.3" data-decimals="1">5,3</b><span class="sr-only"> Brasil</span></div></div>
+            <div class="bars__cut bars__cut--pub" role="row"><span class="bars__cutlabel mono" role="rowheader"><span class="sr-only">Fundamental II, </span>Rede pública <span class="bars__delta">▲ 0,4 em Sergipe desde 2023</span></span><div class="bar bar--se" role="cell" style="--v:4.4"><i></i><b data-count="4.4" data-decimals="1">4,4</b><span class="sr-only"> Sergipe</span></div><div class="bar bar--br" role="cell" style="--v:5.0"><i></i><b data-count="5.0" data-decimals="1">5,0</b><span class="sr-only"> Brasil</span></div></div>
           </div>
-          <div class="bars__group" role="row">
-            <span class="bars__label mono" role="rowheader">Ensino Médio</span>
-            <div class="bar bar--se" role="cell" style="--v:4.0"><i></i><b data-count="4.0" data-decimals="1">4,0</b></div>
-            <div class="bar bar--br" role="cell" style="--v:4.3"><i></i><b data-count="4.3" data-decimals="1">4,3</b></div>
+          <div class="bars__group" role="rowgroup">
+            <p class="bars__head"><span class="bars__label mono">Ensino Médio</span><span class="bars__sub mono">1ª a 3ª série</span></p>
+            <div class="bars__cut" role="row"><span class="bars__cutlabel mono" role="rowheader"><span class="sr-only">Ensino Médio, </span>Total <span class="bars__hint">pública + privada</span></span><div class="bar bar--se" role="cell" style="--v:4.3"><i></i><b data-count="4.3" data-decimals="1">4,3</b><span class="sr-only"> Sergipe</span></div><div class="bar bar--br" role="cell" style="--v:4.5"><i></i><b data-count="4.5" data-decimals="1">4,5</b><span class="sr-only"> Brasil</span></div></div>
+            <div class="bars__cut bars__cut--pub" role="row"><span class="bars__cutlabel mono" role="rowheader"><span class="sr-only">Ensino Médio, </span>Rede pública <span class="bars__delta">▲ 0,4 em Sergipe desde 2023</span></span><div class="bar bar--se" role="cell" style="--v:4.1"><i></i><b data-count="4.1" data-decimals="1">4,1</b><span class="sr-only"> Sergipe</span></div><div class="bar bar--br" role="cell" style="--v:4.3"><i></i><b data-count="4.3" data-decimals="1">4,3</b><span class="sr-only"> Brasil</span></div></div>
           </div>
         </div>
-        <p class="source mono">Fonte: IDEB 2023 · INEP</p>
+        <p class="source mono">Fonte: IDEB 2025 · INEP — <a href="https://www.gov.br/inep/pt-br/centrais-de-conteudo/noticias/ideb/ideb-avanca-em-todas-as-etapas-da-educacao-basica-em-sergipe" target="_blank" rel="noopener">Sergipe</a> · <a href="https://www.gov.br/inep/pt-br/centrais-de-conteudo/noticias/ideb/ideb-avanca-em-todas-as-etapas-da-educacao-basica" target="_blank" rel="noopener">Brasil</a> ↗</p>
       </div>
     </div>
   </section>
 
   <!-- 02 · MÉTODO: MÃO NA MASSA -->
   <section class="section metodo" id="metodo" data-phase="2">
-    <div class="wrap">
+    <div class="wrap virada">
       <p class="kicker mono">02 — A virada</p>
       <h2 class="h1 display" data-split>Essa realidade pode ser transformada com o ensino experimental — o método <em>“mão na massa”</em>.</h2>
-      <p class="lead lead--narrow" data-reveal>Embora o método “mão na massa” seja amplamente reconhecido, sua implementação enfrenta barreiras. Mesmo em escolas que possuem recursos para aulas experimentais de qualidade, a falta de atividades experimentais adequadas pode comprometer sua aplicação como recurso pedagógico.</p>
+
+      <div class="lab">
+        <!-- antes: o símbolo chega pronto; as peças flutuam sem encaixe -->
+        <article class="lab__act lab__act--board glass" data-reveal>
+          <p class="lab__tag mono">Antes · na sala tradicional</p>
+          <svg class="puzzle" viewBox="0 0 360 250" aria-hidden="true">
+            <rect class="puzzle__board" x="40" y="10" width="280" height="84" rx="6"/>
+            <text class="puzzle__eq" x="180" y="56">x + 3 = 7</text>
+            <text class="puzzle__answer" x="180" y="82">x = 4</text>
+            <path class="puzzle__base" d="M56 214H304"/>
+            <path class="puzzle__links" d="M144 150L184 147M144 160L220 168M144 140L256 129"/>
+            <g class="loose" style="--i:0;--tx:0px;--ty:42px"><g class="loose__float">
+              <rect class="puzzle__box" x="96" y="126" width="46" height="46" rx="4"/>
+              <g class="puzzle__inside"><rect x="104" y="134" width="13" height="13" rx="2"/><rect x="121" y="134" width="13" height="13" rx="2"/><rect x="104" y="151" width="13" height="13" rx="2"/><rect x="121" y="151" width="13" height="13" rx="2"/></g>
+              <text class="puzzle__x" x="119" y="157">x</text>
+              <rect class="puzzle__lid" x="92" y="119" width="54" height="9" rx="2"/>
+            </g></g>
+            <g class="loose" style="--i:1;--tx:-34px;--ty:58px"><g class="loose__float"><rect class="puzzle__cube" x="184" y="138" width="18" height="18" rx="3"/></g></g>
+            <g class="loose" style="--i:2;--tx:-46px;--ty:36px"><g class="loose__float"><rect class="puzzle__cube" x="220" y="160" width="18" height="18" rx="3"/></g></g>
+            <g class="loose" style="--i:3;--tx:-58px;--ty:76px"><g class="loose__float"><rect class="puzzle__cube" x="256" y="120" width="18" height="18" rx="3"/></g></g>
+          </svg>
+          <p class="lab__text" id="puzzleMsg">O conteúdo chega pronto, como símbolo no quadro: as peças existem, mas não se encaixam. A lacuna que nasce nos primeiros anos se acumula nos seguintes.</p>
+        </article>
+
+        <!-- depois: o visitante equilibra a balança e descobre o valor de x -->
+        <article class="lab__act lab__act--bench glass" data-reveal>
+          <p class="lab__tag mono">Depois · na bancada <span class="lab__try">experimente</span></p>
+          <svg class="bench" id="bench" viewBox="0 0 360 260" aria-hidden="true">
+            <path class="bench__stand" d="M180 64v140M140 204h80"/>
+            <path class="bench__arc" d="M168 43.2A24 24 0 0 1 192 43.2"/><path class="bench__zero" d="M180 34v5"/>
+            <g class="bench__beam"><path d="M60 64h240"/><path class="bench__needle" d="M180 64V40"/><circle cx="180" cy="64" r="5"/></g>
+            <g class="bench__pan" data-side="l"><path class="bench__cord" d="M0 0l-30 60M0 0l30 60"/><path class="bench__plate" d="M-40 60h80q-6 12-40 12t-40-12z"/>
+              <g class="bench__load"><rect class="bench__box" x="-34" y="26" width="30" height="34" rx="3"/><text x="-19" y="49">x</text>
+                <rect class="bench__cube" x="2" y="48" width="10" height="10" rx="2"/><rect class="bench__cube" x="14" y="48" width="10" height="10" rx="2"/><rect class="bench__cube" x="8" y="36" width="10" height="10" rx="2"/></g></g>
+            <g class="bench__pan" data-side="r"><path class="bench__cord" d="M0 0l-30 60M0 0l30 60"/><path class="bench__plate" d="M-40 60h80q-6 12-40 12t-40-12z"/><rect class="bench__panhit" x="-46" y="20" width="92" height="58"/><g class="bench__load" id="benchRight"></g></g>
+            <g class="bench__tray" id="benchTray">
+              <rect class="bench__trayhit" x="230" y="212" width="122" height="44" rx="10"/>
+              <rect class="bench__cube" x="246" y="226" width="16" height="16" rx="3"/><rect class="bench__cube" x="266" y="226" width="16" height="16" rx="3"/><rect class="bench__cube" x="286" y="226" width="16" height="16" rx="3"/><rect class="bench__cube" x="306" y="226" width="16" height="16" rx="3"/><rect class="bench__cube" x="326" y="226" width="16" height="16" rx="3"/>
+              <text class="bench__traylabel" x="291" y="208">bandeja de blocos</text>
+            </g>
+            <g class="bench__ghost"><rect class="bench__cube" x="-8" y="-8" width="16" height="16" rx="3"/><circle class="bench__touch" r="13"/></g>
+          </svg>
+          <p class="bench__hint mono" id="benchHint"><span aria-hidden="true">☝</span> Arraste um bloco da bandeja até o prato — ou toque em “+”</p>
+          <div class="bench__controls">
+            <button class="bench__btn" type="button" data-bench="-1">− tirar</button>
+            <output class="bench__out mono" id="benchOut" aria-live="polite">0 blocos</output>
+            <button class="bench__btn bench__btn--add" type="button" data-bench="1">+ pôr bloco</button>
+          </div>
+          <p class="lab__text" id="benchMsg" aria-live="polite">A caixa misteriosa “x” e mais 3 blocos estão no prato da esquerda. Quantos blocos equilibram a balança?</p>
+        </article>
+      </div>
+
+      <!-- o método: só depois da experiência vem a abstração -->
+      <ol class="method" id="method">
+        <li><span class="method__n mono">01</span><h3 class="method__t">Experimentar e medir</h3><p>Montar, manusear e medir cria motivação e senso de pertencimento com o conteúdo.</p></li>
+        <li><span class="method__n mono">02</span><h3 class="method__t">Analisar e relatar</h3><p>Os dados viram análises técnicas, relatórios e apresentações conceituais — de forma lúdica.</p></li>
+        <li><span class="method__n mono">03</span><h3 class="method__t">Criar</h3><p>Os alunos pensam e propõem atividades próprias usando os conceitos.</p></li>
+        <li><span class="method__n mono">04</span><h3 class="method__t">Abstrair</h3><p>Só então a fórmula — agora com significado, abrindo caminho para abstrações maiores.</p></li>
+      </ol>
     </div>
 
     <div class="benefits" id="benefits">
@@ -142,16 +216,33 @@
         <div class="benefits__intro">
           <p class="mono kicker">Validado pela ciência</p>
           <h3 class="h3">Os benefícios da aprendizagem experimental são consolidados por diversos estudos científicos, que validam:</h3>
-          <div class="benefits__meter mono" aria-hidden="true"><span id="benefitIndex">01</span> / 07</div>
+          <div class="bviz glass" aria-hidden="true">
+            <svg class="bviz__svg" viewBox="0 0 120 120">
+              <circle class="bviz__track" cx="60" cy="60" r="54"/>
+              <circle class="bviz__ring" cx="60" cy="60" r="54" pathLength="1"/>
+              <g class="bviz__ticks"><circle cx="60" cy="6" r="1.6"/><circle cx="102.2" cy="26.3" r="1.6"/><circle cx="112.6" cy="72" r="1.6"/><circle cx="83.4" cy="108.7" r="1.6"/><circle cx="36.6" cy="108.7" r="1.6"/><circle cx="7.4" cy="72" r="1.6"/><circle cx="17.8" cy="26.3" r="1.6"/></g>
+              <g class="bviz__icon"><path pathLength="1" d="M36 82h48"/><path pathLength="1" d="M42 82V68M54 82V58M66 82V50M78 82V40"/><path pathLength="1" d="M38 60l14-10 12 6 18-18M74 38h8v8"/></g>
+              <g class="bviz__icon"><path pathLength="1" d="M36 84h48"/><path pathLength="1" d="M40 74c10 0 12-22 22-22 8 0 8 10 16-4"/><path pathLength="1" d="M72 46l6 2 2-6"/><circle pathLength="1" cx="40" cy="74" r="3"/></g>
+              <g class="bviz__icon"><ellipse pathLength="1" cx="60" cy="60" rx="26" ry="10"/><ellipse pathLength="1" cx="60" cy="60" rx="26" ry="10" transform="rotate(60 60 60)"/><ellipse pathLength="1" cx="60" cy="60" rx="26" ry="10" transform="rotate(-60 60 60)"/><circle pathLength="1" cx="60" cy="60" r="4"/></g>
+              <g class="bviz__icon"><circle pathLength="1" cx="60" cy="40" r="7"/><circle pathLength="1" cx="40" cy="74" r="7"/><circle pathLength="1" cx="80" cy="74" r="7"/><path pathLength="1" d="M56 46l-12 22M64 46l12 22M47 74h26"/></g>
+              <g class="bviz__icon"><path pathLength="1" d="M60 34c4 12 18 18 18 32a18 18 0 0 1-36 0c0-8 5-12 8-16 1 6 4 8 6 8-2-10 0-18 4-24z"/><path pathLength="1" d="M60 84c-5 0-8-4-8-8 0-5 4-7 6-11 2 4 10 6 10 11 0 4-3 8-8 8z"/></g>
+              <g class="bviz__icon"><path pathLength="1" d="M52 34h16M54 34v18L40 78a4 4 0 0 0 4 6h32a4 4 0 0 0 4-6L66 52V34"/><path pathLength="1" d="M46 68h28"/><circle pathLength="1" cx="56" cy="76" r="2.5"/><circle pathLength="1" cx="66" cy="73" r="2"/></g>
+              <g class="bviz__icon"><circle pathLength="1" cx="60" cy="60" r="26"/><circle pathLength="1" cx="60" cy="60" r="16"/><circle pathLength="1" cx="60" cy="60" r="6"/><path pathLength="1" d="M60 26v8M60 86v8M26 60h8M86 60h8"/></g>
+            </svg>
+            <div class="bviz__meta">
+              <div class="benefits__meter mono"><span class="odo"><span class="odo__strip" id="benefitIndex"><span>01</span><span>02</span><span>03</span><span>04</span><span>05</span><span>06</span><span>07</span></span></span> / 07</div>
+              <p class="bviz__note" id="benefitNote"></p>
+            </div>
+          </div>
         </div>
         <ol class="benefits__list">
-          <li>Desempenho geral</li>
-          <li>Desempenho de alunos com baixo rendimento</li>
-          <li>Engajamento</li>
-          <li>Habilidades sociais e colaborativas</li>
-          <li>Motivação</li>
-          <li>Resolução de problemas reais</li>
-          <li>Retenção de informação</li>
+          <li data-note="Melhores notas e compreensão mais profunda dos conteúdos.">Desempenho geral</li>
+          <li data-note="Quem tinha mais dificuldade avança quando aprende fazendo.">Desempenho de alunos com baixo rendimento</li>
+          <li data-note="Atenção e participação ativa durante toda a aula.">Engajamento</li>
+          <li data-note="Trabalho em equipe, escuta e comunicação.">Habilidades sociais e colaborativas</li>
+          <li data-note="Vontade de aprender que continua fora da sala.">Motivação</li>
+          <li data-note="O conteúdo vira ferramenta para desafios do cotidiano.">Resolução de problemas reais</li>
+          <li data-note="O que se vive no experimento fica na memória.">Retenção de informação</li>
         </ol>
       </div>
     </div>

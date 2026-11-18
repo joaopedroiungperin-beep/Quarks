@@ -145,6 +145,20 @@ export function countUp(el) {
   });
 }
 
+/* ---------- Brilho dos cartões de vidro: segue o cursor ---------- */
+export function initGlassGlow() {
+  if (reducedMotion || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  let on = null;
+  document.addEventListener('pointermove', (e) => {
+    const g = e.target.closest?.('.glass');
+    if (g !== on) { on?.style.setProperty('--g', '0'); on = g; g?.style.setProperty('--g', '1'); }
+    if (!g) return;
+    const r = g.getBoundingClientRect();
+    g.style.setProperty('--mx', `${e.clientX - r.left}px`);
+    g.style.setProperty('--my', `${e.clientY - r.top}px`);
+  }, { passive: true });
+}
+
 /* ---------- Navegação: estado, menu móvel e link ativo ---------- */
 export function initNav() {
   const nav = $('#nav');
