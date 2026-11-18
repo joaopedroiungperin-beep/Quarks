@@ -3,9 +3,9 @@
    o fundo WebGL (Three.js, import dinâmico) e as seções com dados são
    montados assim que a marca termina de se desenhar. */
 
-import { $$, loadJSON, initScroll, initNav, initReveals, hasGSAP, reducedMotion } from './core.js';
+import { $$, loadJSON, initScroll, initNav, initGlassGlow, initReveals, hasGSAP, reducedMotion } from './core.js';
 import { runPreloader } from './preloader.js';
-import { initShowcase, initBenefits, initStudies, initCompare, initPortfolio, initTeam, initRegistros, initTransparency } from './sections.js';
+import { initShowcase, initBenefits, initVirada, initRace, initIdebMap, initStudies, initCompare, initPortfolio, initTeam, initRegistros, initTransparency } from './sections.js';
 import { initLattice } from './lattice.js';
 import { initForms } from './forms.js';
 
@@ -21,6 +21,7 @@ const intro = runPreloader();
 
 // trabalho leve e síncrono: pode rodar já
 initNav();
+initGlassGlow();
 initForms();
 
 const idle = (fn) => (window.requestIdleCallback ? requestIdleCallback(fn, { timeout: 400 }) : setTimeout(fn, 1));
@@ -29,9 +30,12 @@ const safe = (p) => p.catch((e) => console.error(e));
 async function mountHeavy() {
   initCompare();
   initBenefits();
+  initVirada();
+  initRace();
   await Promise.all([
     safe(initShowcase()),
     safe(initStudies()),
+    safe(initIdebMap()),
     safe(initPortfolio()),
     safe(initTeam()),
     safe(initTransparency()),
