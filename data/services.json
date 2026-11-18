@@ -3,7 +3,7 @@
     "id": "kits",
     "title": "Kits Experimentais",
     "kicker": "Equipamentos de baixo custo",
-    "summary": "Ferramentas experimentais simples, acessíveis e reutilizáveis, que permitem diversas atividades ao longo do ano letivo — sem equipamentos caros usados uma única vez.",
+    "summary": "Ferramentas experimentais simples, acessíveis e reutilizáveis, que rendem diversas atividades ao longo do ano letivo, sem equipamentos caros usados uma única vez.",
     "points": [
       "Alinhados à BNCC e aos ODS",
       "Física, Química e Biologia",
@@ -30,8 +30,8 @@
     "summary": "Treze obras com ISBN registrado: as onze apostilas temáticas e o Guia prático para experimentos didáticos (obra completa, volume único) do projeto Energia Sustentável é Fundamental, além do livro “Ciência mão na massa: desafios e soluções para um futuro sustentável”.",
     "points": [
       "13 obras com ISBN registrado",
-      "Ciência mão na massa — ISBN 978-65-84002-02-9",
-      "Guia prático, obra completa — ISBN 978-65-84002-01-2",
+      "Ciência mão na massa (ISBN 978-65-84002-02-9)",
+      "Guia prático, obra completa (ISBN 978-65-84002-01-2)",
       "Anais da FIICEST 2026 com ISBN"
     ],
     "accent": "green"
@@ -42,8 +42,8 @@
     "kicker": "Iniciação científica e popularização da ciência",
     "summary": "Organização de eventos que colocam estudantes sergipanos como protagonistas da pesquisa e da inovação.",
     "points": [
-      "OSFIC — Olimpíada Sergipana Fundamental de Inovação e Ciências",
-      "FIICEST 2026 — Feira Interdisciplinar de Inovação, Ciência e Tecnologia, no IFS Campus Estância",
+      "OSFIC: Olimpíada Sergipana Fundamental de Inovação e Ciências",
+      "FIICEST 2026: Feira Interdisciplinar de Inovação, Ciência e Tecnologia, no IFS Campus Estância",
       "Publicação oficial dos Anais com ISBN pelo Quarks"
     ],
     "accent": "orange"
@@ -51,11 +51,11 @@
   {
     "id": "inovacao",
     "title": "Inovação & Propriedade Intelectual",
-    "kicker": "DITeQ — o NIT do Quarks",
+    "kicker": "DITeQ, o NIT do Quarks",
     "summary": "O Quarks é uma ICT privada sem fins lucrativos, e o DITeQ é o seu Núcleo de Inovação Tecnológica: desenvolve tecnologias educacionais, protege a propriedade intelectual e transfere o conhecimento para a escola.",
     "points": [
-      "Patente de Invenção BR 10 2025 015217 7 — Aparato de percepção óptica cromocinética",
-      "Modelo de Utilidade BR 20 2025 014049 2 — Indicador portátil de condutividade da água"
+      "Patente de Invenção BR 10 2025 015217 7: aparato de percepção óptica cromocinética",
+      "Modelo de Utilidade BR 20 2025 014049 2: indicador portátil de condutividade da água"
     ],
     "accent": "cyan"
   },

@@ -55,7 +55,7 @@ export function initForms() {
       if (!CONFIG.WEB3FORMS_KEY) {
         const text = [subject, '', ...Object.entries(data).filter(([, v]) => v).map(([k, v]) => `${LABELS[k] || k}: ${v}`)].join('\n');
         window.open(waLink(text), '_blank', 'noopener');
-        status.textContent = 'Abrimos o WhatsApp com sua mensagem pronta — é só enviar.';
+        status.textContent = 'Abrimos o WhatsApp com sua mensagem pronta. É só enviar.';
         status.classList.add('ok');
         return;
       }

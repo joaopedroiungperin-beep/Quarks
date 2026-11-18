@@ -315,7 +315,7 @@ export function initVirada() {
     out.textContent = n + (n === 1 ? ' bloco' : ' blocos');
     const solved = n === LEFT;
     lab.classList.toggle('is-solved', solved);
-    if (solved) msg.textContent = 'Equilíbrio! 7 blocos pesam o mesmo que a caixa mais 3 — então a caixa vale 4.';
+    if (solved) msg.textContent = 'Equilíbrio! Sete blocos pesam o mesmo que a caixa e mais três, então a caixa vale 4.';
     else if (n < LEFT) msg.textContent = 'A esquerda ainda pesa mais. Continue pondo blocos e observe o ponteiro.';
     else msg.textContent = 'Passou do ponto: agora a direita pesa mais. Toque no prato para tirar um bloco.';
     if (puzzleMsg) puzzleMsg.textContent = solved ? 'Depois da experiência, as peças se encaixam: a caixa “x” guardava 4 blocos. Agora o símbolo tem significado.' : puzzleText;
