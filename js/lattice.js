@@ -58,7 +58,7 @@ export async function initLattice() {
     dw.open(h('div', {},
       h('p', { class: 'mono drawer__crumb' }, 'Parceiros'),
       h('div', { class: 'drawer__logo' }, h('img', { src: asset(p.logoWide || p.logo), alt: `Logo ${p.name}` })),
-      h('h2', { id: 'drawerTitle' }, p.fullName ? `${p.name} — ${p.fullName}` : p.name),
+      h('h2', { id: 'drawerTitle' }, p.fullName ? `${p.name} · ${p.fullName}` : p.name),
       h('dl', {},
         h('div', {}, h('dt', {}, 'Desde'), h('dd', {}, p.since)),
         p.site ? h('div', {}, h('dt', {}, 'Site'), h('dd', {}, h('a', { href: p.site, target: '_blank', rel: 'noopener' }, p.siteLabel || p.site))) : null,

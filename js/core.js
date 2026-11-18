@@ -166,13 +166,8 @@ export function initNav() {
   const menu = $('#menu');
   if (!nav) return;
 
-  let lastY = 0;
-  const onScroll = (y) => {
-    nav.classList.toggle('is-scrolled', y > 40);
-    nav.classList.toggle('is-hidden', y > 400 && y > lastY + 4 && menu?.hidden !== false);
-    if (y < lastY - 4) nav.classList.remove('is-hidden');
-    lastY = y;
-  };
+  // a barra fica sempre visível; ao rolar ganha fundo de vidro para não competir com o conteúdo
+  const onScroll = (y) => nav.classList.toggle('is-scrolled', y > 40);
   if (lenis) lenis.on('scroll', ({ scroll }) => onScroll(scroll));
   else window.addEventListener('scroll', () => onScroll(window.scrollY), { passive: true });
 

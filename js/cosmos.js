@@ -26,18 +26,18 @@ import { reducedMotion, isTouch } from './core.js';
 /* ---------- legendas educativas ---------- */
 const CAPTIONS = [
   ['Nebulosa', 'berçário estelar de gás e poeira, a 10–100 K'],
-  ['Colapso gravitacional', 'a nuvem contrai e gira mais rápido — conservação do momento angular'],
+  ['Colapso gravitacional', 'a nuvem contrai e gira mais rápido, conservando o momento angular'],
   ['Ignição', 'fusão de hidrogênio no núcleo, a ~15 milhões de K'],
   ['Supernova', '~10⁴⁴ J liberados em poucos segundos'],
   ['Magnetar', 'estrela de nêutrons com campo de até ~10¹¹ T; uma volta a cada poucos segundos'],
   ['Buraco negro', 'radiação Hawking: pares virtuais no horizonte, T ∝ 1/M'],
   ['Evaporação e rasgo', 'o buraco negro evapora; um falso vácuo decai e uma bolha de novo vácuo se expande (hipótese)'],
-  ['Universo estranho', 'gravidade mais intensa e um mar de polaritons — luz e matéria acopladas; o cursor cria um vórtice quântico (especulativo)'],
+  ['Universo estranho', 'gravidade mais intensa e um mar de polaritons, onde luz e matéria se acoplam; o cursor cria um vórtice quântico (especulativo)'],
   ['Rasgo tridimensional', 'gravidade extrema: o tempo quase para, a eletricidade congela e as forças forte, fraca e eletromagnética se aproximam (hipótese da Grande Unificação)'],
   ['Grande Colapso', 'toda matéria e energia se comprimem rumo a um único ponto (Big Crunch, hipotético)'],
   ['Singularidade → Big Bang', 'densidade infinita num ponto infinitesimal… e tudo recomeça'],
 ];
-const WORMHOLE_CAPTION = ['Buraco de minhoca', 'ponte de Einstein–Rosen — hipotética'];
+const WORMHOLE_CAPTION = ['Buraco de minhoca', 'ponte de Einstein–Rosen, ainda hipotética'];
 
 const COMMON = /* glsl */`
   float bump(float x, float c, float w) { return clamp(1.0 - abs(x - c) / w, 0.0, 1.0); }
