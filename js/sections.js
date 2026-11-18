@@ -364,6 +364,90 @@ export function initVirada() {
   render();
 }
 
+/* ---------- 03 · Proposta: circuito, lupa e rede ---------- */
+export function initProposta() {
+  const NS = 'http://www.w3.org/2000/svg';
+  const el = (tag, attrs, parent) => {
+    const n = document.createElementNS(NS, tag);
+    Object.entries(attrs).forEach(([k, v]) => n.setAttribute(k, v));
+    parent.append(n);
+    return n;
+  };
+
+  // 01 · circuito: fechar o interruptor acende o LED
+  const circuit = $('#demoCircuit');
+  const cBtn = $('#circuitBtn');
+  if (circuit && cBtn) {
+    const card = circuit.closest('.step');
+    let on = false;
+    const toggle = () => {
+      on = !on;
+      card.classList.toggle('is-on', on);
+      cBtn.setAttribute('aria-pressed', String(on));
+      cBtn.textContent = on ? 'Desligar' : 'Ligar o circuito';
+    };
+    cBtn.addEventListener('click', toggle);
+    circuit.addEventListener('click', toggle);
+  }
+
+  // 02 · lupa: o foco faz os raios espalhados convergirem num ponto
+  const lens = $('#demoLens');
+  const range = $('#lensRange');
+  if (lens && range) {
+    const g = $('.lens__rays', lens);
+    const spot = $('.lens__spot', lens);
+    const state = $('.lens__state', lens);
+    const ys = [35, 60, 85, 110, 135];
+    const rays = ys.map((y) => {
+      el('line', { x1: 38, y1: y, x2: 140, y2: y }, g);
+      return el('line', { x1: 140, y1: y }, g);
+    });
+    const apply = () => {
+      const f = range.value / 100;
+      const k = 1.5 * (1 - f); // 1,5 = espalhada · 0 = tudo num ponto
+      rays.forEach((r, i) => { r.setAttribute('x2', 262); r.setAttribute('y2', (85 + (ys[i] - 85) * k).toFixed(1)); });
+      spot.style.setProperty('--f', (f * f).toFixed(3));
+      state.textContent = f > 0.92 ? 'foco: ponto quente!' : f > 0.45 ? 'quase lá…' : 'luz espalhada';
+    };
+    range.addEventListener('input', apply);
+    apply();
+  }
+
+  // 03 · rede: cada ano letivo acende mais turmas, que ficam acesas
+  const net = $('#demoNet');
+  const nBtn = $('#netBtn');
+  const out = $('#netOut');
+  if (net && nBtn) {
+    const edges = $('.net__edges', net);
+    const nodes = $('.net__nodes', net);
+    const ring = (n, rx, ry, off) => Array.from({ length: n }, (_, i) => {
+      const a = off + (i / n) * Math.PI * 2;
+      return [150 + rx * Math.cos(a), 85 + ry * Math.sin(a)];
+    });
+    const r1 = ring(6, 62, 44, -Math.PI / 2);
+    const r2 = ring(10, 128, 72, -Math.PI / 2 + 0.3);
+    const near = (p) => r1.reduce((best, q, i) => (Math.hypot(p[0] - q[0], p[1] - q[1]) < Math.hypot(p[0] - r1[best][0], p[1] - r1[best][1]) ? i : best), 0);
+    const line = (a, b, year) => el('line', { x1: a[0].toFixed(1), y1: a[1].toFixed(1), x2: b[0].toFixed(1), y2: b[1].toFixed(1), 'data-year': year }, edges);
+    r1.forEach((p) => line([150, 85], p, 1));
+    r2.forEach((p) => line(r1[near(p)], p, 2));
+    r2.forEach((p, i) => line(p, r2[(i + 1) % r2.length], 3));
+    r1.forEach((p) => el('circle', { cx: p[0].toFixed(1), cy: p[1].toFixed(1), r: 6, 'data-year': 1 }, nodes));
+    r2.forEach((p) => el('circle', { cx: p[0].toFixed(1), cy: p[1].toFixed(1), r: 5, 'data-year': 2 }, nodes));
+    const LABELS = ['Ano 0 · toque para começar', 'Ano 1 · primeiras turmas', 'Ano 2 · mais turmas e escolas', 'Ano 3 · a rede segue sozinha'];
+    let year = 0;
+    const set = (y) => {
+      year = y;
+      $$('[data-year]', net).forEach((n) => n.classList.toggle('is-lit', Number(n.dataset.year) <= year));
+      out.textContent = LABELS[year];
+      nBtn.textContent = year >= 3 ? 'Recomeçar' : '+1 ano letivo';
+    };
+    const next = () => set(year >= 3 ? 0 : year + 1);
+    nBtn.addEventListener('click', next);
+    $('.net__core', net).addEventListener('click', next);
+    set(0);
+  }
+}
+
 export async function initStudies() {
   const data = await loadJSON('studies');
   $$('[data-studies]').forEach((row) => {
