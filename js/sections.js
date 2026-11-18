@@ -368,13 +368,19 @@ export async function initStudies() {
   const data = await loadJSON('studies');
   $$('[data-studies]').forEach((row) => {
     const kind = row.dataset.studies;
-    const list = data[kind] || [];
-    const label = kind === 'nacionais' ? 'Nacionais' : 'Internacionais';
-    const make = (hidden) => [
-      h('span', { class: 'ticker__label', 'aria-hidden': hidden ? 'true' : null }, label),
-      ...list.map((s) => h('a', { href: s.url, target: '_blank', rel: 'noopener', tabindex: hidden ? '-1' : null, 'aria-hidden': hidden ? 'true' : null },
-        s.authors, h('span', {}, String(s.year)))),
-    ];
+    const list = [...(data[kind] || [])].sort((a, b) => a.year - b.year);
+    const count = $(`[data-count-of="${kind}"]`);
+    if (count) count.textContent = `${list.length} estudos`;
+    // onde ler: o domínio do link (scielo.br, eric.ed.gov…)
+    const host = (u) => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return ''; } };
+    const make = (hidden) => list.map((s) => h('a', {
+      class: 'study', href: s.url, target: '_blank', rel: 'noopener',
+      tabindex: hidden ? '-1' : null, 'aria-hidden': hidden ? 'true' : null,
+      'aria-label': hidden ? null : `${s.authors}, ${s.year} (abre em nova aba)`,
+    },
+    h('span', { class: 'study__year' }, String(s.year)),
+    h('span', { class: 'study__authors' }, s.authors),
+    h('span', { class: 'study__host' }, host(s.url), ' ↗')));
     // duas cópias para o loop contínuo
     row.append(h('div', { class: 'ticker__track' }, make(false), make(true)));
   });
@@ -384,6 +390,7 @@ export function initCompare() {
   const range = $('#compareRange');
   const rows = $$('#compareRows li');
   const ctrl = $('.compare__control');
+  const count = $('#compareCount');
   if (!range || !rows.length) return;
   const apply = (v) => {
     const t = v / 100;
@@ -393,8 +400,11 @@ export function initCompare() {
       const start = i / rows.length * 0.85;
       const p = Math.min(1, Math.max(0, (t - start) / 0.15));
       li.style.setProperty('--p', p.toFixed(3));
+      li.classList.toggle('is-new', p > 0.5);
     });
-    range.setAttribute('aria-valuetext', `${Math.round(t * rows.length)} de ${rows.length} aspectos transformados`);
+    const done = rows.filter((li) => li.classList.contains('is-new')).length;
+    if (count) count.textContent = done;
+    range.setAttribute('aria-valuetext', `${done} de ${rows.length} aspectos transformados`);
   };
   range.addEventListener('input', () => apply(+range.value));
   apply(+range.value);

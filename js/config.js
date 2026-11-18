@@ -5,5 +5,5 @@
 export const CONFIG = {
   WEB3FORMS_KEY: '',
   WHATSAPP: '5579991489065',
-  EMAIL: 'quarks.science4fun@gmail.com',
+  EMAIL: 'institucional@quarksclub.org',
 };
