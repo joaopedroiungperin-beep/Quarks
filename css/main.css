@@ -587,12 +587,64 @@ main, .nav, .footer { transition: opacity 0.6s var(--ease-in-out), transform 0.9
 .compare__rows .new { color: var(--c-ink); opacity: var(--p); transform: translateY(calc((1 - var(--p)) * 8px)); filter: blur(calc((1 - var(--p)) * 4px)); }
 @media (min-width: 760px) { .compare__rows li { grid-template-columns: 240px 1fr; align-items: center; } .compare__rows .old, .compare__rows .new { grid-row: 1; grid-column: 2; } }
 
-/* ---------- 12. Proposta ---------- */
+/* ---------- 12. Proposta: três micro-experimentos ---------- */
 .steps { display: grid; gap: 18px; margin-top: clamp(48px, 7vw, 90px); }
-.step { padding: clamp(24px, 3vw, 40px); display: grid; gap: 14px; align-content: start; }
+.step { padding: clamp(22px, 2.6vw, 34px); display: grid; gap: 14px; align-content: start; }
+.step__top { display: flex; justify-content: space-between; align-items: center; margin: 0; }
 .step__n { color: var(--c-orange); font-size: 0.9rem; }
-.step p { color: var(--c-muted); margin: 0; }
+.step__try { padding: 2px 8px; border-radius: 999px; background: rgba(127, 231, 242, 0.12); color: var(--c-cyan); font-size: 0.68rem; letter-spacing: 0.08em; }
+.step > p:last-child { color: var(--c-muted); margin: 0; line-height: 1.5; }
 @media (min-width: 960px) { .steps { grid-template-columns: repeat(3, 1fr); } .step:nth-child(2) { margin-top: 60px; } .step:nth-child(3) { margin-top: 120px; } }
+
+.demo { width: 100%; height: auto; overflow: visible; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.demo__label { fill: var(--c-muted); stroke: none; font-family: var(--f-mono); font-size: 10px; text-anchor: middle; }
+.demo__btn {
+  justify-self: start; min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--c-cyan);
+  background: rgba(127, 231, 242, 0.12); color: var(--c-ink); font-family: var(--f-mono); font-size: 0.82rem; cursor: pointer;
+  transition: background 0.2s, transform 0.15s var(--ease-out);
+}
+.demo__btn:hover { background: rgba(127, 231, 242, 0.24); }
+.demo__btn:active { transform: scale(0.95); }
+.demo__btn[aria-pressed="true"] { background: rgba(242, 166, 90, 0.18); border-color: var(--c-orange); }
+.demo__row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.demo__out { color: var(--c-muted); font-size: 0.78rem; }
+.demo__range { display: grid; gap: 6px; }
+.demo__range .mono { color: var(--c-cyan); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; }
+.demo__range input { width: 100%; accent-color: var(--c-orange); min-height: 32px; cursor: grab; }
+
+/* 01 · circuito: o interruptor fecha, a corrente corre, o LED acende */
+.demo--circuit { cursor: pointer; }
+.circuit__wire { stroke: rgba(243, 234, 216, 0.35); stroke-width: 3; }
+.circuit__flow { stroke: var(--c-orange); stroke-width: 3; stroke-dasharray: 4 14; opacity: 0; transition: opacity 0.3s; }
+.circuit__cell { fill: rgba(242, 166, 90, 0.12); stroke: var(--c-orange); stroke-width: 2; }
+.circuit__cap { stroke: var(--c-orange); stroke-width: 4; }
+.demo--circuit text:not(.demo__label) { fill: var(--c-orange); stroke: none; font-family: var(--f-display); font-size: 18px; text-anchor: middle; }
+.circuit__pin { fill: var(--c-ink); stroke: none; }
+.circuit__lever { stroke: var(--c-ink); stroke-width: 3; transform-box: view-box; transform-origin: 134px 146px; transition: rotate 0.45s cubic-bezier(0.34, 1.5, 0.64, 1); }
+.circuit__led circle { fill: rgba(243, 234, 216, 0.06); stroke: rgba(243, 234, 216, 0.6); stroke-width: 2; transition: fill 0.4s, stroke 0.4s, filter 0.4s; }
+.circuit__led path { stroke: rgba(243, 234, 216, 0.6); stroke-width: 2; }
+.circuit__led .circuit__rays { stroke: #ffd38a; opacity: 0; transition: opacity 0.4s; }
+.step.is-on .circuit__lever { rotate: 31deg; }
+.step.is-on .circuit__flow { opacity: 1; animation: flow 0.8s linear infinite; }
+@keyframes flow { to { stroke-dashoffset: -18; } }
+.step.is-on .circuit__led circle { fill: #ffd38a; stroke: #ffd38a; filter: drop-shadow(0 0 14px #f2a65a); }
+.step.is-on .circuit__rays { opacity: 1; }
+
+/* 02 · lupa: os raios espalhados convergem num ponto brilhante */
+.lens__sun { fill: #ffd38a; filter: drop-shadow(0 0 10px #f2a65a); }
+.lens__rays line { stroke: rgba(255, 211, 138, 0.75); stroke-width: 2; }
+.lens__glass { fill: rgba(127, 231, 242, 0.12); stroke: var(--c-cyan); stroke-width: 2; }
+.lens__spot { --f: 0; fill: #fff4d6; opacity: var(--f); transform-box: fill-box; transform-origin: center; scale: calc(0.3 + var(--f) * 0.9); filter: drop-shadow(0 0 calc(var(--f) * 16px) #f2a65a); }
+
+/* 03 · rede: cada ano letivo acende mais turmas, que ficam acesas */
+.net__edges line { stroke: rgba(243, 234, 216, 0.12); stroke-width: 1.5; transition: stroke 0.6s; }
+.net__edges line.is-lit { stroke: rgba(127, 231, 242, 0.55); stroke-dasharray: 120; animation: pulse-line 0.9s var(--ease-out) both; }
+@keyframes pulse-line { from { stroke-dashoffset: 120; stroke: #fff; } }
+.net__nodes circle { fill: rgba(14, 22, 38, 0.9); stroke: rgba(243, 234, 216, 0.3); stroke-width: 1.5; transform-box: fill-box; transform-origin: center; transition: fill 0.5s, stroke 0.5s, scale 0.5s cubic-bezier(0.34, 1.6, 0.64, 1); }
+.net__nodes circle.is-lit { fill: var(--c-cyan); stroke: var(--c-cyan); scale: 1.25; filter: drop-shadow(0 0 6px var(--c-cyan)); }
+.net__core { cursor: pointer; }
+.net__core circle { fill: rgba(242, 166, 90, 0.2); stroke: var(--c-orange); stroke-width: 2; }
+.net__core text { fill: var(--c-ink); stroke: none; font-family: var(--f-mono); font-size: 10px; text-anchor: middle; }
 
 /* ---------- 13. Vitrine horizontal ---------- */
 .showcase { position: relative; padding-top: var(--sec-pad); }

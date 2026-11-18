@@ -5,7 +5,7 @@
 
 import { $$, loadJSON, initScroll, initNav, initGlassGlow, initReveals, hasGSAP, reducedMotion } from './core.js';
 import { runPreloader } from './preloader.js';
-import { initShowcase, initBenefits, initVirada, initRace, initIdebMap, initStudies, initCompare, initPortfolio, initTeam, initRegistros, initTransparency } from './sections.js';
+import { initShowcase, initBenefits, initVirada, initRace, initProposta, initIdebMap, initStudies, initCompare, initPortfolio, initTeam, initRegistros, initTransparency } from './sections.js';
 import { initLattice } from './lattice.js';
 import { initForms } from './forms.js';
 
@@ -32,6 +32,7 @@ async function mountHeavy() {
   initBenefits();
   initVirada();
   initRace();
+  initProposta();
   await Promise.all([
     safe(initShowcase()),
     safe(initStudies()),

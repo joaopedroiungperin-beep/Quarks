@@ -306,20 +306,49 @@
       <p class="kicker mono">03 · Nossa proposta</p>
       <h2 class="h1 display" data-split>O Quarks está empenhado em transformar a educação em Sergipe, criando <em>oportunidades reais</em> de mudança</h2>
       <ol class="steps">
+        <!-- 01: circuito simples (js/sections.js · initProposta) -->
         <li class="step glass" data-reveal>
-          <span class="step__n mono">01</span>
+          <p class="step__top"><span class="step__n mono">01</span><span class="step__try mono">experimente</span></p>
           <h3 class="h3">Oficinas de baixo custo</h3>
-          <p>Sabemos que a limitação de recursos tem sido um grande obstáculo para a educação, e, infelizmente, não há uma perspectiva de mudanças significativas no curto prazo. Por isso, propomos uma solução acessível e eficaz: a implementação de oficinas experimentais de baixo custo, totalmente alinhadas às exigências da BNCC.</p>
+          <svg class="demo demo--circuit" id="demoCircuit" viewBox="0 0 300 170" aria-hidden="true">
+            <path class="circuit__wire" d="M58 60V28H262V66M262 112V146H178M134 146H58V108"/>
+            <path class="circuit__flow" d="M58 60V28H262V66M262 112V146H178M134 146H58V108"/>
+            <rect class="circuit__cell" x="40" y="60" width="36" height="48" rx="5"/><path class="circuit__cap" d="M51 56h14"/><text x="58" y="90">+</text>
+            <g class="circuit__led"><path class="circuit__rays" d="M262 52v-8M240 62l-6-6M284 62l6-6M232 88h-8M292 88h8"/><circle cx="262" cy="88" r="16"/><path d="M256 104v8M268 104v8"/></g>
+            <circle class="circuit__pin" cx="134" cy="146" r="4"/><circle class="circuit__pin" cx="178" cy="146" r="4"/>
+            <path class="circuit__lever" d="M134 146L174 122"/>
+            <text class="demo__label" x="58" y="128">pilha</text><text class="demo__label" x="156" y="166">interruptor</text><text class="demo__label" x="262" y="134">LED</text>
+          </svg>
+          <button class="demo__btn" type="button" id="circuitBtn" aria-pressed="false">Ligar o circuito</button>
+          <p>Pilha, fio e LED: material simples vira experimento de verdade, alinhado à BNCC.</p>
         </li>
+        <!-- 02: lupa concentrando a luz -->
         <li class="step glass" data-reveal>
-          <span class="step__n mono">02</span>
+          <p class="step__top"><span class="step__n mono">02</span><span class="step__try mono">experimente</span></p>
           <h3 class="h3">Excelência sem desperdício</h3>
-          <p>Educação de qualidade não precisa ser cara. Acreditamos que é possível oferecer ensino de excelência sem sobrecarregar o orçamento. Chega de investir em equipamentos caros que são usados uma única vez! Queremos mudar isso com soluções práticas e sustentáveis.</p>
+          <svg class="demo demo--lens" id="demoLens" viewBox="0 0 300 170" aria-hidden="true">
+            <circle class="lens__sun" cx="22" cy="85" r="14"/>
+            <g class="lens__rays"></g>
+            <ellipse class="lens__glass" cx="140" cy="85" rx="11" ry="66"/>
+            <circle class="lens__spot" cx="262" cy="85" r="10"/>
+            <text class="demo__label" x="140" y="166">lupa</text><text class="demo__label lens__state" x="262" y="122">luz espalhada</text>
+          </svg>
+          <label class="demo__range"><span class="mono">Ajuste o foco</span><input type="range" id="lensRange" min="0" max="100" value="0" aria-label="Foco da lupa"></label>
+          <p>Cada recurso concentrado no que importa: aprender. Nada de equipamento caro usado uma única vez.</p>
         </li>
+        <!-- 03: rede que se acende ano a ano -->
         <li class="step glass" data-reveal>
-          <span class="step__n mono">03</span>
+          <p class="step__top"><span class="step__n mono">03</span><span class="step__try mono">experimente</span></p>
           <h3 class="h3">Ferramentas que ficam</h3>
-          <p>Nosso objetivo é fornecer ferramentas experimentais simples e acessíveis, acompanhadas de materiais instrucionais completos, com oficinas e atividades práticas que atendam aos requisitos da BNCC, capacitando educadores do Ensino Fundamental e Médio. Ferramentas acessíveis e reutilizáveis permitem diversas atividades ao longo do ano e ajudam a desenvolver as habilidades dos estudantes sergipanos de maneira constante e eficaz.</p>
+          <svg class="demo demo--net" id="demoNet" viewBox="0 0 300 170" aria-hidden="true">
+            <g class="net__edges"></g><g class="net__nodes"></g>
+            <g class="net__core"><circle cx="150" cy="85" r="15"/><text x="150" y="89">kit</text></g>
+          </svg>
+          <div class="demo__row">
+            <button class="demo__btn" type="button" id="netBtn">+1 ano letivo</button>
+            <output class="demo__out mono" id="netOut" aria-live="polite">Ano 0 · 0 turmas</output>
+          </div>
+          <p>Kits que ficam na escola e professores formados: a ciência continua, ano após ano.</p>
         </li>
       </ol>
     </div>
