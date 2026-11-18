@@ -259,23 +259,20 @@ export function initVirada() {
   const method = $('#method');
   const steps = $$('#method li');
 
-  const onView = (el, fn, start = 'top 70%') => {
-    if (!el) return;
-    if (!hasGSAP() || reducedMotion) { fn(); return; }
-    window.ScrollTrigger.create({ trigger: el, start, once: true, onEnter: fn });
+  // 3. o caminho do método segue a rolagem: enche ao descer e volta ao subir
+  const setDone = (d) => {
+    method.style.setProperty('--done', d.toFixed(3));
+    steps.forEach((li, i) => li.classList.toggle('is-on', d >= i + 0.35));
   };
-
-  // 3. o caminho do método acende etapa por etapa
-  let lit = false;
-  const lightMethod = () => {
-    if (lit || !method) return;
-    lit = true;
-    steps.forEach((li, i) => setTimeout(() => {
-      li.classList.add('is-on');
-      method.style.setProperty('--done', i + 1);
-    }, reducedMotion ? 0 : 200 + i * 450));
-  };
-  onView(method, lightMethod, 'top 75%');
+  if (method) {
+    if (!hasGSAP() || reducedMotion) setDone(steps.length);
+    else {
+      window.ScrollTrigger.create({
+        trigger: method, start: 'top 85%', end: 'bottom 45%', scrub: 0.4,
+        onUpdate: (st) => setDone(st.progress * steps.length),
+      });
+    }
+  }
 
   // 2. balança: caixa (x = 4) + 3 blocos à esquerda; o visitante põe blocos à direita
   if (!bench) return;
@@ -317,14 +314,14 @@ export function initVirada() {
     lab.classList.toggle('is-solved', solved);
     if (solved) msg.textContent = 'Equilíbrio! Sete blocos pesam o mesmo que a caixa e mais três, então a caixa vale 4.';
     else if (n < LEFT) msg.textContent = 'A esquerda ainda pesa mais. Continue pondo blocos e observe o ponteiro.';
-    else msg.textContent = 'Passou do ponto: agora a direita pesa mais. Toque no prato para tirar um bloco.';
+    else msg.textContent = 'Passou do ponto: agora a direita pesa mais. Arraste um bloco do prato de volta para a bandeja.';
     if (puzzleMsg) puzzleMsg.textContent = solved ? 'Depois da experiência, as peças se encaixam: a caixa “x” guardava 4 blocos. Agora o símbolo tem significado.' : puzzleText;
-    if (solved) lightMethod();
   };
   const touched = () => card.classList.add('is-touched');
   $$('[data-bench]', card).forEach((b) => b.addEventListener('click', () => { touched(); setN(n + Number(b.dataset.bench)); }));
 
-  // arrastar da bandeja até o prato (um toque rápido na bandeja também põe um bloco)
+  // arrastar nos dois sentidos: bandeja → prato põe um bloco; prato → fora tira um
+  // (um toque rápido na bandeja põe, um toque rápido no prato tira)
   const toSvg = (e) => {
     const p = bench.createSVGPoint(); p.x = e.clientX; p.y = e.clientY;
     return p.matrixTransform(bench.getScreenCTM().inverse());
@@ -333,34 +330,51 @@ export function initVirada() {
     const r = (st.t * Math.PI) / 180;
     return Math.hypot(p.x - (PX + Math.cos(r) * ARM), p.y - (PY - Math.sin(r) * ARM + 50)) < 62;
   };
+  const panHit = $('.bench__panhit', bench);
   let drag = null;
-  tray.addEventListener('pointerdown', (e) => {
+  const clearDrag = () => {
+    if (!drag) return;
+    drag.el.remove();
+    if (drag.hidden) drag.hidden.style.visibility = '';
+    drag = null;
+    bench.classList.remove('is-over', 'is-over-tray');
+  };
+  const startDrag = (src, from) => (e) => {
+    if (from === 'pan' && n === 0) return;
     e.preventDefault(); touched();
-    try { tray.setPointerCapture(e.pointerId); } catch (err) { /* ok */ }
+    try { src.setPointerCapture(e.pointerId); } catch (err) { /* ok */ }
     const p = toSvg(e);
     const el = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
     Object.entries({ class: 'bench__drag', width: 18, height: 18, rx: 3, x: p.x - 9, y: p.y - 9 }).forEach(([k, v]) => el.setAttribute(k, v));
     bench.append(el);
-    drag = { el, x0: p.x, y0: p.y, moved: false };
-  });
-  tray.addEventListener('pointermove', (e) => {
+    // ao tirar do prato, o último bloco "sai" de lá enquanto é arrastado
+    const hidden = from === 'pan' ? right.lastElementChild : null;
+    if (hidden) hidden.style.visibility = 'hidden';
+    drag = { el, from, hidden, x0: p.x, y0: p.y, moved: false };
+  };
+  const moveDrag = (e) => {
     if (!drag) return;
     const p = toSvg(e);
     drag.moved = drag.moved || Math.hypot(p.x - drag.x0, p.y - drag.y0) > 6;
     drag.el.setAttribute('x', p.x - 9); drag.el.setAttribute('y', p.y - 9);
-    bench.classList.toggle('is-over', overPan(p));
-  });
-  const drop = (e) => {
-    if (!drag) return;
-    const add = !drag.moved || overPan(toSvg(e));
-    drag.el.remove(); drag = null;
-    bench.classList.remove('is-over');
-    if (add) setN(n + 1);
+    const onPan = overPan(p);
+    bench.classList.toggle('is-over', drag.from === 'tray' && onPan);
+    bench.classList.toggle('is-over-tray', drag.from === 'pan' && !onPan);
   };
-  tray.addEventListener('pointerup', drop);
-  tray.addEventListener('pointercancel', () => { if (drag) { drag.el.remove(); drag = null; bench.classList.remove('is-over'); } });
-  // tocar no prato da direita tira um bloco
-  $('.bench__panhit', bench).addEventListener('click', () => { touched(); setN(n - 1); });
+  const endDrag = (e) => {
+    if (!drag) return;
+    const { from, moved } = drag;
+    const onPan = overPan(toSvg(e));
+    clearDrag();
+    if (from === 'tray' && (!moved || onPan)) setN(n + 1);
+    if (from === 'pan' && (!moved || !onPan)) setN(n - 1);
+  };
+  [[tray, 'tray'], [panHit, 'pan']].forEach(([src, from]) => {
+    src.addEventListener('pointerdown', startDrag(src, from));
+    src.addEventListener('pointermove', moveDrag);
+    src.addEventListener('pointerup', endDrag);
+    src.addEventListener('pointercancel', clearDrag);
+  });
   render();
 }
 

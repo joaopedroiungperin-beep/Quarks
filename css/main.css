@@ -389,6 +389,9 @@ main, .nav, .footer { transition: opacity 0.6s var(--ease-in-out), transform 0.9
 @keyframes drop { from { translate: 0 -24px; opacity: 0; } }
 .bench__panhit, .bench__trayhit { fill: transparent; cursor: pointer; }
 .bench__tray { cursor: grab; touch-action: none; }
+.bench__panhit { cursor: grab; touch-action: none; }
+#benchRight { pointer-events: none; }
+.bench.is-over-tray .bench__trayhit { fill: rgba(242, 166, 90, 0.16); stroke: var(--c-orange); stroke-dasharray: none; }
 .bench__trayhit { fill: rgba(127, 231, 242, 0.05); stroke: rgba(127, 231, 242, 0.35); stroke-width: 1.5; stroke-dasharray: 4 4; }
 .bench__tray:hover .bench__trayhit { fill: rgba(127, 231, 242, 0.12); }
 .bench__traylabel { fill: var(--c-muted); stroke: none; font-family: var(--f-mono); font-size: 9px; text-anchor: middle; letter-spacing: 0.08em; }
@@ -420,7 +423,7 @@ main, .nav, .footer { transition: opacity 0.6s var(--ease-in-out), transform 0.9
 /* caminho do método: as etapas acendem em sequência; um pulso percorre a linha */
 .method { --done: 0; position: relative; display: grid; gap: 22px; margin-top: clamp(48px, 8vh, 80px); counter-reset: none; }
 .method::before, .method::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; border-radius: 2px; background: var(--c-faint); }
-.method::after { background: linear-gradient(90deg, var(--c-orange), var(--c-cyan)); box-shadow: 0 0 14px rgba(127, 231, 242, 0.5); transform: scaleX(calc(var(--done) / 4)); transform-origin: left; transition: transform 0.8s var(--ease-out); }
+.method::after { background: linear-gradient(90deg, var(--c-orange), var(--c-cyan)); box-shadow: 0 0 14px rgba(127, 231, 242, 0.5); transform: scaleX(calc(var(--done) / 4)); transform-origin: left; transition: transform 0.15s linear; }
 .method li { padding-top: 22px; opacity: 0.4; transition: opacity 0.5s var(--ease-out); }
 .method li.is-on { opacity: 1; }
 .method__n { color: var(--c-cyan); }
