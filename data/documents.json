@@ -281,6 +281,17 @@
             "cover": "assets/img/capas/relatorio-esef.webp"
           }
         ]
+      },
+      {
+        "title": "OSFIC: Olimpíada Sergipana Fundamental de Inovação e Ciências",
+        "date": "Relatório técnico de execução · 19/11/2026",
+        "files": [
+          {
+            "label": "Relatório técnico",
+            "file": "projetos/OSFIC/RELATORIO_OSFIC.pdf",
+            "cover": "assets/img/capas/relatorio-osfic.webp"
+          }
+        ]
       }
     ]
   }
