@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OSFIC · Quarks</title>
+  <meta name="description" content="OSFIC 2026, a Olimpíada Sergipana Fundamental de Inovação e Ciências: desafios de engenharia com palitos de picolé em escolas públicas de Sergipe. Coordenação da UFS, fomento da FAPITEC/SE e execução técnica do Clube de Ciências Quarks.">
+  <meta name="theme-color" content="#060912">
+  <link rel="icon" href="../../assets/brand/quarks-mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Unbounded:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/main.css">
+  <link rel="stylesheet" href="../../css/project.css">
+  <script>
+    document.documentElement.classList.add('js', 'intro-seen');
+    try { if (sessionStorage.getItem('q-wormhole') && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('from-wormhole'); } catch (e) {}
+  </script>
+  <script src="../../vendor/gsap.min.js" defer></script>
+  <script src="../../vendor/ScrollTrigger.min.js" defer></script>
+  <script src="../../vendor/lenis.min.js" defer></script>
+  <script type="module" src="../../js/project.js"></script>
+</head>
+<!-- Template de capítulo: copie esta pasta, troque data-project pelo slug do
+     data/projects.json e escreva a cena exclusiva em scene.js. -->
+<body data-page="project" data-project="osfic">
+
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<canvas class="field" id="field" aria-hidden="true"></canvas>
+<div class="field-fallback" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a class="nav__brand" href="../../" aria-label="Quarks, página inicial">
+    <svg class="mark" viewBox="10 25 540 363" aria-hidden="true"><use href="#q-mark" x="10" y="25" width="540" height="363"/></svg>
+  </a>
+  <nav class="nav__links" aria-label="Capítulo">
+    <a href="#desafios">Desafios</a>
+    <a href="#escolas">Escolas</a>
+    <a href="#registros">Registros</a>
+    <a href="#relatorio">Relatório</a>
+  </nav>
+  <div class="lang notranslate" data-lang-switch>
+    <button class="lang__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Idioma">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg>
+      <span data-lang-current>PT</span>
+    </button>
+    <div class="lang__menu" role="menu" aria-label="Idioma"></div>
+  </div>
+  <a class="btn btn--small btn--ghost nav__back" href="../../#portfolio">← Portfólio</a>
+</header>
+
+<main id="conteudo">
+  <!-- HERO -->
+  <section class="p-hero" data-phase="7">
+    <div class="wrap p-hero__grid">
+      <div>
+        <p class="kicker mono" data-bind="edition">Portfólio</p>
+        <h1 class="h1 display p-hero__title" data-bind="title" data-split>Carregando…</h1>
+        <p class="p-hero__sub" data-bind="subtitle"></p>
+        <div class="p-hero__tags" data-bind="tags"></div>
+      </div>
+      <figure class="p-hero__badge p-hero__badge--emblem" data-reveal><img data-bind="cover" alt="" width="800" height="887"></figure>
+    </div>
+  </section>
+
+  <!-- PALCO DA CENA 3D: os três desafios montados com a rolagem (scene.js) -->
+  <section class="stage" id="stage" data-phase="8" aria-label="Experiência interativa do projeto">
+    <div class="stage__pin">
+      <div class="stage__canvas" id="sceneMount"></div>
+      <div class="wrap stage__copy">
+        <p class="kicker mono">Experiência do capítulo</p>
+        <p class="stage__line display" data-stage-line>Três desafios, um só material: palitos de picolé</p>
+        <div class="stage__progress mono" aria-hidden="true"><span id="stageNum">00</span>%</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" data-phase="8">
+    <div class="wrap">
+      <ul class="stats p-stats" data-bind="stats"></ul>
+      <p class="p-summary" data-bind="summary" data-reveal></p>
+    </div>
+  </section>
+
+  <!-- OS TRÊS DESAFIOS (abas interativas) -->
+  <section class="section" id="desafios" data-phase="8">
+    <div class="wrap">
+      <p class="kicker mono">Desafios científicos</p>
+      <h2 class="h2 display" data-split>Palitos de picolé, engenharia de verdade</h2>
+      <p class="lead" data-reveal>Em cada escola, equipes de até quatro estudantes escolhem um desafio, constroem o protótipo com orientação de um professor e o testam na Mostra Científica. Escolha um desafio para ver o recorde e as marcas vencedoras.</p>
+      <div class="chal" data-bind="challenges"></div>
+    </div>
+  </section>
+
+  <!-- ROTA ITINERANTE -->
+  <section class="section" id="escolas" data-phase="8">
+    <div class="wrap">
+      <p class="kicker mono">Rota itinerante</p>
+      <h2 class="h2 display" data-split>Quatro escolas públicas, três municípios</h2>
+      <ol class="route" data-bind="schools"></ol>
+    </div>
+  </section>
+
+  <!-- CICLO EM CADA ESCOLA -->
+  <section class="section" id="ciclo" data-phase="8">
+    <div class="wrap">
+      <p class="kicker mono">Ciclo de execução</p>
+      <h2 class="h2 display" data-split>Como a olimpíada acontece em cada escola</h2>
+      <ol class="journey" data-bind="journey"></ol>
+    </div>
+  </section>
+
+  <!-- QUEM FEZ ACONTECER -->
+  <section class="section" id="instituicoes" data-phase="8">
+    <div class="wrap">
+      <p class="kicker mono">Realização e apoio</p>
+      <h2 class="h2 display" data-split>Uma olimpíada construída em rede</h2>
+      <ul class="credits" data-bind="credits"></ul>
+      <div class="delivered glass" data-reveal>
+        <p class="kicker mono">O que o Quarks entregou</p>
+        <ul data-bind="delivered"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- REGISTROS -->
+  <section class="section" id="registros" data-phase="8">
+    <div class="wrap">
+      <div class="section-head section-head--row">
+        <div>
+          <p class="kicker mono">Registros do projeto</p>
+          <h2 class="h2 display" data-split>Nas mostras científicas</h2>
+        </div>
+        <div class="p-links" data-bind="links" data-reveal></div>
+      </div>
+      <ul class="gallery" data-bind="photos"></ul>
+    </div>
+  </section>
+
+  <section class="section" id="relatorio" data-phase="9">
+    <div class="wrap grid-2 p-report">
+      <a class="p-report__doc" data-bind="report" target="_blank" rel="noopener"><img alt="Capa do relatório técnico de execução da OSFIC" width="480" height="679"></a>
+      <div>
+        <p class="kicker mono">Demonstrativos</p>
+        <h2 class="h2 display" data-split>Relatório técnico de execução</h2>
+        <p class="lead" data-reveal>Planejamento, metodologia, execução em cada escola, resultados, material produzido, comunicação e metas alcançadas até 18/11/2026. A etapa estadual, com o anúncio dos campeões, está em preparação.</p>
+        <div class="hero__actions" data-reveal>
+          <a class="btn" data-bind="reportBtn" target="_blank" rel="noopener">Abrir relatório (PDF)</a>
+          <a class="btn btn--ghost" href="../../#portfolio">Voltar ao portfólio</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer footer--slim" data-phase="9">
+  <div class="wrap footer__legal mono">
+    <span>© 2026 Organização Social e Clube de Ciências Quarks</span>
+    <span>CNPJ: 57.914.912/0001-96</span>
+  </div>
+</footer>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="q-mark" viewBox="10 25 540 363">
+    <g fill="none" stroke="currentColor" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"><path d="M143 109A159.9 159.9 0 0 1 414 109" stroke-width="14.5"/><path d="M195 113A111.2 111.2 0 0 1 365 113" stroke-width="14.5"/><path d="M252 115Q280 98 308 119" stroke-width="14.5"/><path d="M173 248A120.2 120.2 0 0 0 387 248" stroke-width="14.5"/><path d="M142 281A165.1 165.1 0 0 0 418 281" stroke-width="14.5"/><path d="M57 144a37.3 37.3 0 1 1 0 74.6a37.3 37.3 0 1 1 0-74.6M69 193L105.5 233"/><path d="M134.3 143.5V185a32.2 32.2 0 0 0 64.4 0V143.5"/><path d="M247 219L279 151Q283 145 291 145H309A23.5 23.5 0 0 1 309 192H290M309 192L324 219"/><path d="M385.5 144V218M459 141L393 190.5M408 180L441 219"/><path d="M536 157C527 145 515 143.5 508 143.5C493 143.5 481 150 481 162C481 177 498 178 512 180C527 182 540 186 540 199C540 212 527 218 509 218C494 218 485 213 480 206"/><path d="M285 150V206" stroke-width="10"/></g><g fill="currentColor"><circle cx="280" cy="54.5" r="6.6"/><circle cx="94.3" cy="109.3" r="9.4"/><circle cx="515.3" cy="108.3" r="7.2"/><circle cx="49.3" cy="260" r="7.3"/><circle cx="430.7" cy="253.3" r="9.8"/><circle cx="476" cy="260" r="7.3"/><circle cx="280" cy="335" r="7.2"/><circle cx="280" cy="378.3" r="7.6"/><circle cx="280" cy="265" r="21.3"/><circle cx="256.7" cy="256.7" r="10.5"/><circle cx="303.3" cy="256.7" r="10.5"/></g>
+  </symbol>
+</svg>
+</body>
+</html>

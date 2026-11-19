@@ -87,5 +87,296 @@
       "https://www.instagram.com/reel/DP1iyBngAyY/"
     ],
     "scene": "projetos/energia-sustentavel/scene.js"
+  },
+  {
+    "slug": "osfic",
+    "title": "OSFIC",
+    "subtitle": "Olimpíada Sergipana Fundamental de Inovação e Ciências",
+    "edition": "Edição 2026",
+    "year": "2026",
+    "with": "UFS · FAPITEC/SE",
+    "url": "projetos/osfic/",
+    "cover": "assets/img/projetos/osfic.webp",
+    "tags": [
+      "Olimpíada científica",
+      "Kits experimentais",
+      "Livro com ISBN",
+      "Site e comunicação"
+    ],
+    "places": [
+      "Aracaju",
+      "São Miguel do Aleixo",
+      "Riachão do Dantas"
+    ],
+    "summary": "A 1ª Olimpíada Sergipana Fundamental de Inovação e Ciências levou desafios de engenharia e ciência a escolas públicas de Sergipe em 2026, com o tema “Soluções para um Futuro Sustentável”. Com palitos de picolé e muita criatividade, as equipes construíram pontes, lançadores e carros movidos a energia solar, e apresentaram tudo em mostras científicas abertas à comunidade escolar. A olimpíada é coordenada pela UFS, por meio do CCET, foi contemplada no Edital FAPITEC/SE/FUNTEC nº 16/2025, com recursos do Governo do Estado de Sergipe, e conta com o apoio da Associação Sergipana de Ciência. O Quarks foi contratado pela coordenação do projeto para a execução técnica: mobilização das escolas, kits, material didático, identidade visual, site, gestão de dados e comunicação.",
+    "stats": [
+      {
+        "value": 4,
+        "label": "escolas públicas em 3 municípios"
+      },
+      {
+        "value": 39,
+        "label": "grupos de até quatro estudantes"
+      },
+      {
+        "value": 133,
+        "label": "estudantes certificados"
+      },
+      {
+        "value": 40,
+        "label": "estudantes premiados com o 1º lugar"
+      },
+      {
+        "value": 11,
+        "label": "professores orientadores"
+      },
+      {
+        "value": 83,
+        "label": "publicações no Instagram, com cerca de 57,8 mil visualizações"
+      }
+    ],
+    "challenges": [
+      {
+        "id": "ponte",
+        "letter": "A",
+        "title": "Ponte de Palitos",
+        "material": "Até 200 palitos e cola quente, com vão livre de 40 cm",
+        "goal": "Vence a ponte que suporta a maior carga no centro do vão",
+        "record": {
+          "value": 74,
+          "decimals": 0,
+          "unit": "kg",
+          "note": "por 4 segundos, no CEMG"
+        },
+        "results": [
+          {
+            "school": "CEGAF",
+            "value": 34
+          },
+          {
+            "school": "CEMG",
+            "value": 74
+          },
+          {
+            "school": "EMPLAB",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "id": "lancador",
+        "letter": "B",
+        "title": "Lançador de Projéteis",
+        "material": "Até 20 palitos, elásticos, tampinha e esfera de borracha",
+        "goal": "Vence o lançador que leva a esfera mais longe",
+        "record": {
+          "value": 6.57,
+          "decimals": 2,
+          "unit": "m",
+          "note": "de alcance, no CEMG"
+        },
+        "results": [
+          {
+            "school": "CEGAF",
+            "value": 2.71
+          },
+          {
+            "school": "CEMG",
+            "value": 6.57
+          },
+          {
+            "school": "EMPLAB",
+            "value": 2.48
+          }
+        ]
+      },
+      {
+        "id": "carro",
+        "letter": "C",
+        "title": "Carro Elétrico Solar",
+        "material": "Chassi com até 5 palitos; motor, placa solar, eixos e rodas fornecidos",
+        "goal": "Vence o carro que percorre a maior distância em 10 segundos, sob luz solar",
+        "record": {
+          "value": 6.98,
+          "decimals": 2,
+          "unit": "m",
+          "note": "em 10 segundos, no CEGAF"
+        },
+        "results": [
+          {
+            "school": "CEGAF",
+            "value": 6.98
+          },
+          {
+            "school": "CEMG",
+            "value": 5.0
+          },
+          {
+            "school": "EMPLAB",
+            "value": 3.84
+          }
+        ]
+      }
+    ],
+    "schools": [
+      {
+        "short": "EMEFJK",
+        "name": "EMEF Juscelino Kubitschek",
+        "city": "Aracaju",
+        "network": "Rede municipal",
+        "period": "23/02 a 11/05/2026",
+        "groups": 6,
+        "students": 9,
+        "teachers": 2
+      },
+      {
+        "short": "CEGAF",
+        "name": "Centro de Excelência Governador Augusto Franco",
+        "city": "Aracaju",
+        "network": "Rede estadual",
+        "period": "24/02 a 14/04/2026",
+        "groups": 12,
+        "students": 48,
+        "teachers": 2
+      },
+      {
+        "short": "CEMG",
+        "name": "Centro de Excelência Miguel das Graças",
+        "city": "São Miguel do Aleixo",
+        "network": "Rede estadual",
+        "period": "27/02 a 29/04/2026",
+        "groups": 12,
+        "students": 45,
+        "teachers": 4
+      },
+      {
+        "short": "EMPLAB",
+        "name": "Escola Municipal Professor Luiz Antônio Barreto",
+        "city": "Riachão do Dantas",
+        "network": "Rede municipal",
+        "period": "05/03 a 06/08/2026",
+        "groups": 9,
+        "students": 31,
+        "teachers": 3
+      }
+    ],
+    "journey": [
+      {
+        "title": "Mobilização",
+        "text": "A equipe visita a escola com uma palestra que apresenta a olimpíada, os desafios e o tema."
+      },
+      {
+        "title": "Inscrição",
+        "text": "Professores orientadores e grupos se inscrevem pelo site oficial e escolhem a categoria."
+      },
+      {
+        "title": "Desenvolvimento",
+        "text": "As equipes constroem os protótipos com o material didático, os kits e a mentoria da equipe executora."
+      },
+      {
+        "title": "Mostra Científica",
+        "text": "Testes oficiais diante da comunidade escolar, com registro dos resultados e anúncio dos vencedores."
+      },
+      {
+        "title": "Certificação",
+        "text": "Certificados de participação para estudantes e professores, e de 1º lugar para os grupos vencedores."
+      }
+    ],
+    "credits": [
+      {
+        "role": "Coordenação geral e Comissão Científica",
+        "name": "UFS · CCET",
+        "detail": "Coordenador: Prof. Dr. Cochiran Pereira dos Santos",
+        "logo": "assets/img/parceiros/ccet-ufs.webp"
+      },
+      {
+        "role": "Fomento",
+        "name": "FAPITEC/SE",
+        "detail": "Edital FAPITEC/SE/FUNTEC nº 16/2025, com recursos do FUNTEC",
+        "logo": "assets/img/parceiros/fapitec.webp"
+      },
+      {
+        "role": "Financiamento",
+        "name": "Governo do Estado de Sergipe",
+        "detail": "Por meio da SEDETEC e da FAPITEC/SE",
+        "logo": "assets/img/parceiros/governo-sergipe.webp"
+      },
+      {
+        "role": "Apoio",
+        "name": "ASCI",
+        "detail": "Associação Sergipana de Ciência, que assina os certificados com a coordenação",
+        "logo": "assets/img/parceiros/asci.webp"
+      }
+    ],
+    "delivered": [
+      "Mobilização das escolas e cobertura audiovisual das mostras",
+      "Kits do Carro Elétrico Solar e insumos padronizados dos desafios",
+      "Livro “Ciência mão na massa” com ISBN, três apostilas e três apresentações",
+      "Identidade visual, site com inscrição on-line e plataforma de gestão de dados",
+      "Gestão do Instagram @osfic.sergipe",
+      "Organização da premiação, com confecção e entrega dos prêmios"
+    ],
+    "photos": [
+      {
+        "file": "assets/img/projetos/osfic/registro-01.webp",
+        "caption": "Entrega dos kits no CEGAF, em 24/02/2026"
+      },
+      {
+        "file": "assets/img/projetos/osfic/registro-02.webp",
+        "caption": "Palestra de mobilização no CEGAF"
+      },
+      {
+        "file": "assets/img/projetos/osfic/registro-03.webp",
+        "caption": "Teste dos lançadores na Mostra Científica do CEGAF"
+      },
+      {
+        "file": "assets/img/projetos/osfic/registro-04.webp",
+        "caption": "Mostra Científica do CEGAF, em abril de 2026"
+      },
+      {
+        "file": "assets/img/projetos/osfic/registro-05.webp",
+        "caption": "Comemoração dos grupos vencedores no CEGAF"
+      },
+      {
+        "file": "assets/img/projetos/osfic/registro-06.webp",
+        "caption": "Estudantes, professores, gestão e equipe na Mostra do CEMG, em 29/04/2026"
+      },
+      {
+        "file": "assets/img/projetos/osfic/registro-07.webp",
+        "caption": "Largada do Carro Elétrico Solar no CEMG"
+      },
+      {
+        "file": "assets/img/projetos/osfic/registro-08.webp",
+        "caption": "Teste de carga da ponte recordista no CEMG"
+      },
+      {
+        "file": "assets/img/projetos/osfic/registro-09.webp",
+        "caption": "Premiação com medalhas e kits no CEMG"
+      }
+    ],
+    "links": [
+      {
+        "label": "Site oficial",
+        "value": "osfic.com.br",
+        "href": "https://osfic.com.br/"
+      },
+      {
+        "label": "Instagram",
+        "value": "@osfic.sergipe",
+        "href": "https://www.instagram.com/osfic.sergipe/"
+      }
+    ],
+    "report": {
+      "file": "projetos/OSFIC/RELATORIO_OSFIC.pdf",
+      "cover": "assets/img/capas/relatorio-osfic.webp"
+    },
+    "reels": [],
+    "scene": "projetos/osfic/scene.js",
+    "stageLines": [
+      "Três desafios, um só material: palitos de picolé",
+      "Uma ponte de palitos que sustentou 74 kg",
+      "Um lançador que mandou a esfera a 6,57 m",
+      "Um carro solar que percorreu 6,98 m em 10 segundos"
+    ]
   }
 ]

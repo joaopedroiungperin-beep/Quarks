@@ -534,9 +534,11 @@ export async function initPortfolio() {
         h('span', { class: 'project__year' }, p.year),
         h('span', {},
           h('span', { class: 'project__title' }, p.title),
+          p.subtitle ? h('span', { class: 'project__sub' }, p.subtitle) : null,
         ),
         h('span', { class: 'project__meta' },
           p.partner ? h('span', { class: 'tag' }, t('com {name}', { name: partnerName(p.partner) })) : null,
+          p.with ? h('span', { class: 'tag' }, t('com {name}', { name: p.with })) : null,
           ...p.places.map((c) => h('span', { class: 'tag' }, c)),
         ),
         h('span', { class: 'project__go', html: ICON_ARROW }),
@@ -547,7 +549,7 @@ export async function initPortfolio() {
     h('div', {},
       h('span', { class: 'project__year' }, '2026 →'),
       h('span', { class: 'project__title' }, 'Próximo capítulo em construção'),
-      h('span', { class: 'project__meta' }, h('span', { class: 'tag' }, 'FIICEST · OSFIC · MOSEE')),
+      h('span', { class: 'project__meta' }, h('span', { class: 'tag' }, 'FIICEST · MOSEE')),
       h('span', {}),
     )));
 
@@ -653,7 +655,7 @@ export async function initTransparency() {
 
   cats.forEach((cat, i) => {
     const btn = h('button', { role: 'tab', id: `tab-${cat.id}`, 'aria-selected': i === 0 ? 'true' : 'false', tabindex: i === 0 ? '0' : '-1', type: 'button' },
-      cat.title, h('span', { class: 'count' }, String(cat.items.length)));
+      h('span', {}, cat.title), h('span', { class: 'count' }, String(cat.items.length)));
     btn.addEventListener('click', () => {
       $$('[role="tab"]', tabs).forEach((b) => { b.setAttribute('aria-selected', 'false'); b.tabIndex = -1; });
       btn.setAttribute('aria-selected', 'true'); btn.tabIndex = 0;
