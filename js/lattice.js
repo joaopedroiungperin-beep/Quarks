@@ -3,6 +3,7 @@
    Ao passar o cursor, a energia se propaga pelas ligações vizinhas. */
 
 import { $, h, asset, loadJSON, drawer, reducedMotion } from './core.js';
+import { t } from './i18n.js';
 
 export async function initLattice() {
   const host = $('#lattice');
@@ -57,7 +58,7 @@ export async function initLattice() {
   const openPartner = (p) => {
     dw.open(h('div', {},
       h('p', { class: 'mono drawer__crumb' }, 'Parceiros'),
-      h('div', { class: 'drawer__logo' }, h('img', { src: asset(p.logoWide || p.logo), alt: `Logo ${p.name}` })),
+      h('div', { class: 'drawer__logo' }, h('img', { src: asset(p.logoWide || p.logo), alt: t('Logo {name}', { name: p.name }) })),
       h('h2', { id: 'drawerTitle' }, p.fullName ? `${p.name} · ${p.fullName}` : p.name),
       h('dl', {},
         h('div', {}, h('dt', {}, 'Desde'), h('dd', {}, p.since)),
@@ -72,7 +73,7 @@ export async function initLattice() {
   const els = items.map((it) => {
     let el;
     if (it.type === 'partner') {
-      el = h('button', { class: 'lnode', type: 'button', 'aria-label': `Parceiro ${it.p.name}: ver detalhes` },
+      el = h('button', { class: 'lnode', type: 'button', 'aria-label': t('Parceiro {name}: ver detalhes', { name: it.p.name }) },
         h('img', { src: asset(it.p.logo), alt: '' }));
       el.addEventListener('click', () => openPartner(it.p));
       list.append(h('li', {}, h('button', { type: 'button', onclick: () => openPartner(it.p),
@@ -129,9 +130,9 @@ export async function initLattice() {
   let visible = false;
   new IntersectionObserver(([en]) => { visible = en.isIntersecting; if (visible) requestAnimationFrame(draw); }).observe(host);
 
-  let t = 0;
+  let clock = 0;
   function draw() {
-    t += 0.016;
+    clock += 0.016;
     // difusão de energia pelas ligações
     const next = nodes.map((n, i) => {
       let s = n.e * 0.86;
@@ -155,7 +156,7 @@ export async function initLattice() {
     }
     // átomos
     for (const n of nodes) {
-      const breathe = reducedMotion ? 0 : Math.sin(t * 1.4 + n.ph) * 0.4;
+      const breathe = reducedMotion ? 0 : Math.sin(clock * 1.4 + n.ph) * 0.4;
       const [x, y] = toPx(n.x, n.y);
       const f = fade(n);
       const rad = 2 + breathe + n.e * 3.5;

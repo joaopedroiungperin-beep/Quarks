@@ -3,6 +3,7 @@
 
 import { $, $$ } from './core.js';
 import { CONFIG } from './config.js';
+import { t } from './i18n.js';
 
 const maskPhone = (v) => {
   const d = v.replace(/\D/g, '').slice(0, 11);
@@ -41,7 +42,7 @@ export function initForms() {
       const invalid = $$('input, textarea', form).filter((el) => !el.classList.contains('hp') && !el.checkValidity());
       invalid.forEach((el) => el.classList.add('is-invalid'));
       if (invalid.length) {
-        status.textContent = 'Confira os campos destacados.';
+        status.textContent = t('Confira os campos destacados.');
         status.classList.add('err');
         invalid[0].focus();
         return;
@@ -55,13 +56,13 @@ export function initForms() {
       if (!CONFIG.WEB3FORMS_KEY) {
         const text = [subject, '', ...Object.entries(data).filter(([, v]) => v).map(([k, v]) => `${LABELS[k] || k}: ${v}`)].join('\n');
         window.open(waLink(text), '_blank', 'noopener');
-        status.textContent = 'Abrimos o WhatsApp com sua mensagem pronta. É só enviar.';
+        status.textContent = t('Abrimos o WhatsApp com sua mensagem pronta. É só enviar.');
         status.classList.add('ok');
         return;
       }
 
       btn.disabled = true;
-      status.textContent = 'Enviando…';
+      status.textContent = t('Enviando…');
       try {
         const res = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
@@ -72,15 +73,15 @@ export function initForms() {
         if (!res.ok || json.success === false) throw new Error(json.message || 'Falha no envio');
         form.reset();
         $$('.counter', form).forEach((c) => { c.textContent = c.textContent.replace(/^\d+/, '0'); });
-        status.textContent = 'Recebemos sua mensagem. Obrigado! Responderemos em breve.';
+        status.textContent = t('Recebemos sua mensagem. Obrigado! Responderemos em breve.');
         status.classList.add('ok');
       } catch (err) {
         status.innerHTML = '';
-        status.append('Não foi possível enviar agora. ');
+        status.append(t('Não foi possível enviar agora.') + ' ');
         const a = document.createElement('a');
         a.href = `mailto:${CONFIG.EMAIL}?subject=${encodeURIComponent(subject)}`;
-        a.textContent = 'Escreva para nosso e-mail';
-        status.append(a, ' ou use o WhatsApp.');
+        a.textContent = t('Escreva para nosso e-mail');
+        status.append(a, ' ' + t('ou use o WhatsApp.'));
         status.classList.add('err');
       } finally {
         btn.disabled = false;

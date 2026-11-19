@@ -11,6 +11,9 @@
 import * as THREE from '../vendor/three.module.min.js';
 import { $, $$, h, asset, loadJSON, initScroll, initNav, initReveals, hasGSAP, reducedMotion } from './core.js';
 import { createCosmos } from './cosmos.js';
+import { initI18n, t } from './i18n.js';
+
+const i18n = initI18n();
 
 const slug = document.body.dataset.project;
 const volLabel = (v) => (typeof v === 'number' ? `Vol. ${String(v).padStart(2, '0')}` : `Volume ${v}`);
@@ -29,19 +32,20 @@ if (document.documentElement.classList.contains('from-wormhole')) {
 }
 
 (async () => {
+  await i18n; // textos montados já no idioma escolhido
   const [projects, partners, pubs] = await Promise.all([loadJSON('projects'), loadJSON('partners'), loadJSON('publications')]);
   const p = projects.find((x) => x.slug === slug);
-  if (!p) { bind('title').textContent = 'Projeto não encontrado'; return; }
+  if (!p) { bind('title').textContent = t('Projeto não encontrado'); return; }
   const partner = partners.find((x) => x.id === p.partner);
 
-  bind('edition').textContent = `Portfólio · ${p.edition}`;
+  bind('edition').textContent = `${t('Portfólio')} · ${t(p.edition)}`;
   bind('title').textContent = p.title;
   bind('tags').append(
-    partner ? h('span', { class: 'tag' }, `com ${partner.name}`) : null,
+    partner ? h('span', { class: 'tag' }, t('com {name}', { name: partner.name })) : null,
     ...p.places.map((c) => h('span', { class: 'tag' }, c)),
     ...p.tags.map((t) => h('span', { class: 'tag' }, t)),
   );
-  const cover = bind('cover'); cover.src = asset(p.cover); cover.alt = `Ilustração do projeto ${p.title}`;
+  const cover = bind('cover'); cover.src = asset(p.cover); cover.alt = t('Ilustração do projeto {title}', { title: t(p.title) });
   bind('summary').textContent = p.summary;
 
   bind('stats').append(...p.stats.map((s) => h('li', {},
@@ -62,7 +66,7 @@ if (document.documentElement.classList.contains('from-wormhole')) {
         b.isbn ? h('span', { class: 'tag' }, `ISBN ${b.isbn}`) : h('span', { class: 'tag tag--pending' }, 'ISBN em registro')),
     ];
     return h('li', { class: 'shelf__item' }, b.file
-      ? h('a', { href: asset(b.file), target: '_blank', rel: 'noopener', 'aria-label': `Abrir ${b.title} (PDF)` }, inner)
+      ? h('a', { href: asset(b.file), target: '_blank', rel: 'noopener', 'aria-label': t('Abrir {title} (PDF)', { title: b.title }) }, inner)
       : h('div', {}, inner));
   }));
 
@@ -79,8 +83,8 @@ if (document.documentElement.classList.contains('from-wormhole')) {
   };
   p.reels.forEach((url, i) => {
     const li = h('li', { class: 'reel' });
-    const btn = h('button', { class: 'reel__facade', type: 'button', 'aria-label': `Carregar vídeo ${i + 1} do Instagram` },
-      h('span', { class: 'mono' }, `Registro ${String(i + 1).padStart(2, '0')}`),
+    const btn = h('button', { class: 'reel__facade', type: 'button', 'aria-label': t('Carregar vídeo {n} do Instagram', { n: i + 1 }) },
+      h('span', { class: 'mono' }, t('Registro {n}', { n: String(i + 1).padStart(2, '0') })),
       h('span', { class: 'reel__play', 'aria-hidden': 'true' }),
       h('span', { class: 'mono reel__src' }, 'Instagram · @quarks.club'));
     btn.addEventListener('click', () => {
@@ -99,8 +103,8 @@ if (document.documentElement.classList.contains('from-wormhole')) {
 
   if (partner) {
     bind('partner').append(
-      h('img', { src: asset(partner.logoWide || partner.logo), alt: `Logo ${partner.name}` }),
-      h('p', {}, h('strong', {}, `Em parceria com ${partner.name}. `), partner.since + '.'),
+      h('img', { src: asset(partner.logoWide || partner.logo), alt: t('Logo {name}', { name: partner.name }) }),
+      h('p', {}, h('strong', {}, t('Em parceria com {name}.', { name: partner.name }) + ' '), t(partner.since) + '.'),
     );
   }
 
@@ -118,7 +122,7 @@ async function mountScene(p) {
     scene = mod.mount(el, { THREE });
   } catch (e) { console.error('Cena indisponível', e); return; }
   const num = $('#stageNum');
-  const lines = ['O projeto, desmontado peça por peça.', 'Kits, formação, visitas, mostras e publicações.', 'Energia que fica na escola.'];
+  const lines = ['O projeto, desmontado peça por peça', 'Kits, formação, visitas, mostras e publicações', 'Energia que fica na escola'].map((l) => t(l));
   const lineEl = $('[data-stage-line]');
   const set = (prog) => {
     scene.update(prog);

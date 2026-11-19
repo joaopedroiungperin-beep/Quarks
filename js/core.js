@@ -18,6 +18,8 @@ export function loadJSON(name) {
   return cache.get(name);
 }
 
+import { t } from './i18n.js';
+
 export const $ = (s, el = document) => el.querySelector(s);
 export const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 
@@ -35,7 +37,7 @@ export function h(tag, attrs = {}, ...children) {
 }
 
 export const fmtNumber = (n, d = 0) =>
-  n.toLocaleString('pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d });
+  n.toLocaleString(document.documentElement.lang || 'pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d });
 
 /* ---------- Scroll suave (Lenis) sincronizado ao GSAP ---------- */
 export let lenis = null;
@@ -69,11 +71,14 @@ export function initScroll() {
 /* ---------- Divide títulos em palavras mascaradas ---------- */
 export function splitWords(el) {
   if (el.dataset.splitDone) return $$('.wi', el);
+  el.dataset.splitSrc = el.innerHTML; // texto original, usado para gerar a lista de traduções
+  // chinês e japonês não separam palavras por espaço: cada caractere vira uma unidade
+  const cjk = /^(zh|ja)/.test(document.documentElement.lang);
   const walk = (node) => {
     [...node.childNodes].forEach((child) => {
       if (child.nodeType === 3) {
         const frag = document.createDocumentFragment();
-        child.textContent.split(/(\s+)/).forEach((part) => {
+        child.textContent.split(cjk ? /(\s+|)/ : /(\s+)/).forEach((part) => {
           if (!part) return;
           if (/^\s+$/.test(part)) { frag.append(document.createTextNode(' ')); return; }
           const w = h('span', { class: 'w' }, h('span', { class: 'wi' }, part));
@@ -97,6 +102,11 @@ export function initReveals(scope = document) {
   const { gsap } = window;
 
   $$('[data-split]', scope).forEach((el) => {
+    // tradução automática: não dividir em palavras (o tradutor traduziria palavra por palavra)
+    if (document.documentElement.classList.contains('mt')) {
+      gsap.from(el, { opacity: 0, y: 30, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 88%', once: true } });
+      return;
+    }
     const words = splitWords(el);
     gsap.set(words, { yPercent: 110 });
     gsap.to(words, {
@@ -174,7 +184,7 @@ export function initNav() {
   if (toggle && menu) {
     const setOpen = (open) => {
       toggle.setAttribute('aria-expanded', String(open));
-      toggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+      toggle.setAttribute('aria-label', open ? t('Fechar menu') : t('Abrir menu'));
       menu.hidden = !open;
       document.body.style.overflow = open ? 'hidden' : '';
       if (lenis) open ? lenis.stop() : lenis.start();

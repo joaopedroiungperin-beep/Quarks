@@ -1,6 +1,7 @@
 /* Seções da home: renderização a partir de data/*.json e interações. */
 
 import { $, $$, h, asset, loadJSON, hasGSAP, reducedMotion, isTouch, drawer, lenis } from './core.js';
+import { t } from './i18n.js';
 
 const ICON_ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 const ICON_DOC = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg>';
@@ -185,16 +186,16 @@ export function initRace() {
     ctx.setLineDash([3, 3]); ctx.strokeStyle = 'rgba(243,234,216,0.5)';
     ctx.beginPath(); ctx.moveTo(fx1, fy1); ctx.lineTo(fx2, fy2); ctx.stroke(); ctx.setLineDash([]);
     ctx.fillStyle = 'rgba(243,234,216,0.55)'; ctx.font = mono; ctx.textAlign = 'center';
-    ctx.fillText('MÉDIA NACIONAL', w / 2, fy1 + 16);
+    ctx.fillText(t('MÉDIA NACIONAL'), w / 2, fy1 + 16);
     // pulsos com rastro (o de Sergipe se alonga com o impulso)
     Object.values(lanes).forEach((l) => {
       const k = l === lanes.se ? boost : 0;
       const len = 0.5 + k * 0.9;
       for (let i = 0; i < 28; i++) {
-        const t = i / 27;
-        const [x, y] = pt(l.a - len * (1 - t), l.s);
-        ctx.fillStyle = `rgba(${l.c},${(t * t * 0.7).toFixed(3)})`;
-        ctx.beginPath(); ctx.arc(x, y, 1 + t * 2.4, 0, Math.PI * 2); ctx.fill();
+        const q = i / 27;
+        const [x, y] = pt(l.a - len * (1 - q), l.s);
+        ctx.fillStyle = `rgba(${l.c},${(q * q * 0.7).toFixed(3)})`;
+        ctx.beginPath(); ctx.arc(x, y, 1 + q * 2.4, 0, Math.PI * 2); ctx.fill();
       }
       const [x, y] = pt(l.a, l.s);
       ctx.shadowColor = `rgb(${l.c})`; ctx.shadowBlur = 16 + k * 18;
@@ -205,9 +206,9 @@ export function initRace() {
     const on = boost > 0.05;
     ctx.fillStyle = `rgba(242,166,90,${(0.2 + boost * 0.8).toFixed(3)})`;
     ctx.font = `500 ${Math.round(Math.min(w, 520) / 18)}px Unbounded, sans-serif`;
-    ctx.fillText(on ? 'IMPULSO' : 'SERGIPE', w / 2, h / 2 + 4);
+    ctx.fillText(on ? t('IMPULSO') : t('SERGIPE'), w / 2, h / 2 + 4);
     ctx.fillStyle = 'rgba(243,234,216,0.45)'; ctx.font = mono;
-    ctx.fillText(on ? 'ensino experimental' : 'acelerando', w / 2, h / 2 + 22);
+    ctx.fillText(on ? t('ensino experimental') : t('acelerando'), w / 2, h / 2 + 22);
   }
 
   const resize = () => {
@@ -309,13 +310,13 @@ export function initVirada() {
     const target = Math.max(-18, Math.min(18, (LEFT - n) * 3));
     if (hasGSAP() && !reducedMotion) window.gsap.to(st, { t: target, duration: 1.4, ease: 'elastic.out(1, 0.4)', onUpdate: render, overwrite: true });
     else { st.t = target; render(); }
-    out.textContent = n + (n === 1 ? ' bloco' : ' blocos');
+    out.textContent = n === 1 ? t('1 bloco') : t('{n} blocos', { n });
     const solved = n === LEFT;
     lab.classList.toggle('is-solved', solved);
-    if (solved) msg.textContent = 'Equilíbrio! Sete blocos pesam o mesmo que a caixa e mais três, então a caixa vale 4.';
-    else if (n < LEFT) msg.textContent = 'A esquerda ainda pesa mais. Continue pondo blocos e observe o ponteiro.';
-    else msg.textContent = 'Passou do ponto: agora a direita pesa mais. Arraste um bloco do prato de volta para a bandeja.';
-    if (puzzleMsg) puzzleMsg.textContent = solved ? 'Depois da experiência, as peças se encaixam: a caixa “x” guardava 4 blocos. Agora o símbolo tem significado.' : puzzleText;
+    if (solved) msg.textContent = t('Equilíbrio! Sete blocos pesam o mesmo que a caixa e mais três, então a caixa vale 4.');
+    else if (n < LEFT) msg.textContent = t('A esquerda ainda pesa mais. Continue pondo blocos e observe o ponteiro.');
+    else msg.textContent = t('Passou do ponto: agora a direita pesa mais. Arraste um bloco do prato de volta para a bandeja.');
+    if (puzzleMsg) puzzleMsg.textContent = solved ? t('Depois da experiência, as peças se encaixam: a caixa “x” guardava 4 blocos. Agora o símbolo tem significado.') : puzzleText;
   };
   const touched = () => card.classList.add('is-touched');
   $$('[data-bench]', card).forEach((b) => b.addEventListener('click', () => { touched(); setN(n + Number(b.dataset.bench)); }));
@@ -398,7 +399,7 @@ export function initProposta() {
       on = !on;
       card.classList.toggle('is-on', on);
       cBtn.setAttribute('aria-pressed', String(on));
-      cBtn.textContent = on ? 'Desligar' : 'Ligar o circuito';
+      cBtn.textContent = on ? t('Desligar') : t('Ligar o circuito');
     };
     cBtn.addEventListener('click', toggle);
     circuit.addEventListener('click', toggle);
@@ -421,7 +422,7 @@ export function initProposta() {
       const k = 1.5 * (1 - f); // 1,5 = espalhada · 0 = tudo num ponto
       rays.forEach((r, i) => { r.setAttribute('x2', 262); r.setAttribute('y2', (85 + (ys[i] - 85) * k).toFixed(1)); });
       spot.style.setProperty('--f', (f * f).toFixed(3));
-      state.textContent = f > 0.92 ? 'foco: ponto quente!' : f > 0.45 ? 'quase lá…' : 'luz espalhada';
+      state.textContent = f > 0.92 ? t('foco: ponto quente!') : f > 0.45 ? t('quase lá…') : t('luz espalhada');
     };
     range.addEventListener('input', apply);
     apply();
@@ -452,8 +453,8 @@ export function initProposta() {
     const set = (y) => {
       year = y;
       $$('[data-year]', net).forEach((n) => n.classList.toggle('is-lit', Number(n.dataset.year) <= year));
-      out.textContent = LABELS[year];
-      nBtn.textContent = year >= 3 ? 'Recomeçar' : '+1 ano letivo';
+      out.textContent = t(LABELS[year]);
+      nBtn.textContent = year >= 3 ? t('Recomeçar') : t('+1 ano letivo');
     };
     const next = () => set(year >= 3 ? 0 : year + 1);
     nBtn.addEventListener('click', next);
@@ -468,13 +469,13 @@ export async function initStudies() {
     const kind = row.dataset.studies;
     const list = [...(data[kind] || [])].sort((a, b) => a.year - b.year);
     const count = $(`[data-count-of="${kind}"]`);
-    if (count) count.textContent = `${list.length} estudos`;
+    if (count) count.textContent = t('{n} estudos', { n: list.length });
     // onde ler: o domínio do link (scielo.br, eric.ed.gov…)
     const host = (u) => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return ''; } };
     const make = (hidden) => list.map((s) => h('a', {
       class: 'study', href: s.url, target: '_blank', rel: 'noopener',
       tabindex: hidden ? '-1' : null, 'aria-hidden': hidden ? 'true' : null,
-      'aria-label': hidden ? null : `${s.authors}, ${s.year} (abre em nova aba)`,
+      'aria-label': hidden ? null : `${s.authors}, ${s.year} ${t('(abre em nova aba)')}`,
     },
     h('span', { class: 'study__year' }, String(s.year)),
     h('span', { class: 'study__authors' }, s.authors),
@@ -491,18 +492,18 @@ export function initCompare() {
   const count = $('#compareCount');
   if (!range || !rows.length) return;
   const apply = (v) => {
-    const t = v / 100;
+    const k = v / 100;
     ctrl.style.setProperty('--t', v);
     rows.forEach((li, i) => {
       // cada linha "converte" em sequência
       const start = i / rows.length * 0.85;
-      const p = Math.min(1, Math.max(0, (t - start) / 0.15));
+      const p = Math.min(1, Math.max(0, (k - start) / 0.15));
       li.style.setProperty('--p', p.toFixed(3));
       li.classList.toggle('is-new', p > 0.5);
     });
     const done = rows.filter((li) => li.classList.contains('is-new')).length;
     if (count) count.textContent = done;
-    range.setAttribute('aria-valuetext', `${done} de ${rows.length} aspectos transformados`);
+    range.setAttribute('aria-valuetext', t('{n} de {total} aspectos transformados', { n: done, total: rows.length }));
   };
   range.addEventListener('input', () => apply(+range.value));
   apply(+range.value);
@@ -535,7 +536,7 @@ export async function initPortfolio() {
           h('span', { class: 'project__title' }, p.title),
         ),
         h('span', { class: 'project__meta' },
-          p.partner ? h('span', { class: 'tag' }, 'com ' + partnerName(p.partner)) : null,
+          p.partner ? h('span', { class: 'tag' }, t('com {name}', { name: partnerName(p.partner) })) : null,
           ...p.places.map((c) => h('span', { class: 'tag' }, c)),
         ),
         h('span', { class: 'project__go', html: ICON_ARROW }),
@@ -577,10 +578,10 @@ export async function initTeam() {
   const team = await loadJSON('team');
   team.forEach((m) => {
     grid.append(h('li', { class: 'member', tabindex: '0' },
-      h('img', { src: asset(m.photo), alt: `Foto de ${m.name}`, loading: 'lazy', width: '480', height: '640' }),
+      h('img', { src: asset(m.photo), alt: t('Foto de {name}', { name: m.name }), loading: 'lazy', width: '480', height: '640' }),
       h('div', { class: 'member__info' },
         h('p', { class: 'member__role' }, m.role),
-        m.diteq ? h('p', { class: 'member__diteq' }, `DITeQ · ${m.diteq}`) : null,
+        m.diteq ? h('p', { class: 'member__diteq' }, `DITeQ · ${t(m.diteq)}`) : null,
         h('h4', {}, m.name),
         h('p', { class: 'member__bio' }, m.bio),
       )));
@@ -616,8 +617,8 @@ export async function initTransparency() {
 
   const openItem = (cat, item) => {
     const content = h('div', {},
-      h('p', { class: 'mono drawer__crumb' }, `Transparência / ${cat.title}`),
-      h('h2', { id: 'drawerTitle' }, item.title + (item.date ? ` · ${item.date}` : '')),
+      h('p', { class: 'mono drawer__crumb' }, `${t('Transparência')} / ${t(cat.title)}`),
+      h('h2', { id: 'drawerTitle' }, t(item.title) + (item.date ? ` · ${t(item.date)}` : '')),
       item.note ? h('p', { class: 'tag tag--pending', style: 'margin-bottom:18px' }, item.note) : null,
       h('div', { class: 'drawer__files' }, item.files.map((f) =>
         h('a', { class: 'drawer__file', href: asset(f.file), target: '_blank', rel: 'noopener' },
@@ -638,7 +639,7 @@ export async function initTransparency() {
         h('span', {},
           h('span', { class: 'doc__title' }, item.title),
           h('span', { class: 'doc__sub' }, item.date || cat.title),
-          isPending ? pending() : h('span', { class: 'tag' }, single ? 'Abrir PDF ↗' : `${item.files.length} documento${item.files.length > 1 ? 's' : ''}`),
+          isPending ? pending() : h('span', { class: 'tag' }, single ? 'Abrir PDF ↗' : (item.files.length > 1 ? t('{n} documentos', { n: item.files.length }) : t('1 documento'))),
         ),
       ];
       let el;
