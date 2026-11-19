@@ -22,6 +22,7 @@
 
 import * as THREE from '../vendor/three.module.min.js';
 import { reducedMotion, isTouch } from './core.js';
+import { t } from './i18n.js';
 
 /* ---------- legendas educativas ---------- */
 const CAPTIONS = [
@@ -548,9 +549,9 @@ export function createCosmos(canvas, { sections = [], mode = 'scroll' } = {}) {
     cap.classList.remove('is-in');
     clearTimeout(setCaption.t);
     setCaption.t = setTimeout(() => {
-      cap.children[0].textContent = override ? 'Fase ∞' : `Fase ${String(i + 1).padStart(2, '0')}`;
-      cap.children[1].textContent = title;
-      cap.children[2].textContent = desc;
+      cap.children[0].textContent = override ? t('Fase ∞') : t('Fase {n}', { n: String(i + 1).padStart(2, '0') });
+      cap.children[1].textContent = t(title);
+      cap.children[2].textContent = t(desc);
       cap.classList.add('is-in');
     }, 220);
   };

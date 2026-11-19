@@ -8,6 +8,7 @@ import { runPreloader } from './preloader.js';
 import { initShowcase, initBenefits, initVirada, initRace, initProposta, initIdebMap, initStudies, initCompare, initPortfolio, initTeam, initRegistros, initTransparency } from './sections.js';
 import { initLattice } from './lattice.js';
 import { initForms } from './forms.js';
+import { initI18n } from './i18n.js';
 
 const root = document.documentElement;
 if (hasGSAP() && !reducedMotion) root.classList.add('anim');
@@ -17,6 +18,8 @@ const lenis = initScroll();
 if (lenis) lenis.stop();
 window.scrollTo(0, 0);
 
+// idioma: detecta e troca os textos enquanto o preloader roda
+const i18n = initI18n();
 const intro = runPreloader();
 
 // trabalho leve e síncrono: pode rodar já
@@ -82,4 +85,4 @@ const start = () => {
 // os dados JSON já começam a baixar durante a animação (rede, fora da thread principal)
 ['services', 'studies', 'projects', 'partners', 'team', 'documents'].forEach((n) => loadJSON(n).catch(() => {}));
 
-intro.then(start);
+Promise.all([intro, i18n]).then(start);

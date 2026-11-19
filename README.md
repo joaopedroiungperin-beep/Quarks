@@ -33,6 +33,23 @@ assets/                     Imagens WebP/AVIF, capas de PDF, marca em SVG
 documents/ assembleias/     PDFs oficiais
 ```
 
+## Idiomas
+
+O português é o original, escrito no HTML e em `data/*.json`. O site escolhe o idioma pelo **idioma do navegador/sistema** do visitante (não pelo país), e o seletor no menu guarda a escolha manual.
+
+| Idioma | Como é traduzido |
+|---|---|
+| Português | original |
+| Inglês, espanhol, chinês (simplificado) | tradução revisada em `i18n/en.json`, `i18n/es.json`, `i18n/zh.json` |
+| Qualquer outro | tradução automática do Google, carregada só para quem precisa (com aviso no seletor) |
+
+As traduções são indexadas por um hash do texto em português (`js/i18n.js`). **Ao mudar ou criar um texto, ele aparece em português nos três idiomas revisados até ganhar tradução**, nunca vazio. Para traduzir:
+
+1. Abra o site em português, role até o fim e rode `__i18nDump()` no console: ele lista `{ hash: "texto" }` de tudo que é traduzível.
+2. Adicione `"hash": "tradução"` em cada `i18n/<idioma>.json`, mantendo as mesmas tags HTML do original.
+
+Textos escritos por JavaScript passam por `t('texto')` (ou `t('{n} blocos', { n })`). Eles não aparecem no `__i18nDump()`: o hash de cada um sai de `__i18nHash('texto')` no console.
+
 ## Editar conteúdo
 
 | O quê | Onde |
