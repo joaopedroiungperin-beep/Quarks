@@ -177,3 +177,7 @@
 .p-stats .stat__n span { font-size: inherit; color: inherit; }
 .chal__bars li.is-na .chal__bar { background: repeating-linear-gradient(90deg, var(--c-faint) 0 6px, transparent 6px 12px); }
 .chal__bars li.is-na .chal__val { font-family: var(--f-body); font-style: italic; font-size: 0.8rem; opacity: 0.8; }
+/* rota: grupos, inscritos, certificados e professores (2 × 2) */
+.route__nums:has(> div:nth-child(4)) { grid-template-columns: repeat(2, 1fr); row-gap: 14px; }
+/* números: um cartão que sobra sozinho na última linha ocupa a largura toda */
+@media (min-width: 760px) { .p-stats--big li:last-child:nth-child(3n + 1) { grid-column: 1 / -1; } }

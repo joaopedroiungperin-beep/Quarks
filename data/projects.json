@@ -115,11 +115,11 @@
         "label": "escolas públicas em 3 municípios"
       },
       {
-        "value": 39,
+        "value": 42,
         "label": "grupos de até quatro estudantes"
       },
       {
-        "value": 133,
+        "value": 149,
         "label": "estudantes certificados"
       },
       {
@@ -238,7 +238,7 @@
         "network": "Rede municipal",
         "period": "23/02 a 11/05/2026",
         "groups": 6,
-        "students": 9,
+        "students": 15,
         "teachers": 2,
         "highlight": "https://www.instagram.com/stories/highlights/18089638781131749/"
       },
@@ -270,8 +270,8 @@
         "city": "Riachão do Dantas",
         "network": "Rede municipal",
         "period": "05/03 a 06/08/2026",
-        "groups": 9,
-        "students": 31,
+        "groups": 12,
+        "students": 41,
         "teachers": 3,
         "highlight": "https://www.instagram.com/stories/highlights/18097636792978728/"
       }
