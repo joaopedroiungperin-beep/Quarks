@@ -54,7 +54,7 @@ if (document.documentElement.classList.contains('from-wormhole')) {
 
   bind('stats').append(...p.stats.map((s) => h('li', {},
     h('strong', { class: 'stat__n' }, s.prefix ? h('span', { class: 'stat__pre' }, s.prefix) : null,
-      h('span', { 'data-count': String(s.value) }, String(s.value))), h('span', {}, s.label))));
+      h('span', { 'data-count': String(s.value) }, String(s.value))), ' ', h('span', {}, s.label))));
 
   fill('journey', (el) => el.append(...p.journey.map((j, i) => h('li', { class: 'journey__step', 'data-reveal': '' },
     h('span', { class: 'mono journey__n' }, String(i + 1).padStart(2, '0')),
@@ -85,15 +85,17 @@ if (document.documentElement.classList.contains('from-wormhole')) {
       s.onload = () => window.instgrm?.Embeds.process();
       document.head.append(s);
     };
-    (p.reels || []).forEach((url, i) => {
+    // cada item é um link (string) ou { url, source, title }
+    (p.reels || []).forEach((item, i) => {
+      const r = typeof item === 'string' ? { url: item } : item;
       const li = h('li', { class: 'reel' });
       const btn = h('button', { class: 'reel__facade', type: 'button', 'aria-label': t('Carregar vídeo {n} do Instagram', { n: i + 1 }) },
-        h('span', { class: 'mono' }, t('Registro {n}', { n: String(i + 1).padStart(2, '0') })),
+        h('span', { class: 'mono' }, r.title || t('Registro {n}', { n: String(i + 1).padStart(2, '0') })),
         h('span', { class: 'reel__play', 'aria-hidden': 'true' }),
-        h('span', { class: 'mono reel__src' }, 'Instagram · @quarks.club'));
+        h('span', { class: 'mono reel__src' }, `Instagram · ${r.source || '@quarks.club'}`));
       btn.addEventListener('click', () => {
-        li.replaceChildren(h('blockquote', { class: 'instagram-media', 'data-instgrm-permalink': url, 'data-instgrm-version': '14' },
-          h('a', { href: url, target: '_blank', rel: 'noopener' }, 'Ver no Instagram')));
+        li.replaceChildren(h('blockquote', { class: 'instagram-media', 'data-instgrm-permalink': r.url, 'data-instgrm-version': '14' },
+          h('a', { href: r.url, target: '_blank', rel: 'noopener' }, 'Ver no Instagram')));
         loadEmbed();
       });
       li.append(btn);
@@ -110,7 +112,8 @@ if (document.documentElement.classList.contains('from-wormhole')) {
     h('dl', { class: 'route__nums' },
       h('div', {}, h('dt', {}, t('grupos')), h('dd', { 'data-count': String(s.groups) }, String(s.groups))),
       h('div', {}, h('dt', {}, t('estudantes certificados')), h('dd', { 'data-count': String(s.students) }, String(s.students))),
-      h('div', {}, h('dt', {}, t('professores')), h('dd', { 'data-count': String(s.teachers) }, String(s.teachers))))))));
+      h('div', {}, h('dt', {}, t('professores')), h('dd', { 'data-count': String(s.teachers) }, String(s.teachers)))),
+    s.highlight ? h('a', { class: 'route__hl', href: s.highlight, target: '_blank', rel: 'noopener' }, 'Destaques no Instagram ↗') : null))));
 
   fill('credits', (el) => el.append(
     ...(p.credits || []).map((c) => h('li', { class: 'credit', 'data-reveal': '' },
@@ -165,12 +168,14 @@ function renderChallenges(el, list) {
     const c = list[i];
     [...tabs.children].forEach((b, j) => { b.setAttribute('aria-selected', String(i === j)); b.tabIndex = i === j ? 0 : -1; });
     panel.setAttribute('aria-labelledby', `chal-${c.id}`);
-    const max = Math.max(...c.results.map((r) => r.value));
+    const has = (r) => typeof r.value === 'number';
+    const max = Math.max(...c.results.filter(has).map((r) => r.value));
     const num = h('strong', { class: 'chal__num' }, fmt(0, c.record.decimals));
-    const bars = c.results.map((r) => h('li', { class: r.value === max ? 'is-best' : '' },
+    // escola sem marca registrada: barra vazia e "Valor não computado"
+    const bars = c.results.map((r) => h('li', { class: !has(r) ? 'is-na' : r.value === max ? 'is-best' : '' },
       h('span', { class: 'mono' }, r.school),
-      h('span', { class: 'chal__bar' }, h('i', { style: `--w:${(r.value / max).toFixed(3)}` })),
-      h('span', { class: 'chal__val' }, `${fmt(r.value, c.record.decimals)} ${t(c.record.unit)}`)));
+      h('span', { class: 'chal__bar' }, has(r) ? h('i', { style: `--w:${(r.value / max).toFixed(3)}` }) : null),
+      h('span', { class: 'chal__val' }, has(r) ? `${fmt(r.value, c.record.decimals)} ${t(c.record.unit)}` : 'Valor não computado')));
     panel.replaceChildren(
       h('span', { class: 'chal__icon', html: `<svg viewBox="0 0 64 56" aria-hidden="true">${CHALLENGE_ICONS[c.id] || ''}</svg>` }),
       h('p', { class: 'chal__mat mono' }, c.material),
@@ -178,7 +183,6 @@ function renderChallenges(el, list) {
       h('p', { class: 'chal__rec' }, h('span', { class: 'chal__label mono' }, t('Recorde da edição')),
         h('span', { class: 'chal__big' }, num, h('span', { class: 'chal__unit' }, c.record.unit)), h('span', { class: 'chal__note' }, c.record.note)),
       h('ul', { class: 'chal__bars', 'aria-label': t('Marca vencedora por escola') }, ...bars),
-      h('p', { class: 'chal__foot' }, t('Na EMEFJK, os grupos vencedores foram certificados sem marca registrada.')),
     );
     panel.classList.remove('is-in'); void panel.offsetWidth; panel.classList.add('is-in');
     if (tween) tween.kill();

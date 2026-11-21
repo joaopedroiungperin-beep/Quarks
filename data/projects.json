@@ -158,6 +158,10 @@
             "value": 74
           },
           {
+            "school": "EMEFJK",
+            "value": null
+          },
+          {
             "school": "EMPLAB",
             "value": 20
           }
@@ -183,6 +187,10 @@
           {
             "school": "CEMG",
             "value": 6.57
+          },
+          {
+            "school": "EMEFJK",
+            "value": null
           },
           {
             "school": "EMPLAB",
@@ -212,6 +220,10 @@
             "value": 5.0
           },
           {
+            "school": "EMEFJK",
+            "value": 4.4
+          },
+          {
             "school": "EMPLAB",
             "value": 3.84
           }
@@ -227,7 +239,8 @@
         "period": "23/02 a 11/05/2026",
         "groups": 6,
         "students": 9,
-        "teachers": 2
+        "teachers": 2,
+        "highlight": "https://www.instagram.com/stories/highlights/18089638781131749/"
       },
       {
         "short": "CEGAF",
@@ -237,7 +250,8 @@
         "period": "24/02 a 14/04/2026",
         "groups": 12,
         "students": 48,
-        "teachers": 2
+        "teachers": 2,
+        "highlight": "https://www.instagram.com/stories/highlights/18523682068073072/"
       },
       {
         "short": "CEMG",
@@ -247,7 +261,8 @@
         "period": "27/02 a 29/04/2026",
         "groups": 12,
         "students": 45,
-        "teachers": 4
+        "teachers": 4,
+        "highlight": "https://www.instagram.com/stories/highlights/17962527801061106/"
       },
       {
         "short": "EMPLAB",
@@ -257,7 +272,8 @@
         "period": "05/03 a 06/08/2026",
         "groups": 9,
         "students": 31,
-        "teachers": 3
+        "teachers": 3,
+        "highlight": "https://www.instagram.com/stories/highlights/18097636792978728/"
       }
     ],
     "journey": [
@@ -370,7 +386,25 @@
       "file": "projetos/OSFIC/RELATORIO_OSFIC.pdf",
       "cover": "assets/img/capas/relatorio-osfic.webp"
     },
-    "reels": [],
+    "reels": [
+      {
+        "url": "https://www.instagram.com/reel/DYfM-4GRQjT/",
+        "source": "@osfic.sergipe"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DWWoSQijvKl/",
+        "source": "@osfic.sergipe"
+      },
+      {
+        "url": "https://www.instagram.com/reel/DVylLzEEU4o/",
+        "source": "@osfic.sergipe"
+      },
+      {
+        "url": "https://www.instagram.com/p/DYDYQ2zj6eH/",
+        "source": "@migueldasgracas",
+        "title": "Álbum da Mostra do CEMG"
+      }
+    ],
     "scene": "projetos/osfic/scene.js",
     "stageLines": [
       "Três desafios, um só material: palitos de picolé",

@@ -160,3 +160,20 @@
 .gallery img { display: block; width: 100%; height: auto; transition: transform 0.8s var(--ease-out), filter 0.6s; filter: saturate(0.9); }
 .gallery figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 30px 14px 12px; font-size: 0.82rem; color: var(--c-ink); background: linear-gradient(transparent, rgba(6, 9, 18, 0.88)); }
 .gallery a:hover img { transform: scale(1.05); filter: saturate(1.1); }
+
+/* OSFIC: números em destaque, vídeos e destaques do Instagram */
+.p-stats--big { grid-template-columns: 1fr; gap: 14px; margin-top: 0; }
+.p-stats--big li { position: relative; padding: clamp(22px, 2.6vw, 32px) !important; border: 1px solid rgba(251, 208, 76, 0.22) !important; border-radius: var(--radius); overflow: hidden;
+  background: radial-gradient(120% 90% at 0% 0%, rgba(251, 208, 76, 0.12), transparent 60%), rgba(14, 22, 38, 0.6); gap: 10px; }
+.p-stats--big li::after { content: ""; position: absolute; right: -40px; top: -40px; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, rgba(159, 209, 30, 0.18), transparent 70%); }
+.p-stats--big .stat__n { font-size: clamp(3.2rem, 2rem + 4.6vw, 5.6rem); color: #fbd04c; text-shadow: 0 0 36px rgba(251, 208, 76, 0.35); }
+.p-stats--big li > span { color: var(--c-ink); font-size: clamp(0.95rem, 0.9rem + 0.25vw, 1.1rem); line-height: 1.35; max-width: 24ch; }
+@media (min-width: 760px) { .p-stats--big { grid-template-columns: repeat(3, 1fr); } }
+.p-reels-note { margin: 0 0 18px; }
+#registros .reels { margin-bottom: clamp(28px, 4vw, 48px); }
+.route__hl { justify-self: start; margin-top: 12px; padding: 8px 14px; border-radius: 999px; border: 1px solid rgba(251, 208, 76, 0.45); font-family: var(--f-mono); font-size: 0.74rem; color: var(--c-ink); text-decoration: none; transition: background 0.3s, border-color 0.3s; }
+.route__hl:hover { background: rgba(251, 208, 76, 0.12); border-color: #fbd04c; color: var(--c-ink); }
+/* o número fica num <span> (contagem animada): herda o tamanho do .stat__n, não o do rótulo */
+.p-stats .stat__n span { font-size: inherit; color: inherit; }
+.chal__bars li.is-na .chal__bar { background: repeating-linear-gradient(90deg, var(--c-faint) 0 6px, transparent 6px 12px); }
+.chal__bars li.is-na .chal__val { font-family: var(--f-body); font-style: italic; font-size: 0.8rem; opacity: 0.8; }
