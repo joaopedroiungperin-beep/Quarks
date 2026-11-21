@@ -807,7 +807,26 @@ body { top: 0 !important; }
 .member__bio { color: var(--c-muted); font-size: 0.85rem; line-height: 1.45; margin: 0; max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.6s var(--ease-out), opacity 0.5s, margin 0.5s; }
 .member:hover img, .member:focus-within img { filter: grayscale(0); transform: scale(1.04); }
 .member:hover .member__bio, .member:focus-within .member__bio { max-height: 8em; opacity: 1; margin-top: 10px; }
-@media (hover: none) { .member__bio { max-height: none; opacity: 1; margin-top: 10px; } .member img { filter: none; } }
+.member { cursor: pointer; }
+.member__more { display: inline-block; color: var(--c-cyan); font-size: 0.7rem; letter-spacing: 0.06em; max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.6s var(--ease-out), opacity 0.5s, margin 0.5s; }
+.member:hover .member__more, .member:focus-within .member__more, .member:focus-visible .member__more { max-height: 2em; opacity: 1; margin-top: 10px; }
+.member:focus-visible { outline: 2px solid var(--c-cyan); outline-offset: 3px; }
+.member:focus-visible img { filter: grayscale(0); transform: scale(1.04); }
+.member:focus-visible .member__bio { max-height: 8em; opacity: 1; margin-top: 10px; }
+@media (hover: none) { .member__bio { max-height: none; opacity: 1; margin-top: 10px; } .member img { filter: none; } .member__more { max-height: none; opacity: 1; margin-top: 10px; } }
+/* mini bio no painel lateral */
+.bio__head { display: grid; grid-template-columns: 112px 1fr; gap: 18px; align-items: end; margin-bottom: 22px; }
+.bio__head img { width: 112px; aspect-ratio: 3 / 4; object-fit: cover; object-position: top; border-radius: var(--radius-s); border: 1px solid var(--c-faint); }
+.bio__head h2 { margin: 6px 0 8px; font-size: 1.35rem; }
+.bio__role { color: var(--c-cyan); font-size: 0.75rem; margin: 0 0 6px; }
+.bio__areas { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 20px; }
+.bio__about { line-height: 1.65; margin: 0 0 24px; }
+.bio__label { color: var(--c-orange); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; margin: 0 0 10px; }
+.bio__formation ul { display: grid; gap: 8px; margin: 0 0 26px; }
+.bio__formation li { position: relative; padding-left: 18px; color: var(--c-ink); font-size: 0.92rem; line-height: 1.45; }
+.bio__formation li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 7px; height: 7px; border-radius: 50%; background: var(--c-cyan); box-shadow: 0 0 10px var(--c-cyan); }
+.bio__lattes { gap: 6px; }
+@media (max-width: 480px) { .bio__head { grid-template-columns: 76px 1fr; gap: 14px; } .bio__head img { width: 76px; } .bio__head h2 { font-size: 1.15rem; } }
 
 /* ---------- DITeQ (NIT) ---------- */
 .diteq__grid { align-items: center; }
