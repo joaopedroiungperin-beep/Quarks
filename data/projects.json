@@ -1,7 +1,13 @@
 [
   {
     "slug": "energia-sustentavel",
-    "title": "Energia Sustentável é Fundamental",
+    "title": "ESF",
+    "subtitle": "Energia Sustentável É Fundamental",
+    "keywords": [
+      "Kits experimentais",
+      "Formação docente",
+      "Energisa"
+    ],
     "edition": "Edição 2024–2025",
     "year": "2024–25",
     "partner": "concese",
@@ -17,7 +23,45 @@
       "Aracaju",
       "Simão Dias"
     ],
-    "summary": "O projeto “Energia Sustentável é Fundamental”, realizado em parceria com o CONCESE, focou na promoção da educação científica e ambiental em escolas públicas de Aracaju e Simão Dias. A ação contou com a entrega de kits de experimentos de baixo custo, abordando dez diferentes temas, dentre eles Eletrostática, Eletromagnetismo, Geração de Energia e Perigos da Eletricidade. Além disso, ocorreu capacitações docentes e visitas técnicas, como à Usina Hidrelétrica de Xingó. A metodologia utilizou a experimentação para conectar conteúdos curriculares ao cotidiano, resultando em mostras científicas e na publicação de 12 obras didáticas.",
+    "hive": [
+      {
+        "file": "assets/img/projetos/esf/escola-01.webp",
+        "caption": "Estudantes apresentam maquete de usina na mostra científica"
+      },
+      {
+        "file": "assets/img/projetos/esf/escola-02.webp",
+        "caption": "Estudantes ao lado de maquete de parque eólico"
+      },
+      {
+        "file": "assets/img/projetos/esf/escola-03.webp",
+        "caption": "Formação de professores conduzida pela equipe do Quarks"
+      },
+      {
+        "file": "assets/img/projetos/esf/escola-04.webp",
+        "caption": "Demonstração de eletrostática com materiais de baixo custo"
+      },
+      {
+        "file": "assets/img/projetos/esf/escola-05.webp",
+        "caption": "Maquete de geração de energia apresentada na mostra"
+      },
+      {
+        "file": "assets/img/projetos/esf/escola-06.webp",
+        "caption": "Professores participam da capacitação"
+      },
+      {
+        "file": "assets/img/projetos/esf/escola-07.webp",
+        "caption": "Estudantes mostram o cartaz do projeto"
+      },
+      {
+        "file": "assets/img/projetos/esf/escola-08.webp",
+        "caption": "Equipe do projeto em visita a uma escola participante"
+      },
+      {
+        "file": "assets/img/projetos/esf/escola-09.webp",
+        "caption": "Estudantes e professores comemoram na mostra científica"
+      }
+    ],
+    "summary": "O projeto “Energia Sustentável é Fundamental”, realizado em parceria com o CONCESE, o Conselho de Consumidores da Energisa, focou na promoção da educação científica e ambiental em escolas públicas de Aracaju e Simão Dias. A ação contou com a entrega de kits de experimentos de baixo custo, abordando dez diferentes temas, dentre eles Eletrostática, Eletromagnetismo, Geração de Energia e Perigos da Eletricidade. Além disso, ocorreu capacitações docentes e visitas técnicas, como à Usina Hidrelétrica de Xingó. A metodologia utilizou a experimentação para conectar conteúdos curriculares ao cotidiano, resultando em mostras científicas e na publicação de 12 obras didáticas.",
     "stats": [
       {
         "value": 99,
@@ -33,8 +77,8 @@
       },
       {
         "value": 300,
-        "prefix": "≈",
-        "label": "pessoas alcançadas entre estudantes, docentes e profissionais (estimativa)"
+        "prefix": "+",
+        "label": "pessoas alcançadas entre estudantes, docentes e profissionais, e o número cresce a cada aula com os kits"
       },
       {
         "value": 2,
@@ -131,8 +175,9 @@
         "label": "professores orientadores"
       },
       {
-        "value": 83,
-        "label": "publicações no Instagram, com cerca de 57,8 mil visualizações"
+        "value": 57.8,
+        "suffix": "k",
+        "label": "visualizações no Instagram, em 83 publicações"
       }
     ],
     "challenges": [

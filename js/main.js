@@ -5,7 +5,7 @@
 
 import { $$, loadJSON, initScroll, initNav, initGlassGlow, initReveals, hasGSAP, reducedMotion } from './core.js';
 import { runPreloader } from './preloader.js';
-import { initShowcase, initBenefits, initVirada, initRace, initProposta, initIdebMap, initStudies, initCompare, initPortfolio, initTeam, initRegistros, initTransparency } from './sections.js';
+import { initShowcase, initBenefits, initVirada, initRace, initProposta, initIdebMap, initStudies, initCompare, initPortfolio, initTeam, initTransparency } from './sections.js';
 import { initLattice } from './lattice.js';
 import { initForms } from './forms.js';
 import { initI18n } from './i18n.js';
@@ -45,7 +45,6 @@ async function mountHeavy() {
     safe(initTransparency()),
     safe(initLattice()),
   ]);
-  initRegistros();
   // cosmos (WebGL) por último, fora do caminho crítico
   idle(() => import('./cosmos.js')
     .then(({ createCosmos }) => { cosmos = createCosmos(document.getElementById('field'), { sections: $$('[data-phase]') }); window.__cosmos = cosmos; })

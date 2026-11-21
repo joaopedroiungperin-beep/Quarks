@@ -115,6 +115,16 @@ export function initReveals(scope = document) {
     });
   });
 
+  // frases que "acendem" palavra por palavra conforme a rolagem
+  $$('[data-ink]', scope).forEach((el) => {
+    if (document.documentElement.classList.contains('mt')) return;
+    const words = splitWords(el);
+    gsap.fromTo(words, { opacity: 0.18 }, {
+      opacity: 1, ease: 'none', stagger: 0.1,
+      scrollTrigger: { trigger: el, start: 'top 85%', end: 'bottom 50%', scrub: true },
+    });
+  });
+
   $$('[data-reveal]', scope).forEach((el) => {
     gsap.to(el, {
       opacity: 1, y: 0, duration: 1.1, ease: 'expo.out',

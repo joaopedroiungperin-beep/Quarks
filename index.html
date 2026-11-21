@@ -156,7 +156,7 @@
   <section class="section metodo" id="metodo" data-phase="2">
     <div class="wrap virada">
       <p class="kicker mono">02 · A virada</p>
-      <h2 class="h1 display" data-split>O ensino experimental, o método <em>“mão na massa”</em>, pode transformar essa realidade</h2>
+      <h2 class="h1 display" data-split>O ensino experimental, pelo método <em>“mão na massa”</em>, pode transformar essa realidade</h2>
 
       <div class="lab">
         <!-- antes: o símbolo chega pronto; as peças flutuam sem encaixe -->
@@ -272,22 +272,27 @@
     <div class="wrap compare" id="compare">
       <div class="compare__head">
         <h3 class="h2 display" data-split>Por comparação, o ensino tradicional se torna obsoleto</h3>
-        <p class="muted" data-reveal>Arraste o seletor para transformar a sala de aula, aspecto por aspecto.</p>
+        <p class="muted" data-reveal>Arraste o seletor da esquerda para a direita, ou toque em “Experimental”, e veja a sala de aula se transformar aspecto por aspecto.</p>
       </div>
       <div class="compare__control glass">
         <figure class="compare__side compare__side--old">
+          <button class="compare__jump" type="button" data-to="0" aria-label="Ver o ensino tradicional">
           <svg class="cmp-ico" viewBox="0 0 64 64" aria-hidden="true"><rect class="cmp-ico__board" x="8" y="10" width="48" height="32" rx="3"/><path class="cmp-ico__chalk" d="M15 20h18M15 27h26M15 34h12"/><path d="M20 42l-5 13M44 42l5 13M26 50h12"/></svg>
+          </button>
           <figcaption class="mono">Tradicional</figcaption>
         </figure>
         <label class="range">
           <span class="sr-only">Transformação do ensino tradicional para o experimental</span>
           <input type="range" id="compareRange" min="0" max="100" value="0" step="1">
           <span class="range__fill" aria-hidden="true"></span>
+          <span class="range__hint" aria-hidden="true">Arraste para transformar →</span>
         </label>
         <figure class="compare__side compare__side--new">
+          <button class="compare__jump" type="button" data-to="100" aria-label="Ver o ensino experimental">
           <svg class="cmp-ico" viewBox="0 0 64 64" aria-hidden="true"><defs><clipPath id="cmpFlask"><path d="M27 8v16L13 50a4 4 0 0 0 4 6h30a4 4 0 0 0 4-6L37 24V8z"/></clipPath></defs>
             <g clip-path="url(#cmpFlask)"><rect class="cmp-ico__liquid" x="0" y="0" width="64" height="64"/><circle class="cmp-ico__bubble" cx="28" cy="50" r="2.2"/><circle class="cmp-ico__bubble" cx="36" cy="46" r="1.6"/><circle class="cmp-ico__bubble" cx="32" cy="52" r="1.2"/></g>
             <path d="M24 8h16M27 8v16L13 50a4 4 0 0 0 4 6h30a4 4 0 0 0 4-6L37 24V8"/></svg>
+          </button>
           <figcaption class="mono">Experimental</figcaption>
         </figure>
         <p class="compare__count mono" aria-hidden="true"><b id="compareCount">0</b> de 10 aspectos transformados</p>
@@ -341,7 +346,7 @@
             <text class="demo__label" x="140" y="166">lupa</text><text class="demo__label lens__state" x="262" y="122">luz espalhada</text>
           </svg>
           <label class="demo__range"><span class="mono">Ajuste o foco</span><input type="range" id="lensRange" min="0" max="100" value="0" aria-label="Foco da lupa"></label>
-          <p>Cada recurso concentrado no que importa: aprender. Nada de equipamento caro usado uma única vez.</p>
+          <p>Arraste o controle de foco e veja a lupa juntar a luz espalhada em um único ponto. Fazemos o mesmo com cada recurso: tudo concentrado no que importa, aprender, sem equipamento caro usado uma única vez.</p>
         </li>
         <!-- 03: rede que se acende ano a ano -->
         <li class="step glass" data-reveal>
@@ -355,7 +360,7 @@
             <button class="demo__btn" type="button" id="netBtn">+1 ano letivo</button>
             <output class="demo__out mono" id="netOut" aria-live="polite">Ano 0 · 0 turmas</output>
           </div>
-          <p>Kits que ficam na escola e professores formados: a ciência continua, ano após ano.</p>
+          <p>Clique em “+1 ano letivo”: cada ponto que acende é uma nova turma usando o mesmo kit. Kits que ficam na escola e professores formados fazem a ciência continuar e se espalhar, ano após ano.</p>
         </li>
       </ol>
     </div>
@@ -381,13 +386,12 @@
       <div class="section-head">
         <p class="kicker mono">05 · Portfólio</p>
         <h2 class="h1 display" data-split>Projetos que viram legado</h2>
-        <p class="lead" data-reveal>Cada projeto é um capítulo com experiência própria. Passe o cursor para pré-visualizar e clique para entrar.</p>
+        <p class="lead" data-reveal>Cada projeto é um capítulo com experiência própria. Passe o cursor para revelar a marca e clique para entrar.</p>
       </div>
       <ol class="projects" id="projectList" aria-label="Projetos">
         <!-- linhas renderizadas a partir de data/projects.json -->
       </ol>
     </div>
-    <div class="project-preview" id="projectPreview" aria-hidden="true"><img alt=""></div>
   </section>
 
   <!-- 06 · PARCEIROS: rede cristalina -->
@@ -413,51 +417,50 @@
       <h2 class="h1 display" data-split>Um laboratório vivo, feito por cientistas que acreditam na escola pública</h2>
       <div class="about__grid">
         <div class="about__text">
-          <p data-reveal>O Clube de Ciências Quarks é uma Organização Social dedicada a revolucionar o ensino básico em Sergipe por meio da inovação em STEAM (Ciência, Tecnologia, Engenharia, Artes e Matemática). Formada por uma equipe multidisciplinar de pesquisadores, doutores e jovens cientistas, combinamos rigor técnico e criatividade para transformar a sala de aula em um verdadeiro laboratório vivo, onde a educação científica se torna acessível, tangível e inspiradora.</p>
-          <p data-reveal>Superamos o tradicionalismo expositivo aplicando a metodologia “mão na massa”. Desenvolvemos kits experimentais de baixo custo, softwares e materiais didáticos alinhados à BNCC e aos Objetivos de Desenvolvimento Sustentável (ODS). Nossa atuação vai além da teoria: levamos a cultura maker para disciplinas como Física, Química e Biologia, promovendo capacitações continuadas que fortalecem a autonomia pedagógica dos educadores.</p>
-          <p data-reveal>Um dos nossos principais diferenciais é o compromisso com o legado. Diferente de consultorias tradicionais, transferimos a propriedade intelectual e a tecnologia desenvolvida para a própria escola. Isso garante sustentabilidade financeira e assegura que o aprendizado empírico se consolide como uma prática cotidiana, e não apenas uma exceção.</p>
-          <p data-reveal>Nosso objetivo é transformar Sergipe no maior centro de formação de mentes tecnológicas do Nordeste. Através de parcerias estratégicas e projetos estruturantes, conectamos o conhecimento acadêmico de ponta ao chão da escola, pavimentando o caminho para que os jovens sergipanos sejam protagonistas do futuro e a ciência atue como motor real de desenvolvimento social.</p>
+          <p class="about__lead" data-reveal>O Clube de Ciências Quarks é uma organização social que trabalha para transformar o ensino básico em Sergipe com inovação em STEAM (Ciência, Tecnologia, Engenharia, Artes e Matemática). Nossa equipe reúne pesquisadores, doutores e jovens cientistas que unem rigor técnico e criatividade para fazer da sala de aula um laboratório vivo, onde a ciência fica acessível, concreta e inspiradora.</p>
+          <dl class="about__pillars">
+            <div data-reveal>
+              <dt class="mono">Como fazemos</dt>
+              <dd>Trocamos a aula apenas expositiva pelo método “mão na massa”, com kits experimentais de baixo custo, softwares e materiais didáticos alinhados à BNCC e aos Objetivos de Desenvolvimento Sustentável (ODS), e levamos a cultura maker para Física, Química e Biologia com formações continuadas que dão mais autonomia aos professores.</dd>
+            </div>
+            <div data-reveal>
+              <dt class="mono">Nosso diferencial</dt>
+              <dd>Nosso compromisso é com o legado: ao contrário de uma consultoria tradicional, transferimos para a própria escola a propriedade intelectual e a tecnologia que desenvolvemos, o que garante sustentabilidade financeira e faz do aprendizado prático uma rotina, e não uma exceção.</dd>
+            </div>
+            <div data-reveal>
+              <dt class="mono">Aonde queremos chegar</dt>
+              <dd>Queremos fazer de Sergipe o maior centro de formação de mentes tecnológicas do Nordeste, levando a pesquisa de ponta ao chão da escola por meio de parcerias estratégicas e projetos estruturantes, para que os jovens sergipanos sejam protagonistas do futuro e a ciência impulsione o desenvolvimento social.</dd>
+            </div>
+          </dl>
         </div>
-        <figure class="about__photo" data-mask>
+        <figure class="about__photo" data-reveal>
           <picture>
             <source type="image/avif" srcset="assets/img/time-quarks.avif">
-            <img src="assets/img/time-quarks.webp" srcset="assets/img/time-quarks-800.webp 800w, assets/img/time-quarks.webp 1600w" sizes="(min-width: 900px) 40vw, 100vw" alt="Integrantes do Quarks reunidos ao ar livre" width="1600" height="1331" loading="lazy">
+            <img src="assets/img/time-quarks.webp" srcset="assets/img/time-quarks-800.webp 800w, assets/img/time-quarks.webp 1600w" sizes="(min-width: 960px) 40vw, 100vw" alt="Integrantes do Quarks reunidos ao ar livre" width="1600" height="1331" loading="lazy">
           </picture>
-          <figcaption class="mono">Time Quarks</figcaption>
+          <figcaption class="mono">Time Quarks reunido em Aracaju</figcaption>
         </figure>
       </div>
 
+      <!-- manifesto: as palavras acendem conforme a rolagem (js/core.js · data-ink) -->
       <div class="mvv">
-        <article class="mvv__card glass" data-reveal>
-          <span class="mvv__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg></span>
-          <h3 class="h3">Missão</h3>
-          <p>Transformar a educação de Sergipe através do ensino experimental, tornando a ciência tangível e acessível para incentivar o fortalecimento da tecnologia nacional.</p>
-        </article>
-        <article class="mvv__card glass" data-reveal>
-          <span class="mvv__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span>
-          <h3 class="h3">Visão</h3>
-          <p>Ser a referência em educação STEAM no Nordeste, convertendo escolas em polos tecnológicos onde jovens são protagonistas do futuro.</p>
-        </article>
-        <article class="mvv__card glass" data-reveal>
-          <span class="mvv__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></svg></span>
-          <h3 class="h3">Valores</h3>
+        <div class="mvv__row">
+          <p class="mvv__label mono" data-reveal><span>01</span>Missão<small>por que existimos</small></p>
+          <p class="mvv__statement" data-ink>Transformar a educação de Sergipe pelo ensino experimental, tornando a ciência <em>tangível e acessível</em> para fortalecer a tecnologia nacional.</p>
+        </div>
+        <div class="mvv__row">
+          <p class="mvv__label mono" data-reveal><span>02</span>Visão<small>o futuro que buscamos</small></p>
+          <p class="mvv__statement" data-ink>Ser referência em educação STEAM no Nordeste, convertendo escolas em <em>polos tecnológicos</em> onde jovens são protagonistas do futuro.</p>
+        </div>
+        <div class="mvv__row">
+          <p class="mvv__label mono" data-reveal><span>03</span>Valores<small>o que nos guia</small></p>
           <ul class="values">
-            <li><strong>Mão na Massa:</strong> aprender fazendo.</li>
-            <li><strong>Legado:</strong> transferência real de tecnologia.</li>
-            <li><strong>Inovação:</strong> criatividade com rigor técnico.</li>
-            <li><strong>Impacto:</strong> ciência como transformação social.</li>
+            <li data-reveal><strong>Mão na massa</strong><span>Aprender fazendo: a prática vem antes da fórmula.</span></li>
+            <li data-reveal><strong>Legado</strong><span>A tecnologia fica na escola, com quem vai usá-la todos os dias.</span></li>
+            <li data-reveal><strong>Inovação</strong><span>Criatividade com rigor técnico, do protótipo à sala de aula.</span></li>
+            <li data-reveal><strong>Impacto</strong><span>Ciência como ferramenta de transformação social.</span></li>
           </ul>
-        </article>
-      </div>
-    </div>
-
-    <div class="registros" aria-label="Registros do Quarks">
-      <div class="registros__track">
-        <img src="assets/img/registros/registro-2.webp" alt="Quem somos: integrantes do Quarks em oficinas" width="1400" height="788" loading="lazy">
-        <img src="assets/img/registros/registro-3.webp" alt="Missão e visão do Quarks com fotos de atividades" width="1400" height="788" loading="lazy">
-        <img src="assets/img/registros/registro-4.webp" alt="Valores do Quarks com fotos de estudantes" width="1400" height="788" loading="lazy">
-        <img src="assets/img/registros/registro-5.webp" alt="Atividades experimentais, trilhas pedagógicas, produtos educacionais e formação continuada" width="1400" height="788" loading="lazy">
-        <img src="assets/img/registros/registro-1.webp" alt="Organização social e Clube de Ciências Quarks" width="1400" height="788" loading="lazy">
+        </div>
       </div>
     </div>
 
@@ -578,10 +581,21 @@
           <textarea id="c-msg" name="mensagem" rows="5" maxlength="10000" required data-counter></textarea>
           <span class="counter mono" aria-live="polite">0/10000</span>
         </div>
-        <div class="field-row">
-          <label for="c-link">Link compartilhado <span class="opt">opcional · Google Drive / OneDrive</span></label>
+        <div class="field-row" data-files>
+          <span class="field-label">Anexos <span class="opt">opcional · até 3 arquivos, 5 MB cada</span></span>
+          <label class="drop" for="c-files">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg>
+            <span>Arraste arquivos aqui ou <u>escolha no computador</u></span>
+          </label>
+          <input id="c-files" class="drop__input" type="file" multiple accept=".pdf,.doc,.docx,.odt,.rtf,.txt,.xls,.xlsx,.ods,.csv,.ppt,.pptx,.odp,.xml,.json,.png,.jpg,.jpeg,.webp,.gif,.heic,.zip">
+          <ul class="files" aria-live="polite"></ul>
+          <span class="hint">PDF, Word, Excel, PowerPoint, imagens, texto, CSV, XML ou ZIP.</span>
+          <p class="files__err" role="alert" hidden></p>
+        </div>
+        <div class="field-row" data-link-row hidden>
+          <label for="c-link">Link compartilhado <span class="opt">Google Drive / OneDrive</span></label>
           <input id="c-link" name="link_compartilhado" type="url" placeholder="https://drive.google.com/...">
-          <span class="hint">Para enviar arquivos, compartilhe uma pasta ou documento e libere o acesso para “qualquer pessoa com o link”.</span>
+          <span class="hint">Compartilhe a pasta ou o arquivo e libere o acesso para “qualquer pessoa com o link”.</span>
         </div>
         <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="form__actions">

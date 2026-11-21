@@ -24,11 +24,14 @@ initScroll();
 initNav();
 const cosmos = createCosmos($('#field'), { sections: $$('[data-phase]'), mode: 'wormhole' });
 
-// chegada pelo buraco de minhoca: a página "sai do outro lado"
+// chegada pelo buraco de minhoca: a página "sai do outro lado" quando o túnel estiver fluido;
+// a cena 3D do projeto só é montada depois da travessia, para não disputar os quadros com ela
+let arrival = Promise.resolve();
 if (document.documentElement.classList.contains('from-wormhole')) {
   try { sessionStorage.removeItem('q-wormhole'); } catch (e) { /* ok */ }
   const reveal = () => document.documentElement.classList.remove('from-wormhole');
-  if (cosmos) { cosmos.emerge(); setTimeout(reveal, 550); } else reveal();
+  if (cosmos) arrival = cosmos.emerge(() => setTimeout(reveal, 450));
+  else reveal();
 }
 
 (async () => {
@@ -44,8 +47,9 @@ if (document.documentElement.classList.contains('from-wormhole')) {
   bind('title').textContent = p.title;
   fill('subtitle', (el) => { el.textContent = p.subtitle || ''; });
   bind('tags').append(...[
-    partner ? h('span', { class: 'tag' }, t('com {name}', { name: partner.name })) : null,
-    p.with ? h('span', { class: 'tag' }, t('com {name}', { name: p.with })) : null,
+    ...(p.keywords || []).filter((k) => !p.tags.includes(k)).map((k) => h('span', { class: 'tag' }, k)),
+    partner ? h('span', { class: 'tag' }, partner.name) : null,
+    p.with ? h('span', { class: 'tag' }, p.with) : null,
     ...p.places.map((c) => h('span', { class: 'tag' }, c)),
     ...p.tags.map((tag) => h('span', { class: 'tag' }, tag)),
   ].filter(Boolean)); // append(null) escreveria "null" na página
@@ -54,7 +58,8 @@ if (document.documentElement.classList.contains('from-wormhole')) {
 
   bind('stats').append(...p.stats.map((s) => h('li', {},
     h('strong', { class: 'stat__n' }, s.prefix ? h('span', { class: 'stat__pre' }, s.prefix) : null,
-      h('span', { 'data-count': String(s.value) }, String(s.value))), ' ', h('span', {}, s.label))));
+      h('span', { 'data-count': String(s.value), 'data-decimals': String((String(s.value).split('.')[1] || '').length) }, String(s.value)),
+      s.suffix ? h('span', { class: 'stat__suf' }, s.suffix) : null), ' ', h('span', {}, s.label))));
 
   fill('journey', (el) => el.append(...p.journey.map((j, i) => h('li', { class: 'journey__step', 'data-reveal': '' },
     h('span', { class: 'mono journey__n' }, String(i + 1).padStart(2, '0')),
@@ -134,6 +139,11 @@ if (document.documentElement.classList.contains('from-wormhole')) {
   fill('photos', (el) => el.append(...(p.photos || []).map((ph) => h('li', { class: 'gallery__item', 'data-reveal': '' },
     h('a', { href: asset(ph.file), target: '_blank', rel: 'noopener' },
       h('figure', {}, h('img', { src: asset(ph.file), alt: ph.caption, loading: 'lazy' }), h('figcaption', {}, ph.caption)))))));
+
+  // colmeia: fotos recortadas em hexágono, legenda no hover
+  fill('hive', (el) => el.append(...(p.hive || []).map((ph) => h('li', { 'data-reveal': '' },
+    h('img', { src: asset(ph.file), alt: ph.caption, loading: 'lazy', width: '520', height: '450' }),
+    h('span', { class: 'hive__cap', 'aria-hidden': 'true' }, ph.caption)))));
 
   fill('links', (el) => el.append(...(p.links || []).map((l) => h('a', { class: 'btn btn--ghost', href: l.href, target: '_blank', rel: 'noopener' },
     h('span', {}, l.label), h('span', { class: 'mono' }, ` ${l.value} ↗`)))));
@@ -217,8 +227,9 @@ async function mountScene(p) {
   if (!el || !p.scene) return;
   let scene;
   try {
-    const mod = await import(asset(p.scene));
-    scene = mod.mount(el, { THREE });
+    const mod = import(asset(p.scene)); // baixa já; monta depois da travessia
+    await arrival;
+    scene = (await mod).mount(el, { THREE });
   } catch (e) { console.error('Cena indisponível', e); return; }
   const num = $('#stageNum');
   const lines = (p.stageLines || ['O projeto, desmontado peça por peça', 'Kits, formação, visitas, mostras e publicações', 'Energia que fica na escola']).map((l) => t(l));
