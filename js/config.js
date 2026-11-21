@@ -6,4 +6,7 @@ export const CONFIG = {
   WEB3FORMS_KEY: '',
   WHATSAPP: '5579991489065',
   EMAIL: 'institucional@quarksclub.org',
+  // Anexos do Contato. Envio de arquivos no Web3Forms exige o plano Pro;
+  // sem chave, os anexos não seguem pelo WhatsApp e o site pede um link compartilhado.
+  FILES: { max: 3, maxSize: 5 * 1024 * 1024, maxTotal: 10 * 1024 * 1024 },
 };

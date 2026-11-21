@@ -690,7 +690,7 @@ export function createCosmos(canvas, { sections = [], mode = 'scroll' } = {}) {
     const raw = clock.getDelta();
     const dt = Math.min(raw, 0.05);          // física das partículas (estável)
     const real = Math.min(raw, 0.25);        // suavização: converge mesmo com fps baixo
-    if (raw < 0.5) adapt(raw);               // ignora pausas (aba oculta, etc.)
+    if (raw < 0.5 && !warp.anim) adapt(raw); // ignora pausas e a travessia (carregamento da página)
     // dilatação gravitacional: perto do rasgo 3D e do colapso o tempo quase para
     const ss = (a, b, x) => { const k = Math.min(1, Math.max(0, (x - a) / (b - a))); return k * k * (3 - 2 * k); };
     const timeScale = 1 - 0.82 * ss(7.6, 8.5, phase) * (1 - ss(9.7, 10, phase));
@@ -753,7 +753,7 @@ export function createCosmos(canvas, { sections = [], mode = 'scroll' } = {}) {
     let e = 0;
     warp.v = from;
     warp.anim = (dt) => {
-      e += (dt * 1000) / ms;
+      e += (Math.min(dt, 1 / 30) * 1000) / ms;
       const k = Math.min(1, e);
       warp.v = from + (to - from) * ease(k);
       if (k >= 1) { warp.anim = null; res(); }
@@ -770,11 +770,23 @@ export function createCosmos(canvas, { sections = [], mode = 'scroll' } = {}) {
       U.uWarpC.value.set(x, y);
       return animateWarp(0, 1, 1050, (k) => k * k * (3 - 2 * k));
     },
-    /* sai do outro lado (buraco branco) */
-    emerge() {
-      if (reducedMotion) return Promise.resolve();
+    /* sai do outro lado (buraco branco). Segura o túnel até os quadros ficarem estáveis
+       (shaders compilados, página montada) e só então começa a saída; onStart avisa a página. */
+    emerge(onStart) {
+      if (reducedMotion) { onStart?.(); return Promise.resolve(); }
       U.uWarpC.value.copy(tunnelMode ? U.uCenter.value : new THREE.Vector2(0, 0));
-      return animateWarp(1, tunnelMode ? 0.85 : 0, 1500, (k) => 1 - Math.pow(1 - k, 3));
+      warp.v = 1;
+      return new Promise((res) => {
+        const t0 = performance.now();
+        let calm = 0;
+        warp.anim = (dt) => {
+          warp.v = 1;
+          calm = dt < 1 / 40 ? calm + 1 : 0;
+          if (calm < 10 && performance.now() - t0 < 1800) return;
+          onStart?.();
+          animateWarp(1, tunnelMode ? 0.85 : 0, 1500, (k) => 1 - Math.pow(1 - k, 3)).then(res);
+        };
+      });
     },
     reset() { warp.v = 0; warp.anim = null; U.uWarp.value = 0; if (reducedMotion) draw(); },
     force(v) { forced = v; },

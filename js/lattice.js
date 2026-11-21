@@ -80,7 +80,10 @@ export async function initLattice() {
         onpointerenter: () => energize(it), onfocus: () => energize(it) },
         h('span', {}, h('strong', {}, it.p.name), h('small', {}, it.p.since)), h('span', { 'aria-hidden': 'true' }, '→'))));
     } else {
-      el = h('a', { class: 'lnode lnode--invite', href: '#contato' }, 'Seu átomo aqui');
+      // vaga aberta: núcleo vazio com órbita tracejada; o rótulo aparece como etiqueta no hover
+      el = h('a', { class: 'lnode lnode--invite', href: '#contato', 'aria-label': t('Seu átomo aqui: seja parceiro do Quarks') },
+        h('span', { class: 'lnode__plus', 'aria-hidden': 'true' }),
+        h('span', { class: 'lnode__tip mono', 'aria-hidden': 'true' }, 'Seu átomo aqui'));
     }
     el.addEventListener('pointerenter', () => energize(it));
     el.addEventListener('focus', () => energize(it));
@@ -88,6 +91,15 @@ export async function initLattice() {
     it.el = el;
     return el;
   });
+  // convite também na lista: energiza as vagas abertas da rede
+  const invites = items.filter((it) => it.type === 'invite');
+  if (invites.length) {
+    const hot = () => { invites.forEach(energize); invites.forEach((it) => it.el.classList.add('is-hot')); };
+    list.append(h('li', {}, h('a', { class: 'partners__invite', href: '#contato', onpointerenter: hot, onfocus: hot },
+      h('span', { class: 'partners__plus', 'aria-hidden': 'true' }),
+      h('span', {}, h('strong', {}, 'Seu átomo aqui'), h('small', {}, 'Sua organização pode ser a próxima ligação desta rede')),
+      h('span', { 'aria-hidden': 'true' }, '→'))));
+  }
 
   /* ---- render ---- */
   let W = 0, H = 0, scale = 1, dpr = 1;

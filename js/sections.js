@@ -1,6 +1,6 @@
 /* Seções da home: renderização a partir de data/*.json e interações. */
 
-import { $, $$, h, asset, loadJSON, hasGSAP, reducedMotion, isTouch, drawer, lenis } from './core.js';
+import { $, $$, h, asset, loadJSON, hasGSAP, reducedMotion, drawer, lenis } from './core.js';
 import { t } from './i18n.js';
 
 const ICON_ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
@@ -505,19 +505,31 @@ export function initCompare() {
     if (count) count.textContent = done;
     range.setAttribute('aria-valuetext', t('{n} de {total} aspectos transformados', { n: done, total: rows.length }));
   };
-  range.addEventListener('input', () => apply(+range.value));
+  // depois que o visitante mexe no seletor, a dica some e o mini tutorial para de repetir
+  let touched = false, demo = null;
+  const touch = () => { touched = true; demo?.kill(); ctrl.classList.add('is-touched'); };
+  range.addEventListener('input', () => { touch(); apply(+range.value); });
+  range.addEventListener('pointerdown', touch);
   apply(+range.value);
 
-  // dica: na primeira vez que o comparador aparece, o seletor avança sozinho
+  // atalhos: tocar no ícone leva o seletor até a ponta
+  const o = { v: +range.value };
+  $$('.compare__jump', ctrl).forEach((b) => b.addEventListener('click', () => {
+    touch();
+    const to = +b.dataset.to;
+    if (!hasGSAP() || reducedMotion) { range.value = to; apply(to); return; }
+    o.v = +range.value;
+    window.gsap.to(o, { v: to, duration: 1.4, ease: 'power2.inOut', onUpdate: () => { range.value = o.v; apply(o.v); } });
+  }));
+
+  // mini tutorial: sempre que o comparador volta à tela e ninguém arrastou ainda, o seletor avança e volta
   if (hasGSAP() && !reducedMotion) {
-    const o = { v: 0 };
-    window.ScrollTrigger.create({
-      trigger: '#compareRows', start: 'top 70%', once: true,
-      onEnter: () => {
-        if (+range.value !== 0) return;
-        window.gsap.to(o, { v: 35, duration: 1.6, ease: 'power2.inOut', yoyo: true, repeat: 1, onUpdate: () => { range.value = o.v; apply(o.v); } });
-      },
-    });
+    const nudge = () => {
+      if (touched) return;
+      demo?.kill(); o.v = 0;
+      demo = window.gsap.to(o, { v: 35, duration: 1.4, ease: 'power2.inOut', yoyo: true, repeat: 1, delay: 0.3, onUpdate: () => { range.value = o.v; apply(o.v); } });
+    };
+    window.ScrollTrigger.create({ trigger: '#compareRows', start: 'top 75%', end: 'bottom 25%', onEnter: nudge, onEnterBack: nudge });
   }
 }
 
@@ -530,15 +542,19 @@ export async function initPortfolio() {
 
   projects.forEach((p) => {
     const li = h('li', { class: 'project' },
-      h('a', { href: asset(p.url), 'data-preview': asset(p.cover), 'data-wormhole': '' },
-        h('span', { class: 'project__year' }, p.year),
+      h('a', { href: asset(p.url), 'data-wormhole': '' },
+        // ano e marca dividem a mesma célula: no hover o ano sobe e a marca entra em órbita
+        h('span', { class: 'project__lead' },
+          h('span', { class: 'project__year' }, p.year),
+          h('span', { class: 'project__mark', 'aria-hidden': 'true' }, h('img', { src: asset(p.cover), alt: '', loading: 'lazy', width: '96', height: '96' }))),
         h('span', {},
           h('span', { class: 'project__title' }, p.title),
           p.subtitle ? h('span', { class: 'project__sub' }, p.subtitle) : null,
         ),
         h('span', { class: 'project__meta' },
-          p.partner ? h('span', { class: 'tag' }, t('com {name}', { name: partnerName(p.partner) })) : null,
-          p.with ? h('span', { class: 'tag' }, t('com {name}', { name: p.with })) : null,
+          ...(p.keywords || []).map((k) => h('span', { class: 'tag' }, k)),
+          p.partner ? h('span', { class: 'tag' }, partnerName(p.partner)) : null,
+          p.with ? h('span', { class: 'tag' }, p.with) : null,
           ...p.places.map((c) => h('span', { class: 'tag' }, c)),
         ),
         h('span', { class: 'project__go', html: ICON_ARROW }),
@@ -547,30 +563,11 @@ export async function initPortfolio() {
   });
   list.append(h('li', { class: 'project project--soon' },
     h('div', {},
-      h('span', { class: 'project__year' }, '2026 →'),
+      h('span', { class: 'project__lead' }, h('span', { class: 'project__year' }, '2026 →')),
       h('span', { class: 'project__title' }, 'Próximo capítulo em construção'),
       h('span', { class: 'project__meta' }, h('span', { class: 'tag' }, 'FIICEST · MOSEE')),
       h('span', {}),
     )));
-
-  // prévia flutuante que segue o cursor
-  const prev = $('#projectPreview');
-  if (!prev || isTouch) return;
-  const img = $('img', prev);
-  let x = 0, y = 0, cx = 0, cy = 0, raf = 0;
-  const loop = () => {
-    cx += (x - cx) * 0.14; cy += (y - cy) * 0.14;
-    prev.style.left = cx + 'px'; prev.style.top = cy + 'px';
-    raf = requestAnimationFrame(loop);
-  };
-  $$('a[data-preview]', list).forEach((a) => {
-    a.addEventListener('pointerenter', (e) => {
-      img.src = a.dataset.preview; x = cx = e.clientX; y = cy = e.clientY;
-      prev.classList.add('is-on'); cancelAnimationFrame(raf); loop();
-    });
-    a.addEventListener('pointermove', (e) => { x = e.clientX; y = e.clientY; });
-    a.addEventListener('pointerleave', () => { prev.classList.remove('is-on'); setTimeout(() => cancelAnimationFrame(raf), 500); });
-  });
 }
 
 /* ---------- 07 · Time ---------- */
@@ -617,14 +614,8 @@ export async function initTeam() {
   }
 }
 
-export function initRegistros() {
-  const track = $('.registros__track');
-  if (!track || !hasGSAP() || reducedMotion) return;
-  window.gsap.fromTo(track, { x: 0 }, {
-    x: () => -(track.scrollWidth - window.innerWidth), ease: 'none',
-    scrollTrigger: { trigger: '.registros', start: 'top bottom', end: 'bottom top', scrub: 0.6, invalidateOnRefresh: true },
-  });
-}
+// a faixa de slides saiu da página; o export vazio evita que um main.js antigo em cache quebre o site
+export function initRegistros() {}
 
 /* ---------- 08 · Transparência ---------- */
 export async function initTransparency() {
