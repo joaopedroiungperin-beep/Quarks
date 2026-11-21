@@ -2,90 +2,252 @@
   {
     "name": "Lucas Francisco de Jesus Santos",
     "role": "Presidente",
-    "bio": "Graduando em Engenharia Elétrica no DEL - UFS.",
-    "photo": "assets/img/time/lucas.webp"
+    "bio": "Graduando em Engenharia Elétrica na UFS, pesquisa filmes antirreflexivos para energia limpa.",
+    "photo": "assets/img/time/lucas.webp",
+    "about": "Graduando em Engenharia Elétrica na Universidade Federal de Sergipe (UFS), com experiência em Eletrônica de Potência, Energia Fotovoltaica e Modelagem e Controle de Sistemas. Hoje é bolsista de Iniciação Tecnológica no projeto Desenvolvendo Filmes Fotoabsorvedores Antirreflexivos para Energia Limpa e monitor de Eletrônica de Potência e Conversão de Energia. Foi bolsista de Iniciação Científica no Departamento de Física da UFS, com nanoestruturas para nanotermometria e bioimagens, e do programa Socialize-SE, levando o projeto Cientistas na Escola a estudantes do ensino básico.",
+    "formation": [
+      "Graduação em Engenharia Elétrica (UFS, em andamento)"
+    ],
+    "areas": [
+      "Energia fotovoltaica",
+      "Eletrônica de potência",
+      "Divulgação científica"
+    ],
+    "lattes": "http://lattes.cnpq.br/3014853052084153"
   },
   {
     "name": "João Pedro Iung Perin",
     "role": "Vice-presidente",
-    "bio": "Físico Médico e Mestrando em Física da Matéria Condensada no DFI - UFS.",
+    "bio": "Físico Médico e mestrando em Física da Matéria Condensada na UFS, cuida da propriedade intelectual do Quarks.",
     "photo": "assets/img/time/joao.webp",
-    "diteq": "Propriedade Intelectual"
+    "diteq": "Propriedade Intelectual",
+    "about": "Bacharel em Física Médica e mestrando em Física da Matéria Condensada na Universidade Federal de Sergipe (UFS), além de técnico em Logística. Atua como Assistente de Inovação no Instituto de Inovação de Sergipe (INOVASE), com experiência no registro e no depósito de produção intelectual junto ao INPI. No Quarks, é vice-presidente executivo e responsável pela propriedade intelectual do DITeQ. Foi cocoordenador do projeto Energia Sustentável é Fundamental, esteve à frente da organização da OSFIC e integrou a comissão organizadora da FIICEST.",
+    "formation": [
+      "Mestrado em Física da Matéria Condensada (UFS, em andamento)",
+      "Bacharelado em Física Médica (UFS, 2025)",
+      "Técnico em Logística"
+    ],
+    "areas": [
+      "Propriedade intelectual",
+      "Física da matéria condensada",
+      "Gestão de projetos educacionais"
+    ],
+    "lattes": "http://lattes.cnpq.br/8501123039781136"
   },
   {
     "name": "Riane da Silveira Storgatto",
     "role": "Secretária Geral & Diretora e Analista de Marketing",
-    "bio": "Graduanda em Física: Astrofísica no DFI - UFS.",
+    "bio": "Graduanda em Astrofísica na UFS, pesquisa atmosferas de exoplanetas observados pelo telescópio James Webb.",
     "photo": "assets/img/time/riane.webp",
-    "diteq": "Comitê Técnico Consultivo"
+    "diteq": "Comitê Técnico Consultivo",
+    "about": "Graduanda em Física: Astrofísica na Universidade Federal de Sergipe (UFS) e integrante do grupo de pesquisa SABER-SE. Na iniciação científica, orientada pelo Prof. Dr. Diogo Martins Souto, compara os códigos PICASO, POSEIDON e petitRADTRANS na caracterização de atmosferas de Júpiteres quentes observados pelo telescópio James Webb (JWST). É cofundadora do Quarks, onde atua como secretária-geral e diretora e analista de marketing, e participou do projeto Cientistas na Escola, com intervenções experimentais em escolas públicas.",
+    "formation": [
+      "Graduação em Física: Astrofísica (UFS, em andamento)"
+    ],
+    "areas": [
+      "Exoplanetas",
+      "Astrofísica",
+      "Comunicação e marketing"
+    ],
+    "lattes": "http://lattes.cnpq.br/4417262639540003"
   },
   {
     "name": "Lígia Mara de Oliveira Lima",
     "role": "Tesoureira",
-    "bio": "Graduanda em Física: Astrofísica no DFI - UFS.",
+    "bio": "Técnica em eletrotécnica e graduanda em Astronomia na UFS, com experiência em propriedade intelectual.",
     "photo": "assets/img/time/ligia.webp",
-    "diteq": "Comitê Técnico Consultivo"
+    "diteq": "Comitê Técnico Consultivo",
+    "about": "Técnica em eletrotécnica pelo Instituto Federal de Mato Grosso (IFMT) e graduanda em Astronomia na Universidade Federal de Sergipe (UFS), com pesquisa em Ciências Exatas e da Terra. Participou de um projeto de preparação e caracterização estrutural de cerâmicas para baterias de estado sólido. Tem experiência com o registro e o depósito de produção intelectual junto ao INPI, é tesoureira do Quarks e integra o Comitê Técnico Consultivo do DITeQ.",
+    "formation": [
+      "Graduação em Astronomia (UFS, em andamento)",
+      "Técnico em Eletrotécnica (IFMT)"
+    ],
+    "areas": [
+      "Ciência dos materiais",
+      "Propriedade intelectual",
+      "Gestão financeira"
+    ],
+    "lattes": "http://lattes.cnpq.br/8816533328247585"
   },
   {
     "name": "Adriana de Jesus Santos",
     "role": "Coordenadora de Educação & Inovação",
-    "bio": "Bióloga e Doutora em Ciências Farmacêuticas, docente e pesquisadora do ITP-UNIT.",
-    "photo": "assets/img/time/adriana.webp"
+    "bio": "Bióloga e doutora em Ciências Farmacêuticas, professora e pesquisadora da UNIT, com 22 patentes depositadas.",
+    "photo": "assets/img/time/adriana.webp",
+    "about": "Professora da Universidade Tiradentes (UNIT), do quadro permanente do Programa de Pós-Graduação em Engenharia de Processos, e pesquisadora do Instituto de Tecnologia e Pesquisa (ITP-UNIT). Bióloga, mestre e doutora em Ciências Farmacêuticas pela UFS, pesquisa produtos naturais, nanotecnologia farmacêutica e sustentabilidade, de larvicidas contra o Aedes aegypti a embalagens biodegradáveis. Publicou 22 artigos em periódicos e 9 capítulos de livros e tem 22 patentes depositadas no INPI, uma já concedida. Integra a rede Mulheres na Nanociência (CNPq) e o projeto Meninas na Ciência (FAPITEC), avalia trabalhos na CIENART e forma professores da rede pública em kits didáticos experimentais de Biologia.",
+    "formation": [
+      "Pós-doutorado (UNIT)",
+      "Doutorado em Ciências Farmacêuticas (UFS, 2022)",
+      "Mestrado em Ciências Farmacêuticas (UFS)",
+      "Licenciatura em Ciências Biológicas (UNIT, 2011)"
+    ],
+    "areas": [
+      "Nanotecnologia",
+      "Produtos naturais",
+      "Formação de professores"
+    ],
+    "lattes": "http://lattes.cnpq.br/3109488403874960"
   },
   {
     "name": "Cochiran Pereira dos Santos",
     "role": "Coordenador de Educação Científica",
-    "bio": "Físico e Doutor em Ciência e Engenharia de Materiais, operador do CMNano - UFS e Embaixador do CNPEM em Sergipe.",
+    "bio": "Físico e doutor em Ciência e Engenharia de Materiais pelo CMNano-UFS, coordena a OSFIC e é Embaixador do CNPEM em Sergipe.",
     "photo": "assets/img/time/cochiran.webp",
-    "diteq": "Coordenação Geral"
+    "diteq": "Coordenação Geral",
+    "about": "Técnico em Eletrônica Industrial, licenciado em Física e mestre e doutor em Ciência e Engenharia de Materiais pela Universidade Federal de Sergipe (UFS), onde atua desde 1994 no Departamento de Física e no Centro Multiusuário de Nanotecnologia (CMNano). É docente do Programa de Pós-Graduação em Ciência e Engenharia de Materiais e do Mestrado Nacional Profissional em Ensino de Física, professor da Universidade Tiradentes e revisor de periódicos como Applied Clay Science e a revista da CIENART. Foi bolsista de pós-doutorado sênior do Programa INCT (2023–2025), é Embaixador do CNPEM em Sergipe e coordena a OSFIC em escolas públicas.",
+    "formation": [
+      "Pós-doutorado em Engenharia Química (ITP, 2023–2025)",
+      "Doutorado em Ciência e Engenharia de Materiais (UFS, 2016)",
+      "Mestrado em Ciência e Engenharia de Materiais (UFS)",
+      "Licenciatura em Física (UFS)",
+      "Técnico em Eletrônica Industrial"
+    ],
+    "areas": [
+      "Materiais cerâmicos",
+      "Nanotecnologia",
+      "Ensino de Física"
+    ],
+    "lattes": "http://lattes.cnpq.br/1829158866506922"
   },
   {
     "name": "Celso Hiroshi Hayasi",
     "role": "Coordenador de Gestão Estratégica",
-    "bio": "Engenheiro de Produção Mecânica, Diretor da Cerâmica Capri, idealizador da Acelerase Venture Builder e Presidente do Concese.",
+    "bio": "Engenheiro de Produção Mecânica pela USP, diretor da Cerâmica Capri e presidente do Concese.",
     "photo": "assets/img/time/hiro.webp",
-    "diteq": "Transferência de Tecnologia"
+    "diteq": "Transferência de Tecnologia",
+    "about": "Engenheiro de Produção Mecânica pela Universidade de São Paulo (USP), com experiência em desenvolvimento de produto e inovação na indústria de revestimentos cerâmicos, construção civil, topografia digital e nanopigmentos cerâmicos. É sócio-diretor da Cerâmica Capri, sócio da Invento Geosoluções e da H2BR Empreendimentos e idealizador da Acelerase Venture Builder. Preside o Conselho de Consumidores da Energisa/SE (Concese) e o Conselho de Administração do INOVASE, é conselheiro fiscal do Conselho Nacional dos Consumidores de Energia (CONACEN) e diretor de Indústria da Câmara Portuguesa de Sergipe. Foi conselheiro do Sergipe Parque Tecnológico (SergipeTec).",
+    "formation": [
+      "Especialização em Regulação do Setor Elétrico (UFRJ, em andamento)",
+      "Engenharia de Produção Mecânica (USP, 1993)"
+    ],
+    "areas": [
+      "Inovação industrial",
+      "Integração entre empresa e pesquisa",
+      "Setor elétrico"
+    ],
+    "lattes": "http://lattes.cnpq.br/9923814527170796"
   },
   {
     "name": "Orlando Pedreschi Neto",
     "role": "Conselheiro Fiscal",
-    "bio": "Professor da educação básica, biólogo e pedagogo. Mestre em Biologia Animal e Doutor em Ciências Biológicas, com pós-doutorados em Gestão da Qualidade e em Arqueologia.",
-    "photo": "assets/img/time/orlando.webp"
+    "bio": "Biólogo e pedagogo, doutor em Ciências Biológicas e professor da educação básica em Sergipe.",
+    "photo": "assets/img/time/orlando.webp",
+    "about": "Biólogo pela Universidade Federal Rural de Pernambuco, licenciado em Biologia e em Pedagogia, com especializações em Agricultura Biodinâmica e em Educação Ambiental (UFS). É mestre em Biologia Animal (UFPE) e doutor em Ciências Biológicas (UFPB), com pós-doutorados no Instituto de Tecnologia e Pesquisa de Sergipe (ITPS) e em Arqueologia, na UFS. Professor da educação básica nas redes estadual de Sergipe e municipal de Aracaju, tem longa experiência no ensino de Biologia, da escola à universidade. No Quarks, é conselheiro fiscal.",
+    "formation": [
+      "Pós-doutorado em Arqueologia (UFS, 2014–2018)",
+      "Pós-doutorado (ITPS, 2006–2007)",
+      "Doutorado em Ciências Biológicas (UFPB, 2004)",
+      "Mestrado em Biologia Animal (UFPE, 1999)",
+      "Bacharelado em Biologia (UFRPE, 1997)"
+    ],
+    "areas": [
+      "Ensino de Biologia",
+      "Educação ambiental",
+      "Ecologia"
+    ],
+    "lattes": "http://lattes.cnpq.br/9849015161597379"
   },
   {
     "name": "Lara da Costa Nunes Barbosa",
     "role": "Associada Fundadora",
-    "bio": "Astrofísica e Mestranda em Física & Astrofísica no DF - UFMG.",
-    "photo": "assets/img/time/lara.webp"
+    "bio": "Bacharela em Astrofísica pela UFS e mestranda em Astronomia no IAG-USP.",
+    "photo": "assets/img/time/lara.webp",
+    "about": "Bacharela em Física: Astrofísica pela Universidade Federal de Sergipe (UFS), onde fez iniciação científica com o Prof. Diogo Martins Souto, caracterizando a atmosfera do exoplaneta WASP-80 b com espectros do telescópio James Webb (JWST). Hoje faz mestrado em Astronomia no Instituto de Astronomia, Geofísica e Ciências Atmosféricas da USP (IAG-USP), orientada pela Profa. Angela Cristina Krabbe, e estuda núcleos ativos de galáxias e seu efeito nas galáxias que os abrigam. Participou de vários projetos de extensão em divulgação científica e é associada fundadora do Quarks.",
+    "formation": [
+      "Mestrado em Astronomia (USP, em andamento)",
+      "Bacharelado em Física: Astrofísica (UFS, 2025)"
+    ],
+    "areas": [
+      "Astronomia extragaláctica",
+      "Exoplanetas",
+      "Divulgação científica"
+    ],
+    "lattes": "http://lattes.cnpq.br/4685079148370460"
   },
   {
     "name": "Antônio Carlos de Oliveira",
     "role": "Associado Efetivo",
-    "bio": "Professor do ensino médio e técnico ceramista, licenciado em Física.",
-    "photo": "assets/img/time/antonio.webp"
+    "bio": "Licenciado em Física, técnico ceramista e professor de Física, Matemática e Química na rede estadual.",
+    "photo": "assets/img/time/antonio.webp",
+    "about": "Licenciado em Física pela Universidade Federal de Sergipe (UFS), com especialização em Metodologia do Ensino de Física. É técnico ceramista na Cerâmica Capri, com experiência em controle de processo e de qualidade na indústria de revestimentos cerâmicos, e leciona Física, Matemática e Química no ensino médio da rede pública estadual de Sergipe (SEDUC).",
+    "formation": [
+      "Especialização em Metodologia do Ensino de Física (Unyleya)",
+      "Licenciatura em Física (UFS, 2013)"
+    ],
+    "areas": [
+      "Ensino de Física",
+      "Controle de qualidade",
+      "Cerâmica"
+    ],
+    "lattes": "http://lattes.cnpq.br/8994155884787748"
   },
   {
     "name": "Marielly Coelho Neves",
     "role": "Associada Efetiva",
-    "bio": "Professora, graduanda em Licenciatura em Letras-Inglês.",
-    "photo": "assets/img/time/marielly.webp"
+    "bio": "Graduanda em Letras-Inglês na UFS, com interesse em ensino de língua inglesa e literatura.",
+    "photo": "assets/img/time/marielly.webp",
+    "about": "Graduanda em Letras-Inglês na Universidade Federal de Sergipe (UFS). Tem interesse em Linguística Aplicada, com ênfase no ensino e na aprendizagem de língua inglesa, e em Estudos Literários voltados às literaturas de língua inglesa. Busca integrar projetos de ensino, pesquisa e extensão na área de Letras.",
+    "formation": [
+      "Graduação em Letras-Inglês (UFS, em andamento)"
+    ],
+    "areas": [
+      "Ensino de inglês",
+      "Linguística aplicada",
+      "Literatura"
+    ],
+    "lattes": "http://lattes.cnpq.br/3528165763165525"
   },
   {
     "name": "Pedro Martiniano Lins Neto",
     "role": "Associado Efetivo",
-    "bio": "Engenheiro Eletricista, bacharel em Engenharia Elétrica.",
-    "photo": "assets/img/time/pedro.webp"
+    "bio": "Engenheiro eletricista na Energisa Sergipe, pesquisa energias renováveis e geração a partir de resíduos.",
+    "photo": "assets/img/time/pedro.webp",
+    "about": "Engenheiro eletricista formado pela Universidade de Pernambuco (UPE), com trabalho de conclusão em distribuição de energia elétrica. Atua como engenheiro eletricista na Energisa Sergipe Distribuidora de Energia e desenvolve pesquisas em energias renováveis e na geração de energia a partir de resíduos sólidos urbanos.",
+    "formation": [
+      "Engenharia Elétrica (UPE, 1988)"
+    ],
+    "areas": [
+      "Energias renováveis",
+      "Distribuição de energia",
+      "Resíduos sólidos"
+    ],
+    "lattes": "http://lattes.cnpq.br/2521868359470279"
   },
   {
     "name": "Ronaldo Santos da Silva",
     "role": "Associado Efetivo",
-    "bio": "Professor do magistério superior, com graduação, mestrado e doutorado em Física.",
-    "photo": "assets/img/time/ronaldo.webp"
+    "bio": "Professor Titular de Física da UFS, com mais de 150 artigos publicados e 9 patentes.",
+    "photo": "assets/img/time/ronaldo.webp",
+    "about": "Professor Titular da Universidade Federal de Sergipe (UFS), onde leciona desde 2009, e professor adjunto da Clemson University, nos Estados Unidos, entre 2017 e 2022. É bacharel e mestre em Física pela UFS e doutor em Física Aplicada pelo IFSC-USP, com pós-doutorados na indústria (Cerâmica Sergipe) e na Clemson University. Pesquisa materiais cerâmicos avançados (luminescentes, dielétricos e ferroelétricos), sinterização a laser e por flash e transferência de tecnologia para a indústria. Publicou mais de 150 artigos, tem 9 patentes, orientou 10 teses e 10 dissertações e coordenou o Programa de Pós-Graduação em Física da UFS.",
+    "formation": [
+      "Pós-doutorado (Clemson University, EUA, 2017–2018)",
+      "Pós-doutorado empresarial (Cerâmica Sergipe, 2007–2009)",
+      "Doutorado em Física Aplicada (IFSC-USP, 2006)",
+      "Mestrado em Física (UFS, 2003)",
+      "Bacharelado em Física (UFS, 2000)"
+    ],
+    "areas": [
+      "Física da matéria condensada",
+      "Materiais cerâmicos",
+      "Transferência de tecnologia"
+    ],
+    "lattes": "http://lattes.cnpq.br/4548331237405072"
   },
   {
     "name": "Yuri Menezes Andrade",
     "role": "Associado Efetivo",
-    "bio": "Graduando em Astrofísica (bacharelado).",
-    "photo": "assets/img/time/yuri.webp"
+    "bio": "Graduando em Astrofísica na UFS, pesquisa atmosferas de exoplanetas parecidos com a Terra.",
+    "photo": "assets/img/time/yuri.webp",
+    "about": "Graduando em Física: Astrofísica na Universidade Federal de Sergipe (UFS) e técnico em Informática pelo Instituto Federal do Rio Grande do Norte (IFRN). Tem experiência em robótica educacional e inclusão, com destaque para o projeto RaCE (Robótica para Crianças no Espectro Autista), e fez estágio em programação. Integra o grupo de pesquisa SABER-SE, de exoplanetas e evolução estelar, e faz iniciação científica com o Prof. Diogo Souto na caracterização de atmosferas de exoplanetas parecidos com a Terra.",
+    "formation": [
+      "Graduação em Física: Astrofísica (UFS, em andamento)",
+      "Técnico em Informática (IFRN)"
+    ],
+    "areas": [
+      "Exoplanetas",
+      "Robótica educacional",
+      "Inclusão"
+    ],
+    "lattes": "http://lattes.cnpq.br/0154743084923796"
   }
 ]

@@ -578,15 +578,36 @@ export async function initTeam() {
   const grid = $('#teamGrid');
   if (!grid) return;
   const team = await loadJSON('team');
+  const dw = drawer();
+  // mini bio: abre no painel lateral ao clicar (ou Enter/Espaço) no cartão
+  const openBio = (m) => dw.open(h('div', { class: 'bio' },
+    h('div', { class: 'bio__head' },
+      h('img', { src: asset(m.photo), alt: t('Foto de {name}', { name: m.name }), width: '480', height: '640' }),
+      h('div', {},
+        h('p', { class: 'mono drawer__crumb' }, 'Nosso time'),
+        h('h2', { id: 'drawerTitle' }, m.name),
+        h('p', { class: 'bio__role mono' }, m.role),
+        m.diteq ? h('p', { class: 'member__diteq' }, `DITeQ · ${t(m.diteq)}`) : null)),
+    m.areas?.length ? h('ul', { class: 'bio__areas' }, ...m.areas.map((a) => h('li', { class: 'tag' }, a))) : null,
+    h('p', { class: 'bio__about' }, m.about || m.bio),
+    m.formation?.length ? h('div', { class: 'bio__formation' },
+      h('p', { class: 'mono bio__label' }, 'Formação'),
+      h('ul', {}, ...m.formation.map((f) => h('li', {}, f)))) : null,
+    m.lattes ? h('a', { class: 'btn btn--ghost bio__lattes', href: m.lattes, target: '_blank', rel: 'noopener' }, 'Currículo Lattes ↗') : null,
+  ));
   team.forEach((m) => {
-    grid.append(h('li', { class: 'member', tabindex: '0' },
+    const card = h('li', { class: 'member', tabindex: '0', role: 'button', 'aria-haspopup': 'dialog', 'aria-label': t('Ver mini bio de {name}', { name: m.name }) },
       h('img', { src: asset(m.photo), alt: t('Foto de {name}', { name: m.name }), loading: 'lazy', width: '480', height: '640' }),
       h('div', { class: 'member__info' },
         h('p', { class: 'member__role' }, m.role),
         m.diteq ? h('p', { class: 'member__diteq' }, `DITeQ · ${t(m.diteq)}`) : null,
         h('h4', {}, m.name),
         h('p', { class: 'member__bio' }, m.bio),
-      )));
+        h('span', { class: 'member__more mono', 'aria-hidden': 'true' }, 'Ver mini bio →'),
+      ));
+    card.addEventListener('click', () => openBio(m));
+    card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openBio(m); } });
+    grid.append(card);
   });
   if (hasGSAP() && !reducedMotion) {
     window.gsap.from($$('.member', grid), {
