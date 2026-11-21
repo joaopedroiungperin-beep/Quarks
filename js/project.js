@@ -111,6 +111,7 @@ if (document.documentElement.classList.contains('from-wormhole')) {
     h('p', { class: 'route__where' }, h('span', {}, s.city), ' · ', h('span', {}, s.network)),
     h('dl', { class: 'route__nums' },
       h('div', {}, h('dt', {}, t('grupos')), h('dd', { 'data-count': String(s.groups) }, String(s.groups))),
+      s.enrolled ? h('div', {}, h('dt', {}, t('estudantes inscritos')), h('dd', { 'data-count': String(s.enrolled) }, String(s.enrolled))) : null,
       h('div', {}, h('dt', {}, t('estudantes certificados')), h('dd', { 'data-count': String(s.students) }, String(s.students))),
       h('div', {}, h('dt', {}, t('professores')), h('dd', { 'data-count': String(s.teachers) }, String(s.teachers)))),
     s.highlight ? h('a', { class: 'route__hl', href: s.highlight, target: '_blank', rel: 'noopener' }, 'Destaques no Instagram ↗') : null))));
