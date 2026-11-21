@@ -23,6 +23,19 @@
       "Aracaju",
       "Simão Dias"
     ],
+    "stageLength": "1000%",
+    "stageLines": [
+      "Um kit da escola, aberto peça por peça",
+      "Eletroscópio de folhas: as cargas se repelem e as folhas se abrem",
+      "Sensor magnético: o ímã chega, a caixinha vibra e revela o motor por dentro",
+      "Experimento de Oersted: a corrente na bobina cria um campo e vira a bússola",
+      "LEDs infravermelhos ao sol viram uma placa solar e ligam o cronômetro",
+      "Circuito misto: uma lâmpada em série e duas em paralelo, como numa casa",
+      "Pilha de limão: cobre, zinco e três limões em série acendem o LED",
+      "Condutivímetro Quarks: verde, amarelo ou vermelho para a água que se bebe",
+      "Percepção óptica Quarks: em fase, amarelo; fora de fase, verde e vermelho se revezam",
+      "Oito experimentos, uma mente que aprende fazendo"
+    ],
     "hive": [
       {
         "file": "assets/img/projetos/esf/escola-01.webp",

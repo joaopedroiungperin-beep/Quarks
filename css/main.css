@@ -376,14 +376,22 @@ body { top: 0 !important; }
 @media (min-width: 900px) { .lab { grid-template-columns: 1fr 1fr; } }
 
 /* antes: equação no quadro, peças soltas que flutuam sem encaixe */
-.lab__try { margin-left: 8px; padding: 2px 8px; border-radius: 999px; background: rgba(127, 231, 242, 0.12); color: var(--c-cyan); letter-spacing: 0.08em; }
+.lab__try { display: inline-block; white-space: nowrap; margin-left: 8px; padding: 2px 8px; border-radius: 999px; background: rgba(127, 231, 242, 0.12); color: var(--c-cyan); letter-spacing: 0.08em; }
 .puzzle__board { fill: rgba(63, 165, 140, 0.08); stroke: rgba(243, 234, 216, 0.22); stroke-width: 1.5; }
 .puzzle__eq, .puzzle__answer, .puzzle__x { font-family: var(--f-display); text-anchor: middle; stroke: none; }
 .puzzle__eq { fill: rgba(243, 234, 216, 0.85); font-size: 30px; }
 .puzzle__answer { fill: #7fd3bd; font-size: 16px; opacity: 0; transition: opacity 0.6s var(--ease-out) 0.9s; }
 .puzzle__base { stroke: rgba(243, 234, 216, 0.3); stroke-width: 2; stroke-dasharray: 6 8; transition: stroke 0.6s var(--ease-out); }
-.puzzle__links { stroke: rgba(242, 166, 90, 0.5); stroke-width: 1.5; stroke-dasharray: 2 6; animation: links 2.4s ease-in-out infinite; }
-@keyframes links { 0%, 100% { opacity: 0; stroke-dashoffset: 0; } 40% { opacity: 1; } 70% { opacity: 0.2; stroke-dashoffset: -24; } }
+.puzzle__q { font-family: var(--f-display); text-anchor: middle; stroke: none; fill: var(--c-orange); font-size: 16px; animation: q-pulse 2.2s ease-in-out infinite; transition: opacity 0.4s; }
+@keyframes q-pulse { 50% { opacity: 0.35; } }
+.lab.is-solved .puzzle__q { opacity: 0; animation: none; }
+/* encaixes vazios: o destino que as peças não conseguem alcançar */
+.puzzle__slot { fill: none; stroke: rgba(243, 234, 216, 0.28); stroke-width: 1.5; stroke-dasharray: 4 4; transition: stroke 0.25s, fill 0.25s; }
+.puzzle__slot.is-hit { stroke: var(--c-red); fill: rgba(194, 69, 47, 0.12); stroke-dasharray: none; }
+.lab.is-solved .puzzle__slot { stroke: rgba(127, 231, 242, 0.5); }
+.loose.is-hit .puzzle__box, .loose.is-hit .puzzle__cube, .loose.is-hit .puzzle__lid { stroke: var(--c-red); }
+.puzzle.is-struggling .loose__float { animation: none; }
+.lab__watch { display: inline-block; white-space: nowrap; margin-left: 8px; padding: 2px 8px; border-radius: 999px; background: rgba(243, 234, 216, 0.08); color: var(--c-muted); letter-spacing: 0.08em; }
 .puzzle__box { fill: #1d1914; stroke: var(--c-orange); stroke-width: 2; transition: fill 0.6s var(--ease-out), stroke 0.6s var(--ease-out); }
 .puzzle__lid { fill: #2a2117; stroke: var(--c-orange); stroke-width: 2; transform-box: fill-box; transform-origin: 0% 100%; transition: rotate 0.7s cubic-bezier(0.34, 1.35, 0.64, 1), translate 0.7s var(--ease-out), stroke 0.6s; }
 .puzzle__x { fill: var(--c-orange); font-size: 22px; transition: opacity 0.4s; }
@@ -396,7 +404,6 @@ body { top: 0 !important; }
 /* equilíbrio na bancada: tudo se encaixa e a caixa revela 4 blocos */
 .lab.is-solved .loose { translate: var(--tx) var(--ty); }
 .lab.is-solved .loose__float { animation: none; }
-.lab.is-solved .puzzle__links { animation: none; opacity: 0; }
 .lab.is-solved .puzzle__base { stroke: var(--c-cyan); stroke-dasharray: none; }
 .lab.is-solved .puzzle__box { fill: rgba(127, 231, 242, 0.06); stroke: var(--c-cyan); }
 .lab.is-solved .puzzle__lid { rotate: -32deg; translate: -6px -6px; stroke: var(--c-cyan); }
@@ -417,7 +424,20 @@ body { top: 0 !important; }
 .bench__plate { fill: rgba(127, 231, 242, 0.08); stroke: rgba(127, 231, 242, 0.7); stroke-width: 2; transition: stroke 0.4s; }
 .bench__box { fill: #2a2117; stroke: var(--c-orange); stroke-width: 2; }
 .bench__load text { fill: var(--c-orange); stroke: none; font-family: var(--f-display); font-size: 18px; text-anchor: middle; }
-.bench__cube { fill: rgba(127, 231, 242, 0.25); stroke: var(--c-cyan); stroke-width: 1.5; }
+.bench__cube { fill: rgba(127, 231, 242, 0.25); stroke: var(--c-cyan); stroke-width: 1.5; transition: fill 0.5s, stroke 0.5s; }
+/* a caixa é só um recipiente sem peso: contorno tracejado; no equilíbrio ela se abre e mostra os 4 blocos */
+.bench__box { stroke-dasharray: 4 3; transition: fill 0.6s, stroke 0.6s; }
+.bench__load text { transition: opacity 0.4s; }
+.bench__inside .bench__cube { opacity: 0; scale: 0.4; transform-box: fill-box; transform-origin: center; transition: opacity 0.4s, scale 0.5s cubic-bezier(0.34, 1.5, 0.64, 1), fill 0.5s, stroke 0.5s; }
+.lab.is-solved .bench__box { fill: rgba(63, 165, 140, 0.06); stroke: #7fd3bd; }
+.lab.is-solved .bench__load text { opacity: 0; }
+.lab.is-solved .bench__inside .bench__cube { opacity: 1; scale: 1; }
+.lab.is-solved .bench__inside .bench__cube:nth-child(2) { transition-delay: 0.12s; }
+.lab.is-solved .bench__inside .bench__cube:nth-child(3) { transition-delay: 0.24s; }
+.lab.is-solved .bench__inside .bench__cube:nth-child(4) { transition-delay: 0.36s; }
+.lab.is-solved .bench__pan .bench__cube { fill: rgba(63, 165, 140, 0.45); stroke: #7fd3bd; }
+.bench__legend { display: flex; align-items: center; gap: 8px; margin: 0; color: rgba(243, 234, 216, 0.75); font-size: 0.74rem; }
+.bench__legend svg { width: 16px; height: 16px; flex: none; fill: #2a2117; stroke: var(--c-orange); stroke-width: 1.5; stroke-dasharray: 3 2; }
 #benchRight .bench__cube { animation: drop 0.45s cubic-bezier(0.34, 1.35, 0.64, 1); }
 @keyframes drop { from { translate: 0 -24px; opacity: 0; } }
 .bench__panhit, .bench__trayhit { fill: transparent; cursor: pointer; }

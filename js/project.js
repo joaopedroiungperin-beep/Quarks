@@ -243,7 +243,7 @@ async function mountScene(p) {
   window.addEventListener('resize', () => scene.resize?.());
   if (!hasGSAP() || reducedMotion) { set(0.6); return; }
   window.ScrollTrigger.create({
-    trigger: '#stage', start: 'top top', end: '+=220%', pin: '.stage__pin', scrub: 0.6,
+    trigger: '#stage', start: 'top top', end: `+=${p.stageLength || '220%'}`, pin: '.stage__pin', scrub: 0.6,
     onUpdate: (st) => set(st.progress),
   });
   set(0);
