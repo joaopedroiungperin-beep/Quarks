@@ -159,15 +159,22 @@
       <h2 class="h1 display" data-split>O ensino experimental, pelo método <em>“mão na massa”</em>, pode transformar essa realidade</h2>
 
       <div class="lab">
-        <!-- antes: o símbolo chega pronto; as peças flutuam sem encaixe -->
+        <!-- antes: sistema rígido; as peças tentam chegar aos encaixes, emperram e quase desistem (não interativo) -->
         <article class="lab__act lab__act--board glass" data-reveal>
-          <p class="lab__tag mono">Antes · na sala tradicional</p>
+          <p class="lab__tag mono">Antes · na sala tradicional <span class="lab__watch">só observar</span></p>
           <svg class="puzzle" viewBox="0 0 360 250" aria-hidden="true">
             <rect class="puzzle__board" x="40" y="10" width="280" height="84" rx="6"/>
             <text class="puzzle__eq" x="180" y="56">x + 3 = 7</text>
             <text class="puzzle__answer" x="180" y="82">x = 4</text>
+            <text class="puzzle__q" x="180" y="82">x = ?</text>
             <path class="puzzle__base" d="M56 214H304"/>
-            <path class="puzzle__links" d="M144 150L184 147M144 160L220 168M144 140L256 129"/>
+            <!-- encaixes: onde cada peça deveria chegar -->
+            <g class="puzzle__slots">
+              <rect class="puzzle__slot" x="96" y="168" width="46" height="46" rx="4"/>
+              <rect class="puzzle__slot" x="150" y="196" width="18" height="18" rx="3"/>
+              <rect class="puzzle__slot" x="174" y="196" width="18" height="18" rx="3"/>
+              <rect class="puzzle__slot" x="198" y="196" width="18" height="18" rx="3"/>
+            </g>
             <g class="loose" style="--i:0;--tx:0px;--ty:42px"><g class="loose__float">
               <rect class="puzzle__box" x="96" y="126" width="46" height="46" rx="4"/>
               <g class="puzzle__inside"><rect x="104" y="134" width="13" height="13" rx="2"/><rect x="121" y="134" width="13" height="13" rx="2"/><rect x="104" y="151" width="13" height="13" rx="2"/><rect x="121" y="151" width="13" height="13" rx="2"/></g>
@@ -178,7 +185,7 @@
             <g class="loose" style="--i:2;--tx:-46px;--ty:36px"><g class="loose__float"><rect class="puzzle__cube" x="220" y="160" width="18" height="18" rx="3"/></g></g>
             <g class="loose" style="--i:3;--tx:-58px;--ty:76px"><g class="loose__float"><rect class="puzzle__cube" x="256" y="120" width="18" height="18" rx="3"/></g></g>
           </svg>
-          <p class="lab__text" id="puzzleMsg">O conteúdo chega pronto, como símbolo no quadro: as peças existem, mas não se encaixam. A lacuna que nasce nos primeiros anos se acumula nos seguintes.</p>
+          <p class="lab__text" id="puzzleMsg">No quadro, a conta chega pronta: “x + 3 = 7”. Sem poder tocar nem testar, o aluno tenta encaixar as peças só de cabeça, elas emperram no caminho e a dúvida vira desânimo. A lacuna que começa nos primeiros anos vai se acumulando nos seguintes.</p>
         </article>
 
         <!-- depois: o visitante equilibra a balança e descobre o valor de x -->
@@ -190,6 +197,7 @@
             <g class="bench__beam"><path d="M60 64h240"/><path class="bench__needle" d="M180 64V40"/><circle cx="180" cy="64" r="5"/></g>
             <g class="bench__pan" data-side="l"><path class="bench__cord" d="M0 0l-30 60M0 0l30 60"/><path class="bench__plate" d="M-40 60h80q-6 12-40 12t-40-12z"/>
               <g class="bench__load"><rect class="bench__box" x="-34" y="26" width="30" height="34" rx="3"/><text x="-19" y="49">x</text>
+                <g class="bench__inside"><rect class="bench__cube" x="-31" y="48" width="10" height="10" rx="2"/><rect class="bench__cube" x="-17" y="48" width="10" height="10" rx="2"/><rect class="bench__cube" x="-31" y="36" width="10" height="10" rx="2"/><rect class="bench__cube" x="-17" y="36" width="10" height="10" rx="2"/></g>
                 <rect class="bench__cube" x="2" y="48" width="10" height="10" rx="2"/><rect class="bench__cube" x="14" y="48" width="10" height="10" rx="2"/><rect class="bench__cube" x="8" y="36" width="10" height="10" rx="2"/></g></g>
             <g class="bench__pan" data-side="r"><path class="bench__cord" d="M0 0l-30 60M0 0l30 60"/><path class="bench__plate" d="M-40 60h80q-6 12-40 12t-40-12z"/><rect class="bench__panhit" x="-46" y="20" width="92" height="58"/><g class="bench__load" id="benchRight"></g></g>
             <g class="bench__tray" id="benchTray">
@@ -199,13 +207,14 @@
             </g>
             <g class="bench__ghost"><rect class="bench__cube" x="-8" y="-8" width="16" height="16" rx="3"/><circle class="bench__touch" r="13"/></g>
           </svg>
+          <p class="bench__legend mono"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="2" width="12" height="12" rx="2"/></svg>A caixa “x” não tem peso: ela só esconde alguns blocos</p>
           <p class="bench__hint mono" id="benchHint"><span aria-hidden="true">☝</span> Arraste um bloco da bandeja até o prato ou toque em “+”</p>
           <div class="bench__controls">
             <button class="bench__btn" type="button" data-bench="-1">− tirar</button>
             <output class="bench__out mono" id="benchOut" aria-live="polite">0 blocos</output>
             <button class="bench__btn bench__btn--add" type="button" data-bench="1">+ pôr bloco</button>
           </div>
-          <p class="lab__text" id="benchMsg" aria-live="polite">A caixa misteriosa “x” e mais 3 blocos estão no prato da esquerda. Quantos blocos equilibram a balança?</p>
+          <p class="lab__text" id="benchMsg" aria-live="polite">No prato da esquerda estão a caixa “x” e mais 3 blocos. Quantos blocos você precisa pôr no prato da direita para equilibrar a balança?</p>
         </article>
       </div>
 

@@ -275,6 +275,10 @@ export function initVirada() {
     }
   }
 
+  // 1. antes: sistema rígido, só para assistir. As peças tentam chegar aos encaixes,
+  //    emperram, tremem e voltam; a cada rodada tentam com menos força, até quase desistir.
+  const puzzle = initPuzzle();
+
   // 2. balança: caixa (x = 4) + 3 blocos à esquerda; o visitante põe blocos à direita
   if (!bench) return;
   const LEFT = 7, MAX = 12, PX = 180, PY = 64, ARM = 120;
@@ -313,7 +317,8 @@ export function initVirada() {
     out.textContent = n === 1 ? t('1 bloco') : t('{n} blocos', { n });
     const solved = n === LEFT;
     lab.classList.toggle('is-solved', solved);
-    if (solved) msg.textContent = t('Equilíbrio! Sete blocos pesam o mesmo que a caixa e mais três, então a caixa vale 4.');
+    puzzle?.solve(solved);
+    if (solved) msg.textContent = t('Equilíbrio! Os 7 blocos da direita pesam o mesmo que a caixa e os 3 blocos da esquerda. Abrindo a caixa: ela escondia 4 blocos, então x = 4.');
     else if (n < LEFT) msg.textContent = t('A esquerda ainda pesa mais. Continue pondo blocos e observe o ponteiro.');
     else msg.textContent = t('Passou do ponto: agora a direita pesa mais. Arraste um bloco do prato de volta para a bandeja.');
     if (puzzleMsg) puzzleMsg.textContent = solved ? t('Depois da experiência, as peças se encaixam: a caixa “x” guardava 4 blocos. Agora o símbolo tem significado.') : puzzleText;
@@ -377,6 +382,54 @@ export function initVirada() {
     src.addEventListener('pointercancel', clearDrag);
   });
   render();
+}
+
+function initPuzzle() {
+  const svg = $('.puzzle');
+  if (!svg || !hasGSAP() || reducedMotion) return null;
+  const { gsap } = window;
+  const slots = $$('.puzzle__slot', svg);
+  const pieces = $$('.loose', svg).map((g, i) => ({
+    g, f: $('.loose__float', g), slot: slots[i],
+    tx: parseFloat(g.style.getPropertyValue('--tx')), ty: parseFloat(g.style.getPropertyValue('--ty')),
+  }));
+  const floats = pieces.map((p) => p.f);
+  svg.classList.add('is-struggling');
+  gsap.set(floats, { transformOrigin: '50% 100%' });
+
+  const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.4, paused: true });
+  const hit = (p, on) => () => { p.g.classList.toggle('is-hit', on); p.slot.classList.toggle('is-hit', on); };
+  // uma tentativa: avança uma fração k do caminho, bate, treme e volta
+  const attempt = (p, k, at, tired) => {
+    tl.to(p.f, { x: p.tx * k, y: p.ty * k, rotation: 0, opacity: 1, duration: 0.9, ease: 'power2.inOut' }, at)
+      .call(hit(p, true), null, at + 0.85)
+      .to(p.f, { keyframes: [{ rotation: 8 }, { rotation: -7 }, { rotation: 4 }, { rotation: 0 }], duration: 0.45, ease: 'none' }, at + 0.9)
+      .call(hit(p, false), null, at + 1.35)
+      .to(p.f, tired
+        ? { x: p.tx * k * 0.4, y: p.ty * k * 0.4 + 10, rotation: 14, opacity: 0.55, duration: 1.1, ease: 'power1.out' } // quase desiste: murcha
+        : { x: 0, y: 0, duration: 0.8, ease: 'back.out(1.7)' }, at + 1.35);
+  };
+  pieces.forEach((p, i) => attempt(p, 0.62, i * 0.28, false));        // 1ª rodada: com vontade
+  pieces.forEach((p, i) => attempt(p, 0.4, 2.9 + i * 0.28, false));   // 2ª: mais fraca
+  pieces.forEach((p, i) => attempt(p, 0.18, 5.6 + i * 0.32, true));   // 3ª: quase desiste
+  tl.to(floats, { x: 0, y: 0, rotation: 0, opacity: 1, duration: 0.9, ease: 'power2.inOut', stagger: 0.1 }, 9.4);
+
+  let solved = false, visible = false, settle = null;
+  const sync = () => { if (visible && !solved) tl.play(); else tl.pause(); };
+  window.ScrollTrigger.create({ trigger: svg, start: 'top bottom', end: 'bottom top', onToggle: (st) => { visible = st.isActive; sync(); } });
+  return {
+    solve(on) {
+      if (on === solved) return;
+      solved = on;
+      if (on) {
+        tl.pause();
+        pieces.forEach((p) => { p.g.classList.remove('is-hit'); p.slot.classList.remove('is-hit'); });
+        // sem overwrite: ele apagaria as tentativas guardadas no próprio loop
+        settle = gsap.to(floats, { x: 0, y: 0, rotation: 0, opacity: 1, duration: 0.35 });
+      } else { settle?.kill(); tl.restart(); }
+      sync();
+    },
+  };
 }
 
 /* ---------- 03 · Proposta: circuito, lupa e rede ---------- */
