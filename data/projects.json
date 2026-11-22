@@ -23,17 +23,17 @@
       "Aracaju",
       "Simão Dias"
     ],
-    "stageLength": "1000%",
+    "stageLength": "1300%",
     "stageLines": [
       "Um kit da escola, aberto peça por peça",
       "Eletroscópio de folhas: as cargas se repelem e as folhas se abrem",
-      "Sensor magnético: o ímã chega, a caixinha vibra e revela o motor por dentro",
+      "Sensor magnético: com o ímã perto, um motor com uma massinha fora do centro faz a caixinha tremer",
       "Experimento de Oersted: a corrente na bobina cria um campo e vira a bússola",
       "LEDs infravermelhos ao sol viram uma placa solar e ligam o cronômetro",
       "Circuito misto: uma lâmpada em série e duas em paralelo, como numa casa",
       "Pilha de limão: cobre, zinco e três limões em série acendem o LED",
-      "Condutivímetro Quarks: verde, amarelo ou vermelho para a água que se bebe",
-      "Percepção óptica Quarks: em fase, amarelo; fora de fase, verde e vermelho se revezam",
+      "Condutivímetro Quarks: verde, amarelo ou vermelho para identificar a água potável",
+      "Percepção óptica Quarks: vermelho, verde e os dois em fase dão amarelo; fora de fase, no balanço, as cores se revezam",
       "Oito experimentos, uma mente que aprende fazendo"
     ],
     "hive": [
@@ -74,7 +74,7 @@
         "caption": "Estudantes e professores comemoram na mostra científica"
       }
     ],
-    "summary": "O projeto “Energia Sustentável é Fundamental”, realizado em parceria com o CONCESE, o Conselho de Consumidores da Energisa, focou na promoção da educação científica e ambiental em escolas públicas de Aracaju e Simão Dias. A ação contou com a entrega de kits de experimentos de baixo custo, abordando dez diferentes temas, dentre eles Eletrostática, Eletromagnetismo, Geração de Energia e Perigos da Eletricidade. Além disso, ocorreu capacitações docentes e visitas técnicas, como à Usina Hidrelétrica de Xingó. A metodologia utilizou a experimentação para conectar conteúdos curriculares ao cotidiano, resultando em mostras científicas e na publicação de 12 obras didáticas.",
+    "summary": "O projeto “Energia Sustentável é Fundamental”, realizado em parceria com o Conselho de Consumidores da Energisa (CONCESE), focou na promoção da educação científica e ambiental em escolas públicas de Aracaju e Simão Dias. A ação contou com a entrega de kits de experimentos de baixo custo, abordando dez diferentes temas, dentre eles Eletrostática, Eletromagnetismo, Geração de Energia e Perigos da Eletricidade. Além disso, ocorreu capacitações docentes e visitas técnicas, como à Usina Hidrelétrica de Xingó. A metodologia utilizou a experimentação para conectar conteúdos curriculares ao cotidiano, resultando em mostras científicas e na publicação de 12 obras didáticas.",
     "stats": [
       {
         "value": 99,
