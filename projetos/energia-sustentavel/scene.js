@@ -326,18 +326,25 @@ export function mount(container, { THREE }) {
     drawLcd('88:88', false);
     mesh(new THREE.PlaneGeometry(1.12, 1.0), new THREE.MeshStandardMaterial({ map: lcdTex, transparent: true, roughness: 0.4 }), watch, [0, -0.02, 0.16]);
     // três LEDs infravermelhos em série
-    const cluster = new THREE.Group(); cluster.position.set(-1.2, 0.55, 0.15); cluster.rotation.z = 0.35; g.add(cluster);
+    // cada LED tem a perninha maior (anodo, +) à esquerda e a menor (catodo, −) à direita;
+    // um fiozinho liga o catodo de um ao anodo do próximo: estão em série
+    const cluster = new THREE.Group(); cluster.position.set(-1.2, 0.55, 0.15); g.add(cluster);
     const clear = std(0xdde9ff, { op: 0.6, r: 0.08 });
     const legs = std(0xd0d4d8, { m: 0.85, r: 0.3 });
-    [[-0.13, 0], [0.13, 0.02], [0, 0.16]].forEach(([x, y]) => {
-      mesh(new THREE.CylinderGeometry(0.075, 0.075, 0.13, 20), clear, cluster, [x, y + 0.065, 0]);
-      mesh(new THREE.SphereGeometry(0.075, 20, 10, 0, Math.PI * 2, 0, Math.PI / 2), clear, cluster, [x, y + 0.13, 0]);
-      mesh(new THREE.BoxGeometry(0.03, 0.03, 0.03), std(0x3a2a55), cluster, [x, y + 0.08, 0]);
-      [-0.025, 0.025].forEach((dx) => mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.32, 6), legs, cluster, [x + dx, y - 0.16, 0]));
+    const LX = [-0.22, 0, 0.22], AN = 0.38, CA = 0.28;
+    LX.forEach((x) => {
+      mesh(new THREE.CylinderGeometry(0.075, 0.075, 0.13, 20), clear, cluster, [x, 0.065, 0]);
+      mesh(new THREE.SphereGeometry(0.075, 20, 10, 0, Math.PI * 2, 0, Math.PI / 2), clear, cluster, [x, 0.13, 0]);
+      mesh(new THREE.CylinderGeometry(0.085, 0.085, 0.02, 20), clear, cluster, [x, 0.01, 0]);
+      mesh(new THREE.BoxGeometry(0.03, 0.03, 0.03), std(0x3a2a55), cluster, [x, 0.08, 0]);
+      mesh(new THREE.CylinderGeometry(0.008, 0.008, AN, 6), legs, cluster, [x - 0.03, -AN / 2, 0]);
+      mesh(new THREE.CylinderGeometry(0.008, 0.008, CA, 6), legs, cluster, [x + 0.03, -CA / 2, 0]);
     });
+    const link = std(0xc46a2b, { m: 0.85, r: 0.3 });
+    [0, 1].forEach((i) => wire(smooth([[LX[i] + 0.03, -CA + 0.01, 0], [LX[i] + 0.1, -CA - 0.09, 0.02], [LX[i + 1] - 0.03, -AN + 0.01, 0]]), 0.009, link, cluster, 16));
     const red = std(0xd63a3a, { r: 0.5 }), black = std(0x1d1d1f, { r: 0.5 });
-    const redPath = smooth([[-1.05, 0.25, 0.15], [-0.8, -0.3, 0.3], [-0.6, -0.95, 0.25], [0.2, -1.05, 0.1], [0.75, -0.8, 0.0]]);
-    const blackPath = smooth([[-1.25, 0.25, 0.15], [-1.25, -0.4, 0.2], [-0.9, -1.1, 0.15], [0.05, -1.2, 0.0], [0.4, -0.8, 0.0]]);
+    const redPath = smooth([[-1.45, 0.18, 0.15], [-1.55, -0.4, 0.25], [-1.0, -1.0, 0.25], [0.0, -1.1, 0.1], [0.75, -0.8, 0.0]]);
+    const blackPath = smooth([[-0.95, 0.28, 0.15], [-0.85, -0.3, 0.25], [-0.5, -0.9, 0.2], [0.1, -1.0, 0.05], [0.4, -0.8, 0.0]]);
     wire(redPath, 0.02, red, g, 80); wire(blackPath, 0.02, black, g, 80);
     // sol
     const sun = new THREE.Group(); sun.position.set(-2.0, 1.75, -0.3); g.add(sun);
@@ -345,7 +352,7 @@ export function mount(container, { THREE }) {
     const sunGlow = glow(SUN, 2.2, sun);
     const rays = new THREE.Group(); sun.add(rays);
     for (let i = 0; i < 12; i++) { const a = (i / 12) * Math.PI * 2; mesh(new THREE.BoxGeometry(0.22, 0.03, 0.03), new THREE.MeshBasicMaterial({ color: SUN }), rays, [Math.cos(a) * 0.48, Math.sin(a) * 0.48, 0], [0, 0, a]); }
-    const photons = flow(poly([[-1.75, 1.5, -0.2], [-1.2, 0.75, 0.15]]), 10, SUN, 0.16 * k, g);
+    const photons = flow(poly([[-1.75, 1.5, -0.2], [-1.2, 0.72, 0.15]]), 10, SUN, 0.16 * k, g);
     const electrons = flow(redPath, 14, CYAN, 0.12 * k, g);
     const ledGlow = glow(0xff6b8a, 0.9, cluster, [0, 0.12, 0]);
     let t0 = null;
@@ -429,19 +436,26 @@ export function mount(container, { THREE }) {
     const peel = std(LEMON, { r: 0.5, e: 0x3a3000, ei: 0.25 });
     const cu = std(0xc46a2b, { m: 0.85, r: 0.3 }), zn = std(0xaab1b9, { m: 0.85, r: 0.35 });
     const xs = [-1.25, 0, 1.25];
+    const NAIL = [xs[2] + 0.2, 0, 0.1];
+    const zinc3 = new THREE.Group(); zinc3.position.set(...NAIL); g.add(zinc3);
     xs.forEach((x, i) => {
       const l = mesh(lemonGeo, peel, g, [x, -0.38, 0]); l.rotation.y = (i - 1) * 0.25;
       mesh(new THREE.CylinderGeometry(0.028, 0.02, 0.7, 10), cu, g, [x - 0.2, 0.0, 0.1]);
       mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.02, 14), cu, g, [x - 0.2, 0.35, 0.1]);
-      mesh(new THREE.CylinderGeometry(0.028, 0.02, 0.7, 10), zn, g, [x + 0.2, 0.0, 0.1]);
-      mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.02, 14), zn, g, [x + 0.2, 0.35, 0.1]);
+      // o prego de zinco do último limão é o que se encaixa e desencaixa (abre e fecha o circuito)
+      const holder = i === 2 ? zinc3 : g;
+      const at = i === 2 ? [0, 0, 0] : [x + 0.2, 0.0, 0.1];
+      mesh(new THREE.CylinderGeometry(0.028, 0.02, 0.7, 10), zn, holder, at);
+      mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.02, 14), zn, holder, [at[0], at[1] + 0.35, at[2]]);
     });
     const wireMat = std(0x2a8a4a, { r: 0.5 });
     const links = [0, 1].map((i) => smooth([[xs[i] + 0.2, 0.36, 0.1], [xs[i] + 0.62, 0.75, 0.15], [xs[i + 1] - 0.2, 0.36, 0.1]]));
     // circuito externo: zinco do último limão → LED → cobre do primeiro
     const outA = smooth([[xs[2] + 0.2, 0.36, 0.1], [1.6, 1.0, 0.15], [0.6, 1.45, 0.2], [0.06, 1.25, 0.2]]);
     const outB = smooth([[-0.06, 1.25, 0.2], [-0.6, 1.45, 0.2], [-1.6, 1.0, 0.15], [xs[0] - 0.2, 0.36, 0.1]]);
-    [...links, outA, outB].forEach((c) => wire(c, 0.016, wireMat, g, 48));
+    [...links, outB].forEach((c) => wire(c, 0.016, wireMat, g, 48));
+    const outAMesh = wire(outA, 0.016, wireMat, g, 48);   // acompanha o prego quando ele sai do limão
+    let lastLift = -1, lampV = 0;
     const lamp = led(0xff4a4a, g, [0, 1.2, 0.2], null, 0.09);
     const flows = [...links, outA, outB].map((c) => flow(c, 8, CYAN, 0.12 * k, g));
     // íons dentro de cada limão
@@ -452,7 +466,20 @@ export function mount(container, { THREE }) {
     return {
       g,
       update(u, t) {
-        const on = sm(0.3, 0.4, u);
+        // o prego entra no limão; o LED só acende com o circuito fechado e apaga assim que ele sai
+        const closed = sm(0.24, 0.36, u), lift = 1 - closed;
+        const th = -lift * 0.3;
+        zinc3.position.set(NAIL[0] + lift * 0.15, NAIL[1] + lift * 0.62, NAIL[2]);
+        zinc3.rotation.z = th;
+        if (Math.abs(lift - lastLift) > 0.001) {
+          lastLift = lift;
+          outA.points[0].set(zinc3.position.x - 0.36 * Math.sin(th), zinc3.position.y + 0.36 * Math.cos(th), NAIL[2]);
+          outA.updateArcLengths();
+          outAMesh.geometry.dispose();
+          outAMesh.geometry = new THREE.TubeGeometry(outA, 48, 0.016, 8, false);
+        }
+        lampV += ((closed > 0.98 ? 1 : 0) - lampV) * 0.35;
+        const on = lampV;
         flows.forEach((f) => f(t, 0.4, on * 0.9));
         lamp.set(on * (0.85 + 0.15 * Math.sin(t * 7)));
         ionMat.opacity = on * 0.8;
@@ -525,11 +552,14 @@ export function mount(container, { THREE }) {
   /* ================= 8 · APARELHO DE PERCEPÇÃO ÓPTICA QUARKS (patente) ================= */
   function optical(k) {
     const g = new THREE.Group();
-    g.rotation.set(0.28, 0.45, 0);
+    // de frente: o LED (face −x) aponta direto para o visitante; o cabo sai por trás
+    g.rotation.set(0.32, Math.PI / 2 - 0.28, 0);   // leve perspectiva: dá para ver as chaves sendo acionadas
+    g.userData.front = Math.PI / 2 - 0.28;
     const dev = new THREE.Group(); g.add(dev);
     mesh(rbox(1.6, 0.8, 1.15, 0.12), std(0x9fa3a9, { r: 0.55 }), dev);
     // três chaves alavanca: 5A (verde), 5B (vermelho), 5C (fase)
-    const toggles = [[-0.2, 0.28], [-0.36, 0.0], [-0.52, -0.28]].map(([x, z]) => {
+    // enfileiradas em linha reta no topo (da esquerda para a direita de quem olha)
+    const toggles = [[0, -0.32], [0, 0], [0, 0.32]].map(([x, z]) => {
       mesh(new THREE.CylinderGeometry(0.075, 0.075, 0.06, 6), std(0x2a2b2f, { m: 0.5, r: 0.4 }), dev, [x, 0.43, z]);
       const lev = new THREE.Group(); lev.position.set(x, 0.46, z); dev.add(lev);
       mesh(new THREE.CylinderGeometry(0.018, 0.028, 0.3, 10), std(0xd8dde4, { m: 0.85, r: 0.25 }), lev, [0, 0.15, 0]);
@@ -539,43 +569,51 @@ export function mount(container, { THREE }) {
     mesh(new THREE.CylinderGeometry(0.09, 0.09, 0.1, 20), std(0x18181a), dev, [-0.84, 0, 0], [0, 0, Math.PI / 2]);
     const ledMat = std(0xffffff, { r: 0.2, op: 0.95, e: 0xffd23c, ei: 0 });
     const ledDome = mesh(new THREE.SphereGeometry(0.085, 24, 12), ledMat, dev, [-0.92, 0, 0]);
-    const ledGlow = glow(0xffd23c, 0.9, dev, [-0.98, 0, 0]);
+    const ledGlow = glow(0xffc21a, 1.1, dev, [-0.98, 0, 0]);
     // cabo e plugue de três pinos (rede elétrica alternada)
     wire(smooth([[0.8, -0.1, 0], [1.3, -0.25, 0.2], [1.5, -0.65, 0.5], [1.15, -0.85, 0.75], [1.6, -0.95, 0.9]]), 0.04, std(0x1d1d1f, { r: 0.6 }), dev, 64);
     const plug = new THREE.Group(); plug.position.set(1.72, -0.98, 0.95); plug.rotation.set(0, -0.5, -0.2); dev.add(plug);
     mesh(new THREE.BoxGeometry(0.3, 0.2, 0.22), std(0x1d1d1f, { r: 0.5 }), plug);
     [[0.06, 0.05], [-0.06, 0.05], [0, -0.05]].forEach(([y, z]) => mesh(new THREE.CylinderGeometry(0.022, 0.022, 0.2, 10), std(0xc9ced6, { m: 0.9, r: 0.25 }), plug, [0.24, y, z], [0, 0, Math.PI / 2]));
     // rastro de luz: persistência da visão enquanto a caixinha balança
-    const N = 70;
-    const trail = new THREE.InstancedMesh(new THREE.SphereGeometry(0.05, 10, 6), new THREE.MeshBasicMaterial({ transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }), N);
+    // calculado ponto a ponto, 1 ms por amostra, a partir do movimento: os traços seguem os 60 Hz da rede
+    const N = 260, STEP = 0.001, HZ = 60, A = 0.9, W = 10;
+    // mistura normal (não aditiva): pontos verdes e vermelhos sobrepostos continuam com a cor pura
+    const trail = new THREE.InstancedMesh(new THREE.SphereGeometry(0.04, 10, 6), new THREE.MeshBasicMaterial({ transparent: true, depthWrite: false }), N);
     trail.frustumCulled = false; g.add(trail);
-    const hist = [];
     const wp = new THREE.Vector3(), m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), sc = new THREE.Vector3();
-    const C = { y: new THREE.Color(0xffd23c), g: new THREE.Color(0x3ee07a), r: new THREE.Color(0xff3b3b) };
+    const C = { y: new THREE.Color(0xffc21a), g: new THREE.Color(0x3ee07a), r: new THREE.Color(0xff3b3b) };
     return {
       g,
       update(u, t) {
-        const on = sm(0.14, 0.24, u);                               // 5A e 5B ligados
-        const out = sm(0.52, 0.58, u);                              // 5C tira de fase
-        toggles[0].rotation.x = lerp(0.5, -0.5, on); toggles[1].rotation.x = lerp(0.5, -0.5, on); toggles[2].rotation.x = lerp(0.5, -0.5, out);
-        const swing = sm(0.28, 0.38, u);
-        const s = Math.sin(t * 5.2);
-        dev.position.x = s * 0.75 * swing; dev.rotation.z = s * 0.12 * swing;
-        // em fase: verde + vermelho somam amarelo; fora de fase: as cores se revezam a cada meio ciclo da rede
-        const alt = Math.sin(t * Math.PI * 2 * 7) > 0;
-        const cur = out > 0.5 ? (alt ? C.g : C.r) : C.y;
-        ledMat.emissive.copy(cur); ledMat.emissiveIntensity = on * 1.8;
-        ledGlow.material.color.copy(cur); ledGlow.material.opacity = on * 0.9;
-        ledDome.getWorldPosition(wp); g.worldToLocal(wp);
-        hist.unshift({ p: wp.clone(), c: cur });
-        if (hist.length > N) hist.pop();
+        // sequência: 5B acende o vermelho → desliga e 5A acende o verde → os dois juntos, em fase (amarelo)
+        // e a caixinha balança → 5C tira de fase e, no balanço, verde e vermelho se revezam
+        // só começa quando a caixinha já chegou ao lugar (o modelo termina de entrar em u ≈ 0.3)
+        const redOn = u > 0.37 && u < 0.44 || u > 0.53;
+        const greenOn = u > 0.46;
+        const out = u > 0.66;
+        const flip = (lev, v) => { lev.rotation.z += ((v ? 0.35 : -0.35) - lev.rotation.z) * 0.25; }; // alavanca vai para a frente (liga) ou para trás
+        flip(toggles[0], greenOn); flip(toggles[1], redOn); flip(toggles[2], out);
+        const swing = sm(0.55, 0.61, u);
+        const s = Math.sin(t * W);
+        dev.position.z = s * A * swing; dev.rotation.x = -s * 0.1 * swing;   // balanço lateral (esquerda ↔ direita)
+        const both = redOn && greenOn;
+        // parado, o olho funde os 60 Hz: em fase ou fora de fase o LED parece amarelo; só o balanço separa as cores
+        const cur = both ? C.y : redOn ? C.r : C.g;
+        const on = redOn || greenOn ? 1 : 0;
+        const bright = both && !out ? 2.6 : both ? 2.2 : 1.8;      // amarelo bem forte, quente
+        ledMat.emissive.copy(cur); ledMat.emissiveIntensity = on * bright;
+        if (on) ledMat.color.copy(cur); else ledMat.color.set(0xe8e8e8);
+        ledGlow.material.color.copy(cur); ledGlow.material.opacity = on * (bright > 2 ? 1 : 0.85);
+        ledGlow.scale.setScalar(bright > 2 ? 1.4 : 1.0);
         for (let i = 0; i < N; i++) {
-          const h = hist[i];
-          const vis = h ? on * swing * (1 - i / N) : 0;
+          const tt = t - i * STEP;
+          wp.set(-0.97, 0, Math.sin(tt * W) * A * swing);
+          const vis = both ? swing * (1 - i / N) : 0;
           sc.setScalar(Math.max(0.0001, vis));
-          m4.compose(h ? h.p : wp, q, sc);
+          m4.compose(wp, q, sc);
           trail.setMatrixAt(i, m4);
-          if (h) trail.setColorAt(i, h.c);
+          trail.setColorAt(i, out ? (Math.sin(tt * Math.PI * 2 * HZ) >= 0 ? C.g : C.r) : C.y);
         }
         trail.instanceMatrix.needsUpdate = true;
         if (trail.instanceColor) trail.instanceColor.needsUpdate = true;
@@ -669,7 +707,7 @@ export function mount(container, { THREE }) {
     // a câmera mira o centro da cena: nada é cortado embaixo durante a expansão
     if (small) { camera.position.set(0, 0.8, 14.5); root.position.set(0, 1.0, 0); }
     else { camera.position.set(0, 0.7, 11); root.position.set(w > 960 ? 1.4 : 0.6, 0.45, 0); }
-    camera.lookAt(root.position.x * 0.55, root.position.y, 0);
+    camera.lookAt(root.position.x * 0.55, root.position.y - (small ? 1.1 : 0.75), 0);
     camera.updateProjectionMatrix();
   };
   resize();
@@ -679,7 +717,7 @@ export function mount(container, { THREE }) {
   const loop = (now) => {
     const dt = Math.min(0.05, (now - last) / 1000); last = now;
     t += dt;
-    shown += (progress - shown) * Math.min(1, dt * 7);
+    shown += (progress - shown) * Math.min(1, dt * 3.5);   // rolagem amortecida: a troca de experimento não dá saltos
     const x = Math.min(0.9999, clamp(shown) || 0) * 10; // protege contra progresso fora de 0–1 (recarga no meio da página)
     const seg = Math.floor(x), u = x - seg;
 
@@ -696,7 +734,7 @@ export function mount(container, { THREE }) {
 
     // quanto do modelo do trecho está visível (entra, fica, volta a ser esfera)
     let vis = 0;
-    if (seg >= 1 && seg <= 8) vis = sm(0.1, 0.3, u) * (1 - sm(0.82, 0.98, u));
+    if (seg >= 1 && seg <= 8) vis = sm(0.03, 0.36, u) * (1 - sm(0.76, 1.0, u));
     else if (seg === 9) vis = sm(0.1, 0.35, u);
     const orbStrength = seg === 0 ? sm(0.05, 0.6, u) : 1 - vis;
     col.copy(COLORS[seg]);
@@ -715,18 +753,24 @@ export function mount(container, { THREE }) {
       e.g.visible = on;
       if (!on) return;
       e.g.scale.setScalar(vis * (e.g.userData.base || 1));
-      e.g.rotation.y = (e.g.userData.ry ??= e.g.rotation.y) + (1 - vis) * 1.4 + Math.sin(t * 0.4) * 0.12;
+      e.g.rotation.y = e.g.userData.front != null
+        ? e.g.userData.front - root.rotation.y + (1 - vis) * 1.4
+        : (e.g.userData.ry ??= e.g.rotation.y) + (1 - vis) * 1.4 + Math.sin(t * 0.4) * 0.12;
       e.update(u, t, dt);
     });
 
     finale.visible = seg === 9 && vis > 0.001;
     if (finale.visible) {
-      finale.scale.setScalar(vis * (small ? 0.68 : 1));   // no celular a órbita cabe na largura
+      finale.scale.setScalar(vis * (small ? 0.58 : 1));   // no celular a órbita cabe na largura
       br.update(t);
       ring.rotation.y = t * 0.22;
       minis.forEach((m, i) => {
         m.g.rotation.y = -ring.rotation.y + (m.g.userData.ry ??= m.g.rotation.y);
-        m.update(0.62, t + i, dt);
+        // cada experimento repete o próprio ciclo: liga, acontece, desliga (ímã vai e volta, bastão aproxima e afasta…)
+        // ida e volta em velocidade constante: termina o ciclo e rebobina até o começo, sem cortes
+        const ph = ((t + i * 0.9) / 8) % 1;   // ciclo de 8 s: 4 s de ida e 4 s de volta
+        const mu = 0.08 + 0.7 * (ph < 0.5 ? ph * 2 : 2 - ph * 2);
+        m.update(mu, t + i, dt);
         m.g.getWorldPosition(tmpV); finale.worldToLocal(tmpV);
         const dir = tmpV.clone().normalize();
         synPos.set([dir.x * 1.05, dir.y * 1.05, dir.z * 1.05, tmpV.x, tmpV.y, tmpV.z], i * 6);
