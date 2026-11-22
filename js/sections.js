@@ -442,6 +442,20 @@ export function initProposta() {
     return n;
   };
 
+  // mini tutorial de cada experimento: etiqueta pulsando com o que fazer e uma demonstração
+  // que se repete sempre que o cartão volta à tela, até o visitante interagir
+  const tutorial = (card, control, hint, demo) => {
+    const tag = h('span', { class: 'demo__hint mono', 'aria-hidden': 'true' }, t(hint));
+    control.before(tag);
+    let touched = false, tl = null;
+    const touch = () => { if (touched) return; touched = true; tl?.kill(); card.classList.add('is-touched'); };
+    ['pointerdown', 'keydown', 'input'].forEach((ev) => control.addEventListener(ev, touch));
+    if (!hasGSAP() || reducedMotion) return touch;
+    const play = () => { if (touched) return; tl?.kill(); tl = demo(window.gsap.timeline({ delay: 0.5 })); };
+    window.ScrollTrigger.create({ trigger: card, start: 'top 75%', end: 'bottom 25%', onEnter: play, onEnterBack: play });
+    return touch;
+  };
+
   // 01 · circuito: fechar o interruptor acende o LED
   const circuit = $('#demoCircuit');
   const cBtn = $('#circuitBtn');
@@ -454,8 +468,12 @@ export function initProposta() {
       cBtn.setAttribute('aria-pressed', String(on));
       cBtn.textContent = on ? t('Desligar') : t('Ligar o circuito');
     };
+    const touch = tutorial(card, cBtn, 'Toque para ligar', (tl) => tl
+      .call(() => cBtn.classList.add('is-demo')).call(() => { if (!on) toggle(); }, null, 0.25)
+      .call(() => cBtn.classList.remove('is-demo'), null, 0.5)
+      .call(() => { if (on) toggle(); }, null, 2.0));
     cBtn.addEventListener('click', toggle);
-    circuit.addEventListener('click', toggle);
+    circuit.addEventListener('click', () => { touch(); toggle(); });
   }
 
   // 02 · lupa: o foco faz os raios espalhados convergirem num ponto
@@ -479,6 +497,10 @@ export function initProposta() {
     };
     range.addEventListener('input', apply);
     apply();
+    const o = { v: 0 };
+    tutorial(lens.closest('.step'), range.closest('.demo__range'), 'Arraste o foco →', (tl) => tl
+      .to(o, { v: 82, duration: 1.4, ease: 'power2.inOut', onUpdate: () => { range.value = o.v; apply(); } })
+      .to(o, { v: 0, duration: 1.2, ease: 'power2.inOut', delay: 0.5, onUpdate: () => { range.value = o.v; apply(); } }));
   }
 
   // 03 · rede: cada ano letivo acende mais turmas, que ficam acesas
@@ -510,8 +532,12 @@ export function initProposta() {
       nBtn.textContent = year >= 3 ? t('Recomeçar') : t('+1 ano letivo');
     };
     const next = () => set(year >= 3 ? 0 : year + 1);
+    const touch = tutorial(net.closest('.step'), nBtn.closest('.demo__row'), 'Toque para avançar os anos', (tl) => tl
+      .call(() => nBtn.classList.add('is-demo')).call(() => set(1), null, 0.2).call(() => nBtn.classList.remove('is-demo'), null, 0.45)
+      .call(() => nBtn.classList.add('is-demo'), null, 1.1).call(() => set(2), null, 1.3).call(() => nBtn.classList.remove('is-demo'), null, 1.55)
+      .call(() => set(0), null, 3.0));
     nBtn.addEventListener('click', next);
-    $('.net__core', net).addEventListener('click', next);
+    $('.net__core', net).addEventListener('click', () => { touch(); next(); });
     set(0);
   }
 }

@@ -8,7 +8,7 @@
    português (normalizado); se um texto mudar e ainda não tiver tradução, ele aparece
    em português, nunca vazio. Para gerar a lista de textos: window.__i18nDump(). */
 
-export const CURATED = { pt: 'Português', en: 'English', es: 'Español', zh: '中文' };
+export const CURATED = { pt: 'Português BR', en: 'English', es: 'Español', zh: '中文' };
 export const AUTO = {
   de: 'Deutsch', fr: 'Français', it: 'Italiano', ja: '日本語', ko: '한국어', ru: 'Русский', ar: 'العربية',
   hi: 'हिन्दी', tr: 'Türkçe', nl: 'Nederlands', pl: 'Polski', uk: 'Українська', he: 'עברית', id: 'Bahasa Indonesia',
@@ -129,7 +129,7 @@ function mountSwitcher() {
     const btn = box.querySelector('button');
     const list = box.querySelector('[role="menu"]');
     const label = box.querySelector('[data-lang-current]');
-    if (label) label.textContent = lang === 'zh-TW' ? '繁' : lang.slice(0, 2).toUpperCase();
+    if (label) label.textContent = lang === 'zh-TW' ? '繁' : lang === 'pt' ? 'BR' : lang.slice(0, 2).toUpperCase();
     Object.entries(CURATED).forEach(([code, name]) => {
       const b = document.createElement('button');
       b.type = 'button'; b.setAttribute('role', 'menuitemradio'); b.setAttribute('lang', HTML_LANG[code]);
