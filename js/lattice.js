@@ -78,6 +78,7 @@ export async function initLattice() {
       el.addEventListener('click', () => openPartner(it.p));
       list.append(h('li', {}, h('button', { type: 'button', onclick: () => openPartner(it.p),
         onpointerenter: () => energize(it), onfocus: () => energize(it) },
+        h('span', { class: 'partners__logo', 'aria-hidden': 'true' }, h('img', { src: asset(it.p.logo), alt: '' })),
         h('span', {}, h('strong', {}, it.p.name), h('small', {}, it.p.since)), h('span', { 'aria-hidden': 'true' }, '→'))));
     } else {
       // vaga aberta: núcleo vazio com órbita tracejada; o rótulo aparece como etiqueta no hover

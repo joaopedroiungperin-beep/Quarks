@@ -175,6 +175,9 @@
 .route__hl:hover { background: rgba(251, 208, 76, 0.12); border-color: #fbd04c; color: var(--c-ink); }
 /* o número fica num <span> (contagem animada): herda o tamanho do .stat__n, não o do rótulo */
 .p-stats .stat__n span { font-size: inherit; color: inherit; }
+/* números de destaque em amarelo (como na OSFIC); o "+" continua azul */
+.p-stats .stat__n { color: #fbd04c; text-shadow: 0 0 28px rgba(251, 208, 76, 0.3); }
+.p-stats .stat__n .stat__pre { color: var(--c-cyan); font-size: 0.6em; }
 .chal__bars li.is-na .chal__bar { background: repeating-linear-gradient(90deg, var(--c-faint) 0 6px, transparent 6px 12px); }
 .chal__bars li.is-na .chal__val { font-family: var(--f-body); font-style: italic; font-size: 0.8rem; opacity: 0.8; }
 /* rota: grupos, inscritos, certificados e professores (2 × 2) */
