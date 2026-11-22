@@ -155,6 +155,10 @@ main, .footer { position: relative; z-index: 2; }
 /* ---------- 6. Fundo atmosférico ---------- */
 .field { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 1.4s var(--ease-out); }
 .has-field .field { opacity: 1; }
+/* páginas de projeto: o fundo fica a meia-luz para o conteúdo ser o protagonista
+   (na chegada pelo buraco de minhoca ele aparece inteiro e então se recolhe) */
+.has-field body[data-project] .field { opacity: 0.35; }
+.has-field.from-wormhole body[data-project] .field { opacity: 1; }
 
 /* legenda educativa da fase cósmica */
 .cosmos-caption {
@@ -294,6 +298,17 @@ body { top: 0 !important; }
 .stats span { color: var(--c-muted); font-size: 0.88rem; }
 @media (min-width: 760px) { .stats { grid-template-columns: repeat(4, 1fr); } .stats li:not(:last-child) { border-right: 1px solid var(--c-line); } .stats li:nth-child(3) { padding-left: 18px; } }
 @media (max-width: 759px) { .stats li:nth-child(3) { padding-left: 0; } }
+/* números de impacto do início: rótulo do valor, número grande e uma linha de destaque que se acende */
+.stats--impact li { position: relative; gap: 10px; padding-top: 26px; padding-bottom: 26px; }
+.stats--impact li::before { content: ""; position: absolute; left: 0; top: -1px; height: 2px; width: 0; background: linear-gradient(90deg, var(--c-cyan), transparent); transition: width 1.4s var(--ease-out); }
+.stats--impact li + li::before { left: 18px; }
+.stats--impact.is-in li::before { width: 60%; }
+.stats--impact li:nth-child(2)::before { transition-delay: 0.12s; } .stats--impact li:nth-child(3)::before { transition-delay: 0.24s; } .stats--impact li:nth-child(4)::before { transition-delay: 0.36s; }
+.stats .stat__k { color: var(--c-cyan); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; }
+.stats--impact .stat__n { font-size: clamp(2.4rem, 1.5rem + 3.2vw, 4.4rem); }
+.stats .stat__n span { font-size: inherit; color: inherit; }
+.stats .stat__n .stat__pre { color: var(--c-cyan); }
+.stats .stat__l { color: rgba(243, 234, 216, 0.82); font-size: 0.92rem; line-height: 1.4; max-width: 24ch; }
 
 .scroll-cue { position: absolute; right: var(--gutter); bottom: 40px; display: none; align-items: center; gap: 10px; color: var(--c-muted); writing-mode: vertical-rl; text-transform: uppercase; letter-spacing: 0.2em; }
 .scroll-cue span { width: 1px; height: 48px; background: linear-gradient(var(--c-cyan), transparent); animation: cue 2s var(--ease-in-out) infinite; }
@@ -372,6 +387,8 @@ body { top: 0 !important; }
 .lab__tag { color: var(--c-muted); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.72rem; margin: 0; }
 .lab__act--bench .lab__tag { color: var(--c-cyan); }
 .lab__text { color: var(--c-muted); line-height: 1.55; margin: 0; max-width: 46ch; }
+/* frase de destaque do "antes": resume a dificuldade do ensino tradicional */
+.lab__quote { margin: 0; padding-left: 14px; border-left: 2px solid var(--c-orange); font-family: var(--f-display); font-weight: 400; font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.35rem); line-height: 1.3; color: var(--c-ink); max-width: 28ch; text-wrap: balance; }
 .board, .bench { width: 100%; height: auto; overflow: visible; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 @media (min-width: 900px) { .lab { grid-template-columns: 1fr 1fr; } }
 
