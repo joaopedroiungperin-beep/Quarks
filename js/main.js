@@ -77,6 +77,8 @@ const start = () => {
   lenis?.start();
   return mountHeavy().then(() => {
     initReveals();
+    // linhas de destaque dos números de impacto se acendem quando a página começa
+    requestAnimationFrame(() => document.querySelector('.stats--impact')?.classList.add('is-in'));
     if (hasGSAP()) { window.ScrollTrigger.sort(); window.ScrollTrigger.refresh(); }
   });
 };

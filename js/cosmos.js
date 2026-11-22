@@ -53,7 +53,7 @@ const BG_VERT = /* glsl */`
 const BG_FRAG = /* glsl */`
   precision highp float;
   uniform vec2 uRes;
-  uniform float uTime, uPhase, uMouseOn, uWarp, uAspect, uDim, uSide, uBang, uTunnelZ, uTunnelDim, uWarpHide;
+  uniform float uTime, uPhase, uMouseOn, uWarp, uAspect, uDim, uSide, uBang, uTunnelZ, uTunnelDim, uWarpHide, uAge;
   uniform vec2 uMouse, uCenter, uWarpC;
   uniform int uOct;
   ${COMMON}
@@ -310,11 +310,18 @@ const BG_FRAG = /* glsl */`
         float R = uBang * 2.4;
         float ring = exp(-pow((r - R) / (0.02 + 0.12 * uBang), 2.0));
         float flash = exp(-r * r * 30.0) * (1.0 - sm(0.0, 0.35, uBang)) * 4.0;
-        float cmb = fbm(q * 6.0 + 11.0);                                 // radiação cósmica de fundo
+        float cmb = fbm(q * 6.0 / (1.0 + 0.5 * log(1.0 + uAge * 0.15)) + 11.0);   // radiação cósmica de fundo (esticando com a expansão)
         vec3 cmbCol = mix(vec3(0.15, 0.25, 0.6), vec3(0.95, 0.55, 0.25), sm(0.35, 0.7, cmb));
         col += mix(vec3(1.0, 0.95, 0.85), ORANGE, uBang) * ring * (1.0 - uBang * 0.6) * 1.6;
         col += vec3(1.0) * flash;
         col += cmbCol * (1.0 - sm(R - 0.1, R + 0.05, r)) * 0.22 * sm(0.15, 0.6, uBang);
+        // depois do clarão, o universo segue se expandindo: ondas suaves partindo do centro, sem fim
+        float waves = 0.0;
+        for (int k = 0; k < 3; k++) {
+          float Rk = fract(uAge * 0.07 + float(k) / 3.0) * 2.6;
+          waves += exp(-pow((r - Rk) / 0.06, 2.0)) * (1.0 - Rk / 2.6);
+        }
+        col += mix(ORANGE, CYAN, 0.45) * waves * 0.42 * sm(0.0, 2.0, uAge);
       }
     }
 
@@ -353,7 +360,7 @@ const COPY_FRAG = /* glsl */`
 
 const PT_VERT = /* glsl */`
   attribute vec4 aSeed; attribute float aPair; attribute float aSide;
-  uniform float uTime, uPhase, uAspect, uMouseOn, uPx, uBang;
+  uniform float uTime, uPhase, uAspect, uMouseOn, uPx, uBang, uAge;
   uniform vec2 uCenter, uMouse;
   varying vec3 vCol; varying float vA;
   ${COMMON}
@@ -413,9 +420,12 @@ const PT_VERT = /* glsl */`
     // grande colapso: tudo cai para o ponto; Big Bang: tudo é lançado para fora
     float cr = sm(8.4, 9.85, p);
     pos = c + (pos - c) * pow(1.0 - cr, 1.6);
-    pos = mix(pos, c + dir * uBang * (0.25 + 1.4 * s.w), sm(0.0, 0.05, uBang));
+    // expansão contínua: cada partícula segue para fora e renasce no centro (em uAge = 0 coincide com o clarão)
+    float fl = fract(s.w + uAge * 0.07 * (0.6 + s.y));
+    pos = mix(pos, c + dir * uBang * (0.25 + 1.4 * fl), sm(0.0, 0.05, uBang));
     vA = wD * (0.3 + 0.4 * s.y) + wSN * (1.0 - eSN * 0.5) * 0.9 + wMag * 0.7 + wBH * hA + wR * 0.7 + wO * 0.55 + w3 * 0.6;
     vA *= 1.0 - 0.7 * sm(9.5, 10.0, p) * (1.0 - sm(0.0, 0.05, uBang));
+    vA *= mix(1.0, sm(0.0, 0.08, fl) * (1.0 - sm(0.85, 1.0, fl)), sm(0.0, 2.0, uAge));   // some na borda, nasce no centro
 
     vec3 colC = vec3(0.50, 0.91, 0.95), colO = vec3(0.95, 0.65, 0.35), colG = vec3(0.35, 0.8, 0.65);
     vCol = s.y < 0.45 ? colC : (s.y < 0.8 ? colO : colG);
@@ -482,7 +492,7 @@ export function createCosmos(canvas, { sections = [], mode = 'scroll' } = {}) {
     uMouse: { value: new THREE.Vector2(9, 9) }, uMouseOn: { value: 0 }, uCenter: { value: new THREE.Vector2() },
     uWarp: { value: 0 }, uWarpC: { value: new THREE.Vector2() }, uOct: { value: small ? 3 : 4 },
     uAspect: { value: 1 }, uDim: { value: small ? 0.52 : 0.9 }, uSide: { value: small ? 0 : 1 },
-    uBang: { value: 0 }, uTunnelZ: { value: 0 }, uTunnelDim: { value: 1 }, uWarpHide: { value: 1 },
+    uBang: { value: 0 }, uAge: { value: 0 }, uTunnelZ: { value: 0 }, uTunnelDim: { value: 1 }, uWarpHide: { value: 1 },
   };
   const bgScene = new THREE.Scene();
   bgScene.add(new THREE.Mesh(quad, new THREE.ShaderMaterial({ vertexShader: BG_VERT, fragmentShader: BG_FRAG, uniforms: U, depthTest: false, depthWrite: false })));
@@ -508,7 +518,7 @@ export function createCosmos(canvas, { sections = [], mode = 'scroll' } = {}) {
   pGeo.setAttribute('aSide', new THREE.BufferAttribute(side, 1));
   const PU = {
     uTime: U.uTime, uPhase: U.uPhase, uAspect: U.uAspect, uMouseOn: U.uMouseOn, uMouse: U.uMouse, uCenter: U.uCenter,
-    uPx: { value: 2.2 * DPR }, uBang: U.uBang,
+    uPx: { value: 2.2 * DPR }, uBang: U.uBang, uAge: U.uAge,
   };
   const points = new THREE.Points(pGeo, new THREE.ShaderMaterial({
     vertexShader: PT_VERT, fragmentShader: PT_FRAG, uniforms: PU,
@@ -684,7 +694,7 @@ export function createCosmos(canvas, { sections = [], mode = 'scroll' } = {}) {
     renderer.render(scene, cam);
   }
 
-  let running = true;
+  let running = true, bangT = 0;
   function frame() {
     if (!running) return;
     const raw = clock.getDelta();
@@ -714,8 +724,12 @@ export function createCosmos(canvas, { sections = [], mode = 'scroll' } = {}) {
     }
     U.uWarp.value = warp.v;
     // Big Bang: dispara ao chegar à singularidade; reinicia se o visitante voltar
-    if (phase > 9.85) U.uBang.value = Math.min(1, U.uBang.value + real / 2.6);
-    else if (phase < 9.4) U.uBang.value = 0;
+    // relógio do Big Bang: avança no fim da página (clarão e depois expansão sem fim);
+    // se a rolagem sobe, roda para trás com fluidez até voltar ao ponto luminoso
+    if (phase > 9.85) bangT += real;
+    else if (bangT > 0) bangT = Math.max(0, bangT - real * Math.max(2.5, bangT * 1.2));
+    U.uBang.value = Math.min(1, bangT / 2.6);
+    U.uAge.value = Math.max(0, bangT - 2.6);
     updateHero(Math.min(raw, 0.1));
     setCaption(Math.max(0, Math.min(10, Math.round(phase))), warp.v > 0.15 ? WORMHOLE_CAPTION : null);
     draw();
@@ -791,6 +805,6 @@ export function createCosmos(canvas, { sections = [], mode = 'scroll' } = {}) {
     reset() { warp.v = 0; warp.anim = null; U.uWarp.value = 0; if (reducedMotion) draw(); },
     force(v) { forced = v; },
     /* diagnóstico (console): fase atual × alvo e marcos das seções */
-    debug: () => ({ level, bgScale: +bgScale.toFixed(3), phase: +phase.toFixed(3), target: +targetPhase().toFixed(3), marks: marks.map((m) => [Math.round(m.top), Math.round(m.bottom), m.f]) }),
+    debug: () => ({ bang: +bangT.toFixed(2), level, bgScale: +bgScale.toFixed(3), phase: +phase.toFixed(3), target: +targetPhase().toFixed(3), marks: marks.map((m) => [Math.round(m.top), Math.round(m.bottom), m.f]) }),
   };
 }
