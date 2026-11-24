@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FIICEST · Quarks</title>
+  <meta name="description" content="FIICEST 2026, a I Feira da Indústria e Integração Científica de Estância: o Clube de Ciências Quarks foi correalizador, com identidade visual, site, redes sociais, transmissão ao vivo, premiação do Ideathon, kits científicos e anais.">
+  <meta name="theme-color" content="#060912">
+  <link rel="icon" href="../../assets/brand/quarks-mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Unbounded:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/main.css">
+  <link rel="stylesheet" href="../../css/project.css">
+  <script>
+    document.documentElement.classList.add('js', 'intro-seen');
+    try { if (sessionStorage.getItem('q-wormhole') && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('from-wormhole'); } catch (e) {}
+  </script>
+  <script src="../../vendor/gsap.min.js" defer></script>
+  <script src="../../vendor/ScrollTrigger.min.js" defer></script>
+  <script src="../../vendor/lenis.min.js" defer></script>
+  <script type="module" src="../../js/project.js"></script>
+</head>
+<!-- Template de capítulo: copie esta pasta, troque data-project pelo slug do
+     data/projects.json e escreva a cena exclusiva em scene.js. -->
+<body data-page="project" data-project="fiicest">
+
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<canvas class="field" id="field" aria-hidden="true"></canvas>
+<div class="field-fallback" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a class="nav__brand" href="../../" aria-label="Quarks, página inicial">
+    <svg class="mark" viewBox="10 25 540 363" aria-hidden="true"><use href="#q-mark" x="10" y="25" width="540" height="363"/></svg>
+  </a>
+  <nav class="nav__links" aria-label="Capítulo">
+    <a href="#numeros">Números</a>
+    <a href="#entregas">Entregas</a>
+    <a href="#pecas">Peças</a>
+    <a href="#registros">Registros</a>
+  </nav>
+  <div class="lang notranslate" data-lang-switch>
+    <button class="lang__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Idioma">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg>
+      <span data-lang-current>BR</span>
+    </button>
+    <div class="lang__menu" role="menu" aria-label="Idioma"></div>
+  </div>
+  <a class="btn btn--small btn--ghost nav__back" href="../../#portfolio">← Portfólio</a>
+</header>
+
+<main id="conteudo">
+  <!-- HERO -->
+  <section class="p-hero" data-phase="7">
+    <div class="wrap p-hero__grid">
+      <div>
+        <p class="kicker mono" data-bind="edition">Portfólio</p>
+        <h1 class="h1 display p-hero__title" data-bind="title" data-split>Carregando…</h1>
+        <p class="p-hero__sub" data-bind="subtitle"></p>
+        <div class="p-hero__tags" data-bind="tags"></div>
+      </div>
+      <figure class="p-hero__badge p-hero__badge--emblem p-hero__badge--fiicest" data-reveal><img data-bind="cover" alt="" width="800" height="800"></figure>
+    </div>
+  </section>
+
+  <!-- PALCO DA CENA: bolhas da marca que viram cada entrega da Quarks (scene.js) -->
+  <section class="stage" id="stage" data-phase="8" aria-label="Experiência interativa do projeto">
+    <div class="stage__pin">
+      <div class="stage__canvas" id="sceneMount"></div>
+      <div class="wrap stage__copy">
+        <p class="kicker mono">Experiência do capítulo</p>
+        <p class="stage__line display" data-stage-line>Onde a ciência encontra a inovação</p>
+        <div class="stage__progress mono" aria-hidden="true"><span id="stageNum">00</span>%</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="numeros" data-phase="8">
+    <div class="wrap">
+      <p class="kicker mono">O que a Quarks entregou, em números</p>
+      <ul class="stats p-stats p-stats--big" data-bind="stats"></ul>
+      <p class="p-summary" data-bind="summary" data-reveal></p>
+    </div>
+  </section>
+
+  <!-- A FEIRA: três eixos e o balanço oficial -->
+  <section class="section" id="feira" data-phase="8">
+    <div class="wrap">
+      <p class="kicker mono">A feira</p>
+      <h2 class="h2 display" data-split>Dois dias, três eixos</h2>
+      <ul class="axes">
+        <li class="axes__item glass" data-reveal><span class="axes__day mono">09/06 · Indústria &amp; Inovação</span><h3 class="h3">Ideathon CicloInova</h3><p>Equipes de três a quatro estudantes, com mentores, resolveram em um dia desafios reais de indústrias da região, com foco em economia circular.</p></li>
+        <li class="axes__item glass" data-reveal><span class="axes__day mono">09 e 10/06 · Mercado</span><h3 class="h3">Balcão e Painel de Negócios</h3><p>Empresas apresentaram seus desafios e entrevistaram jovens talentos para estágio, contratação e parcerias.</p></li>
+        <li class="axes__item glass" data-reveal><span class="axes__day mono">10/06 · Ciência &amp; Educação</span><h3 class="h3">Feira de Ciências</h3><p>Stands interativos de escolas e laboratórios do IFS, sessão de banners e apresentações orais no telão de LED.</p></li>
+      </ul>
+      <p class="kicker mono axes__kicker">Balanço oficial da 1ª edição</p>
+      <ul class="stats p-stats p-stats--event" data-bind="eventStats"></ul>
+    </div>
+  </section>
+
+  <!-- LINHA DO TEMPO DAS ENTREGAS -->
+  <section class="section" id="entregas" data-phase="8">
+    <div class="wrap">
+      <p class="kicker mono">Linha do tempo</p>
+      <h2 class="h2 display" data-split>Do primeiro traço da marca aos anais</h2>
+      <ol class="journey" data-bind="journey"></ol>
+    </div>
+  </section>
+
+  <!-- PEÇAS GRÁFICAS E CARTILHAS -->
+  <section class="section" id="pecas" data-phase="8">
+    <div class="wrap">
+      <div class="section-head section-head--row">
+        <div>
+          <p class="kicker mono">Identidade aplicada</p>
+          <h2 class="h2 display" data-split>Peças e cartilhas criadas pela Quarks</h2>
+        </div>
+        <p class="muted" data-reveal>Pôsteres e convites da campanha, e as cartilhas que acompanharam cada kit científico. Clique para ampliar.</p>
+      </div>
+      <ul class="gallery gallery--pieces" data-bind="pieces"></ul>
+    </div>
+  </section>
+
+  <!-- REGISTROS -->
+  <section class="section" id="registros" data-phase="8">
+    <div class="wrap">
+      <div class="section-head section-head--row">
+        <div>
+          <p class="kicker mono">Registros do projeto</p>
+          <h2 class="h2 display" data-split>Premiações e kits</h2>
+        </div>
+        <div class="p-links" data-bind="links" data-reveal></div>
+      </div>
+      <ul class="gallery" data-bind="photos"></ul>
+    </div>
+  </section>
+
+  <!-- QUEM FEZ ACONTECER -->
+  <section class="section" id="instituicoes" data-phase="8">
+    <div class="wrap">
+      <p class="kicker mono">Realização, fomento e parceria</p>
+      <h2 class="h2 display" data-split>Uma feira construída em rede</h2>
+      <ul class="credits" data-bind="credits"></ul>
+      <div class="delivered glass" data-reveal>
+        <p class="kicker mono">O que a Quarks entregou</p>
+        <ul data-bind="delivered"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEGADO -->
+  <section class="section" id="legado" data-phase="9">
+    <div class="wrap grid-2 p-legacy">
+      <img class="p-legacy__mark" src="../../assets/img/projetos/fiicest/marca-branca.webp" alt="Marca FIICEST" width="900" height="356" loading="lazy" data-reveal>
+      <div>
+        <p class="kicker mono">Legado</p>
+        <h2 class="h2 display" data-split>Um site no ar, um acervo ao vivo e uma publicação</h2>
+        <p class="lead" data-reveal>O site segue ativo até 2029 como registro histórico, as transmissões e os vídeos ficam disponíveis no YouTube, e os anais reúnem a produção científica da feira. Os kits continuam nas escolas e nos grupos premiados.</p>
+        <div class="hero__actions" data-reveal>
+          <a class="btn" href="https://fiicest.com.br/" target="_blank" rel="noopener">Visitar fiicest.com.br ↗</a>
+          <a class="btn btn--ghost" href="../../#portfolio">Voltar ao portfólio</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer footer--slim" data-phase="9">
+  <div class="wrap footer__legal mono">
+    <span>© 2026 Organização Social e Clube de Ciências Quarks</span>
+    <span>CNPJ: 57.914.912/0001-96</span>
+  </div>
+</footer>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="q-mark" viewBox="10 25 540 363">
+    <g fill="none" stroke="currentColor" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"><path d="M143 109A159.9 159.9 0 0 1 414 109" stroke-width="14.5"/><path d="M195 113A111.2 111.2 0 0 1 365 113" stroke-width="14.5"/><path d="M252 115Q280 98 308 119" stroke-width="14.5"/><path d="M173 248A120.2 120.2 0 0 0 387 248" stroke-width="14.5"/><path d="M142 281A165.1 165.1 0 0 0 418 281" stroke-width="14.5"/><path d="M57 144a37.3 37.3 0 1 1 0 74.6a37.3 37.3 0 1 1 0-74.6M69 193L105.5 233"/><path d="M134.3 143.5V185a32.2 32.2 0 0 0 64.4 0V143.5"/><path d="M247 219L279 151Q283 145 291 145H309A23.5 23.5 0 0 1 309 192H290M309 192L324 219"/><path d="M385.5 144V218M459 141L393 190.5M408 180L441 219"/><path d="M536 157C527 145 515 143.5 508 143.5C493 143.5 481 150 481 162C481 177 498 178 512 180C527 182 540 186 540 199C540 212 527 218 509 218C494 218 485 213 480 206"/><path d="M285 150V206" stroke-width="10"/></g><g fill="currentColor"><circle cx="280" cy="54.5" r="6.6"/><circle cx="94.3" cy="109.3" r="9.4"/><circle cx="515.3" cy="108.3" r="7.2"/><circle cx="49.3" cy="260" r="7.3"/><circle cx="430.7" cy="253.3" r="9.8"/><circle cx="476" cy="260" r="7.3"/><circle cx="280" cy="335" r="7.2"/><circle cx="280" cy="378.3" r="7.6"/><circle cx="280" cy="265" r="21.3"/><circle cx="256.7" cy="256.7" r="10.5"/><circle cx="303.3" cy="256.7" r="10.5"/></g>
+  </symbol>
+</svg>
+</body>
+</html>
