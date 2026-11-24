@@ -470,5 +470,354 @@
       "Um lançador que mandou a esfera a 6,57 m",
       "Um carro solar que percorreu 6,98 m em 10 segundos"
     ]
+  },
+  {
+    "slug": "fiicest",
+    "title": "FIICEST",
+    "subtitle": "Feira da Indústria e Integração Científica de Estância",
+    "edition": "1ª edição · 2026",
+    "year": "2026",
+    "with": "IFS Campus Estância",
+    "url": "projetos/fiicest/",
+    "cover": "assets/img/projetos/fiicest.webp",
+    "keywords": [
+      "Correalização",
+      "Ideathon",
+      "Transmissão ao vivo"
+    ],
+    "tags": [
+      "Identidade visual",
+      "Site e redes sociais",
+      "Kits experimentais",
+      "Anais"
+    ],
+    "places": [
+      "Estância"
+    ],
+    "summary": "A I Feira da Indústria e Integração Científica de Estância reuniu estudantes, professores, pesquisadores e empresas do sul sergipano no IFS Campus Estância, em 9 e 10 de junho de 2026, com o tema “Conectando a indústria, a ciência e a inovação”. A Quarks foi correalizadora do evento: criou a identidade visual, o site e as redes sociais, transmitiu os dois dias ao vivo, patrocinou a premiação em dinheiro do Ideathon CicloInova, entregou 20 kits científicos aos destaques da Feira de Ciências e diagramou os anais. O fomento veio da Chamada CNPq/FNDCT/MCTI/MEC/CAPES nº 37/2024.",
+    "stats": [
+      {
+        "value": 15.8,
+        "suffix": "k",
+        "label": "contas alcançadas no Instagram, 58% acima da meta"
+      },
+      {
+        "value": 185.7,
+        "suffix": "k",
+        "label": "visualizações, 87,5% de quem não seguia o perfil"
+      },
+      {
+        "value": 14,
+        "suffix": " h",
+        "label": "de transmissão ao vivo no YouTube"
+      },
+      {
+        "prefix": "R$ ",
+        "value": 4.5,
+        "suffix": " mil",
+        "label": "em prêmios do Ideathon, patrocinados pela Quarks"
+      },
+      {
+        "value": 20,
+        "label": "kits científicos com cartilha exclusiva"
+      },
+      {
+        "value": 24,
+        "label": "trabalhos publicados nos anais, em 145 páginas"
+      }
+    ],
+    "eventStats": [
+      {
+        "prefix": "+",
+        "value": 430,
+        "label": "interações nos dois dias de evento"
+      },
+      {
+        "value": 80,
+        "label": "projetos e equipes"
+      },
+      {
+        "value": 14,
+        "label": "escolas envolvidas"
+      },
+      {
+        "value": 12,
+        "label": "indústrias parceiras"
+      },
+      {
+        "value": 34,
+        "label": "premiações entregues"
+      }
+    ],
+    "journey": [
+      {
+        "title": "Identidade visual",
+        "text": "Três propostas completas de marca. A das bolhas que se conectam foi aprovada pela Comunicação do IFS em 8 de abril."
+      },
+      {
+        "title": "Site e redes no ar",
+        "text": "Em 13 de abril, fiicest.com.br já estava indexado, com e-mails institucionais e perfis no Instagram, no Facebook e no YouTube."
+      },
+      {
+        "title": "Campanha",
+        "text": "Pôsteres A3, convites para escolas e empresas, camiseta, templates de publicação, modelos de certificado e o jingle FIICEST 2026."
+      },
+      {
+        "title": "Trilha formativa",
+        "text": "Aulas on-line para as equipes do Ideathon, de 3 a 8 de junho, com a primeira transmitida ao vivo."
+      },
+      {
+        "title": "Dois dias ao vivo",
+        "text": "Câmera, microfones, mixer e internet de redundância: 12 h 37 min de transmissão do evento, 14 vídeos editados e 16 Shorts de entrevistas."
+      },
+      {
+        "title": "Premiações",
+        "text": "R$ 4.500 para 8 equipes do Ideathon, pagos logo após cada cerimônia, e 20 kits científicos para os destaques da Feira de Ciências."
+      },
+      {
+        "title": "Anais",
+        "text": "Os 24 trabalhos aprovados, diagramados em LaTeX na identidade do evento, em 145 páginas."
+      }
+    ],
+    "credits": [
+      {
+        "role": "Realização",
+        "name": "IFS Campus Estância",
+        "detail": "PROPEX e DINOVE, com coordenação geral do curso de Engenharia Civil",
+        "logo": "assets/img/parceiros/ifs-estancia.webp"
+      },
+      {
+        "role": "Fomento",
+        "name": "CNPq",
+        "detail": "Chamada CNPq/FNDCT/MCTI/MEC/CAPES nº 37/2024, Feiras de Ciências e Mostras Científicas",
+        "logo": "assets/img/parceiros/cnpq.webp"
+      },
+      {
+        "role": "Programa",
+        "name": "Pop Ciência",
+        "detail": "Programa Nacional de Popularização da Ciência, do MCTI",
+        "logo": "assets/img/parceiros/pop-ciencia.webp"
+      },
+      {
+        "role": "Apoio institucional",
+        "name": "FNDCT",
+        "detail": "Fundo Nacional de Desenvolvimento Científico e Tecnológico",
+        "logo": "assets/img/parceiros/fndct.webp"
+      },
+      {
+        "role": "Apoio institucional",
+        "name": "CAPES, MEC e MCTI",
+        "detail": "Ministérios da Educação e da Ciência, Tecnologia e Inovação",
+        "logo": "assets/img/parceiros/capes.webp"
+      },
+      {
+        "role": "Parceria",
+        "name": "Sebrae",
+        "detail": "Programa Educação Empreendedora, com mentorias no Ideathon",
+        "logo": "assets/img/parceiros/sebrae-ee.webp"
+      },
+      {
+        "role": "Parceria",
+        "name": "FIES e IEL",
+        "detail": "Federação das Indústrias e Instituto Euvaldo Lodi",
+        "logo": "assets/img/parceiros/fies-iel.webp"
+      },
+      {
+        "role": "Parceria",
+        "name": "Ecossistema Local de Inovação",
+        "detail": "Rede de inovação do sul sergipano",
+        "logo": "assets/img/parceiros/ecossistema-inovacao.webp"
+      },
+      {
+        "role": "Parceria",
+        "name": "Hub IFS Lab e Inov@IFS",
+        "detail": "Laboratório de inovação e incubadora do IFS",
+        "logo": "assets/img/parceiros/hub-ifs-lab.webp"
+      }
+    ],
+    "quarksRole": {
+      "role": "Correalização",
+      "detail": "Comunicação, transmissão, premiações e anais"
+    },
+    "delivered": [
+      "Identidade visual com quatro versões da marca, paleta e templates",
+      "Site fiicest.com.br com 13 seções, domínio e hospedagem por três anos",
+      "Gestão do Instagram, do Facebook e do YouTube @fiicest",
+      "Pôsteres, convites, camiseta, certificados e jingle",
+      "Transmissão ao vivo dos dois dias, com vídeos editados e Shorts",
+      "Premiação em dinheiro do Ideathon, patrocinada pela Quarks",
+      "20 kits científicos em cinco modelos, com cartilhas exclusivas",
+      "Diagramação dos anais em LaTeX, com os 24 trabalhos aprovados"
+    ],
+    "pieces": [
+      {
+        "file": "assets/img/projetos/fiicest/peca-poster.webp",
+        "caption": "Pôster de chamada, formato A3",
+        "w": 700,
+        "h": 989
+      },
+      {
+        "file": "assets/img/projetos/fiicest/peca-programacao.webp",
+        "caption": "Pôster da programação, formato A3",
+        "w": 700,
+        "h": 989
+      },
+      {
+        "file": "assets/img/projetos/fiicest/peca-convite-alunos.webp",
+        "caption": "Convite para estudantes, formato A5",
+        "w": 700,
+        "h": 994
+      },
+      {
+        "file": "assets/img/projetos/fiicest/peca-convite-empresas.webp",
+        "caption": "Convite para empresas, com nome editável",
+        "w": 700,
+        "h": 994
+      },
+      {
+        "file": "assets/img/projetos/fiicest/cartilha-gerador.webp",
+        "caption": "Cartilha do gerador de manivela",
+        "w": 700,
+        "h": 994
+      },
+      {
+        "file": "assets/img/projetos/fiicest/cartilha-lampada.webp",
+        "caption": "Cartilha da lâmpada de água salgada",
+        "w": 700,
+        "h": 994
+      },
+      {
+        "file": "assets/img/projetos/fiicest/cartilha-magnetico.webp",
+        "caption": "Cartilha do laboratório magnético",
+        "w": 700,
+        "h": 994
+      },
+      {
+        "file": "assets/img/projetos/fiicest/cartilha-carrinho.webp",
+        "caption": "Cartilha do carrinho de água salgada",
+        "w": 700,
+        "h": 994
+      },
+      {
+        "file": "assets/img/projetos/fiicest/cartilha-eletrostatica.webp",
+        "caption": "Cartilha do laboratório de eletrostática",
+        "w": 700,
+        "h": 994
+      }
+    ],
+    "photos": [
+      {
+        "file": "assets/img/projetos/fiicest/ideathon-03.webp",
+        "caption": "Vencedores do Ensino Médio e Técnico no Ideathon CicloInova",
+        "w": 1200,
+        "h": 675
+      },
+      {
+        "file": "assets/img/projetos/fiicest/kits-01.webp",
+        "caption": "Kits montados pela equipe da Quarks antes do evento",
+        "w": 900,
+        "h": 1200
+      },
+      {
+        "file": "assets/img/projetos/fiicest/premiacao-01.webp",
+        "caption": "Premiação dos melhores stands, com os kits científicos",
+        "w": 1200,
+        "h": 800
+      },
+      {
+        "file": "assets/img/projetos/fiicest/ideathon-04.webp",
+        "caption": "Empate no 1º lugar do Ensino Superior: as duas equipes premiadas",
+        "w": 1200,
+        "h": 675
+      },
+      {
+        "file": "assets/img/projetos/fiicest/kits-02.webp",
+        "caption": "Laboratório magnético: ímãs, bússola, limalha e carrinhos",
+        "w": 900,
+        "h": 1200
+      },
+      {
+        "file": "assets/img/projetos/fiicest/ideathon-02.webp",
+        "caption": "1º lugar do Ensino Médio e Técnico, R$ 750",
+        "w": 1200,
+        "h": 675
+      },
+      {
+        "file": "assets/img/projetos/fiicest/kits-03.webp",
+        "caption": "Carrinhos movidos a água salgada",
+        "w": 900,
+        "h": 1200
+      },
+      {
+        "file": "assets/img/projetos/fiicest/premiacao-02.webp",
+        "caption": "Escolas premiadas na Feira de Ciências",
+        "w": 1200,
+        "h": 800
+      },
+      {
+        "file": "assets/img/projetos/fiicest/ideathon-01.webp",
+        "caption": "Cheque simbólico na identidade do evento",
+        "w": 1200,
+        "h": 675
+      },
+      {
+        "file": "assets/img/projetos/fiicest/kits-04.webp",
+        "caption": "Geradores de manivela e lâmpadas de água salgada",
+        "w": 900,
+        "h": 1200
+      },
+      {
+        "file": "assets/img/projetos/fiicest/premiacao-03.webp",
+        "caption": "Painel de fotos com a marca FIICEST",
+        "w": 1200,
+        "h": 800
+      },
+      {
+        "file": "assets/img/projetos/fiicest/kits-05.webp",
+        "caption": "Sacolas kraft com o selo da Quarks e adesivos da FIICEST",
+        "w": 1200,
+        "h": 900
+      }
+    ],
+    "links": [
+      {
+        "label": "Site oficial",
+        "value": "fiicest.com.br",
+        "href": "https://fiicest.com.br/"
+      },
+      {
+        "label": "Instagram",
+        "value": "@fiicest",
+        "href": "https://instagram.com/fiicest"
+      },
+      {
+        "label": "YouTube",
+        "value": "@FIICEST",
+        "href": "https://youtube.com/@FIICEST"
+      },
+      {
+        "label": "Facebook",
+        "value": "fiicest",
+        "href": "https://facebook.com/fiicest"
+      }
+    ],
+    "scene": "projetos/fiicest/scene.js",
+    "stageLength": "1500%",
+    "stageLines": [
+      "Onde a ciência encontra a inovação",
+      "Uma marca de bolhas que se conectam, aprovada pelo IFS",
+      "Cinco cores e quatro versões da marca, do cartaz ao certificado",
+      "15.806 contas alcançadas, 87,5% fora da base de seguidores",
+      "14 horas de transmissão ao vivo no YouTube",
+      "Ideathon CicloInova: 162 estudantes em 31 equipes diante da indústria",
+      "8 equipes premiadas com R$ 4.500, patrocínio da Quarks",
+      "Gerador de manivela: o giro vira luz",
+      "Lâmpada de água salgada: química que acende",
+      "Laboratório magnético: ímãs que flutuam",
+      "Carrinho de água salgada: energia química em movimento",
+      "Eletroscópio: cargas invisíveis que se revelam",
+      "Anais: 24 trabalhos em 145 páginas",
+      "Mais de 430 interações, 14 escolas e 12 indústrias"
+    ]
   }
 ]

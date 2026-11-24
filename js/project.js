@@ -56,10 +56,12 @@ if (document.documentElement.classList.contains('from-wormhole')) {
   const cover = bind('cover'); cover.src = asset(p.cover); cover.alt = t('Ilustração do projeto {title}', { title: t(p.title) });
   bind('summary').textContent = p.summary;
 
-  bind('stats').append(...p.stats.map((s) => h('li', {},
+  const stats = (list) => list.map((s) => h('li', {},
     h('strong', { class: 'stat__n' }, s.prefix ? h('span', { class: 'stat__pre' }, s.prefix) : null,
       h('span', { 'data-count': String(s.value), 'data-decimals': String((String(s.value).split('.')[1] || '').length) }, String(s.value)),
-      s.suffix ? h('span', { class: 'stat__suf' }, s.suffix) : null), ' ', h('span', {}, s.label))));
+      s.suffix ? h('span', { class: 'stat__suf' }, s.suffix) : null), ' ', h('span', {}, s.label)));
+  bind('stats').append(...stats(p.stats));
+  fill('eventStats', (el) => el.append(...stats(p.eventStats || [])));
 
   fill('journey', (el) => el.append(...p.journey.map((j, i) => h('li', { class: 'journey__step', 'data-reveal': '' },
     h('span', { class: 'mono journey__n' }, String(i + 1).padStart(2, '0')),
@@ -129,16 +131,18 @@ if (document.documentElement.classList.contains('from-wormhole')) {
       h('span', { class: 'credit__detail' }, c.detail))),
     h('li', { class: 'credit credit--quarks', 'data-reveal': '' },
       h('span', { class: 'credit__logo', html: '<svg class="mark" viewBox="10 25 540 363" aria-hidden="true"><use href="#q-mark" x="10" y="25" width="540" height="363"/></svg>' }),
-      h('span', { class: 'credit__role mono' }, 'Execução técnica'),
+      h('span', { class: 'credit__role mono' }, p.quarksRole?.role || 'Execução técnica'),
       h('strong', {}, 'Clube de Ciências Quarks'),
-      h('span', { class: 'credit__detail' }, 'Serviços contratados pela coordenação do projeto')),
+      h('span', { class: 'credit__detail' }, p.quarksRole?.detail || 'Serviços contratados pela coordenação do projeto')),
   ));
 
   fill('delivered', (el) => el.append(...(p.delivered || []).map((d) => h('li', { 'data-reveal': '' }, d))));
 
-  fill('photos', (el) => el.append(...(p.photos || []).map((ph) => h('li', { class: 'gallery__item', 'data-reveal': '' },
+  const gallery = (list) => list.map((ph) => h('li', { class: 'gallery__item', 'data-reveal': '' },
     h('a', { href: asset(ph.file), target: '_blank', rel: 'noopener' },
-      h('figure', {}, h('img', { src: asset(ph.file), alt: ph.caption, loading: 'lazy' }), h('figcaption', {}, ph.caption)))))));
+      h('figure', {}, h('img', { src: asset(ph.file), alt: ph.caption, loading: 'lazy', width: ph.w ? String(ph.w) : null, height: ph.h ? String(ph.h) : null }), h('figcaption', {}, ph.caption)))));
+  fill('photos', (el) => el.append(...gallery(p.photos || [])));
+  fill('pieces', (el) => el.append(...gallery(p.pieces || [])));
 
   // colmeia: fotos recortadas em hexágono, legenda no hover
   fill('hive', (el) => el.append(...(p.hive || []).map((ph) => h('li', { 'data-reveal': '' },
@@ -148,10 +152,12 @@ if (document.documentElement.classList.contains('from-wormhole')) {
   fill('links', (el) => el.append(...(p.links || []).map((l) => h('a', { class: 'btn btn--ghost', href: l.href, target: '_blank', rel: 'noopener' },
     h('span', {}, l.label), h('span', { class: 'mono' }, ` ${l.value} ↗`)))));
 
-  const rep = bind('report');
-  rep.href = asset(p.report.file);
-  $('img', rep).src = asset(p.report.cover);
-  bind('reportBtn').href = asset(p.report.file);
+  if (p.report) {
+    const rep = bind('report');
+    rep.href = asset(p.report.file);
+    $('img', rep).src = asset(p.report.cover);
+    bind('reportBtn').href = asset(p.report.file);
+  }
 
   if (partner) fill('partner', (el) => el.append(
     h('img', { src: asset(partner.logoWide || partner.logo), alt: t('Logo {name}', { name: partner.name }) }),

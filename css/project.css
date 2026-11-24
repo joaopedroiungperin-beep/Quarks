@@ -200,3 +200,47 @@
   .hive li:nth-child(3n + 2) { margin-top: calc(var(--w) * 0.433 + var(--hg) / 2); }
   .hive__cap { display: none; }
 }
+
+/* FIICEST: a página assume o verde-limão e o vermelho da marca do evento */
+body[data-project="fiicest"] { --fii-lime: #c2f51a; --fii-red: #e0451f; --fii-purple: #6a4fd6; }
+body[data-project="fiicest"] .p-stats .stat__n { color: var(--fii-lime); text-shadow: 3px 3px 0 rgba(199, 42, 9, 0.55), 0 0 28px rgba(194, 245, 26, 0.25); }
+body[data-project="fiicest"] .p-stats--big li { border-color: rgba(194, 245, 26, 0.22) !important;
+  background: radial-gradient(120% 90% at 0% 0%, rgba(194, 245, 26, 0.1), transparent 60%), rgba(14, 22, 38, 0.6); }
+body[data-project="fiicest"] .p-stats--big li::after { background: radial-gradient(circle, rgba(199, 42, 9, 0.22), transparent 70%); }
+body[data-project="fiicest"] .journey__step::before { background: var(--fii-lime); box-shadow: 3px 3px 0 var(--fii-red), 0 0 16px rgba(194, 245, 26, 0.6); }
+body[data-project="fiicest"] .journey__n { color: var(--fii-lime); }
+.p-hero__badge--fiicest { filter: drop-shadow(0 0 50px rgba(194, 245, 26, 0.22)); }
+@media (min-width: 960px) and (max-width: 1179px) {
+  body[data-project="fiicest"] .journey { grid-template-columns: repeat(4, 1fr); row-gap: 28px; }
+}
+@media (min-width: 1180px) {
+  body[data-project="fiicest"] .journey { grid-template-columns: repeat(7, 1fr); }
+  body[data-project="fiicest"] .journey__step { padding-right: 16px; }
+  body[data-project="fiicest"] .journey__step p { font-size: 0.9rem; }
+}
+
+/* três eixos da feira */
+.axes { display: grid; gap: 14px; margin-top: clamp(32px, 5vw, 56px); }
+.axes__item { padding: clamp(20px, 2.4vw, 28px); display: grid; gap: 8px; align-content: start; }
+.axes__item .h3 { margin: 4px 0 0; }
+.axes__item p { margin: 0; color: var(--c-muted); line-height: 1.5; }
+.axes__day { color: var(--fii-lime, var(--c-cyan)); font-size: 0.72rem; }
+.axes__kicker { margin-top: clamp(40px, 6vw, 72px); }
+@media (min-width: 760px) { .axes { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 960px) {
+  .p-stats--event { grid-template-columns: repeat(5, 1fr); }
+  .p-stats--event li:nth-child(n) { border-right: 1px solid var(--c-faint); padding-left: 18px; }
+  .p-stats--event li:first-child { padding-left: 0; }
+  .p-stats--event li:last-child { border-right: 0; }
+}
+
+/* peças gráficas: miniaturas em retrato, mais colunas */
+.gallery--pieces { columns: 5 150px; }
+.gallery--pieces figcaption { font-size: 0.76rem; }
+
+/* legado: marca branca ao lado do texto final */
+.p-legacy { align-items: center; gap: clamp(32px, 5vw, 64px); }
+.p-legacy__mark { width: min(100%, 460px); height: auto; justify-self: center; }
+/* números maiores que três dígitos (185,7k, R$ 4,5 mil) cabem no cartão em uma linha */
+body[data-project="fiicest"] .p-stats--big .stat__n { font-size: clamp(2.6rem, 1.7rem + 3.2vw, 4.4rem); white-space: nowrap; }
+body[data-project="fiicest"] .p-stats .stat__n .stat__suf { font-size: 0.55em; margin-left: 0.08em; }

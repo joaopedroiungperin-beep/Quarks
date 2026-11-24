@@ -644,7 +644,7 @@ export async function initPortfolio() {
     h('div', {},
       h('span', { class: 'project__lead' }, h('span', { class: 'project__year' }, '2026 →')),
       h('span', { class: 'project__title' }, 'Próximo capítulo em construção'),
-      h('span', { class: 'project__meta' }, h('span', { class: 'tag' }, 'FIICEST · MOSEE')),
+      h('span', { class: 'project__meta' }, h('span', { class: 'tag' }, 'MOSEE')),
       h('span', {}),
     )));
 }
