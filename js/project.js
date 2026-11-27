@@ -81,6 +81,32 @@ if (document.documentElement.classList.contains('from-wormhole')) {
       : h('div', {}, inner));
   })));
 
+  // Vídeo em destaque (YouTube): fachada leve, o player só carrega no clique
+  fill('video', (el) => {
+    const v = p.video;
+    if (!v?.youtube) { el.remove(); return; }
+    const id = encodeURIComponent(v.youtube);
+    const title = t(v.title || 'Vídeo completo do projeto');
+    const thumb = h('img', { src: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`, alt: '', loading: 'lazy', width: '480', height: '360' });
+    thumb.addEventListener('error', () => thumb.remove());
+    const btn = h('button', { class: 'p-video__facade', type: 'button', 'aria-label': t('Assistir ao vídeo completo do projeto no YouTube') },
+      thumb,
+      h('span', { class: 'p-video__shade', 'aria-hidden': 'true' }),
+      h('span', { class: 'p-video__meta' },
+        h('span', { class: 'mono p-video__kicker' }, 'YouTube'),
+        h('strong', { class: 'p-video__title' }, title)),
+      h('span', { class: 'reel__play p-video__play', 'aria-hidden': 'true' }));
+    btn.addEventListener('click', () => {
+      el.replaceChildren(h('iframe', {
+        class: 'p-video__frame',
+        src: `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`,
+        title, allow: 'autoplay; encrypted-media; picture-in-picture; fullscreen', allowfullscreen: true,
+        referrerpolicy: 'strict-origin-when-cross-origin', loading: 'lazy',
+      }));
+    });
+    el.append(btn, h('a', { class: 'mono p-video__link', href: `https://www.youtube.com/watch?v=${id}`, target: '_blank', rel: 'noopener' }, t('Ver no YouTube') + ' ↗'));
+  });
+
   // Reels: fachada leve — o embed do Instagram só carrega no clique
   fill('reels', (reels) => {
     let embedLoaded = false;
