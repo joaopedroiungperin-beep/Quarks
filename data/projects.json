@@ -707,93 +707,221 @@
     ],
     "photos": [
       {
+        "file": "assets/img/projetos/fiicest/mostra-05.webp",
+        "caption": "Mostra científica: estandes das escolas na quadra do campus",
+        "tag": "ciencia",
+        "w": 1200,
+        "h": 800,
+        "size": "big"
+      },
+      {
+        "file": "assets/img/projetos/fiicest/pitch-03.webp",
+        "caption": "Pitch do Smart EPI, crachá inteligente para a segurança na indústria",
+        "tag": "industria",
+        "w": 1200,
+        "h": 900,
+        "size": "wide"
+      },
+      {
+        "file": "assets/img/projetos/fiicest/mostra-03.webp",
+        "caption": "Maquete do sistema solar na mostra científica",
+        "tag": "ciencia",
+        "w": 1200,
+        "h": 800
+      },
+      {
+        "file": "assets/img/projetos/fiicest/crachas.webp",
+        "caption": "Crachás na identidade visual criada pela Quarks",
+        "tag": "bastidores",
+        "w": 1200,
+        "h": 800
+      },
+      {
         "file": "assets/img/projetos/fiicest/ideathon-03.webp",
         "caption": "Vencedores do Ensino Médio e Técnico no Ideathon CicloInova",
+        "tag": "industria",
         "w": 1200,
-        "h": 675
+        "h": 675,
+        "size": "wide"
+      },
+      {
+        "file": "assets/img/projetos/fiicest/jurados.webp",
+        "caption": "Banca avaliadora do Ideathon CicloInova",
+        "tag": "industria",
+        "w": 1200,
+        "h": 900
+      },
+      {
+        "file": "assets/img/projetos/fiicest/mostra-01.webp",
+        "caption": "Estudantes apresentam o projeto na mostra científica",
+        "tag": "ciencia",
+        "w": 1200,
+        "h": 800
       },
       {
         "file": "assets/img/projetos/fiicest/kits-01.webp",
         "caption": "Kits montados pela equipe da Quarks antes do evento",
+        "tag": "bastidores",
         "w": 900,
         "h": 1200
       },
       {
         "file": "assets/img/projetos/fiicest/premiacao-01.webp",
         "caption": "Premiação dos melhores stands, com os kits científicos",
+        "tag": "ciencia",
+        "w": 1200,
+        "h": 800,
+        "size": "big"
+      },
+      {
+        "file": "assets/img/projetos/fiicest/painel-01.webp",
+        "caption": "Painel de negócios: indústria e inovação no palco",
+        "tag": "industria",
+        "w": 1200,
+        "h": 900
+      },
+      {
+        "file": "assets/img/projetos/fiicest/mostra-04.webp",
+        "caption": "Estudantes explicam o projeto aos visitantes",
+        "tag": "ciencia",
         "w": 1200,
         "h": 800
       },
       {
-        "file": "assets/img/projetos/fiicest/ideathon-04.webp",
-        "caption": "Empate no 1º lugar do Ensino Superior: as duas equipes premiadas",
+        "file": "assets/img/projetos/fiicest/pitch-02.webp",
+        "caption": "Plateia acompanha os pitches do Ideathon",
+        "tag": "industria",
         "w": 1200,
-        "h": 675
+        "h": 900,
+        "size": "wide"
       },
       {
         "file": "assets/img/projetos/fiicest/kits-02.webp",
         "caption": "Laboratório magnético: ímãs, bússola, limalha e carrinhos",
+        "tag": "bastidores",
         "w": 900,
         "h": 1200
       },
       {
+        "file": "assets/img/projetos/fiicest/ideathon-05.webp",
+        "caption": "Equipe premiada com R$ 500 no Ideathon CicloInova",
+        "tag": "industria",
+        "w": 1200,
+        "h": 800
+      },
+      {
+        "file": "assets/img/projetos/fiicest/mostra-02.webp",
+        "caption": "Estudante no estande da mostra científica",
+        "tag": "ciencia",
+        "w": 1200,
+        "h": 799
+      },
+      {
+        "file": "assets/img/projetos/fiicest/industria-01.webp",
+        "caption": "Estande de indústria parceira na feira",
+        "tag": "industria",
+        "w": 1200,
+        "h": 800
+      },
+      {
         "file": "assets/img/projetos/fiicest/ideathon-02.webp",
         "caption": "1º lugar do Ensino Médio e Técnico, R$ 750",
+        "tag": "industria",
         "w": 1200,
         "h": 675
       },
       {
         "file": "assets/img/projetos/fiicest/kits-03.webp",
         "caption": "Carrinhos movidos a água salgada",
+        "tag": "bastidores",
         "w": 900,
         "h": 1200
       },
       {
+        "file": "assets/img/projetos/fiicest/publico-01.webp",
+        "caption": "Público acompanha as apresentações",
+        "tag": "ciencia",
+        "w": 1200,
+        "h": 800,
+        "size": "wide"
+      },
+      {
+        "file": "assets/img/projetos/fiicest/pitch-01.webp",
+        "caption": "Equipe se apresenta no pitch presencial",
+        "tag": "industria",
+        "w": 1200,
+        "h": 900
+      },
+      {
         "file": "assets/img/projetos/fiicest/premiacao-02.webp",
         "caption": "Escolas premiadas na Feira de Ciências",
+        "tag": "ciencia",
+        "w": 1200,
+        "h": 800,
+        "size": "wide"
+      },
+      {
+        "file": "assets/img/projetos/fiicest/kits-04.webp",
+        "caption": "Geradores de manivela e lâmpadas de água salgada",
+        "tag": "bastidores",
+        "w": 900,
+        "h": 1200
+      },
+      {
+        "file": "assets/img/projetos/fiicest/ideathon-04.webp",
+        "caption": "Empate no 1º lugar do Ensino Superior: as duas equipes premiadas",
+        "tag": "industria",
+        "w": 1200,
+        "h": 675
+      },
+      {
+        "file": "assets/img/projetos/fiicest/premiacao-03.webp",
+        "caption": "Painel de fotos com a marca FIICEST",
+        "tag": "bastidores",
         "w": 1200,
         "h": 800
       },
       {
         "file": "assets/img/projetos/fiicest/ideathon-01.webp",
         "caption": "Cheque simbólico na identidade do evento",
+        "tag": "industria",
         "w": 1200,
         "h": 675
       },
       {
-        "file": "assets/img/projetos/fiicest/kits-04.webp",
-        "caption": "Geradores de manivela e lâmpadas de água salgada",
-        "w": 900,
-        "h": 1200
-      },
-      {
-        "file": "assets/img/projetos/fiicest/premiacao-03.webp",
-        "caption": "Painel de fotos com a marca FIICEST",
-        "w": 1200,
-        "h": 800
-      },
-      {
         "file": "assets/img/projetos/fiicest/kits-05.webp",
         "caption": "Sacolas kraft com o selo da Quarks e adesivos da FIICEST",
+        "tag": "bastidores",
         "w": 1200,
-        "h": 900
+        "h": 900,
+        "size": "wide"
       }
     ],
     "links": [
       {
+        "label": "Canal no YouTube",
+        "value": "@FIICEST",
+        "href": "https://youtube.com/@FIICEST"
+      },
+      {
+        "label": "Matéria do IFS",
+        "value": "ifs.edu.br",
+        "href": "https://www.ifs.edu.br/ultimas-noticias/201-estancia/12788-fiicest-transforma-estancia-em-polo-de-inovacao.html"
+      },
+      {
+        "label": "Reel da feira",
+        "value": "Instagram",
+        "href": "https://www.instagram.com/reel/DZu5mcRuRgK/"
+      },
+      {
+        "label": "Destaques",
+        "value": "@fiicest",
+        "href": "https://www.instagram.com/stories/highlights/18121970596659673/"
+      },
+      {
         "label": "Site oficial",
         "value": "fiicest.com.br",
         "href": "https://fiicest.com.br/"
-      },
-      {
-        "label": "Instagram",
-        "value": "@fiicest",
-        "href": "https://instagram.com/fiicest"
-      },
-      {
-        "label": "YouTube",
-        "value": "@FIICEST",
-        "href": "https://youtube.com/@FIICEST"
       },
       {
         "label": "Facebook",
@@ -818,6 +946,108 @@
       "Eletroscópio: cargas invisíveis que se revelam",
       "Anais: 24 trabalhos em 145 páginas",
       "Mais de 430 interações, 14 escolas e 12 indústrias"
+    ],
+    "albumTags": [
+      {
+        "id": "industria",
+        "label": "Dia 1 · Indústria e Inovação"
+      },
+      {
+        "id": "ciencia",
+        "label": "Dia 2 · Ciência e Educação"
+      },
+      {
+        "id": "bastidores",
+        "label": "Kits e bastidores"
+      }
+    ],
+    "videos": [
+      {
+        "id": "9amsvb9m5QE",
+        "title": "A feira que uniu ciência e inovação em Estância",
+        "meta": "Matéria completa",
+        "cover": "assets/img/projetos/fiicest/videos/9amsvb9m5QE.webp"
+      },
+      {
+        "id": "blNwYM9__E0",
+        "title": "Abertura oficial",
+        "meta": "09/06 · Indústria e Inovação",
+        "cover": "assets/img/projetos/fiicest/videos/blNwYM9__E0.webp"
+      },
+      {
+        "id": "oviwGjuI7Ko",
+        "title": "Primeiro dia ao vivo, parte 1",
+        "meta": "09/06 · Transmissão",
+        "cover": "assets/img/projetos/fiicest/videos/oviwGjuI7Ko.webp"
+      },
+      {
+        "id": "5bpbF_ttw2w",
+        "title": "Primeiro dia ao vivo, parte 2",
+        "meta": "09/06 · Transmissão",
+        "cover": "assets/img/projetos/fiicest/videos/5bpbF_ttw2w.webp"
+      },
+      {
+        "id": "hZ9pVQf9vF8",
+        "title": "Primeiro dia ao vivo, parte 3",
+        "meta": "09/06 · Transmissão",
+        "cover": "assets/img/projetos/fiicest/videos/hZ9pVQf9vF8.webp"
+      },
+      {
+        "id": "eHgQe_fFYVE",
+        "title": "Desafio CicloInova",
+        "meta": "09/06 · Ideathon",
+        "cover": "assets/img/projetos/fiicest/videos/eHgQe_fFYVE.webp"
+      },
+      {
+        "id": "wEp4ffimKIY",
+        "title": "Resultados e premiações do Ideathon",
+        "meta": "09/06 · Ideathon",
+        "cover": "assets/img/projetos/fiicest/videos/wEp4ffimKIY.webp"
+      },
+      {
+        "id": "Bcar4uBNGug",
+        "title": "Segundo dia ao vivo, transmissão completa",
+        "meta": "10/06 · Ciência e Educação",
+        "cover": "assets/img/projetos/fiicest/videos/Bcar4uBNGug.webp"
+      },
+      {
+        "id": "-yVefnHLZNU",
+        "title": "Premiações e encerramento",
+        "meta": "10/06 · Ciência e Educação",
+        "cover": "assets/img/projetos/fiicest/videos/-yVefnHLZNU.webp"
+      }
+    ],
+    "shorts": [
+      {
+        "id": "bTwFTw8S5pU",
+        "title": "“O melhor conselho para quem encarou o Ideathon”",
+        "cover": "assets/img/projetos/fiicest/videos/bTwFTw8S5pU.webp"
+      },
+      {
+        "id": "WnF-RsN6Ukc",
+        "title": "“Soluções para o bem comum”",
+        "cover": "assets/img/projetos/fiicest/videos/WnF-RsN6Ukc.webp"
+      },
+      {
+        "id": "JeDLu-tZCKk",
+        "title": "“Trazer soluções para os problemas do dia a dia”",
+        "cover": "assets/img/projetos/fiicest/videos/JeDLu-tZCKk.webp"
+      },
+      {
+        "id": "DQcJIZ5pqLo",
+        "title": "“Esse evento proporcionou tudo isso!”",
+        "cover": "assets/img/projetos/fiicest/videos/DQcJIZ5pqLo.webp"
+      },
+      {
+        "id": "-wmIEEAg6Bk",
+        "title": "“Foi uma jornada de conhecimento”",
+        "cover": "assets/img/projetos/fiicest/videos/-wmIEEAg6Bk.webp"
+      },
+      {
+        "id": "_nx0uOfLDsc",
+        "title": "“A importância de errar”",
+        "cover": "assets/img/projetos/fiicest/videos/_nx0uOfLDsc.webp"
+      }
     ]
   }
 ]

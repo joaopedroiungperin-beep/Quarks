@@ -143,6 +143,17 @@ if (document.documentElement.classList.contains('from-wormhole')) {
       h('figure', {}, h('img', { src: asset(ph.file), alt: ph.caption, loading: 'lazy', width: ph.w ? String(ph.w) : null, height: ph.h ? String(ph.h) : null }), h('figcaption', {}, ph.caption)))));
   fill('photos', (el) => el.append(...gallery(p.photos || [])));
   fill('pieces', (el) => el.append(...gallery(p.pieces || [])));
+  fill('album', (el) => renderAlbum(el, p.photos || [], p.albumTags || []));
+  fill('player', (el) => renderPlayer(el, p.videos || []));
+  fill('shorts', (el) => el.append(...(p.shorts || []).map((v) => {
+    const li = h('li', { class: 'short', 'data-reveal': '' });
+    const btn = h('button', { class: 'short__facade', type: 'button', 'aria-label': t('Assistir à entrevista {title}', { title: t(v.title) }) },
+      h('img', { src: asset(v.cover), alt: '', loading: 'lazy', width: '360', height: '640' }),
+      h('span', { class: 'vplay', 'aria-hidden': 'true' }), h('span', { class: 'short__q' }, v.title));
+    btn.addEventListener('click', () => li.replaceChildren(ytFrame(v.id, v.title)));
+    li.append(btn);
+    return li;
+  })));
 
   // colmeia: fotos recortadas em hexágono, legenda no hover
   fill('hive', (el) => el.append(...(p.hive || []).map((ph) => h('li', { 'data-reveal': '' },
@@ -226,6 +237,105 @@ function renderChallenges(el, list) {
   if (hasGSAP() && !reducedMotion) {
     window.ScrollTrigger.create({ trigger: el, start: 'top 75%', once: true, onEnter: () => show(0) });
   } else show(0);
+}
+
+/* YouTube só entra no clique (sem cookies): até lá, capa local */
+const ytFrame = (id, title) => h('iframe', {
+  src: `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`, title,
+  allow: 'autoplay; encrypted-media; picture-in-picture; fullscreen', allowfullscreen: '', loading: 'lazy',
+});
+
+/* Player com playlist: o palco mostra a capa; escolher na lista já toca */
+function renderPlayer(el, list) {
+  if (!list.length) return;
+  const stage = h('div', { class: 'vplayer__stage' });
+  const items = list.map((v, i) => {
+    const b = h('button', { class: 'vplayer__item', type: 'button' },
+      h('img', { src: asset(v.cover), alt: '', loading: 'lazy', width: '960', height: '540' }),
+      h('span', {}, h('span', { class: 'mono' }, v.meta), h('strong', {}, v.title)));
+    b.addEventListener('click', () => {
+      show(i, true);
+      if (stage.getBoundingClientRect().top < 0) stage.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'center' });
+    });
+    return h('li', {}, b);
+  });
+  const show = (i, play) => {
+    const v = list[i];
+    items.forEach((li, j) => { if (i === j) li.firstChild.setAttribute('aria-current', 'true'); else li.firstChild.removeAttribute('aria-current'); });
+    if (play) { stage.replaceChildren(ytFrame(v.id, v.title)); return; }
+    const facade = h('button', { class: 'vplayer__facade', type: 'button', 'aria-label': t('Assistir: {title}', { title: t(v.title) }) },
+      h('img', { src: asset(v.cover), alt: '', width: '960', height: '540' }),
+      h('span', { class: 'vplay vplay--big', 'aria-hidden': 'true' }),
+      h('span', { class: 'vplayer__cap' }, h('span', { class: 'mono' }, v.meta), h('strong', {}, v.title)));
+    facade.addEventListener('click', () => show(i, true));
+    stage.replaceChildren(facade);
+  };
+  show(0, false);
+  el.append(stage, h('ol', { class: 'vplayer__list', 'aria-label': t('Vídeos da FIICEST') }, ...items));
+}
+
+/* Álbum: filtros por capítulo e ampliação em <dialog> (Esc, setas e deslizar) */
+function renderAlbum(el, photos, tags) {
+  if (!photos.length) return;
+  let shown = photos.map((_, i) => i);
+  let cur = 0;
+  const img = h('img', { alt: '' });
+  const cap = h('p', {});
+  const count = h('span', { class: 'mono' });
+  const btn = (cls, label, txt) => h('button', { class: `lightbox__btn ${cls}`, type: 'button', 'aria-label': label }, txt);
+  const prev = btn('lightbox__prev', t('Foto anterior'), '←');
+  const next = btn('lightbox__next', t('Próxima foto'), '→');
+  const close = btn('lightbox__close', t('Fechar'), '×');
+  const dlg = h('dialog', { class: 'lightbox', 'aria-label': t('Álbum de fotos') },
+    h('figure', {}, img, h('figcaption', { 'aria-live': 'polite' }, count, cap)), prev, next, close);
+  const open = (k) => {
+    cur = (k + shown.length) % shown.length;
+    const ph = photos[shown[cur]];
+    img.src = asset(ph.file); img.alt = t(ph.caption); img.width = ph.w; img.height = ph.h;
+    cap.textContent = t(ph.caption);
+    count.textContent = `${String(cur + 1).padStart(2, '0')} / ${String(shown.length).padStart(2, '0')}`;
+    if (!dlg.open) { dlg.showModal(); window.__lenis?.stop(); }
+  };
+  prev.addEventListener('click', () => open(cur - 1));
+  next.addEventListener('click', () => open(cur + 1));
+  close.addEventListener('click', () => dlg.close());
+  // sem isso a rolagem suave (Lenis) segue movendo a página por trás da foto
+  dlg.addEventListener('close', () => window.__lenis?.start());
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); }); // clique fora da foto
+  dlg.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') open(cur - 1);
+    if (e.key === 'ArrowRight') open(cur + 1);
+  });
+  let x0 = null;
+  dlg.addEventListener('pointerdown', (e) => { x0 = e.clientX; });
+  dlg.addEventListener('pointerup', (e) => {
+    const dx = x0 === null ? 0 : e.clientX - x0; x0 = null;
+    if (Math.abs(dx) > 50) open(cur + (dx < 0 ? 1 : -1));
+  });
+
+  const cells = photos.map((ph, i) => {
+    const b = h('button', { class: 'album__item', type: 'button', 'aria-label': t('Ampliar: {caption}', { caption: t(ph.caption) }) },
+      h('img', { src: asset(ph.file), alt: ph.caption, loading: 'lazy', width: String(ph.w), height: String(ph.h) }),
+      h('span', { class: 'album__cap', 'aria-hidden': 'true' }, ph.caption));
+    b.addEventListener('click', () => open(shown.indexOf(i)));
+    return h('li', { class: ph.size ? `is-${ph.size}` : null, 'data-reveal': '', style: `view-transition-name: ph${i}` }, b);
+  });
+  const chips = [{ id: '', label: t('Todas') }, ...tags.map((g) => ({ ...g, label: t(g.label) }))].map((g) => {
+    const n = g.id ? photos.filter((ph) => ph.tag === g.id).length : photos.length;
+    const c = h('button', { class: 'album__chip', type: 'button', 'aria-pressed': String(!g.id), 'data-i18n': '' }, g.label, h('span', { class: 'mono' }, String(n)));
+    c.addEventListener('click', () => {
+      const apply = () => {
+        shown = photos.map((ph, i) => i).filter((i) => !g.id || photos[i].tag === g.id);
+        cells.forEach((li, i) => { li.hidden = !shown.includes(i); });
+        chips.forEach((x) => x.setAttribute('aria-pressed', String(x === c)));
+      };
+      if (document.startViewTransition && !reducedMotion) document.startViewTransition(apply);
+      else apply();
+    });
+    return c;
+  });
+  el.append(h('div', { class: 'album__filters', role: 'group', 'aria-label': t('Filtrar fotos') }, ...chips),
+    h('ul', { class: 'album__grid' }, ...cells), dlg);
 }
 
 async function mountScene(p) {
