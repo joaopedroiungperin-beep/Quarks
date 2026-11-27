@@ -37,8 +37,8 @@
   <nav class="nav__links" aria-label="Capítulo">
     <a href="#numeros">Números</a>
     <a href="#entregas">Entregas</a>
-    <a href="#pecas">Peças</a>
-    <a href="#registros">Registros</a>
+    <a href="#videos">Vídeos</a>
+    <a href="#registros">Álbum</a>
   </nav>
   <div class="lang notranslate" data-lang-switch>
     <button class="lang__btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Idioma">
@@ -122,17 +122,34 @@
     </div>
   </section>
 
-  <!-- REGISTROS -->
+  <!-- VÍDEOS -->
+  <section class="section" id="videos" data-phase="8">
+    <div class="wrap">
+      <div class="section-head section-head--row">
+        <div>
+          <p class="kicker mono">Acervo em vídeo</p>
+          <h2 class="h2 display" data-split>Dois dias ao vivo, do palco ao YouTube</h2>
+        </div>
+        <p class="muted" data-reveal>A equipe da Quarks transmitiu e editou a feira inteira. Escolha um vídeo na lista para assistir aqui mesmo.</p>
+      </div>
+      <div class="vplayer" data-bind="player" data-reveal></div>
+      <h3 class="h3 p-sub" data-reveal>Entrevistas gravadas na feira</h3>
+      <ul class="shorts" data-bind="shorts" aria-label="Entrevistas em vídeo"></ul>
+      <div class="p-links" data-bind="links" data-reveal></div>
+    </div>
+  </section>
+
+  <!-- ÁLBUM -->
   <section class="section" id="registros" data-phase="8">
     <div class="wrap">
       <div class="section-head section-head--row">
         <div>
-          <p class="kicker mono">Registros do projeto</p>
-          <h2 class="h2 display" data-split>Premiações e kits</h2>
+          <p class="kicker mono">Álbum da feira</p>
+          <h2 class="h2 display" data-split>9 e 10 de junho, quadro a quadro</h2>
         </div>
-        <div class="p-links" data-bind="links" data-reveal></div>
+        <p class="muted" data-reveal>Do Ideathon com a indústria à mostra científica das escolas. Filtre por dia e toque numa foto para ampliar.</p>
       </div>
-      <ul class="gallery" data-bind="photos"></ul>
+      <div class="album" data-bind="album"></div>
     </div>
   </section>
 
